@@ -12,7 +12,6 @@ export async function Faq() {
   const c = await getContents([
     "home.faq.eyebrow",
     "home.faq.title",
-    "home.faq.intro",
     "home.faq.items",
   ] as const);
   const items = c["home.faq.items"];
@@ -33,7 +32,6 @@ export async function Faq() {
         <SectionHeading
           eyebrow={c["home.faq.eyebrow"]}
           title={c["home.faq.title"]}
-          intro={c["home.faq.intro"]}
         />
 
         <RevealGroup className="mx-auto mt-12 flex max-w-3xl flex-col gap-3 md:mt-16">

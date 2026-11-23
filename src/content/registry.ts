@@ -109,11 +109,6 @@ export const contentFields = defineFields({
     maxLength: 30,
   },
   "home.soins.title": { type: "text", label: "Soins — titre", maxLength: 50 },
-  "home.soins.intro": {
-    type: "textarea",
-    label: "Soins — intro",
-    maxLength: 140,
-  },
   "home.soins.surmesure": {
     type: "textarea",
     label: "Soins — ligne Rituel Horizon",
@@ -283,7 +278,6 @@ export const contentFields = defineFields({
   // --- FAQ ---
   "home.faq.eyebrow": { type: "text", label: "FAQ — surtitre", maxLength: 30 },
   "home.faq.title": { type: "text", label: "FAQ — titre", maxLength: 50 },
-  "home.faq.intro": { type: "textarea", label: "FAQ — intro", maxLength: 140 },
   "home.faq.items": {
     type: "items",
     label: "FAQ — questions",

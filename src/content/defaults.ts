@@ -12,8 +12,8 @@ import type { ContentValues } from "./registry";
 export const contentDefaults: ContentValues = {
   // --- Hero ---
   "home.hero.image": {
-    src: "/images/massages/nuque.jpg",
-    alt: "Massage de la nuque et des épaules à l'huile, dans une lumière chaude",
+    src: "/images/massages/visage-4.jpg",
+    alt: "Massage du visage, mains posées de part et d'autre de la tête, dans une lumière chaude",
   },
   "home.hero.eyebrow": "Saint-Cyr-sur-Loire · Tours",
   "home.hero.title": "Kobido et massages bien-être, au bord de la Loire",
@@ -44,8 +44,6 @@ export const contentDefaults: ContentValues = {
   // --- Soins ---
   "home.soins.eyebrow": "Les soins",
   "home.soins.title": "Quatre soins, une même attention",
-  "home.soins.intro":
-    "Chaque séance commence par un échange, pour adapter les gestes à votre état du jour.",
   "home.soins.surmesure":
     "Vous hésitez ? Le Rituel Horizon s'adapte entièrement à vos zones de tension, en 1h15.",
 
@@ -87,8 +85,8 @@ export const contentDefaults: ContentValues = {
 
   // --- Focus Kobido ---
   "home.kobido.image": {
-    src: "/images/massages/kobido-visage-2.jpg",
-    alt: "Kobido : massage du visage aux gestes précis",
+    src: "/images/massages/visage-5.jpg",
+    alt: "Kobido : visage apaisé, les yeux clos, entre les mains de la praticienne",
   },
   "home.kobido.eyebrow": "Soin signature",
   "home.kobido.title": "Le Kobido, l'art japonais du massage du visage",
@@ -139,11 +137,11 @@ export const contentDefaults: ContentValues = {
     },
     {
       title: "Le soin",
-      text: "1h15 sur la table, à votre rythme, sans rien d'autre à penser.",
+      text: "Une heure à 1h15 sur la table, à votre rythme, sans rien d'autre à penser.",
     },
     {
       title: "Un retour en douceur",
-      text: "Quelques instants pour revenir à vous, en douceur, avant de repartir.",
+      text: "Quelques instants pour reprendre vos esprits, avant de repartir.",
     },
   ],
 
@@ -175,13 +173,11 @@ export const contentDefaults: ContentValues = {
   // --- FAQ ---
   "home.faq.eyebrow": "Questions fréquentes",
   "home.faq.title": "Vos questions",
-  "home.faq.intro":
-    "Les réponses aux questions que l'on se pose avant une première séance.",
   "home.faq.items": [
     {
       question: "Je n'ai jamais essayé le Kobido. Est-ce fait pour moi ?",
       answer:
-        "Le Kobido ne demande aucune préparation particulière. Avant la séance, nous prenons quelques minutes pour parler de vos attentes ; il vous suffit ensuite de vous laisser guider.",
+        "Le Kobido ne demande aucune préparation particulière. Avant la séance, je prends quelques minutes pour parler de vos attentes avec vous ; il vous suffit ensuite de vous laisser guider.",
     },
     {
       question: "Comment choisir mon soin ?",

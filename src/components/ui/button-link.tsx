@@ -20,22 +20,22 @@ const variants: Record<Variant, { button: string; circle: string }> = {
 };
 
 /**
- * Géométrie du bouton « remix » (Serelin) : la pastille est positionnée en
- * absolu à droite ; au survol elle glisse à gauche pendant que le texte
- * glisse à droite d'autant (shift = inset + pastille + gap − padding gauche).
+ * Géométrie du bouton « remix » : la pastille est à gauche au repos ; au
+ * survol elle glisse à droite (sens de la flèche) pendant que le texte
+ * glisse à gauche d'autant (shift = inset + pastille + gap − padding gauche).
  */
 const sizes: Record<Size, { button: string; text: string; circle: string }> = {
   sm: {
-    button: "h-10 pl-4 pr-12 text-sm",
-    text: "group-hover:translate-x-8",
-    circle: "right-1 size-8 group-hover:right-[calc(100%-2.25rem)]",
+    button: "h-10 pl-12 pr-4 text-sm",
+    text: "group-hover:-translate-x-8",
+    circle: "left-1 size-8 group-hover:left-[calc(100%-2.25rem)]",
   },
   md: {
     button:
-      "h-12 pl-6 pr-[3.625rem] text-sm md:h-14 md:pr-[4.125rem] md:text-base",
-    text: "group-hover:translate-x-[34px] md:group-hover:translate-x-[42px]",
+      "h-12 pl-[3.625rem] pr-6 text-sm md:h-14 md:pl-[4.125rem] md:text-base",
+    text: "group-hover:-translate-x-[34px] md:group-hover:-translate-x-[42px]",
     circle:
-      "right-1.5 size-9 group-hover:right-[calc(100%-2.625rem)] md:size-11 md:group-hover:right-[calc(100%-3.125rem)]",
+      "left-1.5 size-9 group-hover:left-[calc(100%-2.625rem)] md:size-11 md:group-hover:left-[calc(100%-3.125rem)]",
   },
 };
 
@@ -77,7 +77,7 @@ export function ButtonLink({
       <span
         aria-hidden
         className={cn(
-          "absolute top-1/2 grid -translate-y-1/2 place-items-center rounded-full transition-[right] duration-600 ease-spring",
+          "absolute top-1/2 grid -translate-y-1/2 place-items-center rounded-full transition-[left] duration-600 ease-spring",
           v.circle,
           s.circle,
         )}

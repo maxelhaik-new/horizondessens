@@ -23,7 +23,7 @@ export async function Offers() {
             <p className="max-w-sm text-lead text-pretty text-ink-soft">
               {c["home.abo.text"]}
             </p>
-            <ButtonLink href={routes.contact}>Me renseigner</ButtonLink>
+            <ButtonLink href={routes.contact}>Poser une question</ButtonLink>
           </div>
         </RevealItem>
 

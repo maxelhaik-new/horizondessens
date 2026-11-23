@@ -45,6 +45,7 @@ La refonte accompagne deux changements :
 | [docs/design/serelin-inspiration.md](docs/design/serelin-inspiration.md) | Analyse du template **Serelin** (Framer, medspa et wellness). C'est la **référence d'inspiration** pour les tokens, les mises en page et les animations, **réécrits proprement**, sans reprise du code décompilé, des images ni des textes. On y trouve la correspondance des sections avec l'accueil v1. | Avant le design et le code des composants |
 | [assets/Cartes cadeau temp/](assets/Cartes%20cadeau%20temp/) | 3 mockups temporaires « main qui tient une carte vierge », sur fond terracotta (décor de riad), en 1200×960. Ils seront remplacés plus tard. | Section et page carte cadeau |
 | [assets/images/](assets/images/) | Images **validées par Maxime** (Sensoa et Unsplash), en pleine résolution, à compresser avant usage. | Pour toute image du site |
+| [docs/questions-elodie-rdv.md](docs/questions-elodie-rdv.md) | Les 10 questions en suspens à poser à Élodie (RDV du 23/11), avec un emplacement pour les réponses. | Après le RDV : reporter les réponses dans CONTEXTE.md §13 |
 | [docs/CONTEXTE.md](docs/CONTEXTE.md) | **Synthèse de référence** : acteurs, enjeux, positionnement, offre, DA, SEO, fonctionnalités, technique, planning. **§13 = décisions validées par Maxime, elles priment.** | Toujours, avant tout travail de contenu ou de design |
 | [docs/site-actuel.md](docs/site-actuel.md) | Scraping intégral de l'ancien site (23/11/2026) : textes mot pour mot, tarifs, structure, images. | Pour reprendre un contenu existant. **Ne pas re-visiter le site.** |
 | [docs/transcription-rdv-cadrage-2026-11-13.md](docs/transcription-rdv-cadrage-2026-11-13.md) | Transcription brute Whisper du RDV de cadrage (13/11/2026). Elle contient des erreurs : « qu'au bidot » = Kobido, « Calmermonie » = Calme et Harmonie, « Tensua / SensoA » = Sensoa. | Pour vérifier une nuance. Sinon, préférer CONTEXTE.md. |
@@ -146,7 +147,10 @@ Vérifié : typecheck, lint, format, `content:check` et build OK, page statique.
 - **Rapport d'audit** : `.impeccable/audit/`.
 
 ## Images Midjourney intégrées (23/11/2026)
-Les 7 images de `assets/massage midjourney/` sont compressées en JPEG dans `public/images/massages/` et branchées dans `src/content/defaults.ts` : hero = `nuque`, Kobido (carte) = `kobido-visage-1`, Calme et harmonie = `dos`, 5 Continents (carte) = `bras`, Jambes légères = `pieds`, focus Kobido = `kobido-visage-2`, focus 5 Continents = `dos-2`. **Kobido = uniquement des visages** (seules 2 images de visage existent). Règle : **jamais deux fois la même image sur une page** (médaillons de la philosophie remplacés par `mains-epaules`, `massage-dos`, `massage-dos-2`).
+Les 7 images de `assets/massage midjourney/` sont compressées en JPEG dans `public/images/massages/` et branchées dans `src/content/defaults.ts` : hero = `visage-4`, Kobido (carte) = `kobido-visage-1`, Calme et harmonie = `dos`, 5 Continents (carte) = `bras`, Jambes légères = `pieds`, focus Kobido = `visage-5`, focus 5 Continents = `dos-2`. **Kobido = uniquement des visages** (seules 2 images de visage existent). Règle : **jamais deux fois la même image sur une page** (médaillons de la philosophie remplacés par `mains-epaules`, `massage-dos`, `massage-dos-2`).
+
+## DESIGN.md (23/11/2026)
+`DESIGN.md` (racine) et `.impeccable/design.json` sont écrits par `/impeccable document` : tokens, typo, formes, composants et règles tels qu'implémentés. **Statut provisoire** (palette et typos de Serelin, à personnaliser) et **sans « North Star » métaphorique**, voulu par Maxime (risque de perturber les futurs agents). À régénérer quand le design change.
 
 ## Décisions pour le dev de l'accueil (23/11/2026)
 - **Contenu** : on développe sur la base de `docs/contenu/accueil-v1.md` **tel quel**. Maxime itérera sur le site développé.
@@ -258,6 +262,7 @@ Pas de newsletter.
 | 2026-11-23 | Stack | Next.js 16.4, Tailwind 4, Motion, ESLint et Prettier initialisés. Couches contenu et prestations prêtes (vides). Redirections 301. Typecheck, lint, format et build OK. Aucun contenu ni design codé. |
 | 2026-11-23 | Dev | **Accueil v1 développée** : 11 sections, header et footer, animations Serelin, 54 clés de contenu, soins locaux. Images compressées par Sonnet. Vérifié en desktop et en mobile. |
 | 2026-11-23 | Dev | **Accueil v1.1** : audit impeccable (contrastes corrigés) et refonte au plus près de Serelin (titres italiques mot à mot, header en pilule, bouton remix, grandes cartes, philosophie, galerie salon, appel final avec footer). |
+| 2026-11-23 | Dev | Bouton remix inversé : pastille à gauche au repos, elle glisse à droite au survol (sens de la flèche). Questions pour Élodie préparées (`docs/questions-elodie-rdv.md`). |
 
 ### Questions encore ouvertes
 - Le tarif du Rituel Horizon.

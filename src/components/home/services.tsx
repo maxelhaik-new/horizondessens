@@ -19,12 +19,6 @@ const FEATURED: FeaturedSlug[] = [
   "jambes-legeres",
 ];
 
-/** Lien secondaire propre à certains soins. */
-const DETAIL: Partial<Record<FeaturedSlug, { label: string; href: string }>> = {
-  kobido: { label: "Découvrir le Kobido", href: routes.kobido },
-  "5-continents": { label: "En savoir plus", href: "#5-continents" },
-};
-
 /**
  * §3 Les soins : grandes cartes (Serelin « treatments ») — image à gauche,
  * titre italique, texte, durées/tarifs et CTA à droite. Fond dégradé rosé.
@@ -35,7 +29,6 @@ export async function Services() {
     getContents([
       "home.soins.eyebrow",
       "home.soins.title",
-      "home.soins.intro",
       "home.soins.surmesure",
       "service.kobido.subtitle",
       "service.kobido.short",
@@ -65,13 +58,11 @@ export async function Services() {
         <SectionHeading
           eyebrow={c["home.soins.eyebrow"]}
           title={c["home.soins.title"]}
-          intro={c["home.soins.intro"]}
         />
 
         <ol className="mt-14 flex flex-col gap-6 md:mt-20 md:gap-8">
           {featured.map((service) => {
             const image = c[`service.${service.slug}.image`];
-            const detail = DETAIL[service.slug];
             return (
               <li key={service.slug}>
                 <Reveal>
@@ -116,11 +107,6 @@ export async function Services() {
                           <ButtonLink href={routes.reserver}>
                             Réserver
                           </ButtonLink>
-                          {detail ? (
-                            <TextLink href={detail.href}>
-                              {detail.label}
-                            </TextLink>
-                          ) : null}
                         </div>
                       </div>
                     </div>

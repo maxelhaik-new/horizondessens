@@ -61,7 +61,7 @@ export async function KobidoFocus() {
 
           <Reveal className="flex flex-wrap items-center gap-x-8 gap-y-3 pt-2">
             <ButtonLink href={routes.kobido}>Découvrir le Kobido</ButtonLink>
-            <TextLink href={routes.reserver}>Réserver</TextLink>
+            <TextLink href={routes.reserver}>Réserver un Kobido</TextLink>
           </Reveal>
         </div>
       </div>
