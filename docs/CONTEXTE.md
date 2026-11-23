@@ -376,8 +376,21 @@ Décision de Maxime : les pages affichent les hypothèses **sans mention « à c
 - [ ] Relecture par Élodie, idéalement avec un conseiller.
 
 ### Formulaire de contact (Resend)
-- [ ] Vérifier le domaine `horizondessens.fr` dans Resend (région Europe) : ajouter chez **OVH** les enregistrements DKIM (`resend._domainkey`), MX et SPF (`send`). Sans impact sur l'ancien site ni sur la messagerie d'Élodie.
-- [ ] Sur **Vercel** (Production et Preview) : `RESEND_API_KEY`, `CONTACT_FROM_EMAIL="Horizon des Sens <contact@horizondessens.fr>"`, `CONTACT_TO_EMAIL=e.nguyen@horizondessens.fr`.
+- [x] Domaine `horizondessens.fr` créé dans Resend (région eu-west-1, 23/11/2026), statut « non vérifié ».
+- [ ] **Obtenir l'accès à la zone DNS OVH d'Élodie** (prérequis).
+- [ ] Ajouter chez OVH (Zone DNS → Ajouter une entrée ; saisir seulement le sous-domaine) :
+
+  | Type | Sous-domaine | Valeur | Priorité |
+  |---|---|---|---|
+  | TXT | `resend._domainkey` | `p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC5mBAAb4P77ZN2eMD22t59XUNMB9GOugH3Ss1M2F/IEiBW6qEzJ+1Ej8TZ5fyK1J0oUhYAJLN5SDjr58e3Ki8odYqEcj54fxRAkrxUAErg9vCbI5YIrqqotEEx5v9wagxYXpg5FOltbJEyArObeWWoEP0NCLa3c9lJy6kYudEqQQIDAQAB` | — |
+  | MX | `send` | `feedback-smtp.eu-west-1.amazonses.com.` | 10 |
+  | TXT | `send` | `v=spf1 include:amazonses.com ~all` | — |
+  | CNAME | `rsend` | `send.forge.rmta.net.` | — |
+
+  Sans impact sur l'ancien site ni sur la messagerie d'Élodie (MX principaux intacts). Valeurs à recontrôler dans Resend (ou via le MCP `get-domain`) au moment de les saisir.
+- [ ] Lancer la vérification (MCP Resend `verify-domain`, ou bouton Verify) après propagation (quelques minutes à quelques heures).
+- [x] Sur **Vercel** (Production et Preview) : `RESEND_API_KEY`, `CONTACT_FROM_EMAIL="Horizon des Sens <contact@horizondessens.fr>"`, `CONTACT_TO_EMAIL=e.nguyen@horizondessens.fr` (ajoutées le 23/11/2026, effectives au prochain déploiement).
+- [x] Supprimer le projet Vercel en double `horizondessens-y5z8`.
 - [ ] **Régénérer la clé Resend** (l'actuelle a été collée dans une conversation) et la remplacer dans Vercel et `.env.local`.
 - [ ] Repasser `.env.local` du mode test (`onboarding@resend.dev` → `maxelhaik@gmail.com`) au mode réel, une fois le domaine vérifié.
 - [ ] Test de bout en bout : message reçu par Élodie, « Répondre » renvoie bien à l'expéditeur, pas en indésirables.

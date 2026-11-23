@@ -93,8 +93,8 @@ export const contentDefaults: ContentValues = {
 
   // --- Focus 5 Continents ---
   "home.5c.image": {
-    src: "/images/accueil/5-continents-huile.jpg",
-    alt: "Flacon d'huile ambré posé sur une pierre, lumière dorée",
+    src: "/images/massages/dos-2.jpg",
+    alt: "Massage du dos à l'huile, mains posées sur la peau dans une lumière chaude",
   },
   "home.5c.eyebrow": "Un massage rare",
   "home.5c.title": "Le Massage des 5 Continents",
