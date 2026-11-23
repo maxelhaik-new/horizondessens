@@ -31,7 +31,6 @@ export const localServices: Service[] = [
   {
     slug: "rituel-horizon",
     name: "Rituel Horizon",
-    // Tarif à confirmer avec Élodie.
-    variants: [{ durationMinutes: 75, priceEuros: null }],
+    variants: [{ durationMinutes: 75, priceEuros: 120 }],
   },
 ];

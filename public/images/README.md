@@ -33,5 +33,6 @@ Total : 42.6 Mo (sources) vers 3.88 Mo.
 ## Crédits
 
 - Photos Unsplash : photographes déduits des noms de fichier : Katherine Hanlon, Redd Francisco, Christin Hume, Nataliya Melnychuk, Shiva Hemmat, Jeferson Santu, Kadarius Seegars, Viva Luna Studios, et l'auteur de `massage-a-domicile` (photo Unsplash, nom non indiqué dans le fichier).
+- `kobido/origine-japon.jpg` : Tiago Ebisui, Unsplash (TmgR2If58HM), section Origine de la page Kobido. Les 9 autres candidates sont dans `assets/kobido-japon-candidats/`.
 - Photos du salon : Maxime Elhaik.
 - Mockups de carte cadeau : temporaires.

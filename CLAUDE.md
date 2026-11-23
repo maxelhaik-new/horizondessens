@@ -46,7 +46,7 @@ La refonte accompagne deux changements :
 | [assets/Cartes cadeau temp/](assets/Cartes%20cadeau%20temp/) | 3 mockups temporaires « main qui tient une carte vierge », sur fond terracotta (décor de riad), en 1200×960. Ils seront remplacés plus tard. | Section et page carte cadeau |
 | [assets/images/](assets/images/) | Images **validées par Maxime** (Sensoa et Unsplash), en pleine résolution, à compresser avant usage. | Pour toute image du site |
 | [docs/questions-elodie-rdv.md](docs/questions-elodie-rdv.md) | Les 10 questions en suspens à poser à Élodie (RDV du 23/11), avec un emplacement pour les réponses. | Après le RDV : reporter les réponses dans CONTEXTE.md §13 |
-| [docs/CONTEXTE.md](docs/CONTEXTE.md) | **Synthèse de référence** : acteurs, enjeux, positionnement, offre, DA, SEO, fonctionnalités, technique, planning. **§13 = décisions validées par Maxime, elles priment.** | Toujours, avant tout travail de contenu ou de design |
+| [docs/CONTEXTE.md](docs/CONTEXTE.md) | **Synthèse de référence** (§15 = **checklist de mise en production**, à tenir à jour) : acteurs, enjeux, positionnement, offre, DA, SEO, fonctionnalités, technique, planning. **§13 = décisions validées par Maxime, elles priment.** | Toujours, avant tout travail de contenu ou de design |
 | [docs/site-actuel.md](docs/site-actuel.md) | Scraping intégral de l'ancien site (23/11/2026) : textes mot pour mot, tarifs, structure, images. | Pour reprendre un contenu existant. **Ne pas re-visiter le site.** |
 | [docs/transcription-rdv-cadrage-2026-11-13.md](docs/transcription-rdv-cadrage-2026-11-13.md) | Transcription brute Whisper du RDV de cadrage (13/11/2026). Elle contient des erreurs : « qu'au bidot » = Kobido, « Calmermonie » = Calme et Harmonie, « Tensua / SensoA » = Sensoa. | Pour vérifier une nuance. Sinon, préférer CONTEXTE.md. |
 | [docs/options-techniques.md](docs/options-techniques.md) | Options SimplyBook (widget thémé, hybride API + widget, tunnel sur mesure) et options CMS (mini-CMS maison avec édition en place, Sanity, Storyblok), avec recommandations. | Avant toute décision technique |
@@ -149,6 +149,9 @@ Vérifié : typecheck, lint, format, `content:check` et build OK, page statique.
 ## Images Midjourney intégrées (23/11/2026)
 Les 7 images de `assets/massage midjourney/` sont compressées en JPEG dans `public/images/massages/` et branchées dans `src/content/defaults.ts` : hero = `header1` (paysage, fait pour le hero), Kobido (carte) = `kobido-visage-1`, Calme et harmonie = `dos`, 5 Continents (carte) = `bras`, Jambes légères = `pieds`, focus Kobido = `visage-5`, focus 5 Continents = `accueil/5-continents-huile` (jamais deux dos proches). **Kobido = uniquement des visages** (seules 2 images de visage existent). Règle : **jamais deux fois la même image sur une page** (médaillons de la philosophie remplacés par `mains-epaules`, `massage-dos`, `massage-dos-2`).
 
+## Adaptation multi-appareils (23/11/2026)
+Accueil et Kobido vérifiées à 320, 390, 768, 844×390 (paysage), 1024 et 1920 px : aucun scroll horizontal. Correctif : en paysage mobile (hauteur ≤ 32rem), le hero de l'accueil passe en `justify-start` avec un titre `text-h3`, pour que le titre soit visible au premier écran. Zones cliquables du header et du logo portées à 44 px. Non testé : appareils réels, vrai toucher, Safari.
+
 ## DESIGN.md (23/11/2026)
 `DESIGN.md` (racine) et `.impeccable/design.json` sont écrits par `/impeccable document` : tokens, typo, formes, composants et règles tels qu'implémentés. **Statut provisoire** (palette et typos de Serelin, à personnaliser) et **sans « North Star » métaphorique**, voulu par Maxime (risque de perturber les futurs agents). À régénérer quand le design change.
 
@@ -171,6 +174,11 @@ Les 7 images de `assets/massage midjourney/` sont compressées en JPEG dans `pub
 - **Contenu** : 30 clés `kobido.*` (91 au total). **Textes à valider par Élodie**, en particulier la citation de l'approche (rédigée, pas dite par elle), le déroulé (nettoyage du visage en début de séance ?), la FAQ « démaquillé » et les contre-indications.
 - **Images** : `public/images/kobido/` (hero, geste-lissage, geste-pressions, geste-modelage), tirées de `assets/massage midjourney/` et compressées.
 
+- **Philosophie (accueil)** : la déclaration est désormais la citation « Si tu écoutes ton corps lorsqu'il chuchote, tu n'auras plus à l'entendre crier. », demandée par Maxime (elle figurait dans la liste des éléments retirés ; ce choix prime). Elle est en tutoiement, alors que le site vouvoie : voulu ou à reformuler.
+- **Section Origine (Japon traditionnel)** : image `public/images/kobido/origine-japon.jpg` (cérémonie du thé, Tiago Ebisui, Unsplash), choisie par Maxime parmi 10 candidates gardées dans `assets/kobido-japon-candidats/`. Cadre passé en portrait 4:5 (hauteur plafonnée à 52vh en desktop pour rester dans la colonne collante).
+
+- **Heros épurés (distill + clarify)** : accueil = titre, accroche, un seul bouton « Réserver un soin ». Kobido = titre, accroche, un bouton, durées et prix, image. Retirés : surtitres, faits clés (2018, M5C, Reiki, Réflexo : déjà dans les sections 5 Continents et Élodie), fil d'Ariane visuel (le JSON-LD reste), liens secondaires, pastille sur l'image. Clés supprimées : `home.hero.eyebrow`, `home.trust.items`, `kobido.hero.eyebrow` (96 clés). Accroches reformulées, avec « Saint-Cyr-sur-Loire, près de Tours » conservé pour le SEO.
+
 ## Menu mobile « voiles courbes » (23/11/2026)
 
 - Source : `components/forceful-branding-164349/` (composant Framer CurveMenuOverlay, GSAP), ajouté par Maxime. **Gardé en local, ignoré par Git**, exclu du lint, de TypeScript et de Prettier (`/components/`, à ne pas confondre avec `src/components/`).
@@ -180,6 +188,24 @@ Les 7 images de `assets/massage midjourney/` sont compressées en JPEG dans `pub
 - Liens en Instrument Serif italique, `min(84px, 15vw)` : **84px comme l'original dès 560px de large**, réduits en dessous, sinon « Carte cadeau » déborde.
 - Bouton : même emplacement ; deux barres qui pivotent en croix (0.6 s). En-tête transparent pendant que le menu est ouvert ; la barre « Réserver » mobile se masque.
 - Desktop (≥ 1024px) : inchangé.
+
+## Pages légales et Contact (23/11/2026)
+
+- **Réponses d'Élodie** reportées dans `docs/questions-elodie-rdv.md` et CONTEXTE.md §13 (« Réponses d'Élodie ») : clientèle mixte non mentionnée, **Rituel Horizon 1h15 120 €** (`local-services.ts`), **abonnement Kobido à 90 €** la séance (textes mis à jour), horaires **lun.–sam. 9h30–11h / 13h30–17h** (`site.hours`), cartes cadeaux 6 mois, SIREN 841 843 337.
+- **Pages légales** `/mentions-legales`, `/cgv`, `/confidentialite` :
+  - gabarit commun `src/components/legal/legal-page.tsx` (onglets entre les 3 pages, sommaire collant, sections numérotées) ; styles du texte : `.legal-prose` dans `globals.css` (CSS hors `@layer`, sinon non servi) ;
+  - **contenu fixé dans le code** (pas de clés CMS), données dans `site.legal` (`src/lib/site.ts`) ; la liste des prix des CGV vient de `getServices()` ;
+  - ⚠️ **rédigées sur hypothèses, sans mention « à compléter »** (choix de Maxime) : l'incomplet (médiateur non nommé, statut/TVA à confirmer, annulation 24 h…) est listé **uniquement** dans CONTEXTE.md §13.
+- **Header** : sur les pages légales (fond clair, `lightPages` dérivé de `legalNav`), la pilule est opaque dès le haut.
+- **Page Contact** `/contact` (`src/components/contact/`) :
+  - `hero` : image du salon côté Loire dans une grande carte arrondie (inset, pas plein cadre), titre en bas à gauche ;
+  - `conversation` (`id="ecrire"`) : carte rosée (titre, intro, téléphone, e-mail : adresse et horaires sont **seulement** dans « Venir au salon », sans doublon) + formulaire sur carte claire (style Serelin) ;
+  - `contact-form` (client, `useActionState`) → server action `src/app/contact/actions.ts` : validation serveur, pot de miel, envoi via **l'API REST Resend** (sans dépendance). Variables : `RESEND_API_KEY`, `CONTACT_FROM_EMAIL`, `CONTACT_TO_EMAIL` (`.env.example`). **Sans clé, le formulaire affiche un repli (e-mail et téléphone directs)**. Destinataire : `e.nguyen@horizondessens.fr`. `.env.local` créé (clé vide). Reste : compte Resend, domaine vérifié (DNS OVH), variables sur Vercel. **En local (23/11/2026)** : `.env.local` en mode test, expéditeur `onboarding@resend.dev` vers `maxelhaik@gmail.com` (compte Resend, seul destinataire autorisé sans domaine vérifié) ; envoi via le formulaire **testé et reçu par Resend**. La clé fournie est « sending access » seulement (pas de gestion des domaines). **Connecteur MCP Resend** officiel (`mcp.resend.com`) proposé à Maxime pour le configurer depuis Claude ;
+  - `visit` : adresse + lien Itinéraire, horaires, accès (`home.final.access`) et carte `consent-map` : **Google Maps affiché seulement si les cookies sont acceptés**, sinon une pastille « Accepter et afficher ».
+- **Bandeau cookies** (`src/components/layout/cookie-banner.tsx`, monté dans `layout.tsx`) : petite carte claire en bas à gauche (au-dessus de la barre « Réserver » sur mobile), « Refuser » et « Accepter » de même poids. Choix dans `localStorage` (`hds-consent`, 6 mois) via `src/lib/consent.ts` (`useConsent`, `setConsent`). Lien « Gérer les cookies » dans le pied de page. Seul Google Maps en dépend pour l'instant.
+  - JSON-LD `ContactPage` (avec `openingHoursSpecification`) et `BreadcrumbList`.
+  - 8 clés `contact.*` (99 au total).
+  - **E-mail reçu par Élodie** mis en forme (`src/app/contact/email-template.ts`) : HTML en tableaux et styles en ligne aux couleurs du site (pastille sujet, titre serif, message en carte, coordonnées, bouton « Répondre »), version texte de repli, saisies échappées.
 
 ## Décisions pour le dev de l'accueil (23/11/2026)
 - **Contenu** : on développe sur la base de `docs/contenu/accueil-v1.md` **tel quel**. Maxime itérera sur le site développé.
@@ -294,9 +320,9 @@ Pas de newsletter.
 | 2026-11-23 | Dev | Bouton remix inversé : pastille à gauche au repos, elle glisse à droite au survol (sens de la flèche). Questions pour Élodie préparées (`docs/questions-elodie-rdv.md`). |
 | 2026-11-23 | Dev | **Page Kobido** : 9 sections aux layouts distincts de l'accueil, 30 clés de contenu, JSON-LD Service, FAQ et fil d'Ariane. Build statique, vérifiée en desktop et en mobile. |
 | 2026-11-23 | Dev | **Menu mobile à voiles courbes** (inspiré de CurveMenuOverlay, réécrit avec Motion). Desktop inchangé. |
+| 2026-11-23 | Dev | Réponses d'Élodie reportées. **Pages légales** (mentions, CGV, confidentialité) et **page Contact** (formulaire Resend, carte au clic). Build statique, vérifié en desktop et en mobile. |
 
 ### Questions encore ouvertes
-- Le tarif du Rituel Horizon.
 - Accueil v1 : en attente des retours de Maxime sur le site développé.
 - **Pour l'accueil v1** : le nom du massage sur mesure (proposition : « Rituel Horizon »), l'année de début de pratique (2017, 2018 ou « 8 ans »), une image jambes ou pieds manquante, le mockup carte cadeau à produire, la confirmation des 2 images Sensoa où l'on voit une personne massée, les horaires et l'accès au salon.
 - **Pour les CGV et les mentions légales** : le statut juridique, le régime de TVA, le médiateur de la consommation, la politique d'annulation des rendez-vous, la cessibilité de la carte cadeau, le choix de la mesure d'audience.
@@ -304,7 +330,7 @@ Pas de newsletter.
 - Élodie est **déjà présentée sur le site de Sensoa** (« Bienvenue à Élodie », « Séance avec Elodie »). Faut-il gérer cette double présence, et comment ?
 - ~~Photos du salon et de la Loire issues de Sensoa~~ → ✅ Réutilisables, Maxime en est l'auteur. **Sauf** les images où l'on voit une masseuse ou une personne massée.
 - Maxime doit remplir la colonne « Réutilisable ? » dans `references/sensoa/sensoa-site.md`.
-- Le SIRET et le statut juridique d'Élodie (mentions légales).
+- Infos légales envoyées par Élodie (statut, TVA, **médiateur**, annulation) : voir CONTEXTE.md §13. **Clé Resend** à créer et domaine à vérifier.
 - **À vérifier par Maxime avec Élodie** : le sort des anciennes prestations (Reiki seul, Relaxant, Vitalité, pierres chaudes, réflexo seule, seniors), le Reiki en séance seule, le mode de souscription de l'abonnement.
 - Le nom premium du massage sur mesure.
 - Le plan SimplyBook d'Élodie et la disponibilité de la custom feature API (à vérifier quand on aura ses accès). Les arbitrages SimplyBook, CMS et stack sont validés.

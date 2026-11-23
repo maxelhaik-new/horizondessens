@@ -15,21 +15,14 @@ export const contentDefaults: ContentValues = {
     src: "/images/massages/header1.jpg",
     alt: "Visage apaisé, les yeux clos, une main posée sur le front dans la pénombre",
   },
-  "home.hero.eyebrow": "Saint-Cyr-sur-Loire · Tours",
   "home.hero.title": "Kobido et massages bien-être, au bord de la Loire",
   "home.hero.lead":
-    "Un soin du visage japonais ou un massage pensé pour ce que votre corps demande, dans un salon calme à deux pas de Tours.",
-  "home.trust.items": [
-    { value: "2018", label: "Praticienne depuis" },
-    { value: "M5C", label: "Licence officielle 5 Continents" },
-    { value: "Reiki", label: "Usui, 1er et 2e degré" },
-    { value: "Réflexo", label: "Plantaire bien-être" },
-  ],
+    "Un soin du visage japonais ou un massage sur mesure, dans un salon calme de Saint-Cyr-sur-Loire, près de Tours.",
 
   // --- Philosophie ---
   "home.philo.eyebrow": "Philosophie",
   "home.philo.text":
-    "Chaque soin commence par l'écoute : votre corps, votre rythme, ce dont vous avez besoin aujourd'hui.",
+    "Si tu écoutes ton corps lorsqu'il chuchote, tu n'auras plus à l'entendre crier.",
 
   // --- Bandeau ---
   "home.marquee.items": [
@@ -161,7 +154,7 @@ export const contentDefaults: ContentValues = {
   // --- Abonnement & carte cadeau ---
   "home.abo.title": "Prendre soin de vous, toute l'année",
   "home.abo.text":
-    "6 séances dans l'année, 10 € de moins sur chacune. Pour faire du soin un rendez-vous, pas une exception.",
+    "L'abonnement Kobido : 6 séances dans l'année, à 90 € la séance. Pour faire du soin un rendez-vous, pas une exception.",
   "home.cadeau.image": {
     src: "/images/carte-cadeau/main-carte-2.jpg",
     alt: "Main tenant une carte cadeau Horizon des Sens",
@@ -208,10 +201,9 @@ export const contentDefaults: ContentValues = {
   "home.final.access": "Accès et stationnement : informations à venir.",
 
   // ===== Page Kobido =====
-  "kobido.hero.eyebrow": "Kobido · Saint-Cyr-sur-Loire",
   "kobido.hero.title": "Kobido à Saint-Cyr-sur-Loire, aux portes de Tours",
   "kobido.hero.lead":
-    "Le massage facial japonais, pratiqué dans un salon calme face à la Loire. Une heure pour relâcher le visage, et tout le reste avec lui.",
+    "Le massage facial japonais, dans un salon calme face à la Loire. Une heure pour relâcher le visage, et tout le reste avec lui.",
   "kobido.hero.image": {
     src: "/images/kobido/hero.jpg",
     alt: "Kobido : les mains de la praticienne posées sur le front, visage détendu",
@@ -224,8 +216,8 @@ export const contentDefaults: ContentValues = {
   "kobido.origine.quote":
     "Plus qu'un soin de beauté : une détente profonde qui part du visage.",
   "kobido.origine.image": {
-    src: "/images/accueil/kobido-visage.jpg",
-    alt: "Visage détendu sous une lumière douce, les yeux clos",
+    src: "/images/kobido/origine-japon.jpg",
+    alt: "Femme en kimono préparant le thé dans une maison traditionnelle japonaise en bois",
   },
 
   "kobido.gestes.eyebrow": "Les gestes",
@@ -281,7 +273,7 @@ export const contentDefaults: ContentValues = {
   "kobido.formules.long":
     "Le même soin, avec plus de temps pour la nuque, les épaules et le repos final. Pour celles et ceux qui veulent prolonger.",
   "kobido.formules.cure":
-    "Les effets du Kobido se prolongent avec la régularité. L'abonnement réunit 6 séances dans l'année, avec 10 € de moins sur chacune.",
+    "Les effets du Kobido se prolongent avec la régularité. L'abonnement réunit 6 séances dans l'année, à 90 € la séance au lieu de 100 €.",
 
   "kobido.approche.eyebrow": "Mon approche",
   "kobido.approche.quote":
@@ -352,4 +344,20 @@ export const contentDefaults: ContentValues = {
     src: "/images/ambiance/flacon-ombre.jpg",
     alt: "Flacon d'huile ambrée posé dans un jeu d'ombre et de lumière",
   },
+
+  // --- Contact ---
+  "contact.hero.eyebrow": "Contact",
+  "contact.hero.title": "Parlons de votre prochain soin",
+  "contact.hero.lead":
+    "Une question sur un soin, une carte cadeau ou un créneau ? Écrivez-moi ou appelez-moi : je vous réponds personnellement.",
+  "contact.hero.image": {
+    src: "/images/salon/fenetre-loire.jpg",
+    alt: "Fenêtre du salon ouverte sur la Loire au coucher du soleil",
+  },
+  "contact.form.title": "Écrivez-moi",
+  "contact.form.intro":
+    "Laissez-moi quelques mots : je lis chaque message et vous réponds au plus vite. Pour réserver directement, la prise de rendez-vous en ligne reste le plus rapide.",
+  "contact.visit.title": "Venir au salon",
+  "contact.visit.text":
+    "Le salon se trouve à Saint-Cyr-sur-Loire, sur les quais, face à la Loire, à quelques minutes du centre de Tours. Les séances se font uniquement sur rendez-vous.",
 };

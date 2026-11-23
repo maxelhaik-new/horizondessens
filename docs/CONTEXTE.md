@@ -250,6 +250,36 @@ Voir [options-techniques.md §A](options-techniques.md). |
 | Logo | **Vectoriser le PNG en le simplifiant** (SVG provisoire). Maxime refera une version propre qui remplacera le provisoire dans la version finale. |
 | RDV du 23/11 à 16h30 | Maintenu. **Maxime dira quoi préparer : ne rien anticiper.** |
 
+### Réponses d'Élodie (RDV du 23/11/2026, transmises par Maxime)
+> Elles priment sur les lignes « à vérifier » ci-dessus. Détail : [questions-elodie-rdv.md](questions-elodie-rdv.md).
+
+| Sujet | Réponse |
+|---|---|
+| Clientèle | **Mixte**, mais **on ne le mentionne pas**. Les formulations restent neutres. |
+| Massage sur mesure | **« Rituel Horizon »** validé : **1h15, 120 €**. |
+| Anciennes prestations | **Ignorées pour l'instant.** Seule la carte 2026 est présentée. |
+| Abonnement | Il concerne le **Kobido** : **90 € la séance** au lieu de 100 €, 6 séances par an. Le mode de souscription n'est pas précisé. |
+| Horaires | **Du lundi au samedi, 9h30–11h et 13h30–17h.** |
+| Accès, stationnement | À préciser. |
+| Double présence sur Sensoa | Pas encore tranchée. |
+| Badge M5C (règles d'usage) | Inconnu. |
+| SimplyBook (abonnement, accès) | Pas de réponse. |
+| Cartes cadeaux | **Valables 6 mois.** Kobido 1h à 100 € et 1h15 à 120 €. Le **Massage des 5 Continents** est **à gérer séparément**. Cessibilité et remboursement : non précisés. |
+| Légal | **SIREN 841 843 337.** Élodie envoie le reste (statut, TVA, médiateur, annulation). |
+| Développeur du site | **Maxime Elhaik**, maxime.elhaik@gmail.com (crédit dans les mentions légales). |
+
+#### ⚠️ Pages légales : rédigées sur hypothèses, donc incomplètes (23/11/2026)
+Décision de Maxime : les pages affichent les hypothèses **sans mention « à compléter »** ; l'incomplet est noté **ici uniquement**. À reprendre quand Élodie envoie ses infos :
+- **Statut** : « Entreprise individuelle », **TVA non applicable (art. 293 B du CGI)** — donné par Maxime, à confirmer (micro-entreprise ?).
+- **Médiateur de la consommation** : **non nommé**. Les CGV disent seulement que ses coordonnées sont « communiquées sur simple demande ». C'est **insuffisant légalement** : il faut nommer le médiateur (nom, site) dès qu'Élodie y a adhéré.
+- **Annulation** : règle des **24 h** (choix de Maxime en attendant Élodie). Au-delà ou absence : séance due, ou décomptée de la carte cadeau / de l'abonnement.
+- **Paiement des séances** : supposé **au salon, le jour du rendez-vous**.
+- **Abonnement Kobido** : « 6 séances par an à 90 € », modalités de souscription « précisées au salon ».
+- **Carte cadeau** : **nominative, non remboursable** (choix de Maxime), 6 mois, Kobido 1h ou 1h15 ; 5 Continents « sur demande, auprès d'Élodie » (interprétation de « à gérer séparément »). Rétractation de 14 jours mentionnée.
+- **Crédits** : photos du salon par Maxime ; visuels d'illustration Unsplash et **images générées par IA** (Midjourney) — à valider par Maxime.
+- **Confidentialité** : durées de conservation standard CNIL (3 ans contacts/clients, 10 ans comptable), aucun outil d'audience, Google Maps chargé au clic.
+- Le tout doit être **relu par Élodie**, idéalement avec un conseiller.
+
 ## 14. Enseignements du site concurrent Sensoa (analyse du 23/11/2026)
 
 > Source : [references/sensoa/sensoa-site.md](../references/sensoa/sensoa-site.md) (71 URL) et 145 images dans `references/sensoa/images/` (218 Mo, en pleine résolution).
@@ -322,3 +352,63 @@ Voir [options-techniques.md §A](options-techniques.md). |
 - Le nom premium du massage sur mesure.
 - Le plan SimplyBook d'Élodie et la disponibilité de la custom feature API.
 - Les règles d'usage du badge de la fédération M5C.
+
+## 15. Checklist de mise en production (tenue à jour)
+
+> À dérouler avant la bascule DNS de horizondessens.fr. Cocher au fur et à mesure. Ajouter toute nouvelle tâche ici.
+
+### Contenu et pages
+- [ ] Pages encore à créer : **Le salon** (`/le-salon`), **Carte cadeau** (`/carte-cadeau`), **Réserver** (`/reserver`, widget SimplyBook intégré ; aujourd'hui `routes.reserver` pointe vers SimplyBook).
+- [ ] Page 404 aux couleurs du site.
+- [ ] Textes relus et validés par Élodie (accueil, Kobido : citation de l'approche, déroulé, FAQ, contre-indications).
+- [ ] Accès et stationnement du salon (`home.final.access` affiche « informations à venir »).
+- [ ] Logo définitif en SVG (fourni par Maxime) à la place du provisoire.
+- [ ] Image jambes ou pieds pour Jambes légères, portrait professionnel d'Élodie (si shooting).
+- [ ] Badge M5C : règles d'usage de la fédération.
+- [ ] Avis Google (section masquée tant que `getReviews()` est vide).
+
+### Légal (voir §13, « Pages légales : rédigées sur hypothèses »)
+- [ ] Infos envoyées par Élodie : confirmer statut (EI, micro-entreprise ?) et TVA (art. 293 B).
+- [ ] **Nommer le médiateur de la consommation** dans les CGV (obligatoire).
+- [ ] Confirmer la politique d'annulation (24 h), le paiement des séances au salon, les modalités de l'abonnement Kobido, la carte cadeau 5 Continents.
+- [ ] Valider la mention « images générées par IA » dans les crédits.
+- [ ] Mettre à jour `site.legal.updatedAt` (`src/lib/site.ts`) à chaque modification.
+- [ ] Relecture par Élodie, idéalement avec un conseiller.
+
+### Formulaire de contact (Resend)
+- [ ] Vérifier le domaine `horizondessens.fr` dans Resend (région Europe) : ajouter chez **OVH** les enregistrements DKIM (`resend._domainkey`), MX et SPF (`send`). Sans impact sur l'ancien site ni sur la messagerie d'Élodie.
+- [ ] Sur **Vercel** (Production et Preview) : `RESEND_API_KEY`, `CONTACT_FROM_EMAIL="Horizon des Sens <contact@horizondessens.fr>"`, `CONTACT_TO_EMAIL=e.nguyen@horizondessens.fr`.
+- [ ] **Régénérer la clé Resend** (l'actuelle a été collée dans une conversation) et la remplacer dans Vercel et `.env.local`.
+- [ ] Repasser `.env.local` du mode test (`onboarding@resend.dev` → `maxelhaik@gmail.com`) au mode réel, une fois le domaine vérifié.
+- [ ] Test de bout en bout : message reçu par Élodie, « Répondre » renvoie bien à l'expéditeur, pas en indésirables.
+
+### Réservation (SimplyBook)
+- [ ] Accès administrateur, plan SimplyBook et disponibilité de la custom feature API.
+- [ ] Brancher `getServices()` sur l'API `getEventList` (repli : données locales) et variables `SIMPLYBOOK_COMPANY`, `SIMPLYBOOK_API_KEY`.
+- [ ] Widget thémé (`theme_settings`), pré-rempli par prestation.
+- [ ] Vérifier que noms, durées et prix SimplyBook correspondent à la carte 2026 (Rituel Horizon 1h15 120 €, abonnement Kobido 90 €).
+
+### Cartes cadeaux (Stripe)
+- [ ] Compte Stripe d'Élodie, clés **live** et webhook (`STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`, `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY`).
+- [ ] Génération du PDF, envoi par e-mail (Resend), notification à Élodie, numéro et validité 6 mois, nom du bénéficiaire (carte nominative).
+- [ ] Paiement de test puis paiement réel remboursé.
+
+### CMS (Supabase)
+- [ ] Mini-CMS `/admin` : auth, tables, Storage, `getContent()` lu depuis Supabase avec repli sur `defaults.ts`.
+- [ ] Variables Supabase sur Vercel, compte d'Élodie créé, prise en main.
+
+### Cookies et confidentialité
+- [ ] Bandeau cookies en place (Google Maps seulement). Si SimplyBook est intégré en iframe ou si une mesure d'audience est ajoutée, **les soumettre au consentement** et mettre à jour la politique de confidentialité.
+
+### SEO et technique
+- [ ] `sitemap.xml` et `robots.txt` (app/sitemap.ts, app/robots.ts) : **pas encore créés**.
+- [ ] Images Open Graph par page, favicon et icônes aux couleurs de la marque.
+- [ ] Vérifier les redirections 308 des anciennes URL PHP (`next.config.ts`) sur le domaine réel.
+- [ ] Audit final : Lighthouse (performance, accessibilité), `/impeccable audit` et `polish`, test mobile réel (iOS et Android).
+- [ ] Google Search Console : propriété du domaine, envoi du sitemap. Cohérence NAP avec la fiche Google Business (Élodie s'en charge).
+
+### Bascule
+- [ ] Ajouter le domaine dans Vercel (`horizondessens.fr` et `www`), puis modifier chez **OVH** les enregistrements A/CNAME indiqués par Vercel. Ne pas toucher aux MX de la messagerie.
+- [ ] L'ancien site n'est pas supprimé (le garder accessible le temps de vérifier).
+- [ ] Après bascule : HTTPS, redirection www, formulaires, réservation, paiement et carte testés en production.
+- [ ] Passer le dépôt GitHub en **privé** (prévu).

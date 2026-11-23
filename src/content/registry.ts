@@ -57,11 +57,6 @@ export const contentFields = defineFields({
     ratio: "16:9",
     altMaxLength: IMAGE_ALT,
   },
-  "home.hero.eyebrow": {
-    type: "text",
-    label: "Hero — surtitre",
-    maxLength: 50,
-  },
   "home.hero.title": {
     type: "text",
     label: "Hero — titre (H1)",
@@ -71,15 +66,6 @@ export const contentFields = defineFields({
     type: "textarea",
     label: "Hero — accroche",
     maxLength: 160,
-  },
-  "home.trust.items": {
-    type: "items",
-    label: "Hero — faits clés (valeur + libellé)",
-    maxItems: 4,
-    fields: {
-      value: { label: "Valeur (grand, italique)", maxLength: 12 },
-      label: { label: "Libellé", maxLength: 32 },
-    },
   },
 
   // --- Philosophie (déclaration d'Élodie) ---
@@ -306,11 +292,6 @@ export const contentFields = defineFields({
   },
 
   // ===== Page Kobido (/kobido) =====
-  "kobido.hero.eyebrow": {
-    type: "text",
-    label: "Kobido · Hero — pastille",
-    maxLength: 40,
-  },
   "kobido.hero.title": {
     type: "text",
     label: "Kobido · Hero — titre (H1)",
@@ -494,6 +475,48 @@ export const contentFields = defineFields({
     label: "Kobido · Appel final — image",
     ratio: "16:9",
     altMaxLength: IMAGE_ALT,
+  },
+  // --- Contact ---
+  "contact.hero.eyebrow": {
+    type: "text",
+    label: "Contact · Hero — pastille",
+    maxLength: 30,
+  },
+  "contact.hero.title": {
+    type: "text",
+    label: "Contact · Hero — titre",
+    maxLength: 60,
+  },
+  "contact.hero.lead": {
+    type: "textarea",
+    label: "Contact · Hero — accroche",
+    maxLength: 180,
+  },
+  "contact.hero.image": {
+    type: "image",
+    label: "Contact · Hero — image",
+    ratio: "16:9",
+    altMaxLength: IMAGE_ALT,
+  },
+  "contact.form.title": {
+    type: "text",
+    label: "Contact · Formulaire — titre",
+    maxLength: 50,
+  },
+  "contact.form.intro": {
+    type: "textarea",
+    label: "Contact · Formulaire — intro",
+    maxLength: 220,
+  },
+  "contact.visit.title": {
+    type: "text",
+    label: "Contact · Venir au salon — titre",
+    maxLength: 50,
+  },
+  "contact.visit.text": {
+    type: "textarea",
+    label: "Contact · Venir au salon — texte",
+    maxLength: 300,
   },
 });
 

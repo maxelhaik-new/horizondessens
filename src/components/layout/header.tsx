@@ -1,13 +1,17 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
 import { Logo } from "@/components/brand/logo";
 import { MobileMenu } from "@/components/layout/mobile-menu";
 import { ButtonLink } from "@/components/ui/button-link";
 import { cn } from "@/lib/cn";
-import { mainNav, routes } from "@/lib/navigation";
+import { legalNav, mainNav, routes } from "@/lib/navigation";
+
+/** Pages sans hero sombre : en-tête opaque dès le haut de page. */
+const lightPages: readonly string[] = legalNav.map((item) => item.href);
 
 /**
  * En-tête en pilule flottante (Serelin) : transparente sur le hero sombre,
@@ -17,6 +21,7 @@ import { mainNav, routes } from "@/lib/navigation";
 export function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const lightPage = lightPages.includes(usePathname());
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -33,7 +38,7 @@ export function Header() {
   }, [open]);
 
   // Menu ouvert : en-tête transparent, texte clair sur le voile sombre.
-  const solid = scrolled && !open;
+  const solid = (scrolled || lightPage) && !open;
 
   return (
     <>
@@ -56,7 +61,7 @@ export function Header() {
                     <Link
                       href={item.href}
                       className={cn(
-                        "transition-colors",
+                        "-mx-2 inline-flex min-h-11 items-center px-2 transition-colors",
                         solid
                           ? "text-ink-soft hover:text-ink"
                           : "text-white/75 hover:text-white",

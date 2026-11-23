@@ -1,6 +1,7 @@
 import { cacheLife } from "next/cache";
 import Link from "next/link";
 
+import { CookieSettingsButton } from "@/components/layout/cookie-banner";
 import { FacebookIcon, InstagramIcon } from "@/components/ui/icons";
 import { getContent } from "@/content/get-content";
 import { legalNav, mainNav, routes } from "@/lib/navigation";
@@ -108,6 +109,7 @@ export async function Footer() {
                 {item.label}
               </Link>
             ))}
+            <CookieSettingsButton className="inline-flex min-h-11 cursor-pointer items-center transition-colors hover:text-ink" />
             <a
               href={routes.reserver}
               className="inline-flex min-h-11 items-center transition-colors hover:text-ink"

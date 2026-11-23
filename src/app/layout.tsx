@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 
+import { CookieBanner } from "@/components/layout/cookie-banner";
 import { Footer } from "@/components/layout/footer";
 import { Header } from "@/components/layout/header";
 import { SmoothScroll } from "@/components/motion/smooth-scroll";
@@ -44,6 +45,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
             {children}
           </main>
           <Footer />
+          <CookieBanner />
         </SmoothScroll>
       </body>
     </html>

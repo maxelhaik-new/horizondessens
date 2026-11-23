@@ -25,7 +25,7 @@ export function Logo({ className }: { className?: string }) {
     <Link
       href="/"
       aria-label={`${site.name}, accueil`}
-      className={cn("inline-flex items-center gap-2.5", className)}
+      className={cn("inline-flex min-h-11 items-center gap-2.5", className)}
     >
       <LogoSymbol className="size-8" />
       <span className="font-serif text-2xl leading-none tracking-[-0.02em]">

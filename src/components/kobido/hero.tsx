@@ -1,9 +1,7 @@
 import Image from "next/image";
-import Link from "next/link";
 
 import { SplitWords } from "@/components/motion/split-words";
-import { ButtonLink, TextLink } from "@/components/ui/button-link";
-import { Eyebrow } from "@/components/ui/eyebrow";
+import { ButtonLink } from "@/components/ui/button-link";
 import { getContents } from "@/content/get-content";
 import { routes } from "@/lib/navigation";
 import { formatDuration, formatPrice } from "@/services/format";
@@ -18,7 +16,6 @@ import { getService } from "@/services/get-services";
 export async function KobidoHero() {
   const [c, service] = await Promise.all([
     getContents([
-      "kobido.hero.eyebrow",
       "kobido.hero.title",
       "kobido.hero.lead",
       "kobido.hero.image",
@@ -30,28 +27,6 @@ export async function KobidoHero() {
     <section className="overflow-hidden bg-night pt-28 pb-12 text-white md:pt-36 md:pb-20">
       <div className="container-site grid items-end gap-12 lg:grid-cols-[1.15fr_1fr] lg:gap-16">
         <div className="flex flex-col items-start gap-7">
-          <nav
-            aria-label="Fil d'Ariane"
-            className="animate-rise text-sm text-white/70"
-          >
-            <ol className="flex items-center gap-2">
-              <li>
-                <Link
-                  href={routes.home}
-                  className="transition-colors hover:text-white"
-                >
-                  Accueil
-                </Link>
-              </li>
-              <li aria-hidden>/</li>
-              <li aria-current="page" className="text-white">
-                Kobido
-              </li>
-            </ol>
-          </nav>
-          <div className="animate-rise [animation-delay:100ms]">
-            <Eyebrow tone="dark">{c["kobido.hero.eyebrow"]}</Eyebrow>
-          </div>
           <SplitWords
             as="h1"
             text={c["kobido.hero.title"]}
@@ -66,9 +41,6 @@ export async function KobidoHero() {
             <ButtonLink href={routes.reserver} variant="light">
               Réserver un Kobido
             </ButtonLink>
-            <TextLink href="#formules" className="text-white">
-              Voir les formules
-            </TextLink>
           </div>
 
           {service ? (
@@ -106,9 +78,6 @@ export async function KobidoHero() {
               className="animate-hero-zoom object-cover"
             />
           </div>
-          <p className="absolute bottom-5 left-5 rounded-full bg-white/15 px-5 py-3 text-sm backdrop-blur-md md:bottom-8 md:left-8">
-            Visage · nuque · cuir chevelu
-          </p>
         </div>
       </div>
     </section>
