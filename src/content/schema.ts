@@ -32,6 +32,8 @@ export type ItemTextField = {
   maxLength: number;
   /** Autorise les retours à la ligne. */
   multiline?: boolean;
+  /** Le texte est le chemin d'une image décorative (remplaçable, sans alt). */
+  image?: { ratio: ImageRatio };
 };
 
 /** Liste d'éléments structurés (ex. étapes titre + texte, questions FAQ). */
@@ -53,20 +55,36 @@ export type ImageField = FieldBase & {
   altMaxLength?: number;
 };
 
-export type FieldDef = TextField | ListField | ItemsField | ImageField;
+/** Galerie : liste d'images (remplaçables une à une), avec légende facultative. */
+export type GalleryField = FieldBase & {
+  type: "gallery";
+  maxItems: number;
+  /** Ratio conseillé (indicatif : les cadres recadrent en `object-cover`). */
+  ratio: ImageRatio;
+  altMaxLength?: number;
+  /** Si défini, chaque image a une légende de cette longueur max. */
+  captionMaxLength?: number;
+};
+
+export type FieldDef =
+  TextField | ListField | ItemsField | ImageField | GalleryField;
 
 export type ImageValue = {
   src: string;
   alt: string;
 };
 
+export type GalleryItem = ImageValue & { caption?: string };
+
 export type FieldValue<F extends FieldDef> = F extends ImageField
   ? ImageValue
-  : F extends ListField
-    ? string[]
-    : F extends ItemsField<infer S>
-      ? Array<{ [K in keyof S]: string }>
-      : string;
+  : F extends GalleryField
+    ? GalleryItem[]
+    : F extends ListField
+      ? string[]
+      : F extends ItemsField<infer S>
+        ? Array<{ [K in keyof S]: string }>
+        : string;
 
 /** Déclare un groupe de champs en conservant les types littéraux des clés. */
 export function defineFields<const T extends Record<string, FieldDef>>(

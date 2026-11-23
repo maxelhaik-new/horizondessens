@@ -22,11 +22,15 @@ export async function FinalCta() {
             <Logo className="text-accent-800" />
             <SplitWords
               text={c["home.final.title"]}
+              edit={c.edit("home.final.title")}
               className="text-h2 text-balance"
             />
           </div>
           <div className="flex flex-col justify-between gap-10">
-            <p className="text-lead text-pretty text-ink-soft">
+            <p
+              {...c.edit("home.final.text")}
+              className="text-lead text-pretty text-ink-soft"
+            >
               {c["home.final.text"]}
             </p>
             <div className="flex flex-wrap items-center gap-x-8 gap-y-3">

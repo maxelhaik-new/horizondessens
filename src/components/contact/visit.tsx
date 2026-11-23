@@ -30,10 +30,14 @@ export async function ContactVisit() {
           <div className="flex flex-col gap-5">
             <SplitWords
               text={c["contact.visit.title"]}
+              edit={c.edit("contact.visit.title")}
               className="text-h2 text-balance"
             />
             <Reveal>
-              <p className="max-w-md text-lead text-pretty text-ink-soft">
+              <p
+                {...c.edit("contact.visit.text")}
+                className="max-w-md text-lead text-pretty text-ink-soft"
+              >
                 {c["contact.visit.text"]}
               </p>
             </Reveal>
@@ -62,7 +66,10 @@ export async function ContactVisit() {
               </div>
               <div className="flex flex-col gap-3 sm:col-span-2">
                 <dt className={term}>Accès</dt>
-                <dd className="max-w-md text-body text-ink-soft">
+                <dd
+                  {...c.edit("home.final.access")}
+                  className="max-w-md text-body text-ink-soft"
+                >
                   {c["home.final.access"]}
                 </dd>
               </div>

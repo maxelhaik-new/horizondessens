@@ -109,6 +109,11 @@ export const contentFields = defineFields({
     label: "Rituel Horizon — sous-titre",
     maxLength: 45,
   },
+  "service.rituel-horizon.short": {
+    type: "textarea",
+    label: "Rituel Horizon — description courte",
+    maxLength: 130,
+  },
 
   // --- Focus Kobido ---
   "home.kobido.image": {
@@ -182,11 +187,11 @@ export const contentFields = defineFields({
     maxLength: 180,
   },
   "home.salon.gallery": {
-    type: "list",
-    label: "Salon — galerie (chemins d'images)",
-    help: "Remplacé par un vrai champ galerie avec le CMS.",
+    type: "gallery",
+    label: "Salon — galerie défilante",
+    ratio: "4:5",
     maxItems: 6,
-    itemMaxLength: 120,
+    altMaxLength: IMAGE_ALT,
   },
 
   // --- Les 3 temps d'une séance ---
@@ -287,7 +292,7 @@ export const contentFields = defineFields({
   },
   "home.final.access": {
     type: "textarea",
-    label: "Infos pratiques — accès et stationnement",
+    label: "Infos pratiques — accès",
     maxLength: 140,
   },
 
@@ -353,7 +358,7 @@ export const contentFields = defineFields({
     fields: {
       title: { label: "Nom du geste", maxLength: 30 },
       text: { label: "Description", maxLength: 180, multiline: true },
-      image: { label: "Image (chemin)", maxLength: 120 },
+      image: { label: "Image", maxLength: 300, image: { ratio: "4:5" } },
     },
   },
 
@@ -546,15 +551,12 @@ export const contentFields = defineFields({
     maxLength: 420,
   },
   "salon.lieu.gallery": {
-    type: "items",
+    type: "gallery",
     label: "Salon · Le lieu — galerie",
-    help: "Remplacé par un vrai champ galerie avec le CMS.",
+    ratio: "4:3",
     maxItems: 6,
-    fields: {
-      image: { label: "Image (chemin)", maxLength: 120 },
-      alt: { label: "Texte alternatif", maxLength: IMAGE_ALT },
-      caption: { label: "Légende", maxLength: 50 },
-    },
+    altMaxLength: IMAGE_ALT,
+    captionMaxLength: 50,
   },
   "salon.details.items": {
     type: "items",
@@ -674,6 +676,42 @@ export const contentFields = defineFields({
     label: "Carte cadeau · Conditions — points clés",
     maxItems: 5,
     itemMaxLength: 120,
+  },
+
+  // --- Réserver ---
+  "reserver.hero.title": {
+    type: "text",
+    label: "Réserver · Hero — titre (H1)",
+    maxLength: 60,
+  },
+  "reserver.hero.lead": {
+    type: "textarea",
+    label: "Réserver · Hero — accroche",
+    maxLength: 180,
+  },
+  "reserver.soins.title": {
+    type: "text",
+    label: "Réserver · Soins — titre",
+    maxLength: 60,
+  },
+  "reserver.soins.intro": {
+    type: "textarea",
+    label: "Réserver · Soins — introduction",
+    maxLength: 200,
+  },
+  "reserver.infos.title": {
+    type: "text",
+    label: "Réserver · Bon à savoir — titre",
+    maxLength: 60,
+  },
+  "reserver.infos.items": {
+    type: "items",
+    label: "Réserver · Bon à savoir",
+    maxItems: 4,
+    fields: {
+      title: { label: "Titre", maxLength: 40 },
+      text: { label: "Texte", maxLength: 180, multiline: true },
+    },
   },
 });
 

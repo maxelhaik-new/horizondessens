@@ -1,3 +1,4 @@
+import type { EditAttrs } from "@/content/edit";
 import { cn } from "@/lib/cn";
 
 import { SparkIcon } from "./icons";
@@ -10,9 +11,12 @@ import { SparkIcon } from "./icons";
 export function Marquee({
   items,
   className,
+  edit,
 }: {
   items: string[];
   className?: string;
+  /** Marquage CMS d'un mot (index dans `items`). */
+  edit?: (index: number) => EditAttrs;
 }) {
   if (items.length === 0) return null;
 
@@ -26,7 +30,12 @@ export function Marquee({
     >
       {loop.map((word, i) => (
         <li key={`${word}-${i}`} className="flex items-center gap-10 md:gap-16">
-          <span className="font-serif text-4xl italic md:text-6xl">{word}</span>
+          <span
+            {...edit?.(i % items.length)}
+            className="font-serif text-4xl italic md:text-6xl"
+          >
+            {word}
+          </span>
           <SparkIcon className="size-4 text-accent-500 md:size-5" />
         </li>
       ))}

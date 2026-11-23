@@ -32,9 +32,13 @@ export async function GiftCardCards() {
         <div className="mx-auto flex max-w-2xl flex-col items-center gap-5 text-center">
           <SplitWords
             text={c["cadeau.formules.title"]}
+            edit={c.edit("cadeau.formules.title")}
             className="text-h2 text-balance"
           />
-          <p className="text-lead text-pretty text-ink-soft">
+          <p
+            {...c.edit("cadeau.formules.intro")}
+            className="text-lead text-pretty text-ink-soft"
+          >
             {c["cadeau.formules.intro"]}
           </p>
         </div>
@@ -109,7 +113,9 @@ export async function GiftCardCards() {
         </RevealGroup>
 
         <p className="mx-auto max-w-xl text-center text-body text-pretty text-ink-soft">
-          {c["cadeau.formules.note"]}{" "}
+          <span {...c.edit("cadeau.formules.note")}>
+            {c["cadeau.formules.note"]}
+          </span>{" "}
           <Link
             href={routes.contact}
             className="font-medium text-ink underline decoration-current/30 underline-offset-4 hover:decoration-current"

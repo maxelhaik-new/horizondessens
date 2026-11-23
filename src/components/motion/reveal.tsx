@@ -10,7 +10,7 @@ const item: Variants = {
   visible: (delay: number = 0) => ({
     opacity: 1,
     y: 0,
-    transition: { duration: 0.8, ease: EASE, delay },
+    transition: { duration: 0.6, ease: EASE, delay },
   }),
 };
 
@@ -42,7 +42,7 @@ export function Reveal({
       className={className}
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, margin: "0px 0px -10% 0px" }}
+      viewport={{ once: true, margin: "0px 0px -4% 0px" }}
       variants={item}
       custom={delay}
     >
@@ -79,7 +79,7 @@ export function RevealGroup({
       className={className}
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, margin: "0px 0px -10% 0px" }}
+      viewport={{ once: true, margin: "0px 0px -4% 0px" }}
       variants={{ visible: { transition: { staggerChildren: stagger } } }}
     >
       {children}

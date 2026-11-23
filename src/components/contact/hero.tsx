@@ -23,6 +23,7 @@ export async function ContactHero() {
     <section className="px-2 pt-2 md:px-3 md:pt-3">
       <div className="relative isolate flex min-h-[78svh] items-end overflow-hidden rounded-card bg-night text-white md:min-h-[82svh]">
         <Image
+          {...c.edit("contact.hero.image")}
           src={c["contact.hero.image"].src}
           alt={c["contact.hero.image"].alt}
           fill
@@ -57,18 +58,24 @@ export async function ContactHero() {
             </ol>
           </nav>
           <div className="animate-rise [animation-delay:100ms]">
-            <Eyebrow tone="glass">{c["contact.hero.eyebrow"]}</Eyebrow>
+            <Eyebrow tone="glass" edit={c.edit("contact.hero.eyebrow")}>
+              {c["contact.hero.eyebrow"]}
+            </Eyebrow>
           </div>
           <div className="grid w-full items-end gap-6 lg:grid-cols-[1.4fr_1fr] lg:gap-16">
             <SplitWords
               as="h1"
               text={c["contact.hero.title"]}
+              edit={c.edit("contact.hero.title")}
               className="max-w-3xl text-display text-balance"
               immediate
               delay={150}
             />
             <div className="flex animate-rise flex-col items-start gap-6 [animation-delay:500ms]">
-              <p className="max-w-md text-lead text-pretty text-white/80">
+              <p
+                {...c.edit("contact.hero.lead")}
+                className="max-w-md text-lead text-pretty text-white/80"
+              >
                 {c["contact.hero.lead"]}
               </p>
               <ButtonLink href="#ecrire" variant="light">

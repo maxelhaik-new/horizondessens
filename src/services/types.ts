@@ -7,8 +7,12 @@ export type ServiceVariant = {
   durationMinutes: number;
   /** `null` = tarif non communiqué. */
   priceEuros: number | null;
-  /** ID de la prestation dans SimplyBook (une prestation SimplyBook par durée si besoin). */
-  simplybookId?: string;
+  /**
+   * Prestation SimplyBook correspondante (une par durée). La catégorie est
+   * nécessaire quand une prestation appartient à plusieurs catégories :
+   * sans elle, SimplyBook redemande le choix au lieu d'ouvrir le calendrier.
+   */
+  simplybook?: { service: string; category: string };
 };
 
 export type ServiceSlug =

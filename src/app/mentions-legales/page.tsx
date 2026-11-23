@@ -3,14 +3,15 @@ import Link from "next/link";
 
 import { LegalPage, type LegalSection } from "@/components/legal/legal-page";
 import { routes } from "@/lib/navigation";
+import { pageMetadata } from "@/lib/seo";
 import { site } from "@/lib/site";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Mentions légales",
   description:
     "Mentions légales du site Horizon des Sens : éditrice, hébergeur, propriété intellectuelle et crédits.",
-  alternates: { canonical: "/mentions-legales" },
-};
+  path: "/mentions-legales",
+});
 
 const { address, legal } = site;
 

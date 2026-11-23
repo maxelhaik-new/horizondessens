@@ -236,6 +236,7 @@ Graphie du nom : « Horizon des **S**ens » sur la carte 2026, « HORIZON DES SE
 | Architecture | **Une page d'accueil longue et des pages clés** : Accueil (one-page), **Kobido**, **Le salon** (le lieu à Saint-Cyr), **Carte cadeau**, **Réserver** (avec des items et widgets SimplyBook intégrés), **Contact**. Pas de page dédiée au 5 Continents pour l'instant : c'est une section de l'accueil. Mentions légales à ajouter. |
 | Édition des contenus | **CMS minimaliste avec édition directe sur une page qui ressemble au site.** Seuls les textes et les images sont modifiables par la cliente, avec une **limite de caractères par champ**. Le contenu est **stocké à distance**, pas dans des fichiers locaux ni dans Git. ✅ **Décidé : un mini-CMS maison** (Next.js + Supabase, édition en place sur `/admin`). Voir [options-techniques.md §B](options-techniques.md). |
 | Stack | ✅ **Next.js** (React) + Tailwind + Framer Motion sur Vercel, avec des pages statiques revalidées à la publication, pour le SEO. |
+| Mini-CMS (mis en place le 23-24/11/2026) | ✅ Édition **sur les vraies pages** (connexion `/admin` → Draft Mode) : clic sur un texte = édition dans l'élément lui-même (vraie typo, mise en page recalculée en direct), limite stricte par champ ; bouton « Remplacer » discret sur les photos (optimisées en WebP dans le navigateur) ; brouillons puis « Publier » ; « Rétablir l'original ». Supabase : `cms_content` (publié, public), `cms_drafts` (RLS éditeurs), `cms_revisions`, `cms_editors`, bucket `cms-media`. **HTML public inchangé**, pages statiques. Détails : [cms.md](cms.md). |
 | SimplyBook | Ce qui a été vendu : une intégration de SimplyBook. On veut **aligner son apparence sur le site sans le CSS payant** et **supprimer la double saisie** des prestations.
 ✅ **Décidé : l'hybride.**
 - SimplyBook est la source de vérité pour le nom, la durée et le prix ; l'API est lue côté serveur.
@@ -360,7 +361,7 @@ Décision de Maxime : les pages affichent les hypothèses **sans mention « à c
 ### Contenu et pages
 - [x] Pages **Le salon** et **Carte cadeau** (vitrine) créées le 23/11/2026.
 - [ ] Faire valider par Élodie le récit de son parcours (page Le salon).
-- [ ] Page encore à créer : **Réserver** (`/reserver`, widget SimplyBook intégré ; aujourd'hui `routes.reserver` pointe vers SimplyBook).
+- [x] Page **Réserver** (`/reserver`) : liste des soins, chaque durée ouvre directement son calendrier SimplyBook, sans iframe (23/11/2026).
 - [ ] Page 404 aux couleurs du site.
 - [ ] Textes relus et validés par Élodie (accueil, Kobido : citation de l'approche, déroulé, FAQ, contre-indications).
 - [ ] Accès et stationnement du salon (`home.final.access` affiche « informations à venir »).
@@ -400,8 +401,10 @@ Décision de Maxime : les pages affichent les hypothèses **sans mention « à c
 ### Réservation (SimplyBook)
 - [ ] Accès administrateur, plan SimplyBook et disponibilité de la custom feature API.
 - [ ] Brancher `getServices()` sur l'API `getEventList` (repli : données locales) et variables `SIMPLYBOOK_COMPANY`, `SIMPLYBOOK_API_KEY`.
-- [ ] Widget thémé (`theme_settings`), pré-rempli par prestation.
-- [ ] Vérifier que noms, durées et prix SimplyBook correspondent à la carte 2026 (Rituel Horizon 1h15 120 €, abonnement Kobido 90 €).
+- [x] Liens directs vers le calendrier de chaque prestation (`bookingHref`, IDs `simplybook: { service, category }` dans `local-services.ts`) : Kobido 1h, Calme et harmonie, 5 Continents (23/11/2026). Pas d'iframe (décision de Maxime).
+- [ ] Créer dans SimplyBook les prestations manquantes (**Kobido 1h15, Jambes légères, Rituel Horizon**) et renseigner leurs IDs ; en attendant, leurs boutons ouvrent la réservation générale.
+- [ ] Harmoniser l'apparence de la page SimplyBook (thème, couleurs, image de fond) avec le site, dans l'admin SimplyBook.
+- [ ] ⚠️ **Mettre à jour les prestations dans SimplyBook** : la page de réservation affiche encore l'ancienne carte (« Kobido Lumière 1h 85 € », « Cure Renaissance », « 5 Continents 1h20 95 € »…). Noms, durées et prix doivent correspondre à la carte 2026 (Kobido 1h 100 € / 1h15 120 €, Calme et harmonie, 5 Continents, Jambes légères, Rituel Horizon 1h15 120 €, abonnement Kobido 90 €). **Modifier** les prestations liées (24, 15, 21) sans les recréer, pour garder leurs IDs (sinon, les mettre à jour dans `local-services.ts`), et masquer les anciennes prestations. À faire par Élodie ou avec ses accès, sans casser les rendez-vous en cours.
 
 ### Cartes cadeaux (Stripe)
 - [ ] Compte Stripe d'Élodie, clés **live** et webhook (`STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`, `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY`).
@@ -409,19 +412,33 @@ Décision de Maxime : les pages affichent les hypothèses **sans mention « à c
 - [ ] Génération du PDF, envoi par e-mail (Resend), notification à Élodie, numéro et validité 6 mois, nom du bénéficiaire (carte nominative).
 - [ ] Paiement de test puis paiement réel remboursé.
 
-### CMS (Supabase)
-- [ ] Mini-CMS `/admin` : auth, tables, Storage, `getContent()` lu depuis Supabase avec repli sur `defaults.ts`.
-- [ ] Variables Supabase sur Vercel, compte d'Élodie créé, prise en main.
+### CMS (Supabase) — voir [cms.md](cms.md)
+- [x] Mini-CMS : édition en place (mode édition = Draft Mode), brouillons, publication, images (bucket `cms-media`), `getContent()` lu depuis Supabase avec repli sur `defaults.ts` (23-24/11/2026).
+- [x] Variables `NEXT_PUBLIC_SUPABASE_URL` et `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` sur Vercel (production, preview, development).
+- [x] Compte de Maxime (`maxelhaik@gmail.com`) invité et ajouté à `cms_editors` (24/11/2026).
+- [ ] **Test de bout en bout** : lien d'invitation → mot de passe → texte, photo, publication, revalidation en ligne.
+- [ ] **SMTP Resend dans Supabase Auth** (domaine vérifié requis) : sans lui, les e-mails d'auth ne partent qu'aux membres de l'org Supabase → **l'invitation d'Élodie est impossible**. Puis traduire les modèles d'e-mail.
+- [ ] À la mise en ligne : Supabase Auth **Site URL** → `https://horizondessens.fr` (aujourd'hui `http://localhost:3005`).
+- [ ] Supprimer la ligne de test `home.hero.lead` (« TEST CMS… ») de `cms_content` si elle y est encore.
+- [ ] Désactiver les inscriptions publiques dans Supabase Auth (Authentication → Sign In / Providers → « Allow new users to sign up » : off). Sans effet sur la sécurité du CMS (seuls les comptes de `cms_editors` éditent), mais plus propre.
+- [ ] **Révoquer le jeton d'accès Supabase** `sbp_…` collé dans une conversation (Account → Access Tokens).
+- [ ] Compte d'Élodie, prise en main (guide express : cms.md §4).
 
 ### Cookies et confidentialité
-- [ ] Bandeau cookies en place (Google Maps seulement). Si SimplyBook est intégré en iframe ou si une mesure d'audience est ajoutée, **les soumettre au consentement** et mettre à jour la politique de confidentialité.
+- [x] Bandeau cookies en place (Google Maps seulement). SimplyBook n'est pas intégré au site (liens vers son propre site), donc hors bandeau (23/11/2026).
+- [ ] Si une mesure d'audience est ajoutée : la soumettre au consentement (ou choisir une solution exemptée) et mettre à jour la politique de confidentialité.
 
 ### SEO et technique
-- [ ] `sitemap.xml` et `robots.txt` (app/sitemap.ts, app/robots.ts) : **pas encore créés**.
-- [ ] Images Open Graph par page, favicon et icônes aux couleurs de la marque.
+> Stratégie complète : [docs/seo/strategie-seo.md](seo/strategie-seo.md).
+- [x] `sitemap.xml`, `robots.txt`, manifeste, métadonnées par page, images de partage, icônes, page 404, données structurées communes (23/11/2026).
+- [ ] **Après l'ajout du domaine dans Vercel : redéployer.** L'indexation ne s'active qu'en production sur `horizondessens.fr` (`VERCEL_PROJECT_PRODUCTION_URL`, lu au build). Vérifier ensuite `https://horizondessens.fr/robots.txt` (doit autoriser) et l'absence de `noindex`.
+- [ ] Icônes et images de partage à régénérer (`npm run assets:brand`) quand le logo définitif arrivera.
 - [ ] Vérifier les redirections 308 des anciennes URL PHP (`next.config.ts`) sur le domaine réel.
+- [ ] Tester les données structurées (test des résultats enrichis de Google) et l'aperçu de partage (Facebook, WhatsApp).
 - [ ] Audit final : Lighthouse (performance, accessibilité), `/impeccable audit` et `polish`, test mobile réel (iOS et Android).
-- [ ] Google Search Console : propriété du domaine, envoi du sitemap. Cohérence NAP avec la fiche Google Business (Élodie s'en charge).
+- [ ] Google Search Console : propriété de domaine (TXT chez OVH), envoi du sitemap.
+- [ ] **Fiche Google Business Profile** (Élodie) : nouvelle adresse, horaires, catégories, lien du site et de réservation, services, photos ; nom exact « Horizon des Sens » ; attention à la confusion avec la fiche Sensoa (même adresse). Puis demander des avis et y répondre.
+- [ ] Cohérence NAP : nouvelle adresse sur Facebook, Instagram, SimplyBook, PagesJaunes et annuaires ; demander un lien depuis l'annuaire des praticiens M5C.
 
 ### Bascule
 - [ ] Ajouter le domaine dans Vercel (`horizondessens.fr` et `www`), puis modifier chez **OVH** les enregistrements A/CNAME indiqués par Vercel. Ne pas toucher aux MX de la messagerie.

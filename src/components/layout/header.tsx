@@ -15,6 +15,7 @@ const lightPages: readonly string[] = [
   ...legalNav.map((item) => item.href),
   routes.salon,
   routes.carteCadeau,
+  routes.reserver,
 ];
 
 /**
@@ -25,7 +26,9 @@ const lightPages: readonly string[] = [
 export function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
-  const lightPage = lightPages.includes(usePathname());
+  const [heroCtaVisible, setHeroCtaVisible] = useState(false);
+  const pathname = usePathname();
+  const lightPage = lightPages.includes(pathname);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -33,6 +36,21 @@ export function Header() {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  // La barre « Réserver » mobile double le bouton du hero tant qu'il est à
+  // l'écran : on la masque jusqu'à ce qu'il sorte du viewport.
+  useEffect(() => {
+    const cta = document.querySelector("[data-hero-cta]");
+    if (!cta) return;
+    const observer = new IntersectionObserver(([entry]) =>
+      setHeroCtaVisible(entry.isIntersecting),
+    );
+    observer.observe(cta);
+    return () => {
+      observer.disconnect();
+      setHeroCtaVisible(false);
+    };
+  }, [pathname]);
 
   useEffect(() => {
     document.documentElement.style.overflow = open ? "hidden" : "";
@@ -125,17 +143,23 @@ export function Header() {
         onNavigate={() => setOpen(false)}
       />
 
-      {/* Barre de réservation mobile, toujours à portée de pouce */}
-      <div
-        className={cn(
-          "fixed inset-x-0 bottom-0 z-40 p-3 transition-[opacity,translate] duration-500 ease-soft sm:hidden",
-          open && "pointer-events-none translate-y-4 opacity-0",
-        )}
-      >
-        <ButtonLink href={routes.reserver} className="w-full justify-between">
-          Réserver un soin
-        </ButtonLink>
-      </div>
+      {/* Barre de réservation mobile, toujours à portée de pouce (sauf sur la page Réserver) */}
+      {pathname !== routes.reserver && (
+        <div
+          data-cms-hide
+          className={cn(
+            "fixed inset-x-0 bottom-0 z-40 p-3 transition-[opacity,translate] duration-500 ease-soft sm:hidden",
+            (open || heroCtaVisible) &&
+              "pointer-events-none translate-y-4 opacity-0",
+          )}
+          aria-hidden={open || heroCtaVisible}
+          inert={open || heroCtaVisible}
+        >
+          <ButtonLink href={routes.reserver} className="w-full justify-between">
+            Réserver un soin
+          </ButtonLink>
+        </div>
+      )}
     </>
   );
 }

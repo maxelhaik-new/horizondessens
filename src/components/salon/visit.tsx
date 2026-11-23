@@ -29,9 +29,13 @@ export async function SalonVisit() {
           <div className="flex flex-col items-start gap-6">
             <SplitWords
               text={c["salon.final.title"]}
+              edit={c.edit("salon.final.title")}
               className="text-h2 text-balance"
             />
-            <p className="max-w-md text-lead text-pretty text-white/75">
+            <p
+              {...c.edit("salon.final.text")}
+              className="max-w-md text-lead text-pretty text-white/75"
+            >
               {c["salon.final.text"]}
             </p>
             <div className="flex flex-wrap items-center gap-x-8 gap-y-4 pt-2">

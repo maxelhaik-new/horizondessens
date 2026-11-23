@@ -3,15 +3,17 @@ import type { Metadata } from "next";
 import { ContactConversation } from "@/components/contact/conversation";
 import { ContactHero } from "@/components/contact/hero";
 import { ContactVisit } from "@/components/contact/visit";
+import { JsonLd } from "@/components/seo/json-ld";
+import { breadcrumbJsonLd, ids, pageMetadata } from "@/lib/seo";
 import { site } from "@/lib/site";
 
 // Metas fixes (non éditables) — mot-clé : « massage Saint-Cyr-sur-Loire contact ».
-export const metadata: Metadata = {
-  title: "Contact et accès au salon",
+export const metadata: Metadata = pageMetadata({
+  title: "Contact et accès, Saint-Cyr-sur-Loire",
   description:
     "Contacter Élodie Poirier, Horizon des Sens : massage et Kobido à Saint-Cyr-sur-Loire, près de Tours. Téléphone, e-mail, horaires et plan d'accès.",
-  alternates: { canonical: "/contact" },
-};
+  path: "/contact",
+});
 
 const jsonLd = [
   {
@@ -19,39 +21,9 @@ const jsonLd = [
     "@type": "ContactPage",
     name: "Contact",
     url: `${site.url}/contact`,
-    mainEntity: {
-      "@type": "HealthAndBeautyBusiness",
-      name: site.name,
-      url: site.url,
-      email: site.email,
-      telephone: site.phone.href.replace("tel:", ""),
-      address: {
-        "@type": "PostalAddress",
-        streetAddress: site.address.street,
-        postalCode: site.address.postalCode,
-        addressLocality: site.address.city,
-        addressCountry: site.address.country,
-      },
-      openingHoursSpecification: site.hours.schema.map((slot) => ({
-        "@type": "OpeningHoursSpecification",
-        dayOfWeek: site.hours.schemaDays,
-        ...slot,
-      })),
-    },
+    mainEntity: { "@id": ids.business },
   },
-  {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Accueil", item: site.url },
-      {
-        "@type": "ListItem",
-        position: 2,
-        name: "Contact",
-        item: `${site.url}/contact`,
-      },
-    ],
-  },
+  breadcrumbJsonLd([["Contact", "/contact"]]),
 ];
 
 /** Page Contact : échange (formulaire), coordonnées et accès au salon. */
@@ -61,12 +33,7 @@ export default function ContactPage() {
       <ContactHero />
       <ContactConversation />
       <ContactVisit />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
-        }}
-      />
+      <JsonLd data={jsonLd} />
     </>
   );
 }

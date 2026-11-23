@@ -75,6 +75,8 @@ export const contentDefaults: ContentValues = {
   },
 
   "service.rituel-horizon.subtitle": "Sur mesure · Selon vos zones de tension",
+  "service.rituel-horizon.short":
+    "Un massage composé pour vous, après un temps d'échange, selon les tensions du moment.",
 
   // --- Focus Kobido ---
   "home.kobido.image": {
@@ -112,10 +114,22 @@ export const contentDefaults: ContentValues = {
   "home.salon.text":
     "À Saint-Cyr-sur-Loire, à quelques minutes de Tours, une salle lumineuse face au fleuve, pensée pour que vous puissiez vraiment décrocher.",
   "home.salon.gallery": [
-    "/images/salon/fenetre-loire.jpg",
-    "/images/ambiance/lampe-pierres.jpg",
-    "/images/salon/salle-lit.jpg",
-    "/images/ambiance/huiles-plateau.jpg",
+    {
+      src: "/images/salon/fenetre-loire.jpg",
+      alt: "Fenêtre du salon ouverte sur la Loire",
+    },
+    {
+      src: "/images/ambiance/lampe-pierres.jpg",
+      alt: "Lampe en rotin, galets et brumes florales dans le salon",
+    },
+    {
+      src: "/images/salon/salle-lit.jpg",
+      alt: "La table de massage dans une salle aux tons chauds",
+    },
+    {
+      src: "/images/ambiance/huiles-plateau.jpg",
+      alt: "Plateau d'huiles de massage",
+    },
   ],
 
   // --- Les 3 temps d'une séance ---
@@ -198,7 +212,8 @@ export const contentDefaults: ContentValues = {
   "home.final.title": "Et si vous vous accordiez une pause ?",
   "home.final.text":
     "Réservez votre soin en ligne en quelques instants, ou appelez-moi pour en parler.",
-  "home.final.access": "Accès et stationnement : informations à venir.",
+  "home.final.access":
+    "À cinq minutes de Tours, facile d'accès par tous les moyens de transport. Salle de soin avec vue sur la Loire.",
 
   // ===== Page Kobido =====
   "kobido.hero.title": "Kobido à Saint-Cyr-sur-Loire, aux portes de Tours",
@@ -374,32 +389,32 @@ export const contentDefaults: ContentValues = {
     "Le salon se trouve sur les quais de Saint-Cyr-sur-Loire. Par la fenêtre, le fleuve, les arbres et la lumière qui change au fil des saisons. À l'intérieur, une lumière tamisée, des matières douces et le silence : tout est là pour que vous puissiez vraiment décrocher.",
   "salon.lieu.gallery": [
     {
-      image: "/images/salon/fenetre-loire.jpg",
+      src: "/images/salon/fenetre-loire.jpg",
       alt: "Fenêtre du salon ouverte sur la Loire au coucher du soleil",
       caption: "La fenêtre sur le fleuve",
     },
     {
-      image: "/images/salon/loire-jardin.jpg",
+      src: "/images/salon/loire-jardin.jpg",
       alt: "Les bords de Loire verdoyants, vus depuis le salon",
       caption: "Les bords de Loire",
     },
     {
-      image: "/images/salon/salle-lit.jpg",
+      src: "/images/salon/salle-lit.jpg",
       alt: "La table de massage dans une salle aux tons chauds",
       caption: "La salle de soin",
     },
     {
-      image: "/images/ambiance/lampe-pierres.jpg",
+      src: "/images/ambiance/lampe-pierres.jpg",
       alt: "Lampe en rotin, galets et brumes florales posés sur un meuble en bois",
       caption: "Les détails",
     },
     {
-      image: "/images/salon/loire-couchant.jpg",
+      src: "/images/salon/loire-couchant.jpg",
       alt: "La Loire et ses bancs de sable sous un ciel rose",
       caption: "La Loire au crépuscule",
     },
     {
-      image: "/images/ambiance/huiles-plateau.jpg",
+      src: "/images/ambiance/huiles-plateau.jpg",
       alt: "Flacons d'huiles végétales sur un plateau",
       caption: "Les huiles",
     },
@@ -506,5 +521,32 @@ export const contentDefaults: ContentValues = {
     "Nominative : elle est établie au nom de la personne qui la reçoit.",
     "Utilisable en une fois, pour la séance indiquée.",
     "Non remboursable, sauf droit de rétractation de 14 jours.",
+  ],
+
+  // --- Réserver ---
+  "reserver.hero.title": "Réserver votre soin",
+  "reserver.hero.lead":
+    "Choisissez votre soin, puis le créneau qui vous convient. La confirmation arrive aussitôt par e-mail.",
+  "reserver.soins.title": "Quel soin vous ferait du bien ?",
+  "reserver.soins.intro":
+    "Durées et tarifs sont indiqués pour chaque soin. Vous hésitez entre deux ? Je peux vous conseiller par téléphone.",
+  "reserver.infos.title": "Bon à savoir",
+  "reserver.infos.items": [
+    {
+      title: "Annuler ou déplacer",
+      text: "C'est possible sans frais jusqu'à 24 h avant le rendez-vous, par téléphone ou par e-mail.",
+    },
+    {
+      title: "Le règlement",
+      text: "La séance se règle au salon, le jour du rendez-vous.",
+    },
+    {
+      title: "Une carte cadeau ?",
+      text: "Indiquez son numéro en réservant, ou appelez-moi pour fixer la séance ensemble.",
+    },
+    {
+      title: "Le jour du soin",
+      text: "Arrivez quelques minutes en avance, le temps d'échanger avant la séance. Le linge et les huiles sont fournis.",
+    },
   ],
 };

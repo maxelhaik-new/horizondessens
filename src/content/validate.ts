@@ -64,17 +64,89 @@ export function validateField(
       break;
     }
     case "image": {
-      const img = value as { src?: unknown; alt?: unknown } | null;
-      if (!img || typeof img.src !== "string" || !img.src)
-        fail("image sans source");
-      if (!img || typeof img.alt !== "string" || !img.alt.trim())
-        fail("texte alternatif manquant");
-      else if (def.altMaxLength && img.alt.length > def.altMaxLength)
-        fail(`alt : ${img.alt.length} caractères (max ${def.altMaxLength})`);
+      checkImage(value, def.altMaxLength, "", fail);
+      break;
+    }
+    case "gallery": {
+      if (!Array.isArray(value)) return [{ key, message: "liste attendue" }];
+      if (value.length === 0) fail("galerie vide");
+      if (value.length > def.maxItems)
+        fail(`${value.length} images (max ${def.maxItems})`);
+      value.forEach((item, i) => {
+        checkImage(item, def.altMaxLength, `image ${i + 1} · `, fail);
+        const caption = (item as { caption?: unknown })?.caption;
+        if (def.captionMaxLength) {
+          if (typeof caption !== "string")
+            fail(`image ${i + 1} · légende : texte attendu`);
+          else if (caption.length > def.captionMaxLength)
+            fail(
+              `image ${i + 1} · légende : ${caption.length} caractères (max ${def.captionMaxLength})`,
+            );
+        }
+      });
       break;
     }
   }
   return issues;
+}
+
+function checkImage(
+  value: unknown,
+  altMaxLength: number | undefined,
+  prefix: string,
+  fail: (message: string) => void,
+) {
+  const img = value as { src?: unknown; alt?: unknown } | null;
+  if (!img || typeof img.src !== "string" || !img.src)
+    fail(`${prefix}image sans source`);
+  else if (!/^(\/|https:\/\/)/.test(img.src))
+    fail(`${prefix}source d'image invalide`);
+  if (!img || typeof img.alt !== "string" || !img.alt.trim())
+    fail(`${prefix}texte alternatif manquant`);
+  else if (altMaxLength && img.alt.length > altMaxLength)
+    fail(`${prefix}alt : ${img.alt.length} caractères (max ${altMaxLength})`);
+}
+
+/**
+ * Vérifie seulement la FORME d'une valeur stockée (type, sous-champs), pas
+ * les longueurs : une valeur publiée reste affichée même si une limite a été
+ * resserrée depuis dans le code. Une forme invalide → valeur par défaut.
+ */
+export function hasValidShape(def: FieldDef, value: unknown): boolean {
+  switch (def.type) {
+    case "text":
+    case "textarea":
+      return typeof value === "string";
+    case "list":
+      return Array.isArray(value) && value.every((v) => typeof v === "string");
+    case "items":
+      return (
+        Array.isArray(value) &&
+        value.every(
+          (item) =>
+            item !== null &&
+            typeof item === "object" &&
+            Object.keys(def.fields).every(
+              (name) =>
+                typeof (item as Record<string, unknown>)[name] === "string",
+            ),
+        )
+      );
+    case "image":
+      return isImage(value);
+    case "gallery":
+      return Array.isArray(value) && value.length > 0 && value.every(isImage);
+  }
+}
+
+function isImage(value: unknown): boolean {
+  const img = value as { src?: unknown; alt?: unknown } | null;
+  return (
+    !!img &&
+    typeof img.src === "string" &&
+    img.src.length > 0 &&
+    typeof img.alt === "string"
+  );
 }
 
 /** Vérifie toutes les valeurs par défaut du registre. */

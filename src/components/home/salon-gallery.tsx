@@ -10,6 +10,7 @@ import {
 import Image from "next/image";
 import { useRef } from "react";
 
+import type { EditAttrs } from "@/content/edit";
 import type { ImageValue } from "@/content/schema";
 import { cn } from "@/lib/cn";
 
@@ -18,7 +19,11 @@ import { cn } from "@/lib/cn";
  * défilement vertical (galerie « experience » de Serelin). Sur mobile ou
  * avec mouvement réduit : défilement horizontal natif au doigt.
  */
-export function SalonGallery({ images }: { images: ImageValue[] }) {
+export function SalonGallery({
+  images,
+}: {
+  images: Array<ImageValue & { edit?: EditAttrs }>;
+}) {
   const ref = useRef<HTMLDivElement>(null);
   const reduceMotion = useReducedMotion();
   const { scrollYProgress } = useScroll({
@@ -37,12 +42,13 @@ export function SalonGallery({ images }: { images: ImageValue[] }) {
           reduceMotion ? "md:px-8" : "md:hidden",
         )}
       >
-        {images.map((img) => (
+        {images.map((img, i) => (
           <li
-            key={img.src}
+            key={i}
             className="relative aspect-[4/5] w-[78vw] shrink-0 snap-center overflow-hidden rounded-card md:w-[40vw]"
           >
             <Image
+              {...img.edit}
               src={img.src}
               alt={img.alt}
               fill
@@ -58,7 +64,7 @@ export function SalonGallery({ images }: { images: ImageValue[] }) {
         <motion.ul style={{ x }} className="hidden gap-8 pl-[8vw] md:flex">
           {images.map((img, i) => (
             <li
-              key={img.src}
+              key={i}
               className={cn(
                 "relative shrink-0 overflow-hidden rounded-card",
                 i % 2 === 0
@@ -67,6 +73,7 @@ export function SalonGallery({ images }: { images: ImageValue[] }) {
               )}
             >
               <Image
+                {...img.edit}
                 src={img.src}
                 alt={img.alt}
                 fill

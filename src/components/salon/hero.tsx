@@ -25,11 +25,15 @@ export async function SalonHero() {
         <SplitWords
           as="h1"
           text={c["salon.hero.title"]}
+          edit={c.edit("salon.hero.title")}
           className="text-display text-balance"
           immediate
         />
         <div className="flex animate-rise flex-col items-start gap-6 [animation-delay:400ms]">
-          <p className="max-w-md text-lead text-pretty text-ink-soft">
+          <p
+            {...c.edit("salon.hero.lead")}
+            className="max-w-md text-lead text-pretty text-ink-soft"
+          >
             {c["salon.hero.lead"]}
           </p>
           <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
@@ -46,6 +50,7 @@ export async function SalonHero() {
       <div className="px-2 md:px-3">
         <div className="relative aspect-[4/5] animate-rise overflow-hidden rounded-card [animation-delay:200ms] sm:aspect-[16/10] lg:aspect-[21/9]">
           <Image
+            {...c.edit("salon.hero.image")}
             src={c["salon.hero.image"].src}
             alt={c["salon.hero.image"].alt}
             fill

@@ -16,6 +16,12 @@ const nextConfig: NextConfig = {
     },
   },
   images: {
+    // Photos remplacées depuis le CMS (bucket Supabase public).
+    remotePatterns: [
+      new URL(
+        `${process.env.NEXT_PUBLIC_SUPABASE_URL ?? "https://vlpevjffaqzvksjfknhk.supabase.co"}/storage/v1/object/public/**`,
+      ),
+    ],
     formats: ["image/avif", "image/webp"],
     qualities: [75],
   },

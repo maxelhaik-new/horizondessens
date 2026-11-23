@@ -27,9 +27,13 @@ export async function ContactConversation() {
           <div className="flex flex-col items-start gap-6">
             <SplitWords
               text={c["contact.form.title"]}
+              edit={c.edit("contact.form.title")}
               className="text-h2 text-balance"
             />
-            <p className="max-w-md text-lead text-pretty text-ink-soft">
+            <p
+              {...c.edit("contact.form.intro")}
+              className="max-w-md text-lead text-pretty text-ink-soft"
+            >
               {c["contact.form.intro"]}
             </p>
             <TextLink href={routes.reserver}>Réserver en ligne</TextLink>

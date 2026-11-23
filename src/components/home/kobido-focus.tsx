@@ -23,20 +23,27 @@ export async function KobidoFocus() {
         <RevealImage
           src={c["home.kobido.image"].src}
           alt={c["home.kobido.image"].alt}
+          edit={c.edit("home.kobido.image")}
           sizes="(min-width: 768px) 50vw, 100vw"
           className="aspect-[4/5] rounded-card"
         />
 
         <div className="flex flex-col items-start gap-7">
           <Reveal>
-            <Eyebrow>{c["home.kobido.eyebrow"]}</Eyebrow>
+            <Eyebrow edit={c.edit("home.kobido.eyebrow")}>
+              {c["home.kobido.eyebrow"]}
+            </Eyebrow>
           </Reveal>
           <SplitWords
             text={c["home.kobido.title"]}
+            edit={c.edit("home.kobido.title")}
             className="text-h2 text-balance"
           />
           <Reveal delay={0.15}>
-            <p className="text-lead text-pretty text-ink-soft">
+            <p
+              {...c.edit("home.kobido.text")}
+              className="text-lead text-pretty text-ink-soft"
+            >
               {c["home.kobido.text"]}
             </p>
           </Reveal>
@@ -45,14 +52,17 @@ export async function KobidoFocus() {
             as="ul"
             className="flex w-full flex-col border-t border-line"
           >
-            {c["home.kobido.benefits"].map((benefit) => (
+            {c["home.kobido.benefits"].map((benefit, i) => (
               <RevealItem
                 as="li"
-                key={benefit}
+                key={i}
                 className="flex items-center gap-4 border-b border-line py-5"
               >
                 <SparkIcon className="size-3 shrink-0 text-accent-600" />
-                <span className="font-serif text-xl tracking-[-0.01em] italic md:text-2xl">
+                <span
+                  {...c.edit("home.kobido.benefits", i)}
+                  className="font-serif text-xl tracking-[-0.01em] italic md:text-2xl"
+                >
                   {benefit}
                 </span>
               </RevealItem>

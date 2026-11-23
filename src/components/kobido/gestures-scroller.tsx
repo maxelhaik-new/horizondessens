@@ -4,9 +4,15 @@ import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
+import type { EditAttrs } from "@/content/edit";
 import { cn } from "@/lib/cn";
 
-type Gesture = { title: string; text: string; image: string };
+type Gesture = {
+  title: string;
+  text: string;
+  image: string;
+  edit?: { title?: EditAttrs; text?: EditAttrs; image?: EditAttrs };
+};
 
 /**
  * Desktop : l'image reste collée à gauche et se remplace (fondu) selon le
@@ -48,6 +54,7 @@ export function GesturesScroller({ items }: { items: Gesture[] }) {
               transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
             >
               <Image
+                {...current.edit?.image}
                 src={current.image}
                 alt=""
                 fill
@@ -66,7 +73,7 @@ export function GesturesScroller({ items }: { items: Gesture[] }) {
       <ol className="flex flex-col lg:py-[18vh]">
         {items.map((item, i) => (
           <li
-            key={item.title}
+            key={i}
             ref={(el) => {
               refs.current[i] = el;
             }}
@@ -78,6 +85,7 @@ export function GesturesScroller({ items }: { items: Gesture[] }) {
           >
             <div className="relative aspect-[4/3] overflow-hidden rounded-panel lg:hidden">
               <Image
+                {...item.edit?.image}
                 src={item.image}
                 alt=""
                 fill
@@ -88,10 +96,16 @@ export function GesturesScroller({ items }: { items: Gesture[] }) {
             <p className="text-eyebrow text-accent-800">
               Geste {String(i + 1).padStart(2, "0")}
             </p>
-            <h3 className="text-h3 font-serif tracking-[-0.02em] italic">
+            <h3
+              {...item.edit?.title}
+              className="text-h3 font-serif tracking-[-0.02em] italic"
+            >
               {item.title}
             </h3>
-            <p className="max-w-md text-lead text-pretty text-ink-soft">
+            <p
+              {...item.edit?.text}
+              className="max-w-md text-lead text-pretty text-ink-soft"
+            >
               {item.text}
             </p>
           </li>

@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 
 import { Reveal } from "@/components/motion/reveal";
+import type { EditAttrs } from "@/content/edit";
 import { SplitWords } from "@/components/motion/split-words";
 import { cn } from "@/lib/cn";
 
@@ -15,6 +16,8 @@ type SectionHeadingProps = {
   /** Action sous l'intro (bouton), comme Serelin. */
   action?: ReactNode;
   className?: string;
+  /** Marquage CMS de chaque texte (mode édition). */
+  edit?: { eyebrow?: EditAttrs; title?: EditAttrs; intro?: EditAttrs };
 };
 
 /** En-tête de section : pastille, titre italique révélé mot à mot, intro courte. */
@@ -26,6 +29,7 @@ export function SectionHeading({
   tone = "light",
   action,
   className,
+  edit,
 }: SectionHeadingProps) {
   return (
     <header
@@ -39,11 +43,17 @@ export function SectionHeading({
     >
       {eyebrow ? (
         <Reveal>
-          <Eyebrow tone={tone === "dark" ? "dark" : "light"}>{eyebrow}</Eyebrow>
+          <Eyebrow
+            tone={tone === "dark" ? "dark" : "light"}
+            edit={edit?.eyebrow}
+          >
+            {eyebrow}
+          </Eyebrow>
         </Reveal>
       ) : null}
       <SplitWords
         text={title}
+        edit={edit?.title}
         className={cn(
           "text-h2 text-balance",
           tone === "dark" ? "text-white" : "text-ink",
@@ -52,6 +62,7 @@ export function SectionHeading({
       {intro ? (
         <Reveal delay={0.15}>
           <p
+            {...edit?.intro}
             className={cn(
               "max-w-xl text-lead text-pretty",
               tone === "dark" ? "text-white/75" : "text-ink-soft",

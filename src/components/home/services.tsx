@@ -58,6 +58,10 @@ export async function Services() {
         <SectionHeading
           eyebrow={c["home.soins.eyebrow"]}
           title={c["home.soins.title"]}
+          edit={{
+            eyebrow: c.edit("home.soins.eyebrow"),
+            title: c.edit("home.soins.title"),
+          }}
         />
 
         <ol className="mt-14 flex flex-col gap-6 md:mt-20 md:gap-8">
@@ -70,6 +74,7 @@ export async function Services() {
                     <RevealImage
                       src={image.src}
                       alt={image.alt}
+                      edit={c.edit(`service.${service.slug}.image`)}
                       sizes="(min-width: 768px) 55vw, 100vw"
                       className="aspect-[4/3] rounded-panel md:aspect-auto md:h-full"
                       parallax={6}
@@ -82,10 +87,16 @@ export async function Services() {
                           text={service.name}
                           className="text-h3 text-balance"
                         />
-                        <p className="text-sm font-medium tracking-[0.016em] text-accent-800">
+                        <p
+                          {...c.edit(`service.${service.slug}.subtitle`)}
+                          className="text-sm font-medium tracking-[0.016em] text-accent-800"
+                        >
                           {c[`service.${service.slug}.subtitle`]}
                         </p>
-                        <p className="max-w-md text-lead text-pretty text-ink-soft">
+                        <p
+                          {...c.edit(`service.${service.slug}.short`)}
+                          className="max-w-md text-lead text-pretty text-ink-soft"
+                        >
                           {c[`service.${service.slug}.short`]}
                         </p>
                       </div>
@@ -118,7 +129,12 @@ export async function Services() {
         </ol>
 
         <Reveal className="mx-auto mt-14 flex max-w-2xl flex-col items-center gap-6 text-center md:mt-20">
-          <p className="text-lead text-pretty">{c["home.soins.surmesure"]}</p>
+          <p
+            {...c.edit("home.soins.surmesure")}
+            className="text-lead text-pretty"
+          >
+            {c["home.soins.surmesure"]}
+          </p>
           <TextLink href={routes.reserver}>Réserver le Rituel Horizon</TextLink>
         </Reveal>
       </div>

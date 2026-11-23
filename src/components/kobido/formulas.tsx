@@ -3,6 +3,7 @@ import { ButtonLink, TextLink } from "@/components/ui/button-link";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { getContents } from "@/content/get-content";
 import { routes } from "@/lib/navigation";
+import { bookingHref } from "@/lib/simplybook";
 import { formatDuration, formatPrice } from "@/services/format";
 import { getService } from "@/services/get-services";
 
@@ -22,7 +23,10 @@ export async function KobidoFormulas() {
     getService("kobido"),
   ]);
   if (!service) return null;
-  const descriptions = [c["kobido.formules.court"], c["kobido.formules.long"]];
+  const descriptions = [
+    { text: c["kobido.formules.court"], edit: c.edit("kobido.formules.court") },
+    { text: c["kobido.formules.long"], edit: c.edit("kobido.formules.long") },
+  ];
 
   return (
     <section id="formules" className="scroll-mt-24 bg-mist section-y">
@@ -30,6 +34,10 @@ export async function KobidoFormulas() {
         <SectionHeading
           eyebrow={c["kobido.formules.eyebrow"]}
           title={c["kobido.formules.title"]}
+          edit={{
+            eyebrow: c.edit("kobido.formules.eyebrow"),
+            title: c.edit("kobido.formules.title"),
+          }}
         />
 
         <RevealGroup className="mx-auto mt-12 grid max-w-5xl overflow-hidden rounded-card bg-paper-soft md:mt-16 md:grid-cols-2">
@@ -49,10 +57,13 @@ export async function KobidoFormulas() {
                   {v.priceEuros === null ? "—" : formatPrice(v.priceEuros)}
                 </span>
               </p>
-              <p className="text-body text-pretty text-ink-soft">
-                {descriptions[i]}
+              <p
+                {...descriptions[i]?.edit}
+                className="text-body text-pretty text-ink-soft"
+              >
+                {descriptions[i]?.text}
               </p>
-              <ButtonLink href={routes.reserver} className="mt-auto self-start">
+              <ButtonLink href={bookingHref(v)} className="mt-auto self-start">
                 Réserver {formatDuration(v.durationMinutes)}
               </ButtonLink>
             </RevealItem>
@@ -64,7 +75,10 @@ export async function KobidoFormulas() {
             <p className="text-h4 font-serif tracking-[-0.02em] italic">
               En cure
             </p>
-            <p className="text-body text-pretty text-ink-soft">
+            <p
+              {...c.edit("kobido.formules.cure")}
+              className="text-body text-pretty text-ink-soft"
+            >
               {c["kobido.formules.cure"]}
             </p>
           </div>

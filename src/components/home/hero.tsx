@@ -20,6 +20,7 @@ export async function Hero() {
   return (
     <section className="relative isolate flex min-h-[100svh] flex-col overflow-hidden bg-night text-white">
       <Image
+        {...c.edit("home.hero.image")}
         src={c["home.hero.image"].src}
         alt={c["home.hero.image"].alt}
         fill
@@ -38,14 +39,21 @@ export async function Hero() {
           <SplitWords
             as="h1"
             text={c["home.hero.title"]}
+            edit={c.edit("home.hero.title")}
             className="text-display text-balance [@media(max-height:32rem)]:text-h3"
             immediate
             delay={150}
           />
-          <p className="max-w-lg animate-rise text-lead text-pretty text-white/75 [animation-delay:500ms]">
+          <p
+            {...c.edit("home.hero.lead")}
+            className="max-w-lg animate-rise text-lead text-pretty text-white/75 [animation-delay:500ms]"
+          >
             {c["home.hero.lead"]}
           </p>
-          <div className="flex animate-rise flex-wrap items-center gap-x-8 gap-y-4 pt-2 [animation-delay:650ms]">
+          <div
+            data-hero-cta
+            className="flex animate-rise flex-wrap items-center gap-x-8 gap-y-4 pt-2 [animation-delay:650ms]"
+          >
             <ButtonLink href={routes.reserver} variant="light">
               Réserver un soin
             </ButtonLink>

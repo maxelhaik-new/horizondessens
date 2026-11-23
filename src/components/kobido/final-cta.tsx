@@ -19,6 +19,7 @@ export async function KobidoFinalCta() {
           <RevealImage
             src={c["kobido.final.image"].src}
             alt={c["kobido.final.image"].alt}
+            edit={c.edit("kobido.final.image")}
             sizes="100vw"
             className="absolute! inset-0 -z-10 opacity-60"
           />
@@ -29,9 +30,13 @@ export async function KobidoFinalCta() {
           <div className="flex min-h-[28rem] flex-col items-start justify-end gap-6 p-8 md:min-h-[32rem] md:p-14">
             <SplitWords
               text={c["kobido.final.title"]}
+              edit={c.edit("kobido.final.title")}
               className="max-w-2xl text-h2 text-balance"
             />
-            <p className="max-w-md text-lead text-pretty text-white/75">
+            <p
+              {...c.edit("kobido.final.text")}
+              className="max-w-md text-lead text-pretty text-white/75"
+            >
               {c["kobido.final.text"]}
             </p>
             <div className="flex flex-wrap items-center gap-x-8 gap-y-3 pt-2">

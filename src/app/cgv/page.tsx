@@ -3,16 +3,17 @@ import Link from "next/link";
 
 import { LegalPage, type LegalSection } from "@/components/legal/legal-page";
 import { routes } from "@/lib/navigation";
+import { pageMetadata } from "@/lib/seo";
 import { site } from "@/lib/site";
 import { formatVariant } from "@/services/format";
 import { getServices } from "@/services/get-services";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Conditions générales de vente",
   description:
     "Conditions générales de vente d'Horizon des Sens : réservation, annulation, abonnement Kobido et cartes cadeaux.",
-  alternates: { canonical: "/cgv" },
-};
+  path: "/cgv",
+});
 
 const { address, legal } = site;
 

@@ -41,10 +41,14 @@ export async function SalonPlace() {
         <div className="grid gap-6 lg:grid-cols-[1fr_1.2fr] lg:gap-16">
           <SplitWords
             text={c["salon.lieu.title"]}
+            edit={c.edit("salon.lieu.title")}
             className="text-h2 text-balance"
           />
           <Reveal>
-            <p className="text-lead text-pretty text-ink-soft lg:pt-3">
+            <p
+              {...c.edit("salon.lieu.text")}
+              className="text-lead text-pretty text-ink-soft lg:pt-3"
+            >
               {c["salon.lieu.text"]}
             </p>
           </Reveal>
@@ -56,7 +60,7 @@ export async function SalonPlace() {
         >
           {gallery.map((item, i) => (
             <RevealItem
-              key={item.image}
+              key={i}
               as="li"
               className={cn(
                 "group relative overflow-hidden rounded-media md:rounded-panel",
@@ -64,13 +68,17 @@ export async function SalonPlace() {
               )}
             >
               <Image
-                src={item.image}
+                {...c.edit("salon.lieu.gallery", i)}
+                src={item.src}
                 alt={item.alt}
                 fill
                 sizes="(min-width: 768px) 60vw, 50vw"
                 className="object-cover transition-transform duration-[1.2s] ease-serelin group-hover:scale-105"
               />
-              <span className="absolute bottom-3 left-3 rounded-full bg-paper-soft/85 px-3.5 py-2 text-xs font-medium text-ink backdrop-blur-md md:bottom-5 md:left-5 md:px-4 md:text-sm">
+              <span
+                {...c.edit("salon.lieu.gallery", i, "caption")}
+                className="absolute bottom-3 left-3 rounded-full bg-paper-soft/85 px-3.5 py-2 text-xs font-medium text-ink backdrop-blur-md md:bottom-5 md:left-5 md:px-4 md:text-sm"
+              >
                 {item.caption}
               </span>
             </RevealItem>
@@ -82,16 +90,22 @@ export async function SalonPlace() {
           className="grid gap-8 border-t border-line pt-10 md:grid-cols-3 md:gap-12"
         >
           {c["salon.details.items"].map((item, i) => (
-            <RevealItem
-              key={item.title}
-              as="li"
-              className="flex flex-col gap-3"
-            >
+            <RevealItem key={i} as="li" className="flex flex-col gap-3">
               <span className="text-sm font-medium text-accent-800 tabular-nums">
                 {String(i + 1).padStart(2, "0")}
               </span>
-              <h3 className="text-h4">{item.title}</h3>
-              <p className="text-body text-pretty text-ink-soft">{item.text}</p>
+              <h3
+                {...c.edit("salon.details.items", i, "title")}
+                className="text-h4"
+              >
+                {item.title}
+              </h3>
+              <p
+                {...c.edit("salon.details.items", i, "text")}
+                className="text-body text-pretty text-ink-soft"
+              >
+                {item.text}
+              </p>
             </RevealItem>
           ))}
         </RevealGroup>

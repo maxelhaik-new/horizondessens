@@ -1,5 +1,3 @@
-import { site } from "./site";
-
 /**
  * Routes et navigation (fixes, non éditables).
  * Les pages secondaires seront créées après l'accueil : certains liens
@@ -17,8 +15,8 @@ export const routes = {
   mentionsLegales: "/mentions-legales",
   cgv: "/cgv",
   confidentialite: "/confidentialite",
-  /** v1 : SimplyBook directement. Plus tard : page /reserver avec widget intégré. */
-  reserver: site.booking.simplybookUrl,
+  /** Page Réserver : soins, chacun vers son calendrier SimplyBook. */
+  reserver: "/reserver",
 } as const;
 
 export const mainNav = [

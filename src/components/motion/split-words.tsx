@@ -1,5 +1,7 @@
 import type { CSSProperties, ElementType } from "react";
 
+import type { EditAttrs } from "@/content/edit";
+
 import { InView } from "./in-view";
 
 type SplitWordsProps = {
@@ -10,6 +12,8 @@ type SplitWordsProps = {
   immediate?: boolean;
   /** Délai de départ, en ms. */
   delay?: number;
+  /** Marquage CMS (mode édition). */
+  edit?: EditAttrs;
 };
 
 /**
@@ -23,6 +27,7 @@ export function SplitWords({
   className,
   immediate = false,
   delay = 0,
+  edit,
 }: SplitWordsProps) {
   // Typographie française : la ponctuation haute (: ; ! ? ») reste collée au
   // mot précédent, « au mot suivant, via une espace insécable.
@@ -38,7 +43,7 @@ export function SplitWords({
       return acc;
     }, []);
   const content = (
-    <Tag className={className} aria-label={text}>
+    <Tag className={className} aria-label={text} {...edit}>
       {words.map((word, i) => (
         <span
           key={`${word}-${i}`}

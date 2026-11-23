@@ -219,8 +219,8 @@
 
 .split-word {
   display: inline-block;
-  animation: word-in 1s var(--ease-soft) both;
-  animation-delay: calc(var(--i, 0) * 70ms + var(--d, 0ms));
+  animation: word-in 0.8s var(--ease-soft) both;
+  animation-delay: calc(min(var(--i, 0) * 60ms, 480ms) + var(--d, 0ms));
   animation-play-state: paused;
 }
 [data-inview="true"] .split-word {

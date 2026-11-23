@@ -75,11 +75,14 @@ export async function Philosophy() {
 
       <div className="relative container-site flex flex-col items-center gap-8 text-center">
         <Reveal>
-          <Eyebrow>{c["home.philo.eyebrow"]}</Eyebrow>
+          <Eyebrow edit={c.edit("home.philo.eyebrow")}>
+            {c["home.philo.eyebrow"]}
+          </Eyebrow>
         </Reveal>
         <SplitWords
           as="p"
           text={c["home.philo.text"]}
+          edit={c.edit("home.philo.text")}
           className="max-w-4xl text-h2 text-balance text-ink"
         />
         <Reveal delay={0.2}>

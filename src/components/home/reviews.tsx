@@ -1,20 +1,23 @@
 import { RevealGroup, RevealItem } from "@/components/motion/reveal";
 import { SectionHeading } from "@/components/ui/section-heading";
-import { getContent } from "@/content/get-content";
+import { getContents } from "@/content/get-content";
 import { getReviews } from "@/reviews/get-reviews";
 
 /** §8 Avis Google — masqué tant qu'aucun vrai avis n'est disponible. */
 export async function Reviews() {
-  const [reviews, title] = await Promise.all([
+  const [reviews, c] = await Promise.all([
     getReviews(),
-    getContent("home.avis.title"),
+    getContents(["home.avis.title"] as const),
   ]);
   if (reviews.length === 0) return null;
 
   return (
     <section className="bg-sand/20 section-y">
       <div className="container-site">
-        <SectionHeading title={title} />
+        <SectionHeading
+          title={c["home.avis.title"]}
+          edit={{ title: c.edit("home.avis.title") }}
+        />
         <RevealGroup
           as="ul"
           className="mt-12 grid gap-4 md:grid-cols-3 md:gap-6"

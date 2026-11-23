@@ -33,8 +33,8 @@ La refonte accompagne deux changements :
 - **Vercel** : projet `horizondessens` (équipe `max-00e6`, https://horizondessens.vercel.app), relié au dépôt. **CLI liée** (`npx vercel@latest`, dossier `.vercel/` ignoré) : je gère les variables avec `vercel env add/ls/pull`. Le doublon `horizondessens-y5z8` a été supprimé.
 - **Supabase** : projet `vlpevjffaqzvksjfknhk` (https://supabase.com/dashboard/project/vlpevjffaqzvksjfknhk). Le **serveur MCP Supabase** est déclaré au niveau du projet dans `.mcp.json` (23/11/2026) : transport http, `https://mcp.supabase.com/mcp?project_ref=vlpevjffaqzvksjfknhk&features=docs,account,database,debugging,development,functions,branching,feedback,notebooks`.
 - Il ne contient aucun secret. ✅ **Authentifié par OAuth et vérifié** le 23/11/2026 : l'URL de l'API est `https://vlpevjffaqzvksjfknhk.supabase.co` et le schéma `public` est vide pour l'instant.
-- Il est prévu pour plus tard, au moment de coder le CMS.
-- La Supabase CLI n'est pas installée.
+- **Utilisé par le mini-CMS** depuis le 23/11/2026 (voir « Mini-CMS » plus bas et `docs/cms.md`). Les écritures (DDL, DELETE) via le MCP peuvent être refusées par le mode de permissions : demander à Maxime.
+- La Supabase CLI n'est pas installée. Migrations versionnées dans `supabase/migrations/`.
 
 ## Documents de référence
 
@@ -47,10 +47,12 @@ La refonte accompagne deux changements :
 | [assets/Cartes cadeau temp/](assets/Cartes%20cadeau%20temp/) | 3 mockups temporaires « main qui tient une carte vierge », sur fond terracotta (décor de riad), en 1200×960. Ils seront remplacés plus tard. | Section et page carte cadeau |
 | [assets/images/](assets/images/) | Images **validées par Maxime** (Sensoa et Unsplash), en pleine résolution, à compresser avant usage. | Pour toute image du site |
 | [docs/questions-elodie-rdv.md](docs/questions-elodie-rdv.md) | Les 10 questions en suspens à poser à Élodie (RDV du 23/11), avec un emplacement pour les réponses. | Après le RDV : reporter les réponses dans CONTEXTE.md §13 |
+| [docs/seo/strategie-seo.md](docs/seo/strategie-seo.md) | **Stratégie SEO** : constat (local, Sensoa à la même adresse, Kobido en hausse), expressions-clés par page, priorités (fiche Google, NAP, contenus à venir, mesure), ce qui est en place dans le code, règles pour les nouvelles pages. | Avant de créer une page ou de toucher aux metas |
 | [docs/CONTEXTE.md](docs/CONTEXTE.md) | **Synthèse de référence** (§15 = **checklist de mise en production**, à tenir à jour) : acteurs, enjeux, positionnement, offre, DA, SEO, fonctionnalités, technique, planning. **§13 = décisions validées par Maxime, elles priment.** | Toujours, avant tout travail de contenu ou de design |
 | [docs/site-actuel.md](docs/site-actuel.md) | Scraping intégral de l'ancien site (23/11/2026) : textes mot pour mot, tarifs, structure, images. | Pour reprendre un contenu existant. **Ne pas re-visiter le site.** |
 | [docs/transcription-rdv-cadrage-2026-11-13.md](docs/transcription-rdv-cadrage-2026-11-13.md) | Transcription brute Whisper du RDV de cadrage (13/11/2026). Elle contient des erreurs : « qu'au bidot » = Kobido, « Calmermonie » = Calme et Harmonie, « Tensua / SensoA » = Sensoa. | Pour vérifier une nuance. Sinon, préférer CONTEXTE.md. |
 | [docs/options-techniques.md](docs/options-techniques.md) | Options SimplyBook (widget thémé, hybride API + widget, tunnel sur mesure) et options CMS (mini-CMS maison avec édition en place, Sanity, Storyblok), avec recommandations. | Avant toute décision technique |
+| [docs/cms.md](docs/cms.md) | **Mini-CMS** : principe (édition en place, brouillons, publication), architecture, tables Supabase, ajout d'un éditeur, guide express pour Élodie, limites. | Avant de toucher au contenu éditable, à `src/cms/` ou à Supabase |
 | [references/sensoa/](references/sensoa/) | Scraping du site concurrent Sensoa (`sensoa-site.md`, 71 URL, Wix) et ses 145 images (`images/`, 218 Mo en pleine résolution, avec une colonne « Réutilisable ? » à remplir par Maxime). **Idées uniquement, pas de reprise de texte. Images seulement si Maxime les valide.** La synthèse est dans CONTEXTE.md §14. | Pour s'inspirer de la structure et des fonctionnalités |
 | [Images Elodie/](Images%20Elodie/) | Visuels d'Élodie : `Carte massages 2026.png` (carte IA des prestations, **base de l'offre**), `Logo Old.png` (raster 750 px sur `#B84C64`), `Carte cadeau old.png`, `Image licence.png` (badge M5C), `Photo Elodie.png` (selfie). Analyse : CONTEXTE.md §12bis. | Pour l'offre, la DA et les assets |
 
@@ -75,7 +77,7 @@ L'audio source n'est pas dans le projet : `~/Downloads/Elodie Poirier 13 Nov 202
 - `schema.ts` : types de champs (`text`, `textarea`, `list`, `image`) avec leurs limites, et le helper `defineFields`.
 - `registry.ts` : **le registre des clés éditables**, vide pour l'instant. On y ajoute les clés page par page, en suivant les docs `docs/contenu/`.
 - `defaults.ts` : les valeurs par défaut. TypeScript impose une valeur pour chaque clé.
-- `get-content.ts` : `getContent(key)` et `getContents([...])`, **seul point d'accès aux contenus** (réservé au serveur). Avec le CMS, seul ce fichier changera.
+- `get-content.ts` : `getContent(key)` et `getContents([...])`, **seul point d'accès aux contenus** (réservé au serveur). `getContents` renvoie aussi `edit(clé, index?, sous-champ?)` pour marquer l'élément éditable (voir « Mini-CMS »).
 - `validate.ts` : vérification des longueurs, des listes et des `alt`. Elle est utilisée par `npm run content:check`, qui tourne aussi avant chaque build, et servira à valider les saisies du CMS.
 
 **Couche prestations** (`src/services/`) :
@@ -105,7 +107,7 @@ Le dossier **`serelin/`** est le template Framer « Serelin » (medspa et wellne
 | Polices | `src/app/fonts.ts` : **Instrument Serif** (titres) et **Manrope** (textes), comme Serelin |
 | Contenu | **54 clés** dans `src/content/registry.ts` et `defaults.ts`. Un type `items` (éléments structurés) a été ajouté pour les étapes et la FAQ. |
 | Soins | `src/services/local-services.ts` (carte 2026). Le prix du Rituel Horizon vaut `null`, car il n'est pas encore connu. Formatage dans `src/services/format.ts`. |
-| Navigation et routes | `src/lib/navigation.ts`. **`routes.reserver` pointe directement vers SimplyBook** en attendant la page `/reserver`. Les pages `/kobido`, `/le-salon`, `/carte-cadeau`, `/contact` et les pages légales **n'existent pas encore** et renvoient une 404. |
+| Navigation et routes | `src/lib/navigation.ts`. `routes.reserver` = `/reserver` (page avec l'agenda intégré) ; l'URL SimplyBook directe reste dans `site.booking.simplybookUrl`. |
 | Images web | `public/images/` (compressées par Sonnet, 3,9 Mo) ; inventaire et crédits dans `public/images/README.md` |
 | Serveur de dev | `.claude/launch.json` (config `dev`, port 3000) |
 
@@ -223,6 +225,53 @@ Accueil et Kobido vérifiées à 320, 390, 768, 844×390 (paysage), 1024 et 1920
 - Header : `/le-salon` et `/carte-cadeau` ajoutées aux `lightPages` (pilule opaque dès le haut).
 - **122 clés** (`salon.*`, `cadeau.*`). Build : 9 pages statiques + la route dynamique de commande. Vérifié en 1440 et 375 px.
 
+## SEO technique (23/11/2026)
+
+- **Stratégie** : `docs/seo/strategie-seo.md`. Le levier n°1 est hors du site (fiche Google Business Profile et avis). Prochain contenu recommandé : une page `/massage-5-continents`.
+- **`src/lib/seo.ts`** :
+  - `pageMetadata({ title, description, path, absoluteTitle?, index? })` pour **toutes les pages** : title, description, canonical, Open Graph et carte X complets ;
+  - `isIndexable` : indexable **seulement** en production sur `horizondessens.fr` (`VERCEL_ENV`, `VERCEL_PROJECT_PRODUCTION_URL`, lus au build ; forçable par `SITE_INDEXABLE`). Sinon `noindex` et `robots.txt` fermé. ⚠️ **Redéployer après l'ajout du domaine dans Vercel** ;
+  - `indexedPages` (sitemap, avec images) et `contentUpdatedAt` ;
+  - `siteGraph` (JSON-LD `WebSite` + `HealthAndBeautyBusiness` + `Person`, rendu dans le layout) et `ids` : les pages y renvoient par `@id` ; `breadcrumbJsonLd()`.
+- `src/components/seo/json-ld.tsx` (`<JsonLd data>`), `src/app/sitemap.ts`, `robots.ts`, `manifest.ts`, `not-found.tsx` (404 sombre, noindex).
+- **Titles revus** (≤ 60 caractères, « Tours » dans le title, « Saint-Cyr-sur-Loire, près de Tours » dans le texte).
+- **Images de partage** : un `opengraph-image.jpg` + `.alt.txt` **dans chaque dossier de page** (obligatoire : l'Open Graph de `pageMetadata` masque celui de la racine). Icônes `favicon.ico`, `icon.png`, `apple-icon.png` (symbole sur fond papier). Tout est généré par `npm run assets:brand` (`scripts/brand-assets.mjs`), à relancer avec le logo définitif.
+- **Nouvelle page** : `pageMetadata()`, entrée dans `indexedPages`, `opengraph-image` (ajouter la ligne dans le script), `breadcrumbJsonLd()`.
+
+## Corrections de la critique impeccable (23/11/2026)
+Critique d'ensemble : 24/32 (`.impeccable/critique/2026-11-23T21-45-22Z__src-app.md`). Corrigés :
+- **Accès au salon** (`home.final.access`) : « informations à venir » remplacé, d'après Sensoa (« à 5 minutes de Tours par tous types de transports », vue sur la Loire), **reformulé**. Aucune info de stationnement : **à compléter avec Élodie**.
+- **Barre « Réserver » mobile** : masquée tant que le bouton du hero est à l'écran (`data-hero-cta` sur les heros accueil et Kobido, IntersectionObserver dans `header.tsx`).
+- **Révélations au scroll** : saut d'ancre Lenis instantané (`immediate`), marges d'intersection réduites (-4 %), révélations plus courtes (0,6 s ; mots 0,8 s avec délai plafonné).
+- **Encore ouverts** (P1/P2) : libellés « Réserver » par soin et page `/reserver`, bouton « Offrir cette carte » (renvoie vers /contact), identité visuelle (rose d'Élodie), bandeau cookies qui recouvre le CTA du hero mobile à la première visite.
+
+## Page Réserver (23/11/2026)
+
+- **Route** `/reserver` (`src/app/reserver/page.tsx`, composants `src/components/booking/`) :
+  - `hero` : clair et direct (titre, accroche, 3 étapes en pastilles, téléphone) ;
+  - `services-list` (`id="soins"`) : une ligne par soin (vignette, sous-titre, nom, description, lien `/kobido` pour le Kobido), puis **une ligne par durée : tarif + bouton « Réserver » qui ouvre directement le calendrier SimplyBook de la prestation**. Le Rituel Horizon a une vignette au logo (clé `service.rituel-horizon.short`) ;
+  - `infos` : « Bon à savoir » (annulation 24 h, règlement au salon, carte cadeau, jour du soin), liens CGV et contact.
+- **Pas d'iframe SimplyBook** (décision de Maxime) : chaque bouton mène au calendrier sur `horizondessens.simplybook.it`.
+- **Système de liens, sans redondance** :
+  - les IDs SimplyBook sont **sur les variantes** des soins (`simplybook: { service, category }` dans `src/services/local-services.ts`, type dans `types.ts`), plus tard fournis par l'API ;
+  - `bookingHref(variant)` (`src/lib/simplybook.ts`) construit `…/v2/#book/category/{c}/service/{s}/count/1/provider/any/` ; sans IDs, la réservation générale `…/v2/`. **La catégorie est nécessaire** : une prestation présente dans plusieurs catégories (ex. 21) fait sinon redemander le choix ;
+  - utilisé sur `/reserver` et sur les boutons par durée de la page Kobido (`formulas`). Les boutons généraux « Réserver » mènent à `/reserver`.
+- **Correspondances (relevées le 23/11/2026 via l'API publique `/v2/service/` et `/v2/ext/category/`)** : Kobido 1h → service 24 / catégorie 16 (« Kobido Lumière ») ; Calme et harmonie → 15 / 13 ; 5 Continents → 21 / 6. **Sans prestation SimplyBook** (réservation générale) : Kobido 1h15, Jambes légères, Rituel Horizon. ⚠️ Élodie doit **modifier** les prestations existantes (noms, durées, prix 2026) **sans les recréer**, pour garder les IDs, et créer les manquantes ; on renseigne alors leurs IDs.
+- Clés `reserver.*` (7) et `service.rituel-horizon.short` : **129 clés**. Barre « Réserver » mobile masquée sur cette page ; en-tête opaque dès le haut.
+- SEO : `pageMetadata`, sitemap (0.8), image de partage, fil d'Ariane, `ReserveAction` → `/reserver`.
+- Vérifié : liens testés (calendrier ouvert directement pour 24, 15 et 21), rendu 1440 et 375 px.
+
+## Mini-CMS (23-24/11/2026) — détails dans `docs/cms.md`
+
+- **Principe** : connexion sur `/admin` (Supabase Auth, compte présent dans `cms_editors`) → **Draft Mode** activé → on navigue sur les **vraies pages**. Clic sur un texte = édition **dans l'élément lui-même** (span `contenteditable` ajouté, nœuds React masqués mais jamais retirés : sûr pour React), compteur et **limite stricte** (frappe, collage, dictée tronqués). Photos : bouton « Remplacer » au survol, fenêtre avec aperçu au ratio, alt, légende, ajout et retrait en galerie ; redimensionnement 2400 px + WebP **dans le navigateur**, envoi direct au bucket `cms-media`. Brouillons → barre basse (liste, Aperçu, **Publier**, Annuler tout) ; « Rétablir l'original » par champ.
+- **Code** : `src/content/store.ts` (publié en `"use cache"` + `cacheTag("cms-content")`, invalidé par `updateTag` à la publication ; en mode édition : lecture directe + brouillons avec la session, **jamais de fonction `"use cache"` dans ce chemin**, sinon erreur « cache miss after cache warming ») ; `src/content/edit.ts` (marqueurs `data-cms*`, vides pour les visiteurs) ; `src/cms/` (éditeur client, session texte, panneau photo, Server Actions validées par `validateField` + `is_cms_editor()`) ; `src/app/admin/` (connexion, plein écran) ; `src/proxy.ts` (rafraîchit la session **seulement** sur `/admin` et avec le cookie Draft Mode) ; `src/lib/supabase/`.
+- **Supabase** : `cms_content` (publié, lisible par tous), `cms_drafts` (RLS éditeurs ; `value` NULL = rétablir l'original), `cms_revisions`, `cms_editors`, `cms_publish()`, bucket public `cms-media`. Migration : `supabase/migrations/20261123180000_cms.sql`. **Aucune clé secrète** : clé publishable + RLS.
+- **Nouveaux types de champ** : `gallery` (images + légende ; `home.salon.gallery` et `salon.lieu.gallery` convertis) ; sous-champ d'`items` avec `image: { ratio }` (chemin d'image décorative, ex. gestes Kobido).
+- **Règle pour toute nouvelle clé** : registre + `defaults.ts` + `{...c.edit("clé")}` sur l'élément qui ne contient **que** la valeur (sinon l'envelopper dans un `<span>`). Composants partagés : `SplitWords`/`Eyebrow`/`RevealImage` (`edit=`), `SectionHeading` (`edit={{ eyebrow, title, intro }}`), `Marquee` (`edit={(i) => …}`). Texte long en plusieurs `<p>` : `c.edit(clé, i, "para")`.
+- **Vérifié** : HTML public sans aucun `data-cms` (seul `data-cms-hide` statique sur la barre « Réserver » mobile), pages toujours statiques, RLS testé (lecture publique OK, brouillons invisibles, écriture et publication anonymes refusées), édition en place, limite, Cmd+A, Échap, échec propre sans session, panneau photo. **Pas encore testé de bout en bout** (connexion, enregistrement, upload, publication) : le compte de Maxime reste à créer.
+- **Serveur local** : `.claude/launch.json` → `start-cms` (`next start`, port 3005), car un autre `next dev` tourne déjà dans ce dossier.
+- **Comptes** : invitation → `/admin/bienvenue` (lit la session du lien, client) → `/admin/mot-de-passe` → mode édition ; « Mot de passe oublié ? » sur `/admin`. Compte de Maxime `maxelhaik@gmail.com` invité et éditeur (24/11/2026). ⚠️ Modèles d'e-mail non modifiables et envoi limité aux membres de l'org Supabase (offre gratuite, SMTP par défaut) : **SMTP Resend requis pour inviter Élodie**. Site URL Supabase = `http://localhost:3005` jusqu'à la mise en ligne.
+
 ## Décisions pour le dev de l'accueil (23/11/2026)
 - **Contenu** : on développe sur la base de `docs/contenu/accueil-v1.md` **tel quel**. Maxime itérera sur le site développé.
 - **Palette et typos** : **exactement celles de Serelin pour commencer**, traduites en tokens sémantiques propres. On ajustera ensuite.
@@ -338,6 +387,9 @@ Pas de newsletter.
 | 2026-11-23 | Dev | **Menu mobile à voiles courbes** (inspiré de CurveMenuOverlay, réécrit avec Motion). Desktop inchangé. |
 | 2026-11-23 | Dev | **Pages Le salon** (lieu, mosaïque, parcours d'Élodie) **et Carte cadeau** (vitrine, bouton prêt pour Stripe). |
 | 2026-11-23 | Dev | Réponses d'Élodie reportées. **Pages légales** (mentions, CGV, confidentialité) et **page Contact** (formulaire Resend, carte au clic). Build statique, vérifié en desktop et en mobile. |
+| 2026-11-23 | Dev | **Page Réserver** : liste des soins, chaque durée ouvre directement son calendrier SimplyBook (pas d'iframe). Les boutons « Réserver » généraux y mènent. |
+| 2026-11-23 | SEO | **Stratégie SEO** (`docs/seo/`) et SEO technique : metas par page, sitemap, robots, manifeste, icônes, images de partage, 404, JSON-LD commun. Indexation limitée au vrai domaine. |
+| 2026-11-24 | CMS | **Mini-CMS** : schéma Supabase (RLS, bucket), édition en place sur les vraies pages (Draft Mode), photos, brouillons et publication, `/admin`. 131 clés marquées sur toutes les pages. Variables sur Vercel. Reste : compte éditeur et test de bout en bout. |
 
 ### Questions encore ouvertes
 - Accueil v1 : en attente des retours de Maxime sur le site développé.

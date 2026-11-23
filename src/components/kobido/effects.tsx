@@ -26,11 +26,15 @@ export async function KobidoEffects() {
         <SectionHeading
           eyebrow={c["kobido.effets.eyebrow"]}
           title={c["kobido.effets.title"]}
+          edit={{
+            eyebrow: c.edit("kobido.effets.eyebrow"),
+            title: c.edit("kobido.effets.title"),
+          }}
         />
         <RevealGroup className="mt-12 grid gap-3 md:mt-16 md:grid-cols-6 md:gap-4">
           {items.map((item, i) => (
             <RevealItem
-              key={item.title}
+              key={i}
               className={cn(
                 "flex flex-col justify-between gap-10 rounded-card p-8 md:p-10",
                 styles[i % styles.length],
@@ -47,10 +51,14 @@ export async function KobidoEffects() {
                   {String(i + 1).padStart(2, "0")}
                 </span>
                 <div className="flex flex-col gap-3">
-                  <h3 className="text-h4 font-serif tracking-[-0.02em] italic">
+                  <h3
+                    {...c.edit("kobido.effets.items", i, "title")}
+                    className="text-h4 font-serif tracking-[-0.02em] italic"
+                  >
                     {item.title}
                   </h3>
                   <p
+                    {...c.edit("kobido.effets.items", i, "text")}
                     className={cn(
                       "max-w-md text-body text-pretty",
                       i === 0 ? "text-white/75" : "text-ink-soft",

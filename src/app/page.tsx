@@ -13,36 +13,16 @@ import { Salon } from "@/components/home/salon";
 import { Services } from "@/components/home/services";
 import { Steps } from "@/components/home/steps";
 import { WordsBand } from "@/components/home/words-band";
-import { site } from "@/lib/site";
+import { pageMetadata } from "@/lib/seo";
 
 // Metas fixes (non éditables par Élodie) — docs/contenu/accueil-v1.md « SEO ».
-export const metadata: Metadata = {
-  title: {
-    absolute:
-      "Kobido & massage bien-être à Saint-Cyr-sur-Loire, Tours | Horizon des Sens",
-  },
+export const metadata: Metadata = pageMetadata({
+  title: "Accueil",
+  absoluteTitle: "Kobido et massage bien-être près de Tours | Horizon des Sens",
   description:
     "Kobido, Massage des 5 Continents, Calme et harmonie, Jambes légères. Élodie Poirier vous reçoit au bord de la Loire, à 5 min de Tours. Réservation en ligne.",
-  alternates: { canonical: "/" },
-};
-
-const businessJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "HealthAndBeautyBusiness",
-  name: site.name,
-  url: site.url,
-  telephone: "+33676959003",
-  email: site.email,
-  image: `${site.url}/images/salon/salle-loire.jpg`,
-  address: {
-    "@type": "PostalAddress",
-    streetAddress: site.address.street,
-    postalCode: site.address.postalCode,
-    addressLocality: site.address.city,
-    addressCountry: site.address.country,
-  },
-  sameAs: [site.social.instagram, site.social.facebook],
-};
+  path: "/",
+});
 
 /** Accueil : assemble les sections (une section = un composant). */
 export default function HomePage() {
@@ -61,12 +41,6 @@ export default function HomePage() {
       <Offers />
       <Faq />
       <FinalCta />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(businessJsonLd).replace(/</g, "\\u003c"),
-        }}
-      />
     </>
   );
 }

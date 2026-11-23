@@ -9,16 +9,18 @@ import { KobidoGestures } from "@/components/kobido/gestures";
 import { KobidoHero } from "@/components/kobido/hero";
 import { KobidoOrigin } from "@/components/kobido/origin";
 import { KobidoSession } from "@/components/kobido/session";
+import { JsonLd } from "@/components/seo/json-ld";
+import { breadcrumbJsonLd, ids, pageMetadata } from "@/lib/seo";
 import { site } from "@/lib/site";
 import { localServices } from "@/services/local-services";
 
 // Metas fixes (non éditables) — mots-clés : « Kobido Tours », « Kobido Saint-Cyr-sur-Loire ».
-export const metadata: Metadata = {
-  title: "Kobido à Saint-Cyr-sur-Loire, près de Tours",
+export const metadata: Metadata = pageMetadata({
+  title: "Kobido à Tours et Saint-Cyr-sur-Loire",
   description:
     "Massage facial japonais Kobido par Élodie Poirier, à Saint-Cyr-sur-Loire, à 5 min de Tours. Séances de 1h et 1h15, abonnement, réservation en ligne.",
-  alternates: { canonical: "/kobido" },
-};
+  path: "/kobido",
+});
 
 const kobido = localServices.find((s) => s.slug === "kobido");
 
@@ -29,18 +31,8 @@ const jsonLd = [
     name: "Kobido, massage facial japonais",
     serviceType: "Massage du visage Kobido",
     areaServed: ["Saint-Cyr-sur-Loire", "Tours"],
-    provider: {
-      "@type": "HealthAndBeautyBusiness",
-      name: site.name,
-      url: site.url,
-      address: {
-        "@type": "PostalAddress",
-        streetAddress: site.address.street,
-        postalCode: site.address.postalCode,
-        addressLocality: site.address.city,
-        addressCountry: site.address.country,
-      },
-    },
+    provider: { "@id": ids.business },
+    url: `${site.url}/kobido`,
     offers: kobido?.variants
       .filter((v) => v.priceEuros !== null)
       .map((v) => ({
@@ -50,19 +42,7 @@ const jsonLd = [
         priceCurrency: "EUR",
       })),
   },
-  {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Accueil", item: site.url },
-      {
-        "@type": "ListItem",
-        position: 2,
-        name: "Kobido",
-        item: `${site.url}/kobido`,
-      },
-    ],
-  },
+  breadcrumbJsonLd([["Kobido", "/kobido"]]),
 ];
 
 /** Page Kobido : référence pour le public qui cherche ce soin. */
@@ -78,12 +58,7 @@ export default function KobidoPage() {
       <KobidoApproach />
       <KobidoFaq />
       <KobidoFinalCta />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
-        }}
-      />
+      <JsonLd data={jsonLd} />
     </>
   );
 }

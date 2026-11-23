@@ -24,14 +24,20 @@ export async function FiveContinents() {
         <div className="container-site grid items-center gap-12 md:grid-cols-[1fr_1.1fr] md:gap-16 lg:gap-24">
           <div className="order-2 flex flex-col items-start gap-7 md:order-1">
             <Reveal>
-              <Eyebrow tone="dark">{c["home.5c.eyebrow"]}</Eyebrow>
+              <Eyebrow tone="dark" edit={c.edit("home.5c.eyebrow")}>
+                {c["home.5c.eyebrow"]}
+              </Eyebrow>
             </Reveal>
             <SplitWords
               text={c["home.5c.title"]}
+              edit={c.edit("home.5c.title")}
               className="text-h2 text-balance"
             />
             <Reveal delay={0.15}>
-              <p className="text-lead text-pretty text-white/75">
+              <p
+                {...c.edit("home.5c.text")}
+                className="text-lead text-pretty text-white/75"
+              >
                 {c["home.5c.text"]}
               </p>
             </Reveal>
@@ -46,7 +52,12 @@ export async function FiveContinents() {
                 height={56}
                 className="size-14"
               />
-              <p className="text-sm text-white/80">{c["home.5c.licence"]}</p>
+              <p
+                {...c.edit("home.5c.licence")}
+                className="text-sm text-white/80"
+              >
+                {c["home.5c.licence"]}
+              </p>
             </Reveal>
             <Reveal delay={0.35} className="pt-2">
               <ButtonLink href={routes.reserver} variant="light">
@@ -58,6 +69,7 @@ export async function FiveContinents() {
           <RevealImage
             src={c["home.5c.image"].src}
             alt={c["home.5c.image"].alt}
+            edit={c.edit("home.5c.image")}
             sizes="(min-width: 768px) 55vw, 100vw"
             className="order-1 aspect-[4/5] rounded-panel md:order-2"
             parallax={10}

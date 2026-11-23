@@ -1,9 +1,13 @@
 import type { Metadata, Viewport } from "next";
+import { Suspense } from "react";
 
+import { CmsEditorRoot } from "@/cms/editor-root";
 import { CookieBanner } from "@/components/layout/cookie-banner";
 import { Footer } from "@/components/layout/footer";
 import { Header } from "@/components/layout/header";
 import { SmoothScroll } from "@/components/motion/smooth-scroll";
+import { JsonLd } from "@/components/seo/json-ld";
+import { isIndexable, siteGraph } from "@/lib/seo";
 import { site } from "@/lib/site";
 
 import { fontSans, fontSerif } from "./fonts";
@@ -15,11 +19,34 @@ export const metadata: Metadata = {
     default: site.name,
     template: `%s | ${site.name}`,
   },
+  description:
+    "Kobido et massages bien-être par Élodie Poirier, au bord de la Loire à Saint-Cyr-sur-Loire, près de Tours.",
+  applicationName: site.name,
+  authors: [{ name: site.practitioner, url: site.url }],
+  creator: site.legal.developer.name,
+  publisher: site.name,
+  category: "Bien-être",
+  formatDetection: { telephone: false, email: false, address: false },
+  robots: isIndexable
+    ? {
+        index: true,
+        follow: true,
+        googleBot: {
+          index: true,
+          follow: true,
+          "max-image-preview": "large",
+          "max-snippet": -1,
+          "max-video-preview": -1,
+        },
+      }
+    : { index: false, follow: false },
   openGraph: {
+    type: "website",
     siteName: site.name,
     locale: site.locale,
-    type: "website",
   },
+  twitter: { card: "summary_large_image" },
+  appleWebApp: { title: site.name },
 };
 
 export const viewport: Viewport = {
@@ -47,6 +74,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           <Footer />
           <CookieBanner />
         </SmoothScroll>
+        <JsonLd data={siteGraph} />
+        <Suspense>
+          <CmsEditorRoot />
+        </Suspense>
       </body>
     </html>
   );

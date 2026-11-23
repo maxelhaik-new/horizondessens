@@ -17,6 +17,10 @@ export async function KobidoSession() {
         <SectionHeading
           eyebrow={c["kobido.seance.eyebrow"]}
           title={c["kobido.seance.title"]}
+          edit={{
+            eyebrow: c.edit("kobido.seance.eyebrow"),
+            title: c.edit("kobido.seance.title"),
+          }}
           align="left"
         />
         <RevealGroup
@@ -26,19 +30,31 @@ export async function KobidoSession() {
           {items.map((item, i) => (
             <RevealItem
               as="li"
-              key={item.title}
+              key={i}
               className="relative flex flex-col gap-3"
             >
               <span
                 aria-hidden
                 className="absolute top-1.5 -left-[2.4rem] grid size-3 place-items-center rounded-full bg-night ring-4 ring-paper-soft md:-top-[2.85rem] md:left-0"
               />
-              <p className="text-eyebrow text-accent-800">{item.time}</p>
+              <p
+                {...c.edit("kobido.seance.items", i, "time")}
+                className="text-eyebrow text-accent-800"
+              >
+                {item.time}
+              </p>
               <h3 className="text-h4 font-serif tracking-[-0.02em] italic">
                 <span className="sr-only">Étape {i + 1} : </span>
-                {item.title}
+                <span {...c.edit("kobido.seance.items", i, "title")}>
+                  {item.title}
+                </span>
               </h3>
-              <p className="text-body text-pretty text-ink-soft">{item.text}</p>
+              <p
+                {...c.edit("kobido.seance.items", i, "text")}
+                className="text-body text-pretty text-ink-soft"
+              >
+                {item.text}
+              </p>
             </RevealItem>
           ))}
         </RevealGroup>

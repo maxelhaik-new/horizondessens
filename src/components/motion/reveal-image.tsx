@@ -9,6 +9,7 @@ import {
 import Image from "next/image";
 import { useRef } from "react";
 
+import type { EditAttrs } from "@/content/edit";
 import { cn } from "@/lib/cn";
 
 type RevealImageProps = {
@@ -23,6 +24,8 @@ type RevealImageProps = {
   parallax?: number;
   /** Classes de l'image elle-même (ex. zoom au survol de la carte parente). */
   imageClassName?: string;
+  /** Marquage CMS (mode édition), posé sur l'image. */
+  edit?: EditAttrs;
 };
 
 /**
@@ -37,6 +40,7 @@ export function RevealImage({
   eager = false,
   parallax = 8,
   imageClassName,
+  edit,
 }: RevealImageProps) {
   const ref = useRef<HTMLDivElement>(null);
   const reduceMotion = useReducedMotion();
@@ -54,6 +58,7 @@ export function RevealImage({
     return (
       <div ref={ref} className={cn("relative overflow-hidden", className)}>
         <Image
+          {...edit}
           src={src}
           alt={alt}
           fill
@@ -71,7 +76,7 @@ export function RevealImage({
       className={cn("relative overflow-hidden", className)}
       initial={{ clipPath: "inset(12% 8% 12% 8% round 1.25rem)" }}
       whileInView={{ clipPath: "inset(0% 0% 0% 0% round 1.25rem)" }}
-      viewport={{ once: true, margin: "0px 0px -15% 0px" }}
+      viewport={{ once: true, margin: "0px 0px -4% 0px" }}
       transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
     >
       <motion.div
@@ -83,6 +88,7 @@ export function RevealImage({
         transition={{ duration: 1.4, ease: [0.22, 1, 0.36, 1] }}
       >
         <Image
+          {...edit}
           src={src}
           alt={alt}
           fill

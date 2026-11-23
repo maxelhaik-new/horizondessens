@@ -3,14 +3,15 @@ import Link from "next/link";
 
 import { LegalPage, type LegalSection } from "@/components/legal/legal-page";
 import { routes } from "@/lib/navigation";
+import { pageMetadata } from "@/lib/seo";
 import { site } from "@/lib/site";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Politique de confidentialité",
   description:
     "Données personnelles et cookies sur le site Horizon des Sens : ce qui est collecté, pourquoi, combien de temps, et vos droits.",
-  alternates: { canonical: "/confidentialite" },
-};
+  path: "/confidentialite",
+});
 
 const { address } = site;
 
@@ -122,7 +123,9 @@ const sections: LegalSection[] = [
             <Link href={routes.contact}>Contact</Link>, uniquement si vous
             l&apos;acceptez via le bandeau cookies ;
           </li>
-          <li>SimplyBook.me, si vous ouvrez la réservation en ligne ;</li>
+          <li>
+            SimplyBook.me, sur son propre site, si vous réservez en ligne ;
+          </li>
           <li>
             Stripe, si vous payez une carte cadeau (sécurité du paiement).
           </li>

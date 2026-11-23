@@ -18,12 +18,18 @@ export async function KobidoApproach() {
     <section className="bg-paper section-y">
       <div className="container-site flex max-w-4xl flex-col items-center gap-10 text-center">
         <Reveal>
-          <Eyebrow>{c["kobido.approche.eyebrow"]}</Eyebrow>
+          <Eyebrow edit={c.edit("kobido.approche.eyebrow")}>
+            {c["kobido.approche.eyebrow"]}
+          </Eyebrow>
         </Reveal>
         <Reveal>
           <blockquote>
             <p className="text-h3 font-serif tracking-[-0.02em] text-balance italic">
-              « {c["kobido.approche.quote"]} »
+              «{" "}
+              <span {...c.edit("kobido.approche.quote")}>
+                {c["kobido.approche.quote"]}
+              </span>{" "}
+              »
             </p>
           </blockquote>
         </Reveal>
@@ -45,7 +51,10 @@ export async function KobidoApproach() {
           </span>
         </Reveal>
         <Reveal delay={0.15}>
-          <p className="max-w-2xl text-lead text-pretty text-ink-soft">
+          <p
+            {...c.edit("kobido.approche.text")}
+            className="max-w-2xl text-lead text-pretty text-ink-soft"
+          >
             {c["kobido.approche.text"]}
           </p>
         </Reveal>

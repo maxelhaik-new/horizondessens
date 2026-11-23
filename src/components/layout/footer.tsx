@@ -3,7 +3,7 @@ import Link from "next/link";
 
 import { CookieSettingsButton } from "@/components/layout/cookie-banner";
 import { FacebookIcon, InstagramIcon } from "@/components/ui/icons";
-import { getContent } from "@/content/get-content";
+import { getContents } from "@/content/get-content";
 import { legalNav, mainNav, routes } from "@/lib/navigation";
 import { site } from "@/lib/site";
 
@@ -12,7 +12,7 @@ import { site } from "@/lib/site";
  * l'appel final. Textes en ink / ink-soft : contraste AA sur ce fond.
  */
 export async function Footer() {
-  const access = await getContent("home.final.access");
+  const c = await getContents(["home.final.access"] as const);
   const { address } = site;
   const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
     `${address.street}, ${address.postalCode} ${address.city}`,
@@ -61,7 +61,9 @@ export async function Footer() {
             <a href={mapsUrl} className={link}>
               Itinéraire
             </a>
-            <span className="text-ink-soft">{access}</span>
+            <span {...c.edit("home.final.access")} className="text-ink-soft">
+              {c["home.final.access"]}
+            </span>
           </address>
 
           <div className="flex flex-col gap-1">

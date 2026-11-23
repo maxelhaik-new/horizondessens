@@ -31,6 +31,11 @@ export async function Steps() {
           eyebrow={c["home.steps.eyebrow"]}
           title={c["home.steps.title"]}
           intro={c["home.steps.intro"]}
+          edit={{
+            eyebrow: c.edit("home.steps.eyebrow"),
+            title: c.edit("home.steps.title"),
+            intro: c.edit("home.steps.intro"),
+          }}
         />
 
         <RevealGroup
@@ -42,15 +47,23 @@ export async function Steps() {
             return (
               <RevealItem
                 as="li"
-                key={step.title}
+                key={i}
                 className="flex min-h-[20rem] flex-col justify-between gap-12 rounded-card bg-paper-soft p-8 md:min-h-[30rem] md:p-10"
               >
                 <span className="grid size-14 place-items-center rounded-full bg-night text-white shadow-lift">
                   <Icon className="size-6" />
                 </span>
                 <div className="flex flex-col gap-4">
-                  <h3 className="text-h4">{step.title}</h3>
-                  <p className="max-w-xs text-body text-pretty text-ink-soft">
+                  <h3
+                    {...c.edit("home.steps.items", i, "title")}
+                    className="text-h4"
+                  >
+                    {step.title}
+                  </h3>
+                  <p
+                    {...c.edit("home.steps.items", i, "text")}
+                    className="max-w-xs text-body text-pretty text-ink-soft"
+                  >
                     {step.text}
                   </p>
                 </div>

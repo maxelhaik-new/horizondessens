@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 
+import type { EditAttrs } from "@/content/edit";
 import { cn } from "@/lib/cn";
 
 /**
@@ -10,13 +11,16 @@ export function Eyebrow({
   children,
   tone = "light",
   className,
+  edit,
 }: {
   children: ReactNode;
   tone?: "light" | "glass" | "dark";
   className?: string;
+  edit?: EditAttrs;
 }) {
   return (
     <p
+      {...edit}
       className={cn(
         "inline-flex items-center rounded-full px-5 py-3 text-eyebrow",
         tone === "light" && "bg-white/70 text-accent-800",

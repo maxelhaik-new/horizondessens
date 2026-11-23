@@ -26,7 +26,7 @@ export function InView({
           observer.disconnect();
         }
       },
-      { rootMargin: "0px 0px -12% 0px" },
+      { rootMargin: "0px 0px -4% 0px" },
     );
     observer.observe(el);
     return () => observer.disconnect();

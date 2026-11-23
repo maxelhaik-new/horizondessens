@@ -32,24 +32,34 @@ export async function Faq() {
         <SectionHeading
           eyebrow={c["home.faq.eyebrow"]}
           title={c["home.faq.title"]}
+          edit={{
+            eyebrow: c.edit("home.faq.eyebrow"),
+            title: c.edit("home.faq.title"),
+          }}
         />
 
         <RevealGroup className="mx-auto mt-12 flex max-w-3xl flex-col gap-3 md:mt-16">
-          {items.map(({ question, answer }) => (
-            <RevealItem key={question}>
+          {items.map(({ question, answer }, i) => (
+            <RevealItem key={i}>
               <details
                 name="faq"
                 className="group rounded-panel bg-paper-soft px-6 md:px-8"
               >
                 <summary className="flex cursor-pointer items-center justify-between gap-6 py-6 text-left">
-                  <span className="text-base font-medium tracking-[0.008em] md:text-lg">
+                  <span
+                    {...c.edit("home.faq.items", i, "question")}
+                    className="text-base font-medium tracking-[0.008em] md:text-lg"
+                  >
                     {question}
                   </span>
                   <span className="grid size-10 shrink-0 place-items-center rounded-full bg-night text-white shadow-lift transition-transform duration-500 ease-soft group-open:rotate-45">
                     <PlusIcon className="size-4" />
                   </span>
                 </summary>
-                <p className="max-w-2xl pb-7 text-body text-pretty whitespace-pre-line text-ink-soft">
+                <p
+                  {...c.edit("home.faq.items", i, "answer")}
+                  className="max-w-2xl pb-7 text-body text-pretty whitespace-pre-line text-ink-soft"
+                >
                   {answer}
                 </p>
               </details>

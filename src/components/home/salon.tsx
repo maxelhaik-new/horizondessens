@@ -19,10 +19,10 @@ export async function Salon() {
   ] as const);
 
   const images = [
-    c["home.salon.image"],
-    ...c["home.salon.gallery"].map((src) => ({
-      src,
-      alt: "Le salon Horizon des Sens à Saint-Cyr-sur-Loire",
+    { ...c["home.salon.image"], edit: c.edit("home.salon.image") },
+    ...c["home.salon.gallery"].map((img, i) => ({
+      ...img,
+      edit: c.edit("home.salon.gallery", i),
     })),
   ];
 
@@ -33,6 +33,11 @@ export async function Salon() {
           eyebrow={c["home.salon.eyebrow"]}
           title={c["home.salon.title"]}
           intro={c["home.salon.text"]}
+          edit={{
+            eyebrow: c.edit("home.salon.eyebrow"),
+            title: c.edit("home.salon.title"),
+            intro: c.edit("home.salon.text"),
+          }}
           action={
             <ButtonLink href={routes.salon}>Découvrir le salon</ButtonLink>
           }

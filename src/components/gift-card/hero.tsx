@@ -22,10 +22,14 @@ export async function GiftCardHero() {
           <SplitWords
             as="h1"
             text={c["cadeau.hero.title"]}
+            edit={c.edit("cadeau.hero.title")}
             className="text-display text-balance"
             immediate
           />
-          <p className="max-w-md animate-rise text-lead text-pretty text-ink-soft [animation-delay:400ms]">
+          <p
+            {...c.edit("cadeau.hero.lead")}
+            className="max-w-md animate-rise text-lead text-pretty text-ink-soft [animation-delay:400ms]"
+          >
             {c["cadeau.hero.lead"]}
           </p>
           <div className="flex animate-rise flex-wrap items-center gap-x-6 gap-y-3 [animation-delay:550ms]">
@@ -43,6 +47,7 @@ export async function GiftCardHero() {
           />
           <div className="relative aspect-[5/4] overflow-hidden rounded-card shadow-soft lg:rotate-[-2deg]">
             <Image
+              {...c.edit("cadeau.hero.image")}
               src={c["cadeau.hero.image"].src}
               alt={c["cadeau.hero.image"].alt}
               fill

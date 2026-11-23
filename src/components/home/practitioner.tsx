@@ -21,6 +21,7 @@ export async function Practitioner() {
           <RevealImage
             src={c["home.elodie.image"].src}
             alt={c["home.elodie.image"].alt}
+            edit={c.edit("home.elodie.image")}
             sizes="(min-width: 768px) 40vw, 100vw"
             className="mx-auto aspect-[4/5] w-full max-w-md rounded-card"
             parallax={4}
@@ -28,15 +29,25 @@ export async function Practitioner() {
 
           <div className="flex flex-col items-start gap-6">
             <div className="flex flex-col gap-2">
-              <SplitWords text={c["home.elodie.title"]} className="text-h2" />
+              <SplitWords
+                text={c["home.elodie.title"]}
+                edit={c.edit("home.elodie.title")}
+                className="text-h2"
+              />
               <Reveal delay={0.1}>
-                <p className="text-lead text-accent-800">
+                <p
+                  {...c.edit("home.elodie.subtitle")}
+                  className="text-lead text-accent-800"
+                >
                   {c["home.elodie.subtitle"]}
                 </p>
               </Reveal>
             </div>
             <Reveal delay={0.2}>
-              <p className="max-w-xl text-lead text-pretty text-ink-soft">
+              <p
+                {...c.edit("home.elodie.text")}
+                className="max-w-xl text-lead text-pretty text-ink-soft"
+              >
                 {c["home.elodie.text"]}
               </p>
             </Reveal>

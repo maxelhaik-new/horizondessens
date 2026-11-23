@@ -26,6 +26,7 @@ export async function GiftCardHowItWorks() {
         <div className="lg:sticky lg:top-32 lg:self-start">
           <RevealImage
             src={c["cadeau.steps.image"].src}
+            edit={c.edit("cadeau.steps.image")}
             alt={c["cadeau.steps.image"].alt}
             sizes="(min-width: 1024px) 38vw, 100vw"
             className="aspect-[4/5] max-h-[70vh] w-full rounded-card"
@@ -36,12 +37,13 @@ export async function GiftCardHowItWorks() {
           <div className="flex flex-col gap-8">
             <SplitWords
               text={c["cadeau.steps.title"]}
+              edit={c.edit("cadeau.steps.title")}
               className="text-h2 text-balance"
             />
             <RevealGroup as="ol" className="flex flex-col border-t border-line">
               {c["cadeau.steps.items"].map((step, i) => (
                 <RevealItem
-                  key={step.title}
+                  key={i}
                   as="li"
                   className="grid grid-cols-[3rem_1fr] gap-4 border-b border-line py-7 md:grid-cols-[4rem_1fr]"
                 >
@@ -49,8 +51,16 @@ export async function GiftCardHowItWorks() {
                     {String(i + 1).padStart(2, "0")}
                   </span>
                   <div className="flex flex-col gap-2">
-                    <h3 className="text-h4">{step.title}</h3>
-                    <p className="max-w-lg text-body text-pretty text-ink-soft">
+                    <h3
+                      {...c.edit("cadeau.steps.items", i, "title")}
+                      className="text-h4"
+                    >
+                      {step.title}
+                    </h3>
+                    <p
+                      {...c.edit("cadeau.steps.items", i, "text")}
+                      className="max-w-lg text-body text-pretty text-ink-soft"
+                    >
                       {step.text}
                     </p>
                   </div>
@@ -60,17 +70,19 @@ export async function GiftCardHowItWorks() {
           </div>
 
           <Reveal className="flex flex-col gap-6 rounded-card bg-paper-soft p-8 md:p-10">
-            <h2 className="text-h4">{c["cadeau.conditions.title"]}</h2>
+            <h2 {...c.edit("cadeau.conditions.title")} className="text-h4">
+              {c["cadeau.conditions.title"]}
+            </h2>
             <ul className="flex flex-col gap-3">
-              {c["cadeau.conditions.items"].map((item) => (
+              {c["cadeau.conditions.items"].map((item, i) => (
                 <li
-                  key={item}
+                  key={i}
                   className="flex items-start gap-3 text-body text-ink-soft"
                 >
                   <span className="mt-0.5 grid size-6 shrink-0 place-items-center rounded-full bg-blush text-accent-800">
                     <CheckIcon className="size-3.5" />
                   </span>
-                  {item}
+                  <span {...c.edit("cadeau.conditions.items", i)}>{item}</span>
                 </li>
               ))}
             </ul>

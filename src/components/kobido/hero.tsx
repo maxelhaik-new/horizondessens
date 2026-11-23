@@ -30,14 +30,21 @@ export async function KobidoHero() {
           <SplitWords
             as="h1"
             text={c["kobido.hero.title"]}
+            edit={c.edit("kobido.hero.title")}
             className="text-display text-balance"
             immediate
             delay={150}
           />
-          <p className="max-w-lg animate-rise text-lead text-pretty text-white/75 [animation-delay:500ms]">
+          <p
+            {...c.edit("kobido.hero.lead")}
+            className="max-w-lg animate-rise text-lead text-pretty text-white/75 [animation-delay:500ms]"
+          >
             {c["kobido.hero.lead"]}
           </p>
-          <div className="flex animate-rise flex-wrap items-center gap-x-8 gap-y-4 pt-1 [animation-delay:650ms]">
+          <div
+            data-hero-cta
+            className="flex animate-rise flex-wrap items-center gap-x-8 gap-y-4 pt-1 [animation-delay:650ms]"
+          >
             <ButtonLink href={routes.reserver} variant="light">
               Réserver un Kobido
             </ButtonLink>
@@ -69,6 +76,7 @@ export async function KobidoHero() {
         <div className="relative animate-rise [animation-delay:200ms]">
           <div className="relative aspect-[4/5] overflow-hidden rounded-card">
             <Image
+              {...c.edit("kobido.hero.image")}
               src={c["kobido.hero.image"].src}
               alt={c["kobido.hero.image"].alt}
               fill

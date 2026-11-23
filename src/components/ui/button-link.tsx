@@ -100,7 +100,7 @@ export function ButtonLink({
   );
 }
 
-/** Même bouton « remix », en `<button>` (envoi de formulaire). */
+/** Même bouton « remix », en `<button>` (formulaire ou action). */
 export function RemixButton({
   children,
   variant = "dark",
