@@ -38,3 +38,6 @@ Thumbs.db
 *.pem
 .pnp
 .pnp.*
+
+# Références tierces sous licence (gardées en local uniquement)
+serelin/

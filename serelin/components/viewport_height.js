@@ -1,3 +1,0 @@
-import{jsx as _jsx}from"react/jsx-runtime";export function SVH(Component){return props=>{return /*#__PURE__*/_jsx(Component,{...props,style:{...props.style,height:"100svh"}});};}export function DVH(Component){return props=>{return /*#__PURE__*/_jsx(Component,{...props,style:{...props.style,height:"100dvh"}});};}
-export const __FramerMetadata__ = {"exports":{"DVH":{"type":"reactHoc","name":"DVH","annotations":{"framerContractVersion":"1"}},"SVH":{"type":"reactHoc","name":"SVH","annotations":{"framerContractVersion":"1"}},"__FramerMetadata__":{"type":"variable"}}}
-//# sourceMappingURL=./viewport_height.map

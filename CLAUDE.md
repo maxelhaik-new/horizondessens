@@ -42,6 +42,8 @@ La refonte accompagne deux changements :
 | [PRODUCT.md](PRODUCT.md) | **La vérité produit durable, au format impeccable** : utilisateurs, objectif, positionnement, contraintes, engagements de marque, preuves disponibles, principes. Il est lu par le skill impeccable. | Avant tout travail de design ou de contenu |
 | [docs/contenu/plan-du-site.md](docs/contenu/plan-du-site.md) | Plan complet du site (pages, URL, SEO, navigation), pages légales obligatoires (mentions, CGV, confidentialité, cookies), redirections 301, règle des contenus éditables. **v1 à valider.** | Avant de rédiger ou de coder une page |
 | [docs/contenu/accueil-v1.md](docs/contenu/accueil-v1.md) | Contenu de l'accueil en texte : 10 sections, mise en page décrite, images proposées, clés éditables avec leur `maxLength`. **v1 à valider.** | Avant le design et le dev de l'accueil |
+| [docs/design/serelin-inspiration.md](docs/design/serelin-inspiration.md) | Analyse du template **Serelin** (Framer, medspa et wellness). C'est la **référence d'inspiration** pour les tokens, les mises en page et les animations, **réécrits proprement**, sans reprise du code décompilé, des images ni des textes. On y trouve la correspondance des sections avec l'accueil v1. | Avant le design et le code des composants |
+| [assets/Cartes cadeau temp/](assets/Cartes%20cadeau%20temp/) | 3 mockups temporaires « main qui tient une carte vierge », sur fond terracotta (décor de riad), en 1200×960. Ils seront remplacés plus tard. | Section et page carte cadeau |
 | [assets/images/](assets/images/) | Images **validées par Maxime** (Sensoa et Unsplash), en pleine résolution, à compresser avant usage. | Pour toute image du site |
 | [docs/CONTEXTE.md](docs/CONTEXTE.md) | **Synthèse de référence** : acteurs, enjeux, positionnement, offre, DA, SEO, fonctionnalités, technique, planning. **§13 = décisions validées par Maxime, elles priment.** | Toujours, avant tout travail de contenu ou de design |
 | [docs/site-actuel.md](docs/site-actuel.md) | Scraping intégral de l'ancien site (23/11/2026) : textes mot pour mot, tarifs, structure, images. | Pour reprendre un contenu existant. **Ne pas re-visiter le site.** |
@@ -83,7 +85,7 @@ L'audio source n'est pas dans le projet : `~/Downloads/Elodie Poirier 13 Nov 202
 - `lint`, `typecheck` (`next typegen` puis `tsc`) ;
 - `format`, `format:check`, `content:check`.
 
-Le dossier **`serelin/`** a été ajouté par Maxime (un export de template daté de septembre 2026, probablement une référence design ❓). Il n'est utilisé par aucun code.
+Le dossier **`serelin/`** est le template Framer « Serelin » (medspa et wellness), extrait et décompilé par Maxime, qui s'en est déjà servi sur d'autres projets. C'est la **référence d'inspiration** du design : voir [docs/design/serelin-inspiration.md](docs/design/serelin-inspiration.md). **On n'importe et on ne copie jamais son code**, ses images ni ses textes. ⚠️ Il est actuellement versionné sur le dépôt public : son retrait est recommandé (en attente de la décision de Maxime).
 
 ## Ordre de construction (décidé le 23/11/2026)
 - On fait d'abord **une première version du site, sans CMS ni Supabase**. Le mini-CMS et Supabase viendront ensuite.
@@ -181,10 +183,12 @@ Pas de newsletter.
 
 | 2026-11-23 | Contenu | Plan du site v1 et accueil v1 rédigés (`docs/contenu/`), **en attente de validation par Maxime**. |
 
+| 2026-11-23 | Design | Serelin analysé comme référence d'inspiration (`docs/design/serelin-inspiration.md`). Mockups temporaires de carte cadeau ajoutés par Maxime. |
 | 2026-11-23 | Stack | Next.js 16.4, Tailwind 4, Motion, ESLint et Prettier initialisés. Couches contenu et prestations prêtes (vides). Redirections 301. Typecheck, lint, format et build OK. Aucun contenu ni design codé. |
 
 ### Questions encore ouvertes
-- À quoi sert le dossier `serelin/` (une référence design ?) ? Faut-il le garder dans le dépôt ?
+- `serelin/` sur le dépôt public : faut-il le retirer de Git et le garder seulement en local ? C'est recommandé, car c'est du code et des assets tiers sous licence.
+- Faut-il ajouter une FAQ courte sur l'accueil, inspirée de Serelin (bonne pour le SEO et pour lever les freins), ou seulement sur la page Kobido ?
 - **Pour l'accueil v1** : le nom du massage sur mesure (proposition : « Rituel Horizon »), l'année de début de pratique (2017, 2018 ou « 8 ans »), une image jambes ou pieds manquante, le mockup carte cadeau à produire, la confirmation des 2 images Sensoa où l'on voit une personne massée, les horaires et l'accès au salon.
 - **Pour les CGV et les mentions légales** : le statut juridique, le régime de TVA, le médiateur de la consommation, la politique d'annulation des rendez-vous, la cessibilité de la carte cadeau, le choix de la mesure d'audience.
 - La clientèle est-elle réservée aux femmes ou mixte ? À vérifier avec Élodie.
