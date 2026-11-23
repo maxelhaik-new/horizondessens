@@ -85,7 +85,39 @@ L'audio source n'est pas dans le projet : `~/Downloads/Elodie Poirier 13 Nov 202
 - `lint`, `typecheck` (`next typegen` puis `tsc`) ;
 - `format`, `format:check`, `content:check`.
 
-Le dossier **`serelin/`** est le template Framer « Serelin » (medspa et wellness), extrait et décompilé par Maxime, qui s'en est déjà servi sur d'autres projets. C'est la **référence d'inspiration** du design : voir [docs/design/serelin-inspiration.md](docs/design/serelin-inspiration.md). **On n'importe et on ne copie jamais son code**, ses images ni ses textes. ⚠️ Il est actuellement versionné sur le dépôt public : son retrait est recommandé (en attente de la décision de Maxime).
+Le dossier **`serelin/`** est le template Framer « Serelin » (medspa et wellness), extrait et décompilé par Maxime, qui s'en est déjà servi sur d'autres projets. C'est la **référence d'inspiration** du design : voir [docs/design/serelin-inspiration.md](docs/design/serelin-inspiration.md). **On n'importe et on ne copie jamais son code**, ses images ni ses textes. Il a été **retiré du dépôt** (commit `aaeac3c`) et il est ignoré par Git. Il reste disponible en local. Le dépôt GitHub va passer en privé.
+
+## Accueil v1 développée (23/11/2026)
+
+**Où trouver quoi :**
+
+| Élément | Emplacement |
+|---|---|
+| Assemblage de la page, metas fixes, JSON-LD `HealthAndBeautyBusiness` | `src/app/page.tsx` |
+| Sections (une section = un composant serveur async qui lit `getContents`) | `src/components/home/` : `hero`, `words-band` (marquee), `services` (cartes empilées en sticky sur desktop, en liste simple sur mobile), `kobido-focus`, `five-continents` (section sombre, badge M5C), `salon` (avec les 3 temps), `practitioner` (Élodie), `reviews` (**masquée tant que `getReviews()` est vide**), `offers` (abonnement et carte cadeau), `faq` (`<details name>` natif + JSON-LD FAQPage), `final-cta` |
+| Mise en page globale | `src/components/layout/` : `header` (transparent sur le hero puis opaque au scroll, menu plein écran sur mobile, barre « Réserver » fixe sur mobile) et `footer` (année via `"use cache"`, car Cache Components interdit `new Date()` hors cache) |
+| UI | `src/components/ui/` : `ButtonLink` (pilule avec pastille flèche : `dark`, `light`, `glass`), `TextLink`, `Eyebrow`, `SectionHeading`, `Marquee` (CSS), icônes SVG |
+| Animations | `src/components/motion/` : `SmoothScroll` (Lenis), `Reveal`, `RevealGroup` et `RevealItem` (Motion `whileInView`), `RevealImage` (clip-path, dézoom et parallaxe), `Parallax`. Tout respecte `prefers-reduced-motion`. **Le hero utilise une animation CSS (`animate-rise`)**, qui ne dépend pas du JS, pour le LCP et le SEO. |
+| Logo | `src/components/brand/logo.tsx` : symbole en masque CSS sur `public/images/logo/symbole.png`, coloré par `currentColor`, avec le nom en Instrument Serif. **Provisoire.** |
+| Tokens | `src/app/globals.css` : `@theme` (palette Serelin `paper`, `paper-soft`, `blush`, `sand`, `night`, `ink*`, `accent-50…950`, rayons, easing, keyframes) et utilitaires typo `text-display`, `text-h2`, `text-h3`, `text-h4`, `text-lead`, `text-body`, `text-eyebrow`, plus `container-site` et `section-y` |
+| Polices | `src/app/fonts.ts` : **Instrument Serif** (titres) et **Manrope** (textes), comme Serelin |
+| Contenu | **54 clés** dans `src/content/registry.ts` et `defaults.ts`. Un type `items` (éléments structurés) a été ajouté pour les étapes et la FAQ. |
+| Soins | `src/services/local-services.ts` (carte 2026). Le prix du Rituel Horizon vaut `null`, car il n'est pas encore connu. Formatage dans `src/services/format.ts`. |
+| Navigation et routes | `src/lib/navigation.ts`. **`routes.reserver` pointe directement vers SimplyBook** en attendant la page `/reserver`. Les pages `/kobido`, `/le-salon`, `/carte-cadeau`, `/contact` et les pages légales **n'existent pas encore** et renvoient une 404. |
+| Images web | `public/images/` (compressées par Sonnet, 3,9 Mo) ; inventaire et crédits dans `public/images/README.md` |
+| Serveur de dev | `.claude/launch.json` (config `dev`, port 3000) |
+
+Vérifié : typecheck, lint, format, `content:check` et build OK, page statique. Rendu contrôlé en desktop (1440) et en mobile (375), menu mobile compris.
+
+## Décisions pour le dev de l'accueil (23/11/2026)
+- **Contenu** : on développe sur la base de `docs/contenu/accueil-v1.md` **tel quel**. Maxime itérera sur le site développé.
+- **Palette et typos** : **exactement celles de Serelin pour commencer**, traduites en tokens sémantiques propres. On ajustera ensuite.
+- **Animations** : niveau Serelin. Lenis smooth scroll, images révélées au scroll, textes en fondu décalé, parallaxe légère, marquee. Tout se désactive avec `prefers-reduced-motion`.
+- **Massage sur mesure** : il s'appelle **« Rituel Horizon »**, avec le sous-titre « Sur mesure · Selon vos zones de tension ».
+- **Début de pratique** : **2018**.
+- **FAQ** : une FAQ courte (4 ou 5 questions) **sur l'accueil**, avant l'appel final, avec des clés éditables.
+- **Compression des images** vers `public/images/` : déléguée à un sous-agent Sonnet.
+- **Formulations** : neutres en genre, tant que la composition de la clientèle n'est pas confirmée.
 
 ## Ordre de construction (décidé le 23/11/2026)
 - On fait d'abord **une première version du site, sans CMS ni Supabase**. Le mini-CMS et Supabase viendront ensuite.
@@ -186,9 +218,11 @@ Pas de newsletter.
 | 2026-11-23 | Design | Serelin analysé comme référence d'inspiration (`docs/design/serelin-inspiration.md`). Mockups temporaires de carte cadeau ajoutés par Maxime. |
 | 2026-11-23 | Stack | Next.js 16.4, Tailwind 4, Motion, ESLint et Prettier initialisés. Couches contenu et prestations prêtes (vides). Redirections 301. Typecheck, lint, format et build OK. Aucun contenu ni design codé. |
 
+| 2026-11-23 | Dev | **Accueil v1 développée** : 11 sections, header et footer, animations Serelin, 54 clés de contenu, soins locaux. Images compressées par Sonnet. Vérifié en desktop et en mobile. |
+
 ### Questions encore ouvertes
-- `serelin/` sur le dépôt public : faut-il le retirer de Git et le garder seulement en local ? C'est recommandé, car c'est du code et des assets tiers sous licence.
-- Faut-il ajouter une FAQ courte sur l'accueil, inspirée de Serelin (bonne pour le SEO et pour lever les freins), ou seulement sur la page Kobido ?
+- Le tarif du Rituel Horizon.
+- Accueil v1 : en attente des retours de Maxime sur le site développé.
 - **Pour l'accueil v1** : le nom du massage sur mesure (proposition : « Rituel Horizon »), l'année de début de pratique (2017, 2018 ou « 8 ans »), une image jambes ou pieds manquante, le mockup carte cadeau à produire, la confirmation des 2 images Sensoa où l'on voit une personne massée, les horaires et l'accès au salon.
 - **Pour les CGV et les mentions légales** : le statut juridique, le régime de TVA, le médiateur de la consommation, la politique d'annulation des rendez-vous, la cessibilité de la carte cadeau, le choix de la mesure d'audience.
 - La clientèle est-elle réservée aux femmes ou mixte ? À vérifier avec Élodie.

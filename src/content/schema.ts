@@ -26,6 +26,23 @@ export type ListField = FieldBase & {
   itemMaxLength: number;
 };
 
+/** Sous-champ texte d'un élément répétable. */
+export type ItemTextField = {
+  label: string;
+  maxLength: number;
+  /** Autorise les retours à la ligne. */
+  multiline?: boolean;
+};
+
+/** Liste d'éléments structurés (ex. étapes titre + texte, questions FAQ). */
+export type ItemsField<
+  S extends Record<string, ItemTextField> = Record<string, ItemTextField>,
+> = FieldBase & {
+  type: "items";
+  maxItems: number;
+  fields: S;
+};
+
 export type ImageRatio = `${number}:${number}`;
 
 export type ImageField = FieldBase & {
@@ -36,7 +53,7 @@ export type ImageField = FieldBase & {
   altMaxLength?: number;
 };
 
-export type FieldDef = TextField | ListField | ImageField;
+export type FieldDef = TextField | ListField | ItemsField | ImageField;
 
 export type ImageValue = {
   src: string;
@@ -47,7 +64,9 @@ export type FieldValue<F extends FieldDef> = F extends ImageField
   ? ImageValue
   : F extends ListField
     ? string[]
-    : string;
+    : F extends ItemsField<infer S>
+      ? Array<{ [K in keyof S]: string }>
+      : string;
 
 /** Déclare un groupe de champs en conservant les types littéraux des clés. */
 export function defineFields<const T extends Record<string, FieldDef>>(

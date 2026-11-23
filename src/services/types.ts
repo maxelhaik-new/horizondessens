@@ -5,14 +5,22 @@
  */
 export type ServiceVariant = {
   durationMinutes: number;
-  priceEuros: number;
+  /** `null` = tarif non communiqué. */
+  priceEuros: number | null;
   /** ID de la prestation dans SimplyBook (une prestation SimplyBook par durée si besoin). */
   simplybookId?: string;
 };
 
+export type ServiceSlug =
+  | "kobido"
+  | "calme-et-harmonie"
+  | "5-continents"
+  | "jambes-legeres"
+  | "rituel-horizon";
+
 export type Service = {
   /** Slug stable utilisé dans le code et les clés de contenu (`service.<slug>.*`). */
-  slug: string;
+  slug: ServiceSlug;
   name: string;
   variants: ServiceVariant[];
 };

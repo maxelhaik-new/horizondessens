@@ -1,7 +1,7 @@
 import "server-only";
 
 import { localServices } from "./local-services";
-import type { Service } from "./types";
+import type { Service, ServiceSlug } from "./types";
 
 /**
  * Point d'accès UNIQUE aux prestations.
@@ -15,6 +15,8 @@ export async function getServices(): Promise<Service[]> {
   return localServices;
 }
 
-export async function getService(slug: string): Promise<Service | undefined> {
+export async function getService(
+  slug: ServiceSlug,
+): Promise<Service | undefined> {
   return (await getServices()).find((service) => service.slug === slug);
 }

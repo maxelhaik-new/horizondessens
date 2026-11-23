@@ -1,11 +1,68 @@
-/**
- * Accueil : temporaire. Le contenu et le design seront construits à partir de
- * docs/contenu/accueil-v1.md une fois validés.
- */
-export default function Home() {
+import type { Metadata } from "next";
+
+import { Faq } from "@/components/home/faq";
+import { FinalCta } from "@/components/home/final-cta";
+import { FiveContinents } from "@/components/home/five-continents";
+import { Hero } from "@/components/home/hero";
+import { KobidoFocus } from "@/components/home/kobido-focus";
+import { Offers } from "@/components/home/offers";
+import { Practitioner } from "@/components/home/practitioner";
+import { Reviews } from "@/components/home/reviews";
+import { Salon } from "@/components/home/salon";
+import { Services } from "@/components/home/services";
+import { WordsBand } from "@/components/home/words-band";
+import { site } from "@/lib/site";
+
+// Metas fixes (non éditables par Élodie) — docs/contenu/accueil-v1.md « SEO ».
+export const metadata: Metadata = {
+  title: {
+    absolute:
+      "Kobido & massage bien-être à Saint-Cyr-sur-Loire, Tours | Horizon des Sens",
+  },
+  description:
+    "Kobido, Massage des 5 Continents, Calme et harmonie, Jambes légères. Élodie Poirier vous reçoit au bord de la Loire, à 5 min de Tours. Réservation en ligne.",
+  alternates: { canonical: "/" },
+};
+
+const businessJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "HealthAndBeautyBusiness",
+  name: site.name,
+  url: site.url,
+  telephone: "+33676959003",
+  email: site.email,
+  image: `${site.url}/images/salon/salle-loire.jpg`,
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: site.address.street,
+    postalCode: site.address.postalCode,
+    addressLocality: site.address.city,
+    addressCountry: site.address.country,
+  },
+  sameAs: [site.social.instagram, site.social.facebook],
+};
+
+/** Accueil : assemble les sections (une section = un composant). */
+export default function HomePage() {
   return (
-    <main className="flex flex-1 items-center justify-center p-8">
-      <p>Horizon des Sens : site en préparation.</p>
-    </main>
+    <>
+      <Hero />
+      <WordsBand />
+      <Services />
+      <KobidoFocus />
+      <FiveContinents />
+      <Salon />
+      <Practitioner />
+      <Reviews />
+      <Offers />
+      <Faq />
+      <FinalCta />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(businessJsonLd).replace(/</g, "\\u003c"),
+        }}
+      />
+    </>
   );
 }

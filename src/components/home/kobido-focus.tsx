@@ -1,0 +1,66 @@
+import { Reveal, RevealGroup, RevealItem } from "@/components/motion/reveal";
+import { RevealImage } from "@/components/motion/reveal-image";
+import { ButtonLink, TextLink } from "@/components/ui/button-link";
+import { Eyebrow } from "@/components/ui/eyebrow";
+import { SparkIcon } from "@/components/ui/icons";
+import { getContents } from "@/content/get-content";
+import { routes } from "@/lib/navigation";
+
+/** §4 Focus Kobido : porte d'entrée du public qui connaît déjà le soin. */
+export async function KobidoFocus() {
+  const c = await getContents([
+    "home.kobido.image",
+    "home.kobido.eyebrow",
+    "home.kobido.title",
+    "home.kobido.text",
+    "home.kobido.benefits",
+  ] as const);
+
+  return (
+    <section className="bg-paper section-y">
+      <div className="container-site grid items-center gap-12 md:grid-cols-2 md:gap-16 lg:gap-24">
+        <RevealImage
+          src={c["home.kobido.image"].src}
+          alt={c["home.kobido.image"].alt}
+          sizes="(min-width: 768px) 50vw, 100vw"
+          className="aspect-[4/5] rounded-media"
+        />
+
+        <div className="flex flex-col items-start gap-6">
+          <Reveal>
+            <Eyebrow>{c["home.kobido.eyebrow"]}</Eyebrow>
+          </Reveal>
+          <Reveal delay={0.1}>
+            <h2 className="text-h2 text-balance">{c["home.kobido.title"]}</h2>
+          </Reveal>
+          <Reveal delay={0.2}>
+            <p className="text-lead text-pretty text-ink-soft">
+              {c["home.kobido.text"]}
+            </p>
+          </Reveal>
+
+          <RevealGroup
+            as="ul"
+            className="flex w-full flex-col border-t border-line"
+          >
+            {c["home.kobido.benefits"].map((benefit) => (
+              <RevealItem
+                as="li"
+                key={benefit}
+                className="flex items-center gap-4 border-b border-line py-4"
+              >
+                <SparkIcon className="size-3 shrink-0 text-accent-500" />
+                <span className="text-body">{benefit}</span>
+              </RevealItem>
+            ))}
+          </RevealGroup>
+
+          <Reveal className="flex flex-wrap items-center gap-x-6 gap-y-3 pt-2">
+            <ButtonLink href={routes.kobido}>Découvrir le Kobido</ButtonLink>
+            <TextLink href={routes.reserver}>Réserver</TextLink>
+          </Reveal>
+        </div>
+      </div>
+    </section>
+  );
+}

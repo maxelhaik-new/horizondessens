@@ -45,7 +45,7 @@ Alternative : `salon-02-dscf0679.jpg` (la salle et la Loire).
 *Mise en page : une ligne de 4 courts éléments sous le hero, séparés par des points, en petit texte. Le bandeau défile sur mobile.*
 
 `[home.trust.items · list · 4 éléments · max 40 chacun]`
-> Praticienne depuis 2018 ❓ · Licence officielle Massage des 5 Continents · Reiki Usui · Réflexologie plantaire
+> Praticienne depuis 2018 · Licence officielle Massage des 5 Continents · Reiki Usui · Réflexologie plantaire
 
 *(La note Google sera ajoutée ici quand le widget d'avis sera branché, jamais avant.)*
 
@@ -90,7 +90,7 @@ Alternative : `salon-02-dscf0679.jpg` (la salle et la Loire).
 
 ### Ligne « sur mesure »
 `[home.soins.surmesure · textarea · max 150]`
-> Vous hésitez ? Le **Rituel Horizon** ❓ s'adapte entièrement à vos zones de tension, en 1h15. → 🔒 *Réserver*
+> Vous hésitez ? Le **Rituel Horizon** s'adapte entièrement à vos zones de tension, en 1h15. → 🔒 *Réserver*
 
 > **Nom du massage sur mesure, à choisir :**
 > 1. **Rituel Horizon** : il reprend le nom de la marque, sonne premium et reste lisible. C'est ma recommandation.
@@ -204,6 +204,14 @@ Alternative : `salon-02-dscf0679.jpg` (la salle et la Loire).
 **H3** `[home.cadeau.title · text · max 50]` → *Offrez une parenthèse*
 **Texte** `[home.cadeau.text · textarea · max 140]` → *Choisissez un soin, réglez en ligne, recevez la carte par e-mail. Valable 6 mois.*
 🔒 CTA **Offrir une carte cadeau** (vers `/carte-cadeau`)
+
+---
+
+## 9 bis. FAQ (ajoutée le 23/11/2026)
+*Mise en page : un accordéon de 4 ou 5 questions, une seule ouverte à la fois.*
+
+**H2** `[home.faq.title · text · max 50]` → *Vos questions*
+`[home.faq.items · list · 5 × (question max 90 + réponse max 280)]`, rédigées au moment du dev, puis itérées.
 
 ---
 

@@ -42,6 +42,27 @@ export function validateField(
       });
       break;
     }
+    case "items": {
+      if (!Array.isArray(value)) return [{ key, message: "liste attendue" }];
+      if (value.length > def.maxItems)
+        fail(`${value.length} éléments (max ${def.maxItems})`);
+      value.forEach((item, i) => {
+        for (const [name, sub] of Object.entries(def.fields)) {
+          const text = (item as Record<string, unknown>)?.[name];
+          if (typeof text !== "string") {
+            fail(`élément ${i + 1} · ${name} : texte attendu`);
+          } else {
+            if (text.length > sub.maxLength)
+              fail(
+                `élément ${i + 1} · ${name} : ${text.length} caractères (max ${sub.maxLength})`,
+              );
+            if (!sub.multiline && text.includes("\n"))
+              fail(`élément ${i + 1} · ${name} : retour à la ligne interdit`);
+          }
+        }
+      });
+      break;
+    }
     case "image": {
       const img = value as { src?: unknown; alt?: unknown } | null;
       if (!img || typeof img.src !== "string" || !img.src)

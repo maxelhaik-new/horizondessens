@@ -17,6 +17,7 @@ const nextConfig: NextConfig = {
   },
   images: {
     formats: ["image/avif", "image/webp"],
+    qualities: [75],
   },
   // Anciennes URL du site PHP → nouvelles pages (308, conserve le SEO).
   // Voir docs/contenu/plan-du-site.md §4.
