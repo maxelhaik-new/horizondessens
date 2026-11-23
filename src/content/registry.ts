@@ -518,6 +518,163 @@ export const contentFields = defineFields({
     label: "Contact · Venir au salon — texte",
     maxLength: 300,
   },
+  // --- Le salon ---
+  "salon.hero.title": {
+    type: "text",
+    label: "Salon · Hero — titre",
+    maxLength: 60,
+  },
+  "salon.hero.lead": {
+    type: "textarea",
+    label: "Salon · Hero — accroche",
+    maxLength: 200,
+  },
+  "salon.hero.image": {
+    type: "image",
+    label: "Salon · Hero — image",
+    ratio: "16:9",
+    altMaxLength: IMAGE_ALT,
+  },
+  "salon.lieu.title": {
+    type: "text",
+    label: "Salon · Le lieu — titre",
+    maxLength: 60,
+  },
+  "salon.lieu.text": {
+    type: "textarea",
+    label: "Salon · Le lieu — texte",
+    maxLength: 420,
+  },
+  "salon.lieu.gallery": {
+    type: "items",
+    label: "Salon · Le lieu — galerie",
+    help: "Remplacé par un vrai champ galerie avec le CMS.",
+    maxItems: 6,
+    fields: {
+      image: { label: "Image (chemin)", maxLength: 120 },
+      alt: { label: "Texte alternatif", maxLength: IMAGE_ALT },
+      caption: { label: "Légende", maxLength: 50 },
+    },
+  },
+  "salon.details.items": {
+    type: "items",
+    label: "Salon · Ce qui vous attend",
+    maxItems: 3,
+    fields: {
+      title: { label: "Titre", maxLength: 40 },
+      text: { label: "Texte", maxLength: 160, multiline: true },
+    },
+  },
+  "salon.elodie.eyebrow": {
+    type: "text",
+    label: "Salon · Élodie — pastille",
+    maxLength: 30,
+  },
+  "salon.elodie.title": {
+    type: "text",
+    label: "Salon · Élodie — titre",
+    maxLength: 60,
+  },
+  "salon.elodie.intro": {
+    type: "textarea",
+    label: "Salon · Élodie — introduction",
+    maxLength: 320,
+  },
+  "salon.elodie.image": {
+    type: "image",
+    label: "Salon · Élodie — portrait",
+    ratio: "3:4",
+    altMaxLength: IMAGE_ALT,
+  },
+  "salon.elodie.chapters": {
+    type: "items",
+    label: "Salon · Élodie — parcours",
+    maxItems: 8,
+    fields: {
+      time: { label: "Période", maxLength: 20 },
+      title: { label: "Titre", maxLength: 40 },
+      text: { label: "Texte", maxLength: 320, multiline: true },
+    },
+  },
+  "salon.elodie.quote": {
+    type: "textarea",
+    label: "Salon · Élodie — citation",
+    maxLength: 140,
+  },
+  "salon.final.title": {
+    type: "text",
+    label: "Salon · Appel final — titre",
+    maxLength: 60,
+  },
+  "salon.final.text": {
+    type: "textarea",
+    label: "Salon · Appel final — texte",
+    maxLength: 180,
+  },
+
+  // --- Carte cadeau ---
+  "cadeau.hero.title": {
+    type: "text",
+    label: "Carte cadeau · Hero — titre",
+    maxLength: 60,
+  },
+  "cadeau.hero.lead": {
+    type: "textarea",
+    label: "Carte cadeau · Hero — accroche",
+    maxLength: 200,
+  },
+  "cadeau.hero.image": {
+    type: "image",
+    label: "Carte cadeau · Hero — visuel",
+    ratio: "5:4",
+    altMaxLength: IMAGE_ALT,
+  },
+  "cadeau.formules.title": {
+    type: "text",
+    label: "Carte cadeau · Formules — titre",
+    maxLength: 60,
+  },
+  "cadeau.formules.intro": {
+    type: "textarea",
+    label: "Carte cadeau · Formules — intro",
+    maxLength: 200,
+  },
+  "cadeau.formules.note": {
+    type: "textarea",
+    label: "Carte cadeau · Formules — note 5 Continents",
+    maxLength: 200,
+  },
+  "cadeau.steps.title": {
+    type: "text",
+    label: "Carte cadeau · Étapes — titre",
+    maxLength: 60,
+  },
+  "cadeau.steps.items": {
+    type: "items",
+    label: "Carte cadeau · Étapes",
+    maxItems: 4,
+    fields: {
+      title: { label: "Titre", maxLength: 40 },
+      text: { label: "Texte", maxLength: 160, multiline: true },
+    },
+  },
+  "cadeau.steps.image": {
+    type: "image",
+    label: "Carte cadeau · Étapes — visuel",
+    ratio: "4:5",
+    altMaxLength: IMAGE_ALT,
+  },
+  "cadeau.conditions.title": {
+    type: "text",
+    label: "Carte cadeau · Conditions — titre",
+    maxLength: 60,
+  },
+  "cadeau.conditions.items": {
+    type: "list",
+    label: "Carte cadeau · Conditions — points clés",
+    maxItems: 5,
+    itemMaxLength: 120,
+  },
 });
 
 export type ContentFields = typeof contentFields;

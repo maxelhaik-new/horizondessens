@@ -358,7 +358,9 @@ Décision de Maxime : les pages affichent les hypothèses **sans mention « à c
 > À dérouler avant la bascule DNS de horizondessens.fr. Cocher au fur et à mesure. Ajouter toute nouvelle tâche ici.
 
 ### Contenu et pages
-- [ ] Pages encore à créer : **Le salon** (`/le-salon`), **Carte cadeau** (`/carte-cadeau`), **Réserver** (`/reserver`, widget SimplyBook intégré ; aujourd'hui `routes.reserver` pointe vers SimplyBook).
+- [x] Pages **Le salon** et **Carte cadeau** (vitrine) créées le 23/11/2026.
+- [ ] Faire valider par Élodie le récit de son parcours (page Le salon).
+- [ ] Page encore à créer : **Réserver** (`/reserver`, widget SimplyBook intégré ; aujourd'hui `routes.reserver` pointe vers SimplyBook).
 - [ ] Page 404 aux couleurs du site.
 - [ ] Textes relus et validés par Élodie (accueil, Kobido : citation de l'approche, déroulé, FAQ, contre-indications).
 - [ ] Accès et stationnement du salon (`home.final.access` affiche « informations à venir »).
@@ -403,6 +405,7 @@ Décision de Maxime : les pages affichent les hypothèses **sans mention « à c
 
 ### Cartes cadeaux (Stripe)
 - [ ] Compte Stripe d'Élodie, clés **live** et webhook (`STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`, `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY`).
+- [ ] Brancher Stripe Checkout dans `src/app/carte-cadeau/commander/route.ts` (aujourd'hui : redirection vers Contact).
 - [ ] Génération du PDF, envoi par e-mail (Resend), notification à Élodie, numéro et validité 6 mois, nom du bénéficiaire (carte nominative).
 - [ ] Paiement de test puis paiement réel remboursé.
 

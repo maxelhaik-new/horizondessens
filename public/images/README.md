@@ -36,3 +36,4 @@ Total : 42.6 Mo (sources) vers 3.88 Mo.
 - `kobido/origine-japon.jpg` : Tiago Ebisui, Unsplash (TmgR2If58HM), section Origine de la page Kobido. Les 9 autres candidates sont dans `assets/kobido-japon-candidats/`.
 - Photos du salon : Maxime Elhaik.
 - Mockups de carte cadeau : temporaires.
+- `salon/loire-jardin.jpg` (depuis `references/sensoa/images/blog-massage-avec-vue-sur-la-loire-01.jpeg`) et `salon/loire-couchant.jpg` (depuis `salon-04.jpeg`) : photos de la Loire depuis le salon, Maxime Elhaik (réutilisation validée : lieu sans personne).

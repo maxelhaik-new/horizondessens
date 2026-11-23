@@ -208,6 +208,21 @@ Accueil et Kobido vérifiées à 320, 390, 768, 844×390 (paysage), 1024 et 1920
   - 8 clés `contact.*` (99 au total).
   - **E-mail reçu par Élodie** mis en forme (`src/app/contact/email-template.ts`) : HTML en tableaux et styles en ligne aux couleurs du site (pastille sujet, titre serif, message en carte, coordonnées, bouton « Répondre »), version texte de repli, saisies échappées.
 
+## Pages Le salon et Carte cadeau (23/11/2026)
+
+- **Le salon** `/le-salon` (`src/components/salon/`) :
+  - `hero` : clair et éditorial (titre à gauche, accroche + adresse + bouton à droite), puis grande image panoramique (`salle-loire`) ;
+  - `place` : texte « Un lieu pensé pour ralentir », **mosaïque des 6 images du lieu** (`salon.lieu.gallery` : fenêtre sur la Loire, bords de Loire, salle de soin, lampe et galets, Loire au crépuscule, huiles) avec légendes, puis 3 atouts numérotés ;
+  - `story` : **parcours d'Élodie en version longue** (portrait et citation collants, 6 chapitres datés sur un fil vertical : soignante, Reiki 2017, le choix fin 2017, Horizon des Sens 2018, Kobido 2025, au bord de la Loire). Récit réécrit d'après l'ancien « Qui suis-je ? » : **à valider par Élodie** (dates de la réflexologie et du M5C non précisées, nom du maître Reiki volontairement omis) ;
+  - `visit` : carte sombre avec adresse, itinéraire, horaires et CTA.
+  - Nouvelles images `public/images/salon/loire-jardin.jpg` et `loire-couchant.jpg` (photos Sensoa de Maxime, lieu sans personne). Photo Sensoa `salon-06` (salle avec fauteuils) **non utilisée** : lieu non confirmé.
+- **Carte cadeau** `/carte-cadeau` (`src/components/gift-card/`), en **vitrine** :
+  - `hero` (texte + visuel de la carte légèrement incliné), `cards` (`id="formules"`, cartes dessinées comme de vraies cartes : Kobido 1h 100 € et 1h15 120 €, prix depuis `getGiftCards()` → `src/lib/gift-cards.ts`), `how-it-works` (4 étapes + « Bon à savoir » et lien CGV) ; note 5 Continents « sur demande ».
+  - Bouton « Offrir cette carte » = formulaire **POST** vers `/carte-cadeau/commander` (`src/app/carte-cadeau/commander/route.ts`, `routes.carteCadeauCommander`). **Aujourd'hui : redirection 303 vers `/contact#ecrire`.** C'est là qu'on branchera Stripe Checkout (session, champ « bénéficiaire », webhook → PDF).
+  - `RemixButton` ajouté dans `button-link.tsx` (bouton remix en `<button>`).
+- Header : `/le-salon` et `/carte-cadeau` ajoutées aux `lightPages` (pilule opaque dès le haut).
+- **122 clés** (`salon.*`, `cadeau.*`). Build : 9 pages statiques + la route dynamique de commande. Vérifié en 1440 et 375 px.
+
 ## Décisions pour le dev de l'accueil (23/11/2026)
 - **Contenu** : on développe sur la base de `docs/contenu/accueil-v1.md` **tel quel**. Maxime itérera sur le site développé.
 - **Palette et typos** : **exactement celles de Serelin pour commencer**, traduites en tokens sémantiques propres. On ajustera ensuite.
@@ -321,6 +336,7 @@ Pas de newsletter.
 | 2026-11-23 | Dev | Bouton remix inversé : pastille à gauche au repos, elle glisse à droite au survol (sens de la flèche). Questions pour Élodie préparées (`docs/questions-elodie-rdv.md`). |
 | 2026-11-23 | Dev | **Page Kobido** : 9 sections aux layouts distincts de l'accueil, 30 clés de contenu, JSON-LD Service, FAQ et fil d'Ariane. Build statique, vérifiée en desktop et en mobile. |
 | 2026-11-23 | Dev | **Menu mobile à voiles courbes** (inspiré de CurveMenuOverlay, réécrit avec Motion). Desktop inchangé. |
+| 2026-11-23 | Dev | **Pages Le salon** (lieu, mosaïque, parcours d'Élodie) **et Carte cadeau** (vitrine, bouton prêt pour Stripe). |
 | 2026-11-23 | Dev | Réponses d'Élodie reportées. **Pages légales** (mentions, CGV, confidentialité) et **page Contact** (formulaire Resend, carte au clic). Build statique, vérifié en desktop et en mobile. |
 
 ### Questions encore ouvertes

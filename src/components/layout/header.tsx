@@ -11,7 +11,11 @@ import { cn } from "@/lib/cn";
 import { legalNav, mainNav, routes } from "@/lib/navigation";
 
 /** Pages sans hero sombre : en-tête opaque dès le haut de page. */
-const lightPages: readonly string[] = legalNav.map((item) => item.href);
+const lightPages: readonly string[] = [
+  ...legalNav.map((item) => item.href),
+  routes.salon,
+  routes.carteCadeau,
+];
 
 /**
  * En-tête en pilule flottante (Serelin) : transparente sur le hero sombre,

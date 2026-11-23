@@ -360,4 +360,151 @@ export const contentDefaults: ContentValues = {
   "contact.visit.title": "Venir au salon",
   "contact.visit.text":
     "Le salon se trouve à Saint-Cyr-sur-Loire, sur les quais, face à la Loire, à quelques minutes du centre de Tours. Les séances se font uniquement sur rendez-vous.",
+
+  // --- Le salon ---
+  "salon.hero.title": "Un salon au bord de la Loire",
+  "salon.hero.lead":
+    "À Saint-Cyr-sur-Loire, à quelques minutes de Tours, une salle chaleureuse ouverte sur le fleuve. Ici, on prend le temps d'arriver, puis de lâcher prise.",
+  "salon.hero.image": {
+    src: "/images/salon/salle-loire.jpg",
+    alt: "La salle de massage, sa lumière douce et sa fenêtre ouverte sur la Loire",
+  },
+  "salon.lieu.title": "Un lieu pensé pour ralentir",
+  "salon.lieu.text":
+    "Le salon se trouve sur les quais de Saint-Cyr-sur-Loire. Par la fenêtre, le fleuve, les arbres et la lumière qui change au fil des saisons. À l'intérieur, une lumière tamisée, des matières douces et le silence : tout est là pour que vous puissiez vraiment décrocher.",
+  "salon.lieu.gallery": [
+    {
+      image: "/images/salon/fenetre-loire.jpg",
+      alt: "Fenêtre du salon ouverte sur la Loire au coucher du soleil",
+      caption: "La fenêtre sur le fleuve",
+    },
+    {
+      image: "/images/salon/loire-jardin.jpg",
+      alt: "Les bords de Loire verdoyants, vus depuis le salon",
+      caption: "Les bords de Loire",
+    },
+    {
+      image: "/images/salon/salle-lit.jpg",
+      alt: "La table de massage dans une salle aux tons chauds",
+      caption: "La salle de soin",
+    },
+    {
+      image: "/images/ambiance/lampe-pierres.jpg",
+      alt: "Lampe en rotin, galets et brumes florales posés sur un meuble en bois",
+      caption: "Les détails",
+    },
+    {
+      image: "/images/salon/loire-couchant.jpg",
+      alt: "La Loire et ses bancs de sable sous un ciel rose",
+      caption: "La Loire au crépuscule",
+    },
+    {
+      image: "/images/ambiance/huiles-plateau.jpg",
+      alt: "Flacons d'huiles végétales sur un plateau",
+      caption: "Les huiles",
+    },
+  ],
+  "salon.details.items": [
+    {
+      title: "La lumière du fleuve",
+      text: "Une salle ouverte sur la Loire, une lumière naturelle le jour et tamisée pendant le soin.",
+    },
+    {
+      title: "Tout est prévu",
+      text: "Le linge et les huiles sont fournis sur place : venez simplement comme vous êtes.",
+    },
+    {
+      title: "Sur rendez-vous",
+      text: "Les séances se font uniquement sur rendez-vous : ce temps vous est réservé, sans attente ni précipitation.",
+    },
+  ],
+  "salon.elodie.eyebrow": "Mon parcours",
+  "salon.elodie.title": "Du soin à l'hôpital au soin du corps",
+  "salon.elodie.intro":
+    "Je m'appelle Élodie Poirier. Avant d'être praticienne en massage bien-être, j'ai été soignante. De l'hôpital, j'ai gardé l'attention à l'autre ; du massage, j'ai fait mon métier. Voici comment l'un a mené à l'autre.",
+  "salon.elodie.image": {
+    src: "/images/elodie/portrait.jpg",
+    alt: "Portrait d'Élodie Poirier, souriante",
+  },
+  "salon.elodie.chapters": [
+    {
+      time: "Avant 2017",
+      title: "Soignante",
+      text: "Pendant mes années à l'hôpital, j'ai appris à écouter les corps fatigués et les personnes inquiètes. J'y ai aussi mesuré combien le toucher, quand on lui laisse du temps, apaise.",
+    },
+    {
+      time: "2017",
+      title: "La rencontre avec le Reiki",
+      text: "Je suis initiée aux premier et deuxième degrés du Reiki, dans la tradition Usui. Une approche douce, qui m'apprend à ressentir autant qu'à agir.",
+    },
+    {
+      time: "Fin 2017",
+      title: "Le choix",
+      text: "Portée par mes enseignants et par mes proches, je prends une décision forte : je quitte le système hospitalier pour suivre un cursus professionnel en massage bien-être.",
+    },
+    {
+      time: "2018",
+      title: "Horizon des Sens",
+      text: "Je commence à recevoir sous le nom d'Horizon des Sens. Au fil des années, je me forme à la réflexologie plantaire, puis au Massage des 5 Continents, dont je suis praticienne sous licence.",
+    },
+    {
+      time: "2025",
+      title: "Le Kobido",
+      text: "En septembre 2025, j'ajoute le Kobido à ma pratique. Ce soin japonais du visage, à la fois relaxant et revitalisant, rejoint ce que je cherche depuis le début : l'harmonie entre le corps et l'esprit.",
+    },
+    {
+      time: "Aujourd'hui",
+      title: "Au bord de la Loire",
+      text: "Je vous reçois désormais à Saint-Cyr-sur-Loire, dans un salon ouvert sur le fleuve. Mon objectif reste le même : vivre de ma passion, continuer d'affiner ma pratique et vous aider à retrouver équilibre et sérénité.",
+    },
+  ],
+  "salon.elodie.quote":
+    "Un moment pour vous reconnecter à votre corps, et à vous-même.",
+  "salon.final.title": "Venez découvrir le salon",
+  "salon.final.text":
+    "Réservez votre séance en ligne, ou écrivez-moi pour toute question sur l'accès ou les soins.",
+
+  // --- Carte cadeau ---
+  "cadeau.hero.title": "Offrez une parenthèse de Kobido",
+  "cadeau.hero.lead":
+    "Une carte cadeau à offrir en quelques minutes : choisissez la durée, réglez en ligne et recevez-la aussitôt par e-mail, prête à être offerte.",
+  "cadeau.hero.image": {
+    src: "/images/carte-cadeau/main-carte-1.jpg",
+    alt: "Main tenant une carte cadeau Horizon des Sens",
+  },
+  "cadeau.formules.title": "Choisissez la carte",
+  "cadeau.formules.intro":
+    "Deux durées, pour un premier Kobido ou pour aller plus loin dans la détente. La carte est valable 6 mois.",
+  "cadeau.formules.note":
+    "Vous souhaitez offrir un Massage des 5 Continents ? La carte est disponible sur demande : écrivez-moi.",
+  "cadeau.steps.title": "Comment ça marche",
+  "cadeau.steps.items": [
+    {
+      title: "Choisissez",
+      text: "Kobido 1h ou 1h15, et le nom de la personne à qui vous l'offrez.",
+    },
+    {
+      title: "Réglez en ligne",
+      text: "Le paiement est sécurisé par Stripe. Je n'ai jamais accès à vos données bancaires.",
+    },
+    {
+      title: "Recevez la carte",
+      text: "Elle arrive aussitôt par e-mail, en PDF, prête à imprimer ou à transférer.",
+    },
+    {
+      title: "Le soin",
+      text: "La personne réserve sa séance quand elle le souhaite, dans les 6 mois, en indiquant le numéro de la carte.",
+    },
+  ],
+  "cadeau.steps.image": {
+    src: "/images/carte-cadeau/main-carte-3.jpg",
+    alt: "Carte cadeau Horizon des Sens tenue à la main",
+  },
+  "cadeau.conditions.title": "Bon à savoir",
+  "cadeau.conditions.items": [
+    "Valable 6 mois à compter de la date d'achat.",
+    "Nominative : elle est établie au nom de la personne qui la reçoit.",
+    "Utilisable en une fois, pour la séance indiquée.",
+    "Non remboursable, sauf droit de rétractation de 14 jours.",
+  ],
 };

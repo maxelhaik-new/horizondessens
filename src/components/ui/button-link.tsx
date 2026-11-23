@@ -100,6 +100,51 @@ export function ButtonLink({
   );
 }
 
+/** Même bouton « remix », en `<button>` (envoi de formulaire). */
+export function RemixButton({
+  children,
+  variant = "dark",
+  size = "md",
+  className,
+  type = "submit",
+}: {
+  children: ReactNode;
+  variant?: Variant;
+  size?: Size;
+  className?: string;
+  type?: "submit" | "button";
+}) {
+  const v = variants[variant];
+  const s = sizes[size];
+  return (
+    <button
+      type={type}
+      className={cn(
+        "group relative inline-flex shrink-0 cursor-pointer items-center overflow-hidden rounded-full font-medium tracking-[0.016em] shadow-lift transition-colors duration-300",
+        v.button,
+        s.button,
+        className,
+      )}
+    >
+      <span
+        className={cn("transition-transform duration-600 ease-spring", s.text)}
+      >
+        {children}
+      </span>
+      <span
+        aria-hidden
+        className={cn(
+          "absolute top-1/2 grid -translate-y-1/2 place-items-center rounded-full transition-[left] duration-600 ease-spring",
+          v.circle,
+          s.circle,
+        )}
+      >
+        <ChevronRightIcon className="size-4" />
+      </span>
+    </button>
+  );
+}
+
 /** Lien texte secondaire souligné. */
 export function TextLink({
   href,

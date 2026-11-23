@@ -11,6 +11,8 @@ export const routes = {
   kobido: "/kobido",
   salon: "/le-salon",
   carteCadeau: "/carte-cadeau",
+  /** Paiement d'une carte cadeau (POST, Stripe Checkout à brancher). */
+  carteCadeauCommander: "/carte-cadeau/commander",
   contact: "/contact",
   mentionsLegales: "/mentions-legales",
   cgv: "/cgv",
