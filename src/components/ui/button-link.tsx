@@ -26,9 +26,9 @@ const variants: Record<Variant, { button: string; circle: string }> = {
  */
 const sizes: Record<Size, { button: string; text: string; circle: string }> = {
   sm: {
-    button: "h-10 pl-12 pr-4 text-sm",
-    text: "group-hover:-translate-x-8",
-    circle: "left-1 size-8 group-hover:left-[calc(100%-2.25rem)]",
+    button: "h-11 pl-[3.25rem] pr-4 text-sm",
+    text: "group-hover:-translate-x-9",
+    circle: "left-1.5 size-8 group-hover:left-[calc(100%-2.375rem)]",
   },
   md: {
     button:
@@ -45,6 +45,7 @@ type ButtonLinkProps = {
   variant?: Variant;
   size?: Size;
   className?: string;
+  onClick?: () => void;
 };
 
 function isExternal(href: string) {
@@ -58,6 +59,7 @@ export function ButtonLink({
   variant = "dark",
   size = "md",
   className,
+  onClick,
 }: ButtonLinkProps) {
   const v = variants[variant];
   const s = sizes[size];
@@ -88,11 +90,11 @@ export function ButtonLink({
   );
 
   return isExternal(href) ? (
-    <a href={href} className={classes}>
+    <a href={href} className={classes} onClick={onClick}>
       {content}
     </a>
   ) : (
-    <Link href={href} className={classes}>
+    <Link href={href} className={classes} onClick={onClick}>
       {content}
     </Link>
   );
@@ -109,7 +111,7 @@ export function TextLink({
   className?: string;
 }) {
   const classes = cn(
-    "inline-flex items-center gap-2 text-sm font-medium underline decoration-current/30 underline-offset-[6px] transition-colors hover:decoration-current md:text-base",
+    "-my-3 inline-flex items-center gap-2 py-3 text-sm font-medium underline decoration-current/30 underline-offset-[6px] transition-colors hover:decoration-current md:text-base",
     className,
   );
   return isExternal(href) ? (

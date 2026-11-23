@@ -27,12 +27,12 @@ const ORBS = [
     distance: 90,
   },
   {
-    src: "/images/ambiance/massage-dos.jpg",
+    src: "/images/soins/5-continents.jpg",
     className: "right-[4%] top-[48%] size-24 md:size-32",
     distance: 150,
   },
   {
-    src: "/images/ambiance/massage-dos-2.jpg",
+    src: "/images/soins/jambes-legeres.jpg",
     className: "right-[22%] bottom-[4%] size-16 md:size-20",
     distance: 60,
   },

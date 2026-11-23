@@ -147,10 +147,39 @@ Vérifié : typecheck, lint, format, `content:check` et build OK, page statique.
 - **Rapport d'audit** : `.impeccable/audit/`.
 
 ## Images Midjourney intégrées (23/11/2026)
-Les 7 images de `assets/massage midjourney/` sont compressées en JPEG dans `public/images/massages/` et branchées dans `src/content/defaults.ts` : hero = `visage-4`, Kobido (carte) = `kobido-visage-1`, Calme et harmonie = `dos`, 5 Continents (carte) = `bras`, Jambes légères = `pieds`, focus Kobido = `visage-5`, focus 5 Continents = `dos-2`. **Kobido = uniquement des visages** (seules 2 images de visage existent). Règle : **jamais deux fois la même image sur une page** (médaillons de la philosophie remplacés par `mains-epaules`, `massage-dos`, `massage-dos-2`).
+Les 7 images de `assets/massage midjourney/` sont compressées en JPEG dans `public/images/massages/` et branchées dans `src/content/defaults.ts` : hero = `header1` (paysage, fait pour le hero), Kobido (carte) = `kobido-visage-1`, Calme et harmonie = `dos`, 5 Continents (carte) = `bras`, Jambes légères = `pieds`, focus Kobido = `visage-5`, focus 5 Continents = `accueil/5-continents-huile` (jamais deux dos proches). **Kobido = uniquement des visages** (seules 2 images de visage existent). Règle : **jamais deux fois la même image sur une page** (médaillons de la philosophie remplacés par `mains-epaules`, `massage-dos`, `massage-dos-2`).
 
 ## DESIGN.md (23/11/2026)
 `DESIGN.md` (racine) et `.impeccable/design.json` sont écrits par `/impeccable document` : tokens, typo, formes, composants et règles tels qu'implémentés. **Statut provisoire** (palette et typos de Serelin, à personnaliser) et **sans « North Star » métaphorique**, voulu par Maxime (risque de perturber les futurs agents). À régénérer quand le design change.
+
+## DESIGN.md (23/11/2026)
+`DESIGN.md` (racine) et `.impeccable/design.json` sont écrits par `/impeccable document` : tokens, typo, formes, composants et règles tels qu'implémentés. **Statut provisoire** (palette et typos de Serelin, à personnaliser) et **sans « North Star » métaphorique**, voulu par Maxime (risque de perturber les futurs agents). À régénérer quand le design change.
+
+## Page Kobido développée (23/11/2026)
+
+- **Route** : `src/app/kobido/page.tsx`. Metas fixes (« Kobido à Saint-Cyr-sur-Loire, près de Tours »), JSON-LD `Service` (offres tirées des prestations) et `BreadcrumbList`.
+- **Sections** (`src/components/kobido/`), avec **des layouts volontairement différents de l'accueil** :
+  - `hero` : composition scindée sur fond sombre (texte à gauche, portrait cadré à droite), fil d'Ariane, durées et prix dès le premier écran ;
+  - `origin` : éditorial, colonne gauche collante (titre et image), texte long avec chapeau et citation ;
+  - `gestures` + `gestures-scroller` (client) : 4 gestes numérotés, **image collante qui change au défilement** (desktop), image par geste sur mobile ;
+  - `effects` : grille bento asymétrique (carte sombre, carte avec image) ;
+  - `formulas` (`id="formules"`) : comparatif 1h / 1h15 en deux colonnes, durées en très grand, puis la cure (abonnement). Prix depuis `getService("kobido")` ;
+  - `session` : frise horizontale sur desktop, rail vertical sur mobile ;
+  - `approach` : grande citation d'Élodie centrée avec médaillon portrait ;
+  - `faq` : titre collant à gauche, questions en lignes à droite, JSON-LD FAQPage ;
+  - `final-cta` : carte sombre pleine image.
+- **Contenu** : 30 clés `kobido.*` (91 au total). **Textes à valider par Élodie**, en particulier la citation de l'approche (rédigée, pas dite par elle), le déroulé (nettoyage du visage en début de séance ?), la FAQ « démaquillé » et les contre-indications.
+- **Images** : `public/images/kobido/` (hero, geste-lissage, geste-pressions, geste-modelage), tirées de `assets/massage midjourney/` et compressées.
+
+## Menu mobile « voiles courbes » (23/11/2026)
+
+- Source : `components/forceful-branding-164349/` (composant Framer CurveMenuOverlay, GSAP), ajouté par Maxime. **Gardé en local, ignoré par Git**, exclu du lint, de TypeScript et de Prettier (`/components/`, à ne pas confondre avec `src/components/`).
+- Réécrit avec **Motion** (sans GSAP) dans `src/components/layout/mobile-menu.tsx`, avec les mêmes tracés SVG, durées et courbes :
+  - ouverture : voile `accent-200` puis voile `night` qui montent en se courbant, puis les liens glissent depuis leur masque en cascade, puis contact et « Réserver » ;
+  - fermeture : à l'inverse.
+- Liens en Instrument Serif italique, `min(84px, 15vw)` : **84px comme l'original dès 560px de large**, réduits en dessous, sinon « Carte cadeau » déborde.
+- Bouton : même emplacement ; deux barres qui pivotent en croix (0.6 s). En-tête transparent pendant que le menu est ouvert ; la barre « Réserver » mobile se masque.
+- Desktop (≥ 1024px) : inchangé.
 
 ## Décisions pour le dev de l'accueil (23/11/2026)
 - **Contenu** : on développe sur la base de `docs/contenu/accueil-v1.md` **tel quel**. Maxime itérera sur le site développé.
@@ -263,6 +292,8 @@ Pas de newsletter.
 | 2026-11-23 | Dev | **Accueil v1 développée** : 11 sections, header et footer, animations Serelin, 54 clés de contenu, soins locaux. Images compressées par Sonnet. Vérifié en desktop et en mobile. |
 | 2026-11-23 | Dev | **Accueil v1.1** : audit impeccable (contrastes corrigés) et refonte au plus près de Serelin (titres italiques mot à mot, header en pilule, bouton remix, grandes cartes, philosophie, galerie salon, appel final avec footer). |
 | 2026-11-23 | Dev | Bouton remix inversé : pastille à gauche au repos, elle glisse à droite au survol (sens de la flèche). Questions pour Élodie préparées (`docs/questions-elodie-rdv.md`). |
+| 2026-11-23 | Dev | **Page Kobido** : 9 sections aux layouts distincts de l'accueil, 30 clés de contenu, JSON-LD Service, FAQ et fil d'Ariane. Build statique, vérifiée en desktop et en mobile. |
+| 2026-11-23 | Dev | **Menu mobile à voiles courbes** (inspiré de CurveMenuOverlay, réécrit avec Motion). Desktop inchangé. |
 
 ### Questions encore ouvertes
 - Le tarif du Rituel Horizon.

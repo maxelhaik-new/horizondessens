@@ -49,13 +49,13 @@ export default function HomePage() {
   return (
     <>
       <Hero />
-      <WordsBand />
-      <Philosophy />
       <Services />
       <KobidoFocus />
+      <Philosophy />
       <Steps />
       <FiveContinents />
       <Salon />
+      <WordsBand />
       <Practitioner />
       <Reviews />
       <Offers />

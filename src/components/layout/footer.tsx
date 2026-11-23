@@ -17,14 +17,15 @@ export async function Footer() {
     `${address.street}, ${address.postalCode} ${address.city}`,
   )}`;
 
-  const columnTitle = "text-sm font-medium tracking-[0.016em] text-ink";
-  const link = "w-fit text-ink-soft transition-colors hover:text-ink";
+  const columnTitle = "mb-2 text-sm font-medium tracking-[0.016em] text-ink";
+  const link =
+    "inline-flex min-h-11 w-fit items-center text-ink-soft transition-colors hover:text-ink";
 
   return (
     <footer className="bg-mist pt-16 pb-28 text-sm sm:pb-10 md:pt-20">
       <div className="container-site flex flex-col gap-14">
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
-          <nav aria-label="Pages" className="flex flex-col gap-4">
+          <nav aria-label="Pages" className="flex flex-col gap-1">
             <p className={columnTitle}>Pages</p>
             {mainNav.map((item) => (
               <Link key={item.href} href={item.href} className={link}>
@@ -33,7 +34,7 @@ export async function Footer() {
             ))}
           </nav>
 
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-1">
             <p className={columnTitle}>Soins</p>
             <Link href="/#soins" className={link}>
               Kobido
@@ -49,7 +50,7 @@ export async function Footer() {
             </Link>
           </div>
 
-          <address className="flex flex-col gap-4 not-italic">
+          <address className="flex flex-col gap-1 not-italic">
             <p className={columnTitle}>Nous trouver</p>
             <span className="text-ink">
               {address.street}
@@ -62,20 +63,20 @@ export async function Footer() {
             <span className="text-ink-soft">{access}</span>
           </address>
 
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-1">
             <p className={columnTitle}>Contact</p>
             <div className="flex gap-2">
               <a
                 href={site.social.instagram}
                 aria-label="Instagram"
-                className="grid size-10 place-items-center rounded-full bg-white/60 text-ink transition-colors hover:bg-white"
+                className="grid size-11 place-items-center rounded-full bg-white/60 text-ink transition-colors hover:bg-white"
               >
                 <InstagramIcon className="size-4" />
               </a>
               <a
                 href={site.social.facebook}
                 aria-label="Facebook"
-                className="grid size-10 place-items-center rounded-full bg-white/60 text-ink transition-colors hover:bg-white"
+                className="grid size-11 place-items-center rounded-full bg-white/60 text-ink transition-colors hover:bg-white"
               >
                 <FacebookIcon className="size-4" />
               </a>
@@ -96,20 +97,20 @@ export async function Footer() {
           </p>
           <nav
             aria-label="Informations légales"
-            className="flex flex-wrap gap-x-6 gap-y-2"
+            className="flex flex-wrap gap-x-6"
           >
             {legalNav.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
-                className="transition-colors hover:text-ink"
+                className="inline-flex min-h-11 items-center transition-colors hover:text-ink"
               >
                 {item.label}
               </Link>
             ))}
             <a
               href={routes.reserver}
-              className="transition-colors hover:text-ink"
+              className="inline-flex min-h-11 items-center transition-colors hover:text-ink"
             >
               Réserver
             </a>

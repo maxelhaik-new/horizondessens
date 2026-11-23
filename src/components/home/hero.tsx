@@ -29,7 +29,7 @@ export async function Hero() {
         sizes="100vw"
         loading="eager"
         fetchPriority="high"
-        className="-z-10 animate-hero-zoom object-cover"
+        className="-z-10 animate-hero-zoom object-cover object-[58%_50%]"
       />
       <div
         aria-hidden

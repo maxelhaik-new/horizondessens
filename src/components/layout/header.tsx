@@ -4,8 +4,8 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 
 import { Logo } from "@/components/brand/logo";
+import { MobileMenu } from "@/components/layout/mobile-menu";
 import { ButtonLink } from "@/components/ui/button-link";
-import { CloseIcon, MenuIcon } from "@/components/ui/icons";
 import { cn } from "@/lib/cn";
 import { mainNav, routes } from "@/lib/navigation";
 
@@ -32,7 +32,8 @@ export function Header() {
     return () => window.removeEventListener("keydown", onKey);
   }, [open]);
 
-  const solid = scrolled || open;
+  // Menu ouvert : en-tête transparent, texte clair sur le voile sombre.
+  const solid = scrolled && !open;
 
   return (
     <>
@@ -42,7 +43,7 @@ export function Header() {
             className={cn(
               "flex h-16 items-center justify-between gap-6 rounded-full pr-2 pl-5 transition-[background-color,color,box-shadow,backdrop-filter] duration-500 ease-soft md:h-[4.5rem] md:pl-8",
               solid
-                ? "bg-white/70 text-ink shadow-soft backdrop-blur-xl"
+                ? "bg-paper-soft/90 text-ink shadow-soft backdrop-blur-2xl"
                 : "bg-transparent text-white",
             )}
           >
@@ -84,43 +85,44 @@ export function Header() {
                 aria-label={open ? "Fermer le menu" : "Ouvrir le menu"}
                 onClick={() => setOpen((v) => !v)}
               >
-                {open ? (
-                  <CloseIcon className="size-6" />
-                ) : (
-                  <MenuIcon className="size-6" />
-                )}
+                {/* Deux barres qui pivotent en croix (0.6 s). */}
+                <span aria-hidden className="relative block size-4">
+                  {[0, 1].map((bar) => (
+                    <span
+                      key={bar}
+                      className={cn(
+                        "absolute left-0 h-0.5 w-4 rounded-full bg-current transition-all duration-600 ease-[cubic-bezier(0.4,0,0.2,1)]",
+                        open
+                          ? cn(
+                              "top-[7px]",
+                              bar === 0 ? "rotate-45" : "-rotate-45",
+                            )
+                          : bar === 0
+                            ? "top-[3px]"
+                            : "top-[11px]",
+                      )}
+                    />
+                  ))}
+                </span>
               </button>
             </div>
           </div>
         </div>
       </header>
 
-      <nav
+      <MobileMenu
         id="menu-mobile"
-        aria-label="Navigation mobile"
-        className={cn(
-          "fixed inset-0 z-40 bg-paper px-5 pt-28 transition-opacity duration-300 lg:hidden",
-          open ? "opacity-100" : "pointer-events-none opacity-0",
-        )}
-        hidden={!open}
-      >
-        <ul className="flex flex-col gap-1">
-          {mainNav.map((item) => (
-            <li key={item.href}>
-              <Link
-                href={item.href}
-                onClick={() => setOpen(false)}
-                className="block py-3 font-serif text-5xl tracking-[-0.02em] italic"
-              >
-                {item.label}
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </nav>
+        open={open}
+        onNavigate={() => setOpen(false)}
+      />
 
       {/* Barre de réservation mobile, toujours à portée de pouce */}
-      <div className="fixed inset-x-0 bottom-0 z-40 p-3 sm:hidden">
+      <div
+        className={cn(
+          "fixed inset-x-0 bottom-0 z-40 p-3 transition-[opacity,translate] duration-500 ease-soft sm:hidden",
+          open && "pointer-events-none translate-y-4 opacity-0",
+        )}
+      >
         <ButtonLink href={routes.reserver} className="w-full justify-between">
           Réserver un soin
         </ButtonLink>

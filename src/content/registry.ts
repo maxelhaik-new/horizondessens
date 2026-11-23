@@ -304,6 +304,197 @@ export const contentFields = defineFields({
     label: "Infos pratiques — accès et stationnement",
     maxLength: 140,
   },
+
+  // ===== Page Kobido (/kobido) =====
+  "kobido.hero.eyebrow": {
+    type: "text",
+    label: "Kobido · Hero — pastille",
+    maxLength: 40,
+  },
+  "kobido.hero.title": {
+    type: "text",
+    label: "Kobido · Hero — titre (H1)",
+    maxLength: 70,
+  },
+  "kobido.hero.lead": {
+    type: "textarea",
+    label: "Kobido · Hero — accroche",
+    maxLength: 180,
+  },
+  "kobido.hero.image": {
+    type: "image",
+    label: "Kobido · Hero — image",
+    ratio: "4:5",
+    altMaxLength: IMAGE_ALT,
+  },
+
+  "kobido.origine.eyebrow": {
+    type: "text",
+    label: "Kobido · Origine — pastille",
+    maxLength: 30,
+  },
+  "kobido.origine.title": {
+    type: "text",
+    label: "Kobido · Origine — titre",
+    maxLength: 60,
+  },
+  "kobido.origine.text": {
+    type: "textarea",
+    label: "Kobido · Origine — texte (paragraphes séparés par une ligne vide)",
+    maxLength: 700,
+  },
+  "kobido.origine.quote": {
+    type: "textarea",
+    label: "Kobido · Origine — citation",
+    maxLength: 120,
+  },
+  "kobido.origine.image": {
+    type: "image",
+    label: "Kobido · Origine — image",
+    ratio: "3:4",
+    altMaxLength: IMAGE_ALT,
+  },
+
+  "kobido.gestes.eyebrow": {
+    type: "text",
+    label: "Kobido · Gestes — pastille",
+    maxLength: 30,
+  },
+  "kobido.gestes.title": {
+    type: "text",
+    label: "Kobido · Gestes — titre",
+    maxLength: 60,
+  },
+  "kobido.gestes.items": {
+    type: "items",
+    label: "Kobido · Gestes — les gestes du soin",
+    maxItems: 4,
+    fields: {
+      title: { label: "Nom du geste", maxLength: 30 },
+      text: { label: "Description", maxLength: 180, multiline: true },
+      image: { label: "Image (chemin)", maxLength: 120 },
+    },
+  },
+
+  "kobido.effets.eyebrow": {
+    type: "text",
+    label: "Kobido · Ressentis — pastille",
+    maxLength: 30,
+  },
+  "kobido.effets.title": {
+    type: "text",
+    label: "Kobido · Ressentis — titre",
+    maxLength: 60,
+  },
+  "kobido.effets.items": {
+    type: "items",
+    label: "Kobido · Ressentis — 4 effets",
+    maxItems: 4,
+    fields: {
+      title: { label: "Titre", maxLength: 40 },
+      text: { label: "Texte", maxLength: 140, multiline: true },
+    },
+  },
+
+  "kobido.formules.eyebrow": {
+    type: "text",
+    label: "Kobido · Formules — pastille",
+    maxLength: 30,
+  },
+  "kobido.formules.title": {
+    type: "text",
+    label: "Kobido · Formules — titre",
+    maxLength: 60,
+  },
+  "kobido.formules.court": {
+    type: "textarea",
+    label: "Kobido · Formule 1h — description",
+    maxLength: 160,
+  },
+  "kobido.formules.long": {
+    type: "textarea",
+    label: "Kobido · Formule 1h15 — description",
+    maxLength: 160,
+  },
+  "kobido.formules.cure": {
+    type: "textarea",
+    label: "Kobido · Cure / abonnement — texte",
+    maxLength: 200,
+  },
+
+  "kobido.approche.eyebrow": {
+    type: "text",
+    label: "Kobido · Approche — pastille",
+    maxLength: 30,
+  },
+  "kobido.approche.quote": {
+    type: "textarea",
+    label: "Kobido · Approche — citation d'Élodie",
+    maxLength: 220,
+  },
+  "kobido.approche.text": {
+    type: "textarea",
+    label: "Kobido · Approche — texte",
+    maxLength: 320,
+  },
+
+  "kobido.seance.eyebrow": {
+    type: "text",
+    label: "Kobido · Séance — pastille",
+    maxLength: 30,
+  },
+  "kobido.seance.title": {
+    type: "text",
+    label: "Kobido · Séance — titre",
+    maxLength: 60,
+  },
+  "kobido.seance.items": {
+    type: "items",
+    label: "Kobido · Séance — déroulé",
+    maxItems: 5,
+    fields: {
+      time: { label: "Repère (ex. 5 min)", maxLength: 14 },
+      title: { label: "Étape", maxLength: 35 },
+      text: { label: "Texte", maxLength: 140, multiline: true },
+    },
+  },
+
+  "kobido.faq.title": {
+    type: "text",
+    label: "Kobido · FAQ — titre",
+    maxLength: 50,
+  },
+  "kobido.faq.intro": {
+    type: "textarea",
+    label: "Kobido · FAQ — intro",
+    maxLength: 160,
+  },
+  "kobido.faq.items": {
+    type: "items",
+    label: "Kobido · FAQ — questions",
+    maxItems: 6,
+    fields: {
+      question: { label: "Question", maxLength: 90 },
+      answer: { label: "Réponse", maxLength: 280, multiline: true },
+    },
+  },
+
+  "kobido.final.title": {
+    type: "text",
+    label: "Kobido · Appel final — titre",
+    maxLength: 60,
+  },
+  "kobido.final.text": {
+    type: "textarea",
+    label: "Kobido · Appel final — texte",
+    maxLength: 160,
+  },
+  "kobido.final.image": {
+    type: "image",
+    label: "Kobido · Appel final — image",
+    ratio: "16:9",
+    altMaxLength: IMAGE_ALT,
+  },
 });
 
 export type ContentFields = typeof contentFields;

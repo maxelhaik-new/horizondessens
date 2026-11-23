@@ -12,8 +12,8 @@ import type { ContentValues } from "./registry";
 export const contentDefaults: ContentValues = {
   // --- Hero ---
   "home.hero.image": {
-    src: "/images/massages/visage-4.jpg",
-    alt: "Massage du visage, mains posées de part et d'autre de la tête, dans une lumière chaude",
+    src: "/images/massages/header1.jpg",
+    alt: "Visage apaisé, les yeux clos, une main posée sur le front dans la pénombre",
   },
   "home.hero.eyebrow": "Saint-Cyr-sur-Loire · Tours",
   "home.hero.title": "Kobido et massages bien-être, au bord de la Loire",
@@ -100,8 +100,8 @@ export const contentDefaults: ContentValues = {
 
   // --- Focus 5 Continents ---
   "home.5c.image": {
-    src: "/images/massages/dos-2.jpg",
-    alt: "Massage du dos à l'huile, mains posées avec douceur",
+    src: "/images/accueil/5-continents-huile.jpg",
+    alt: "Flacon d'huile ambré posé sur une pierre, lumière dorée",
   },
   "home.5c.eyebrow": "Un massage rare",
   "home.5c.title": "Le Massage des 5 Continents",
@@ -206,4 +206,150 @@ export const contentDefaults: ContentValues = {
   "home.final.text":
     "Réservez votre soin en ligne en quelques instants, ou appelez-moi pour en parler.",
   "home.final.access": "Accès et stationnement : informations à venir.",
+
+  // ===== Page Kobido =====
+  "kobido.hero.eyebrow": "Kobido · Saint-Cyr-sur-Loire",
+  "kobido.hero.title": "Kobido à Saint-Cyr-sur-Loire, aux portes de Tours",
+  "kobido.hero.lead":
+    "Le massage facial japonais, pratiqué dans un salon calme face à la Loire. Une heure pour relâcher le visage, et tout le reste avec lui.",
+  "kobido.hero.image": {
+    src: "/images/kobido/hero.jpg",
+    alt: "Kobido : les mains de la praticienne posées sur le front, visage détendu",
+  },
+
+  "kobido.origine.eyebrow": "Origine",
+  "kobido.origine.title": "Un soin né au Japon, il y a plusieurs siècles",
+  "kobido.origine.text":
+    "Le Kobido est un massage traditionnel japonais du visage. Son nom évoque « l'ancienne voie de la beauté ». Transmis de génération en génération, il repose sur des gestes précis, rythmés, presque chorégraphiés.\n\nIl travaille le visage, la nuque et le haut du crâne : la peau, les muscles et les points d'énergie. C'est ce qui le distingue d'un simple soin esthétique : le visage se détend, et avec lui le corps entier.",
+  "kobido.origine.quote":
+    "Plus qu'un soin de beauté : une détente profonde qui part du visage.",
+  "kobido.origine.image": {
+    src: "/images/accueil/kobido-visage.jpg",
+    alt: "Visage détendu sous une lumière douce, les yeux clos",
+  },
+
+  "kobido.gestes.eyebrow": "Les gestes",
+  "kobido.gestes.title": "Une chorégraphie de mains",
+  "kobido.gestes.items": [
+    {
+      title: "Les lissages",
+      text: "Des effleurements amples et enveloppants ouvrent le soin. Ils réchauffent la peau, apaisent le souffle et invitent le visage à se relâcher.",
+      image: "/images/kobido/geste-lissage.jpg",
+    },
+    {
+      title: "Les pressions",
+      text: "Des pressions sur les points d'énergie du visage, héritées de la tradition japonaise, pour libérer les tensions installées au fil des jours.",
+      image: "/images/kobido/geste-pressions.jpg",
+    },
+    {
+      title: "Les percussions",
+      text: "Des gestes rapides et légers, du bout des doigts, qui stimulent la peau et réveillent l'éclat du teint.",
+      image: "/images/accueil/hero-mains-visage.jpg",
+    },
+    {
+      title: "Le modelage",
+      text: "Des pétrissages et des étirements doux travaillent les muscles du visage, de la mâchoire au front, pour des traits plus reposés.",
+      image: "/images/kobido/geste-modelage.jpg",
+    },
+  ],
+
+  "kobido.effets.eyebrow": "Ce que l'on ressent",
+  "kobido.effets.title": "Le visage se pose, le corps suit",
+  "kobido.effets.items": [
+    {
+      title: "Un teint plus lumineux",
+      text: "La peau est stimulée en douceur : le visage paraît plus frais, plus reposé, dès la fin de la séance.",
+    },
+    {
+      title: "Des traits relâchés",
+      text: "Front, mâchoire, contour des yeux : les zones où l'on serre sans y penser se détendent.",
+    },
+    {
+      title: "Un lâcher-prise profond",
+      text: "Le rythme des gestes apaise le mental. Beaucoup s'endorment presque.",
+    },
+    {
+      title: "Un moment pour soi",
+      text: "Une heure sans écran ni sollicitation, face à la Loire.",
+    },
+  ],
+
+  "kobido.formules.eyebrow": "Les formules",
+  "kobido.formules.title": "Deux durées, un même soin",
+  "kobido.formules.court":
+    "Le Kobido complet : visage, nuque et cuir chevelu. L'idéal pour une première découverte.",
+  "kobido.formules.long":
+    "Le même soin, avec plus de temps pour la nuque, les épaules et le repos final. Pour celles et ceux qui veulent prolonger.",
+  "kobido.formules.cure":
+    "Les effets du Kobido se prolongent avec la régularité. L'abonnement réunit 6 séances dans l'année, avec 10 € de moins sur chacune.",
+
+  "kobido.approche.eyebrow": "Mon approche",
+  "kobido.approche.quote":
+    "Je ne cherche pas à transformer un visage. Je cherche à ce que vous vous sentiez bien dedans.",
+  "kobido.approche.text":
+    "Ancienne soignante, praticienne en massage bien-être depuis 2018 et initiée au Reiki, j'ai ajouté le Kobido à ma pratique en 2025. J'y retrouve ce qui me tient à cœur : l'écoute, la précision du geste et le temps qu'on s'accorde.",
+
+  "kobido.seance.eyebrow": "Déroulé",
+  "kobido.seance.title": "Votre séance, pas à pas",
+  "kobido.seance.items": [
+    {
+      time: "Arrivée",
+      title: "Un temps d'échange",
+      text: "Nous parlons de vos attentes, de votre peau et de ce dont vous avez besoin aujourd'hui.",
+    },
+    {
+      time: "Début",
+      title: "Le visage préparé",
+      text: "Installation confortable, puis un nettoyage doux pour que la peau accueille le soin.",
+    },
+    {
+      time: "Cœur du soin",
+      title: "Le massage Kobido",
+      text: "Lissages, pressions, percussions et modelage s'enchaînent sur le visage, la nuque et le crâne.",
+    },
+    {
+      time: "Fin",
+      title: "Un retour en douceur",
+      text: "Quelques minutes de repos, un verre d'eau, et vous repartez à votre rythme.",
+    },
+  ],
+
+  "kobido.faq.title": "Questions sur le Kobido",
+  "kobido.faq.intro":
+    "Une autre question ? Appelez-moi, je vous réponds avec plaisir.",
+  "kobido.faq.items": [
+    {
+      question: "Faut-il venir démaquillé ?",
+      answer:
+        "Ce n'est pas nécessaire : le visage est préparé en début de séance. Pensez simplement à retirer vos lentilles si vous en portez.",
+    },
+    {
+      question: "À quelle fréquence faire un Kobido ?",
+      answer:
+        "Une séance ponctuelle fait déjà beaucoup de bien. Pour des effets durables, on conseille souvent une séance toutes les 4 à 6 semaines : c'est le rythme de l'abonnement.",
+    },
+    {
+      question: "1h ou 1h15 : que choisir ?",
+      answer:
+        "L'heure suffit pour découvrir le soin. La formule 1h15 laisse plus de place à la nuque, aux épaules et au repos final.",
+    },
+    {
+      question: "Y a-t-il des contre-indications ?",
+      answer:
+        "Signalez-moi toute affection de la peau, une intervention récente au visage ou une grossesse. En cas de doute, demandez l'avis de votre médecin. Le Kobido est un soin de bien-être, pas un acte médical.",
+    },
+    {
+      question: "Le Kobido remplace-t-il les injections ?",
+      answer:
+        "Non, et ce n'est pas son but. Le Kobido est un soin naturel qui détend et ravive le visage, sans rien promettre d'autre que du bien-être.",
+    },
+  ],
+
+  "kobido.final.title": "Offrez-vous une heure de Kobido",
+  "kobido.final.text":
+    "Réservez en ligne en quelques instants, ou offrez une séance avec une carte cadeau.",
+  "kobido.final.image": {
+    src: "/images/ambiance/flacon-ombre.jpg",
+    alt: "Flacon d'huile ambrée posé dans un jeu d'ombre et de lumière",
+  },
 };

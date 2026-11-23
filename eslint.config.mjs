@@ -15,6 +15,7 @@ const eslintConfig = defineConfig([
     // Hors application : références, docs, exports de templates.
     "serelin/**",
     "serelin components/**",
+    "components/**",
     "references/**",
     "docs/**",
     "assets/**",

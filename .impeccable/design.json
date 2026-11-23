@@ -1,0 +1,365 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-23T14:49:55.924485+00:00",
+  "title": "Design System: Horizon des Sens",
+  "extensions": {
+    "colorMeta": {
+      "paper": {
+        "role": "neutral",
+        "displayName": "Papier rosé",
+        "canonical": "#f7ece9",
+        "tonalRamp": [
+          "#361f19",
+          "#674035",
+          "#7a483a",
+          "#925443",
+          "#af6753",
+          "#c5816e",
+          "#d6a293",
+          "#eed5ce"
+        ]
+      },
+      "paper-soft": {
+        "role": "neutral",
+        "displayName": "Papier clair",
+        "canonical": "#fbf6f5",
+        "tonalRamp": [
+          "#361f19",
+          "#674035",
+          "#7a483a",
+          "#925443",
+          "#af6753",
+          "#c5816e",
+          "#d6a293",
+          "#eed5ce"
+        ]
+      },
+      "blush": {
+        "role": "neutral",
+        "displayName": "Rose poudré",
+        "canonical": "#eed5ce",
+        "tonalRamp": [
+          "#361f19",
+          "#674035",
+          "#7a483a",
+          "#925443",
+          "#af6753",
+          "#c5816e",
+          "#d6a293",
+          "#eed5ce"
+        ]
+      },
+      "sand": {
+        "role": "neutral",
+        "displayName": "Sable rosé",
+        "canonical": "#e6c4bb",
+        "tonalRamp": [
+          "#361f19",
+          "#674035",
+          "#7a483a",
+          "#925443",
+          "#af6753",
+          "#c5816e",
+          "#d6a293",
+          "#eed5ce"
+        ]
+      },
+      "mist": {
+        "role": "neutral",
+        "displayName": "Brume rosée",
+        "canonical": "#f3e1dc",
+        "tonalRamp": [
+          "#361f19",
+          "#674035",
+          "#7a483a",
+          "#925443",
+          "#af6753",
+          "#c5816e",
+          "#d6a293",
+          "#eed5ce"
+        ]
+      },
+      "night": {
+        "role": "primary",
+        "displayName": "Noir chaud",
+        "canonical": "#1a110f",
+        "tonalRamp": [
+          "#1a110f",
+          "#361f19",
+          "#523630",
+          "#6f504a",
+          "#8c6e66",
+          "#a99089",
+          "#c6b3ad",
+          "#e3d6d2"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Encre",
+        "canonical": "#1a110f",
+        "tonalRamp": [
+          "#361f19",
+          "#674035",
+          "#7a483a",
+          "#925443",
+          "#af6753",
+          "#c5816e",
+          "#d6a293",
+          "#eed5ce"
+        ]
+      },
+      "ink-soft": {
+        "role": "neutral",
+        "displayName": "Gris texte",
+        "canonical": "#525252",
+        "tonalRamp": [
+          "#361f19",
+          "#674035",
+          "#7a483a",
+          "#925443",
+          "#af6753",
+          "#c5816e",
+          "#d6a293",
+          "#eed5ce"
+        ]
+      },
+      "ink-subtle": {
+        "role": "neutral",
+        "displayName": "Gris discret",
+        "canonical": "#5f5f5f",
+        "tonalRamp": [
+          "#361f19",
+          "#674035",
+          "#7a483a",
+          "#925443",
+          "#af6753",
+          "#c5816e",
+          "#d6a293",
+          "#eed5ce"
+        ]
+      },
+      "accent-300": {
+        "role": "secondary",
+        "displayName": "Sable accent",
+        "canonical": "#e6c4bb",
+        "tonalRamp": [
+          "#361f19",
+          "#674035",
+          "#7a483a",
+          "#925443",
+          "#af6753",
+          "#c5816e",
+          "#d6a293",
+          "#eed5ce"
+        ]
+      },
+      "accent-500": {
+        "role": "secondary",
+        "displayName": "Terracotta clair",
+        "canonical": "#c5816e",
+        "tonalRamp": [
+          "#361f19",
+          "#674035",
+          "#7a483a",
+          "#925443",
+          "#af6753",
+          "#c5816e",
+          "#d6a293",
+          "#eed5ce"
+        ]
+      },
+      "accent-600": {
+        "role": "secondary",
+        "displayName": "Terracotta",
+        "canonical": "#af6753",
+        "tonalRamp": [
+          "#361f19",
+          "#674035",
+          "#7a483a",
+          "#925443",
+          "#af6753",
+          "#c5816e",
+          "#d6a293",
+          "#eed5ce"
+        ]
+      },
+      "accent-800": {
+        "role": "secondary",
+        "displayName": "Terracotta profond",
+        "canonical": "#7a483a",
+        "tonalRamp": [
+          "#361f19",
+          "#674035",
+          "#7a483a",
+          "#925443",
+          "#af6753",
+          "#c5816e",
+          "#d6a293",
+          "#eed5ce"
+        ]
+      },
+      "accent-950": {
+        "role": "secondary",
+        "displayName": "Terracotta nuit",
+        "canonical": "#361f19",
+        "tonalRamp": [
+          "#361f19",
+          "#674035",
+          "#7a483a",
+          "#925443",
+          "#af6753",
+          "#c5816e",
+          "#d6a293",
+          "#eed5ce"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Titre du hero, serif italique."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Titres de section (text-h2)."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Titres de cartes (text-h3)."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Textes en Manrope."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Surtitres en pastille."
+      }
+    },
+    "shadows": [
+      {
+        "name": "lift",
+        "value": "0 0.6px 1.1px -0.75px rgb(26 17 15 / .16), 0 1.9px 3.5px -1.5px rgb(26 17 15 / .15), 0 5px 9px -2.25px rgb(26 17 15 / .13), 0 16px 29px -3px rgb(26 17 15 / .1)",
+        "purpose": "Boutons et pastilles."
+      },
+      {
+        "name": "soft",
+        "value": "0 24px 60px -32px rgb(54 31 25 / .35)",
+        "purpose": "En-tête flottant défilé."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-soft",
+        "value": "cubic-bezier(0.22, 1, 0.36, 1)",
+        "purpose": "Révélations et apparitions."
+      },
+      {
+        "name": "ease-spring",
+        "value": "cubic-bezier(0.34, 1.32, 0.64, 1)",
+        "purpose": "Bouton remix (0.6 s)."
+      },
+      {
+        "name": "ease-serelin",
+        "value": "cubic-bezier(0.6, 0, 0.4, 1)",
+        "purpose": "Zoom des images de cartes."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "md",
+        "value": "48rem"
+      },
+      {
+        "name": "lg",
+        "value": "64rem"
+      },
+      {
+        "name": "xl",
+        "value": "80rem"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Bouton principal : pilule noire avec pastille chevron.",
+      "html": "<a class=\"ds-btn\"><span class=\"ds-btn-t\">Réserver un soin</span><span class=\"ds-btn-c\">›</span></a>",
+      "css": ".ds-btn{position:relative;display:inline-flex;align-items:center;height:56px;padding:0 24px 0 66px;border-radius:9999px;background:#1a110f;color:#fff;font:500 16px Manrope,sans-serif;letter-spacing:.016em;overflow:hidden;box-shadow:0 5px 9px -2.25px rgb(26 17 15/.13),0 16px 29px -3px rgb(26 17 15/.1);transition:background .3s;cursor:pointer}.ds-btn-t{transition:transform .6s cubic-bezier(.34,1.32,.64,1)}.ds-btn-c{position:absolute;top:50%;left:6px;transform:translateY(-50%);width:44px;height:44px;border-radius:9999px;background:#fff;color:#1a110f;display:grid;place-items:center;transition:left .6s cubic-bezier(.34,1.32,.64,1)}.ds-btn:hover{background:#361f19}.ds-btn:hover .ds-btn-t{transform:translateX(-42px)}.ds-btn:hover .ds-btn-c{left:calc(100% - 50px)}.ds-btn:focus-visible{outline:2px solid #7a483a;outline-offset:3px}"
+    },
+    {
+      "name": "Eyebrow pill",
+      "kind": "chip",
+      "refersTo": "eyebrow-pill",
+      "description": "Surtitre de section.",
+      "html": "<p class=\"ds-eye\">Les soins</p>",
+      "css": ".ds-eye{display:inline-flex;padding:12px 20px;border-radius:9999px;background:rgb(255 255 255/.7);color:#7a483a;font:500 14px Manrope,sans-serif;letter-spacing:.06em;text-transform:uppercase}"
+    },
+    {
+      "name": "Service card",
+      "kind": "card",
+      "refersTo": "service-card",
+      "description": "Carte de soin : titre italique, sous-titre, tarifs en pilules.",
+      "html": "<article class=\"ds-card\"><h3>Kobido</h3><p class=\"ds-sub\">Visage · Détente profonde et éclat</p><p class=\"ds-p\">Le massage facial japonais traditionnel.</p><span class=\"ds-tag\">1h · 100 €</span></article>",
+      "css": ".ds-card{background:#f7ece9;border-radius:40px;padding:32px;max-width:420px}.ds-card h3{font:italic 400 44px/1.2 'Instrument Serif',serif;letter-spacing:-.02em;margin:0 0 12px;color:#1a110f}.ds-sub{font:500 14px Manrope,sans-serif;color:#7a483a;margin:0 0 12px}.ds-p{font:400 17px/1.6 Manrope,sans-serif;color:#525252;margin:0 0 20px}.ds-tag{display:inline-block;padding:8px 16px;border-radius:9999px;background:rgb(255 255 255/.8);font:500 14px Manrope,sans-serif}"
+    },
+    {
+      "name": "FAQ item",
+      "kind": "custom",
+      "refersTo": "faq-item",
+      "description": "Question en accordéon natif.",
+      "html": "<div class=\"ds-faq\"><span>Comment choisir mon soin ?</span><i>+</i></div>",
+      "css": ".ds-faq{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:24px 32px;border-radius:32px;background:#fbf6f5;font:500 18px Manrope,sans-serif;color:#1a110f}.ds-faq i{display:grid;place-items:center;width:40px;height:40px;border-radius:9999px;background:#1a110f;color:#fff;font-style:normal}"
+    }
+  ],
+  "narrative": {
+    "northStar": "",
+    "overview": "Site de soin calme et chaleureux : fond papier rosé, grands visuels photographiques sombres et dorés, titres en serif italique et cartes très arrondies. Palette et typos provisoires, reprises de Serelin.",
+    "keyCharacteristics": [
+      "Fond papier rosé et alternance de sections",
+      "Instrument Serif italique pour les titres, Manrope pour le texte",
+      "Cartes à 40 px de rayon, boutons en pilule",
+      "Photos chaudes et sombres en grand",
+      "Tout passe par les tokens, rien en dur"
+    ],
+    "rules": [
+      {
+        "name": "The Warm Black Rule",
+        "body": "Le noir est toujours #1a110f, jamais #000.",
+        "section": "colors"
+      },
+      {
+        "name": "The Small Text Rule",
+        "body": "Petit texte d'accent en accent-800 ou plus foncé.",
+        "section": "colors"
+      },
+      {
+        "name": "The Italic Serif Only Rule",
+        "body": "Le serif n'apparaît qu'en italique et uniquement pour les titres.",
+        "section": "typography"
+      },
+      {
+        "name": "The Warm Shadow Rule",
+        "body": "Aucune ombre grise : toujours la teinte chaude du noir de marque.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do utiliser uniquement les tokens de globals.css.",
+      "Do garder une seule action principale par bloc.",
+      "Do respecter prefers-reduced-motion.",
+      "Do faire passer le contenu éditable par src/content/.",
+      "Do utiliser des visages uniquement pour le Kobido, sans doublon d'image."
+    ],
+    "donts": [
+      "Don't utiliser le noir pur ni une ombre grise.",
+      "Don't mettre de petit texte d'accent plus clair que accent-800.",
+      "Don't reprendre la palette bordeaux et framboise de Sensoa.",
+      "Don't copier code, images ou textes de Serelin.",
+      "Don't afficher prix ou durées ailleurs que depuis SimplyBook."
+    ]
+  }
+}

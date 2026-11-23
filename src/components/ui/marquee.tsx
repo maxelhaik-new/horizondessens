@@ -21,13 +21,13 @@ export function Marquee({
 
   const row = (hidden: boolean) => (
     <ul
-      className="flex shrink-0 items-center gap-8 pr-8 md:gap-12 md:pr-12"
+      className="flex shrink-0 items-center gap-10 pr-10 md:gap-16 md:pr-16"
       aria-hidden={hidden || undefined}
     >
       {loop.map((word, i) => (
-        <li key={`${word}-${i}`} className="flex items-center gap-8 md:gap-12">
-          <span className="font-serif text-xl italic md:text-2xl">{word}</span>
-          <SparkIcon className="size-3 text-accent-500" />
+        <li key={`${word}-${i}`} className="flex items-center gap-10 md:gap-16">
+          <span className="font-serif text-4xl italic md:text-6xl">{word}</span>
+          <SparkIcon className="size-4 text-accent-500 md:size-5" />
         </li>
       ))}
     </ul>
