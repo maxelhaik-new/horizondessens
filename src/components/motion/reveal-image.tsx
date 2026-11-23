@@ -21,6 +21,8 @@ type RevealImageProps = {
   eager?: boolean;
   /** Amplitude de la parallaxe interne, en % de la hauteur (0 = aucune). */
   parallax?: number;
+  /** Classes de l'image elle-même (ex. zoom au survol de la carte parente). */
+  imageClassName?: string;
 };
 
 /**
@@ -34,6 +36,7 @@ export function RevealImage({
   sizes,
   eager = false,
   parallax = 8,
+  imageClassName,
 }: RevealImageProps) {
   const ref = useRef<HTMLDivElement>(null);
   const reduceMotion = useReducedMotion();
@@ -55,7 +58,7 @@ export function RevealImage({
           alt={alt}
           fill
           sizes={sizes}
-          className="object-cover"
+          className={cn("object-cover", imageClassName)}
           loading={eager ? "eager" : "lazy"}
         />
       </div>
@@ -84,7 +87,7 @@ export function RevealImage({
           alt={alt}
           fill
           sizes={sizes}
-          className="object-cover"
+          className={cn("object-cover", imageClassName)}
           loading={eager ? "eager" : "lazy"}
           fetchPriority={eager ? "high" : undefined}
         />

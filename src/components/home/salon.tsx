@@ -1,56 +1,44 @@
-import { RevealGroup, RevealItem } from "@/components/motion/reveal";
-import { RevealImage } from "@/components/motion/reveal-image";
-import { TextLink } from "@/components/ui/button-link";
+import { ButtonLink } from "@/components/ui/button-link";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { getContents } from "@/content/get-content";
 import { routes } from "@/lib/navigation";
 
-/** §6 Le salon et les 3 temps d'une séance (cartes « usp » de Serelin). */
+import { SalonGallery } from "./salon-gallery";
+
+/**
+ * §6 Le salon (Serelin « experience ») : titre centré + CTA, puis une
+ * galerie de grandes images qui défile horizontalement avec le scroll.
+ */
 export async function Salon() {
   const c = await getContents([
     "home.salon.image",
     "home.salon.eyebrow",
     "home.salon.title",
     "home.salon.text",
-    "home.salon.steps",
+    "home.salon.gallery",
   ] as const);
 
+  const images = [
+    c["home.salon.image"],
+    ...c["home.salon.gallery"].map((src) => ({
+      src,
+      alt: "Le salon Horizon des Sens à Saint-Cyr-sur-Loire",
+    })),
+  ];
+
   return (
-    <section className="bg-paper section-y">
-      <div className="container-site flex flex-col gap-12 md:gap-16">
+    <section className="overflow-hidden bg-paper section-y">
+      <div className="container-site">
         <SectionHeading
           eyebrow={c["home.salon.eyebrow"]}
           title={c["home.salon.title"]}
           intro={c["home.salon.text"]}
+          action={
+            <ButtonLink href={routes.salon}>Découvrir le salon</ButtonLink>
+          }
         />
-
-        <RevealImage
-          src={c["home.salon.image"].src}
-          alt={c["home.salon.image"].alt}
-          sizes="(min-width: 1280px) 1216px, 100vw"
-          className="aspect-[4/3] rounded-media md:aspect-[21/9]"
-        />
-
-        <RevealGroup as="ol" className="grid gap-4 md:grid-cols-3 md:gap-6">
-          {c["home.salon.steps"].map((step, i) => (
-            <RevealItem
-              as="li"
-              key={step.title}
-              className="flex flex-col gap-3 rounded-card bg-paper-soft p-6 md:p-8"
-            >
-              <span className="font-serif text-lg text-accent-600 italic">
-                {String(i + 1).padStart(2, "0")}
-              </span>
-              <h3 className="text-h4">{step.title}</h3>
-              <p className="text-body text-pretty text-ink-soft">{step.text}</p>
-            </RevealItem>
-          ))}
-        </RevealGroup>
-
-        <div className="flex justify-center">
-          <TextLink href={routes.salon}>Découvrir le salon</TextLink>
-        </div>
       </div>
+      <SalonGallery images={images} />
     </section>
   );
 }

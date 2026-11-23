@@ -1,11 +1,16 @@
 import Image from "next/image";
 
+import { SplitWords } from "@/components/motion/split-words";
 import { ButtonLink, TextLink } from "@/components/ui/button-link";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { getContents } from "@/content/get-content";
 import { routes } from "@/lib/navigation";
 
-/** §1 Hero plein cadre + §2 faits de réassurance (à la place des chiffres Serelin). */
+/**
+ * §1 Hero plein cadre (Serelin) : pastille, titre italique révélé mot à mot,
+ * accroche, CTA, puis 4 faits clés en italique (à la place des chiffres).
+ * Animations 100 % CSS : visibles sans attendre le JS (LCP, SEO).
+ */
 export async function Hero() {
   const c = await getContents([
     "home.hero.image",
@@ -24,30 +29,29 @@ export async function Hero() {
         sizes="100vw"
         loading="eager"
         fetchPriority="high"
-        className="-z-10 object-cover"
+        className="-z-10 animate-hero-zoom object-cover"
       />
-      {/* Voile pour la lisibilité du texte */}
       <div
         aria-hidden
-        className="absolute inset-0 -z-10 bg-[linear-gradient(to_top,rgb(26_17_15/0.85),rgb(26_17_15/0.25)_55%,rgb(26_17_15/0.45))]"
+        className="absolute inset-0 -z-10 bg-[linear-gradient(to_top,rgb(26_17_15/0.88),rgb(26_17_15/0.2)_55%,rgb(26_17_15/0.5))]"
       />
 
-      <div className="container-site flex flex-1 flex-col justify-end pt-32 pb-10 md:pb-14">
-        <div className="flex max-w-2xl flex-col items-start gap-6">
+      <div className="container-site flex flex-1 flex-col justify-end pt-36 pb-10 md:pb-16">
+        <div className="flex max-w-3xl flex-col items-start gap-6">
           <div className="animate-rise">
             <Eyebrow tone="glass">{c["home.hero.eyebrow"]}</Eyebrow>
           </div>
-          <div className="animate-rise [animation-delay:120ms]">
-            <h1 className="text-display text-balance">
-              {c["home.hero.title"]}
-            </h1>
-          </div>
-          <div className="animate-rise [animation-delay:240ms]">
-            <p className="max-w-lg text-lead text-pretty text-white/80">
-              {c["home.hero.lead"]}
-            </p>
-          </div>
-          <div className="flex animate-rise flex-wrap items-center gap-x-6 gap-y-4 pt-2 [animation-delay:360ms]">
+          <SplitWords
+            as="h1"
+            text={c["home.hero.title"]}
+            className="text-display text-balance"
+            immediate
+            delay={150}
+          />
+          <p className="max-w-lg animate-rise text-lead text-pretty text-white/75 [animation-delay:500ms]">
+            {c["home.hero.lead"]}
+          </p>
+          <div className="flex animate-rise flex-wrap items-center gap-x-8 gap-y-4 pt-2 [animation-delay:650ms]">
             <ButtonLink href={routes.reserver} variant="light">
               Réserver un soin
             </ButtonLink>
@@ -57,17 +61,20 @@ export async function Hero() {
           </div>
         </div>
 
-        <ul className="mt-14 grid animate-rise grid-cols-2 gap-y-6 border-t border-white/20 pt-6 [animation-delay:480ms] md:mt-20 md:grid-cols-4">
-          {c["home.trust.items"].map((fact, i) => (
+        <ul className="mt-14 grid animate-rise grid-cols-2 gap-y-8 border-t border-white/20 pt-8 [animation-delay:800ms] md:mt-20 md:grid-cols-4">
+          {c["home.trust.items"].map(({ value, label }, i) => (
             <li
-              key={fact}
+              key={value}
               className={
-                i % 2 === 1 ? "pl-4 md:pl-6" : i > 0 ? "md:pl-6" : undefined
+                i > 0 ? "md:border-l md:border-white/15 md:pl-8" : undefined
               }
             >
-              <span className="font-serif text-xl leading-tight tracking-[-0.02em] text-white/90 md:text-2xl">
-                {fact}
-              </span>
+              <p className="font-serif text-4xl leading-none tracking-[-0.02em] italic md:text-5xl">
+                {value}
+              </p>
+              <p className="mt-3 text-xs tracking-[0.008em] text-white/70 md:text-sm">
+                {label}
+              </p>
             </li>
           ))}
         </ul>

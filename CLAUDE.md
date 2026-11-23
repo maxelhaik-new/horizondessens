@@ -109,6 +109,45 @@ Le dossier **`serelin/`** est le template Framer « Serelin » (medspa et wellne
 
 Vérifié : typecheck, lint, format, `content:check` et build OK, page statique. Rendu contrôlé en desktop (1440) et en mobile (375), menu mobile compris.
 
+## Accueil v1.1 : refonte au plus près de Serelin (23/11/2026)
+
+**Valeurs relevées sur serelin.framer.website** (1440 px) et dans `serelin components/` (composants décompilés ajoutés par Maxime, gardés en local et ignorés par Git) :
+- **Titres** : Instrument Serif **en italique**, avec un interlettrage de -0.02em et un interligne de 1.2. Tailles : H1 80, H2 64, titres de cartes de soin 56, H3 32. Ils sont **révélés mot à mot** (flou de 10px, glissement, fondu).
+- **Texte courant** : Manrope 18/1.6, couleur `#525252`.
+- **Mise en page** : conteneur de 1200px, sections de 64 à 80px de padding vertical.
+- **Header** : une **pilule flottante** de 72px de haut avec un rayon de 40px. Elle est transparente sur le hero, puis blanche translucide et floutée.
+- **Bouton « remix »** : une pilule sombre avec une pastille chevron et une ombre en couches. **Au survol, la pastille passe à gauche et le texte glisse à droite**, avec un ressort de 0.6s.
+- **Cartes** : rayon de 40px (`rounded-card`), médias à 24-32px. Les cartes de soin font environ 560px de haut, avec un zoom de l'image au survol (courbe `ease-serelin` `[.6,0,.4,1]`).
+
+**Implémentation :**
+- `SplitWords` (serveur) et `InView` (client) : mots en `<span class="split-word">`, animés en CSS et déclenchés par `data-inview`. Le texte complet est dans le HTML. Sans JS (`@media (scripting: none)`) ou avec mouvement réduit, le texte s'affiche directement. **Le H1 du hero est animé sans JS.**
+- `src/lib/cn.ts` : `tailwind-merge` étendu aux utilitaires typo (`text-h2`, `text-eyebrow`…). Sinon il les confondait avec des couleurs et les supprimait.
+- **Nouvel ordre des sections** :
+  - Hero (4 faits en italique, valeur et libellé)
+  - Bandeau de mots en italique
+  - **Philosophie** (déclaration d'Élodie entourée de médaillons photo en parallaxe)
+  - Soins (grandes cartes)
+  - Kobido
+  - **Séance** (3 cartes hautes avec pictogramme dans une pastille sombre)
+  - 5 Continents (carte sombre arrondie)
+  - **Salon** (titre, CTA, puis galerie horizontale qui défile avec le scroll, swipe natif sur mobile)
+  - Élodie
+  - Avis (masqués)
+  - Abonnement et carte cadeau
+  - FAQ (centrée)
+  - **Appel final** (carte claire, logo, titre à gauche, texte et CTA à droite)
+  - Footer sur fond `mist`
+- **Contrastes corrigés (audit impeccable)** :
+  - `ink-subtle` passe à `#5f5f5f` ;
+  - le petit texte d'accent est en `accent-800` au minimum ;
+  - footer en `ink` / `ink-soft` sur `mist`.
+  - Après correction, **le détecteur ne relève plus aucun contraste insuffisant**. Ses alertes « kicker », « italic serif », « cream » et « oversized h1 » sont **assumées** : ce sont les choix de Serelin fixés par Maxime.
+- **Contenu** : 61 clés. Nouvelles clés : `home.trust.items` (valeur et libellé), `home.philo.*`, `home.steps.*`, `home.salon.gallery`, `home.faq.intro`.
+- **Rapport d'audit** : `.impeccable/audit/`.
+
+## Images Midjourney intégrées (23/11/2026)
+Les 7 images de `assets/massage midjourney/` sont compressées en JPEG dans `public/images/massages/` et branchées dans `src/content/defaults.ts` : hero = `nuque`, Kobido (carte) = `kobido-visage-1`, Calme et harmonie = `dos`, 5 Continents (carte) = `bras`, Jambes légères = `pieds`, focus Kobido = `kobido-visage-2`, focus 5 Continents = `dos-2`. **Kobido = uniquement des visages** (seules 2 images de visage existent). Règle : **jamais deux fois la même image sur une page** (médaillons de la philosophie remplacés par `mains-epaules`, `massage-dos`, `massage-dos-2`).
+
 ## Décisions pour le dev de l'accueil (23/11/2026)
 - **Contenu** : on développe sur la base de `docs/contenu/accueil-v1.md` **tel quel**. Maxime itérera sur le site développé.
 - **Palette et typos** : **exactement celles de Serelin pour commencer**, traduites en tokens sémantiques propres. On ajustera ensuite.
@@ -217,8 +256,8 @@ Pas de newsletter.
 
 | 2026-11-23 | Design | Serelin analysé comme référence d'inspiration (`docs/design/serelin-inspiration.md`). Mockups temporaires de carte cadeau ajoutés par Maxime. |
 | 2026-11-23 | Stack | Next.js 16.4, Tailwind 4, Motion, ESLint et Prettier initialisés. Couches contenu et prestations prêtes (vides). Redirections 301. Typecheck, lint, format et build OK. Aucun contenu ni design codé. |
-
 | 2026-11-23 | Dev | **Accueil v1 développée** : 11 sections, header et footer, animations Serelin, 54 clés de contenu, soins locaux. Images compressées par Sonnet. Vérifié en desktop et en mobile. |
+| 2026-11-23 | Dev | **Accueil v1.1** : audit impeccable (contrastes corrigés) et refonte au plus près de Serelin (titres italiques mot à mot, header en pilule, bouton remix, grandes cartes, philosophie, galerie salon, appel final avec footer). |
 
 ### Questions encore ouvertes
 - Le tarif du Rituel Horizon.

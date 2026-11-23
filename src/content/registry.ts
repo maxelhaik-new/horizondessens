@@ -73,10 +73,25 @@ export const contentFields = defineFields({
     maxLength: 160,
   },
   "home.trust.items": {
-    type: "list",
-    label: "Réassurance — faits courts",
+    type: "items",
+    label: "Hero — faits clés (valeur + libellé)",
     maxItems: 4,
-    itemMaxLength: 40,
+    fields: {
+      value: { label: "Valeur (grand, italique)", maxLength: 12 },
+      label: { label: "Libellé", maxLength: 32 },
+    },
+  },
+
+  // --- Philosophie (déclaration d'Élodie) ---
+  "home.philo.eyebrow": {
+    type: "text",
+    label: "Philosophie — pastille",
+    maxLength: 30,
+  },
+  "home.philo.text": {
+    type: "textarea",
+    label: "Philosophie — déclaration (grand titre)",
+    maxLength: 150,
   },
 
   // --- Bandeau de mots ---
@@ -185,13 +200,33 @@ export const contentFields = defineFields({
     label: "Salon — texte",
     maxLength: 180,
   },
-  "home.salon.steps": {
+  "home.salon.gallery": {
+    type: "list",
+    label: "Salon — galerie (chemins d'images)",
+    help: "Remplacé par un vrai champ galerie avec le CMS.",
+    maxItems: 6,
+    itemMaxLength: 120,
+  },
+
+  // --- Les 3 temps d'une séance ---
+  "home.steps.eyebrow": {
+    type: "text",
+    label: "Séance — pastille",
+    maxLength: 30,
+  },
+  "home.steps.title": { type: "text", label: "Séance — titre", maxLength: 60 },
+  "home.steps.intro": {
+    type: "textarea",
+    label: "Séance — intro",
+    maxLength: 140,
+  },
+  "home.steps.items": {
     type: "items",
-    label: "Salon — les 3 temps d'une séance",
+    label: "Séance — les 3 temps",
     maxItems: 3,
     fields: {
       title: { label: "Titre", maxLength: 25 },
-      text: { label: "Texte", maxLength: 90 },
+      text: { label: "Texte", maxLength: 110 },
     },
   },
 
@@ -248,6 +283,7 @@ export const contentFields = defineFields({
   // --- FAQ ---
   "home.faq.eyebrow": { type: "text", label: "FAQ — surtitre", maxLength: 30 },
   "home.faq.title": { type: "text", label: "FAQ — titre", maxLength: 50 },
+  "home.faq.intro": { type: "textarea", label: "FAQ — intro", maxLength: 140 },
   "home.faq.items": {
     type: "items",
     label: "FAQ — questions",

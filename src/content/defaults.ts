@@ -12,19 +12,24 @@ import type { ContentValues } from "./registry";
 export const contentDefaults: ContentValues = {
   // --- Hero ---
   "home.hero.image": {
-    src: "/images/accueil/hero-mains-visage.jpg",
-    alt: "Mains posées délicatement sur un visage, dans une lumière chaude et tamisée",
+    src: "/images/massages/nuque.jpg",
+    alt: "Massage de la nuque et des épaules à l'huile, dans une lumière chaude",
   },
   "home.hero.eyebrow": "Saint-Cyr-sur-Loire · Tours",
   "home.hero.title": "Kobido et massages bien-être, au bord de la Loire",
   "home.hero.lead":
     "Un soin du visage japonais ou un massage pensé pour ce que votre corps demande, dans un salon calme à deux pas de Tours.",
   "home.trust.items": [
-    "Praticienne depuis 2018",
-    "Licence officielle 5 Continents",
-    "Reiki Usui",
-    "Réflexologie plantaire",
+    { value: "2018", label: "Praticienne depuis" },
+    { value: "M5C", label: "Licence officielle 5 Continents" },
+    { value: "Reiki", label: "Usui, 1er et 2e degré" },
+    { value: "Réflexo", label: "Plantaire bien-être" },
   ],
+
+  // --- Philosophie ---
+  "home.philo.eyebrow": "Philosophie",
+  "home.philo.text":
+    "Chaque soin commence par l'écoute : votre corps, votre rythme, ce dont vous avez besoin aujourd'hui.",
 
   // --- Bandeau ---
   "home.marquee.items": [
@@ -48,7 +53,7 @@ export const contentDefaults: ContentValues = {
   "service.kobido.short":
     "Le massage facial japonais traditionnel : il lisse les traits, relâche les tensions et ravive l'éclat du teint.",
   "service.kobido.image": {
-    src: "/images/soins/kobido.jpg",
+    src: "/images/massages/kobido-visage-1.jpg",
     alt: "Soin Kobido : massage du visage tout en douceur",
   },
 
@@ -57,16 +62,16 @@ export const contentDefaults: ContentValues = {
   "service.calme-et-harmonie.short":
     "Un massage enveloppant, associé au Reiki, pour relâcher les tensions et retrouver votre équilibre.",
   "service.calme-et-harmonie.image": {
-    src: "/images/soins/calme-et-harmonie.jpg",
-    alt: "Personne détendue, allongée, les yeux fermés",
+    src: "/images/massages/dos.jpg",
+    alt: "Massage du dos, gestes enveloppants",
   },
 
   "service.5-continents.subtitle": "Corps · Un voyage sensoriel",
   "service.5-continents.short":
     "Huiles essentielles, gestes venus du monde entier et soin énergétique : un massage rare, pratiqué sous licence.",
   "service.5-continents.image": {
-    src: "/images/soins/5-continents.jpg",
-    alt: "Mains versant quelques gouttes d'huile essentielle",
+    src: "/images/massages/bras.jpg",
+    alt: "Massage du bras à l'huile, geste ample et fluide",
   },
 
   "service.jambes-legeres.subtitle":
@@ -74,16 +79,16 @@ export const contentDefaults: ContentValues = {
   "service.jambes-legeres.short":
     "Un massage drainant des jambes associé à la réflexologie plantaire, pour soulager les jambes lourdes.",
   "service.jambes-legeres.image": {
-    src: "/images/soins/jambes-legeres.jpg",
-    alt: "Flacon d'huile de massage et fleurs séchées",
+    src: "/images/massages/pieds.jpg",
+    alt: "Massage des pieds, réflexologie plantaire",
   },
 
   "service.rituel-horizon.subtitle": "Sur mesure · Selon vos zones de tension",
 
   // --- Focus Kobido ---
   "home.kobido.image": {
-    src: "/images/accueil/kobido-visage.jpg",
-    alt: "Visage apaisé baigné de lumière, les yeux clos",
+    src: "/images/massages/kobido-visage-2.jpg",
+    alt: "Kobido : massage du visage aux gestes précis",
   },
   "home.kobido.eyebrow": "Soin signature",
   "home.kobido.title": "Le Kobido, l'art japonais du massage du visage",
@@ -97,8 +102,8 @@ export const contentDefaults: ContentValues = {
 
   // --- Focus 5 Continents ---
   "home.5c.image": {
-    src: "/images/accueil/5-continents-huile.jpg",
-    alt: "Flacon d'huile ambré posé sur une pierre, lumière dorée",
+    src: "/images/massages/dos-2.jpg",
+    alt: "Massage du dos à l'huile, mains posées avec douceur",
   },
   "home.5c.eyebrow": "Un massage rare",
   "home.5c.title": "Le Massage des 5 Continents",
@@ -115,10 +120,22 @@ export const contentDefaults: ContentValues = {
   "home.salon.title": "Un salon calme, ouvert sur la Loire",
   "home.salon.text":
     "À Saint-Cyr-sur-Loire, à quelques minutes de Tours, une salle lumineuse face au fleuve, pensée pour que vous puissiez vraiment décrocher.",
-  "home.salon.steps": [
+  "home.salon.gallery": [
+    "/images/salon/fenetre-loire.jpg",
+    "/images/ambiance/lampe-pierres.jpg",
+    "/images/salon/salle-lit.jpg",
+    "/images/ambiance/huiles-plateau.jpg",
+  ],
+
+  // --- Les 3 temps d'une séance ---
+  "home.steps.eyebrow": "La séance",
+  "home.steps.title": "Un moment pensé pour vous",
+  "home.steps.intro":
+    "Pas de protocole à la chaîne : chaque séance suit le même fil, et s'ajuste à vous.",
+  "home.steps.items": [
     {
       title: "Un échange",
-      text: "Quelques minutes pour comprendre vos besoins et adapter le soin.",
+      text: "Quelques minutes pour parler de vos besoins, de vos tensions, et adapter le soin.",
     },
     {
       title: "Le soin",
@@ -126,7 +143,7 @@ export const contentDefaults: ContentValues = {
     },
     {
       title: "Un retour en douceur",
-      text: "Un temps pour revenir à vous avant de repartir.",
+      text: "Quelques instants pour revenir à vous, en douceur, avant de repartir.",
     },
   ],
 
@@ -158,6 +175,8 @@ export const contentDefaults: ContentValues = {
   // --- FAQ ---
   "home.faq.eyebrow": "Questions fréquentes",
   "home.faq.title": "Vos questions",
+  "home.faq.intro":
+    "Les réponses aux questions que l'on se pose avant une première séance.",
   "home.faq.items": [
     {
       question: "Je n'ai jamais essayé le Kobido. Est-ce fait pour moi ?",

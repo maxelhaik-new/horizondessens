@@ -14,6 +14,7 @@ const eslintConfig = defineConfig([
     "next-env.d.ts",
     // Hors application : références, docs, exports de templates.
     "serelin/**",
+    "serelin components/**",
     "references/**",
     "docs/**",
     "assets/**",

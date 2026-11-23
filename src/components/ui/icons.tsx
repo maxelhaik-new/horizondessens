@@ -8,16 +8,16 @@ const base = {
   viewBox: "0 0 24 24",
   fill: "none",
   stroke: "currentColor",
-  strokeWidth: 1.75,
+  strokeWidth: 1.6,
   strokeLinecap: "round",
   strokeLinejoin: "round",
   "aria-hidden": true,
 } as const;
 
-export function ArrowRightIcon(props: IconProps) {
+export function ChevronRightIcon(props: IconProps) {
   return (
-    <svg {...base} {...props}>
-      <path d="M5 12h14M13 6l6 6-6 6" />
+    <svg {...base} strokeWidth={2} {...props}>
+      <path d="M9.5 6l6 6-6 6" />
     </svg>
   );
 }
@@ -50,6 +50,37 @@ export function SparkIcon(props: IconProps) {
   return (
     <svg {...base} fill="currentColor" stroke="none" {...props}>
       <path d="M12 2c.6 4.8 2.7 7.4 8 10-5.3 2.6-7.4 5.2-8 10-.6-4.8-2.7-7.4-8-10 5.3-2.6 7.4-5.2 8-10z" />
+    </svg>
+  );
+}
+
+/** Échange (bulle de conversation). */
+export function ConversationIcon(props: IconProps) {
+  return (
+    <svg {...base} {...props}>
+      <path d="M20 12a7.5 7.5 0 0 1-11.2 6.5L4 20l1.5-4.6A7.5 7.5 0 1 1 20 12z" />
+      <path d="M9 11.5h.01M12 11.5h.01M15 11.5h.01" strokeWidth={2.4} />
+    </svg>
+  );
+}
+
+/** Soin (main ouverte). */
+export function HandIcon(props: IconProps) {
+  return (
+    <svg {...base} {...props}>
+      <path d="M8 13V5.5a1.5 1.5 0 0 1 3 0V11" />
+      <path d="M11 10V4.5a1.5 1.5 0 0 1 3 0V11" />
+      <path d="M14 10.5V6a1.5 1.5 0 0 1 3 0v7.5c0 4-2.7 6.5-6.2 6.5-2.4 0-4-1-5.3-3L3.8 14a1.5 1.5 0 0 1 2.5-1.6L8 14.5" />
+    </svg>
+  );
+}
+
+/** Retour au calme (feuille). */
+export function LeafIcon(props: IconProps) {
+  return (
+    <svg {...base} {...props}>
+      <path d="M5 19c0-8 5-13 14-14-1 9-6 14-14 14z" />
+      <path d="M5 19c3-4 6-7 10-9" />
     </svg>
   );
 }

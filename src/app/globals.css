@@ -4,6 +4,7 @@
  * Design tokens — v1 reprise de Serelin (voir docs/design/serelin-inspiration.md),
  * à ajuster ensuite pour Horizon des Sens. Tout le site consomme ces tokens :
  * pas de couleur, taille ou durée en dur dans les composants.
+ * Valeurs relevées sur serelin.framer.website (1440 px) le 23/11/2026.
  */
 @theme {
   /* Typographies (variables posées par next/font dans layout.tsx) */
@@ -15,15 +16,16 @@
   --color-paper-soft: #fbf6f5; /* cartes sur fond paper */
   --color-blush: #eed5ce; /* sections soins */
   --color-sand: #e6c4bb;
-  --color-night: #1a110f; /* hero, section sombre, boutons */
+  --color-night: #1a110f; /* hero, section sombre, boutons, titres */
 
-  /* Texte */
-  --color-ink: #000;
-  --color-ink-soft: #525252;
-  --color-ink-subtle: #737373;
-  --color-line: rgb(0 0 0 / 0.08);
+  /* Texte (contrastes AA vérifiés sur paper / paper-soft / blush) */
+  --color-ink: #1a110f;
+  --color-ink-soft: #525252; /* 6.6:1 sur paper */
+  --color-ink-subtle: #5f5f5f; /* 5.4:1 sur paper */
+  --color-line: rgb(26 17 15 / 0.1);
 
-  /* Accent terracotta / rose poudré */
+  /* Accent terracotta / rose poudré.
+     Petit texte : accent-800 minimum (6.1:1 sur paper-soft, 5.0:1 sur blush). */
   --color-accent-50: #fbf6f5;
   --color-accent-100: #f7ece9;
   --color-accent-200: #eed5ce;
@@ -36,15 +38,39 @@
   --color-accent-900: #674035;
   --color-accent-950: #361f19;
 
-  /* Formes */
-  --radius-card: 1.5rem;
-  --radius-media: 1.25rem;
+  /* Formes (Serelin : cartes 40 px, médias 24 px, pilules) */
+  --radius-card: 2.5rem;
+  --radius-panel: 2rem;
+  --radius-media: 1.5rem;
+
+  /* Ombre en couches des boutons et pastilles (Serelin) */
+  --shadow-lift:
+    0 0.6px 1.1px -0.75px rgb(26 17 15 / 0.16),
+    0 1.9px 3.5px -1.5px rgb(26 17 15 / 0.15),
+    0 5px 9px -2.25px rgb(26 17 15 / 0.13), 0 16px 29px -3px rgb(26 17 15 / 0.1);
+  --shadow-soft: 0 24px 60px -32px rgb(54 31 25 / 0.35);
 
   /* Mouvement */
   --ease-soft: cubic-bezier(0.22, 1, 0.36, 1);
+  /* Ressort léger (bouton remix Serelin : spring 0.6 s) */
+  --ease-spring: cubic-bezier(0.34, 1.32, 0.64, 1);
+  /* Courbe Serelin des cartes [.6,0,.4,1] */
+  --ease-serelin: cubic-bezier(0.6, 0, 0.4, 1);
   --animate-marquee: marquee 40s linear infinite;
-  /* Apparition CSS (sans JS) pour le contenu au-dessus de la ligne de flottaison */
   --animate-rise: rise 0.9s var(--ease-soft) both;
+  --animate-hero-zoom: hero-zoom 2.4s var(--ease-soft) both;
+
+  /* Fond rosé du bas de page (appel final + footer) */
+  --color-mist: #f3e1dc;
+
+  @keyframes hero-zoom {
+    from {
+      transform: scale(1.12);
+    }
+    to {
+      transform: scale(1.02);
+    }
+  }
 
   @keyframes rise {
     from {
@@ -67,13 +93,14 @@
   }
 }
 
-/* --- Échelle typographique (Serelin : serif -0.02em / 120 %, sans 160 %) --- */
+/* --- Échelle typographique Serelin : serif italique -0.02em / 120 %, sans 160 % --- */
 
 @utility text-display {
   font-family: var(--font-serif);
+  font-style: italic;
   font-weight: 400;
   letter-spacing: -0.02em;
-  line-height: 1.1;
+  line-height: 1.2;
   font-size: 3rem;
   @media (width >= 48rem) {
     font-size: 4rem;
@@ -85,9 +112,25 @@
 
 @utility text-h2 {
   font-family: var(--font-serif);
+  font-style: italic;
   font-weight: 400;
   letter-spacing: -0.02em;
-  line-height: 1.15;
+  line-height: 1.2;
+  font-size: 2.5rem;
+  @media (width >= 48rem) {
+    font-size: 3.5rem;
+  }
+  @media (width >= 80rem) {
+    font-size: 4rem;
+  }
+}
+
+@utility text-h3 {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
   font-size: 2.25rem;
   @media (width >= 48rem) {
     font-size: 3rem;
@@ -97,25 +140,15 @@
   }
 }
 
-@utility text-h3 {
+@utility text-h4 {
   font-family: var(--font-serif);
+  font-style: italic;
   font-weight: 400;
   letter-spacing: -0.02em;
   line-height: 1.2;
   font-size: 1.75rem;
   @media (width >= 48rem) {
     font-size: 2rem;
-  }
-}
-
-@utility text-h4 {
-  font-family: var(--font-serif);
-  font-weight: 400;
-  letter-spacing: -0.02em;
-  line-height: 1.25;
-  font-size: 1.375rem;
-  @media (width >= 48rem) {
-    font-size: 1.5rem;
   }
 }
 
@@ -145,17 +178,17 @@
   letter-spacing: 0.06em;
   line-height: 1;
   text-transform: uppercase;
-  font-size: 0.75rem;
+  font-size: 0.8125rem;
   @media (width >= 48rem) {
-    font-size: 0.8125rem;
+    font-size: 0.875rem;
   }
 }
 
-/* Conteneur et rythme des sections */
+/* Conteneur 1200 px et rythme des sections (Serelin : 64–80 px) */
 @utility container-site {
   margin-inline: auto;
   width: 100%;
-  max-width: 80rem;
+  max-width: calc(75rem + 4rem);
   padding-inline: 1.25rem;
   @media (width >= 48rem) {
     padding-inline: 2rem;
@@ -163,12 +196,39 @@
 }
 
 @utility section-y {
-  padding-block: 4.5rem;
-  @media (width >= 48rem) {
-    padding-block: 6rem;
+  padding-block: 4rem;
+  @media (width >= 64rem) {
+    padding-block: 5rem;
   }
-  @media (width >= 80rem) {
-    padding-block: 7.5rem;
+}
+
+/* --- Titres révélés mot à mot (flou + glissement), cf. SplitWords / InView ---
+   Sans JS (scripting: none) ou avec mouvement réduit : texte visible d'emblée. */
+@keyframes word-in {
+  from {
+    opacity: 0;
+    filter: blur(10px);
+    transform: translateY(0.5em);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+    transform: none;
+  }
+}
+
+.split-word {
+  display: inline-block;
+  animation: word-in 1s var(--ease-soft) both;
+  animation-delay: calc(var(--i, 0) * 70ms + var(--d, 0ms));
+  animation-play-state: paused;
+}
+[data-inview="true"] .split-word {
+  animation-play-state: running;
+}
+@media (scripting: none) {
+  .split-word {
+    animation: none;
   }
 }
 
@@ -179,7 +239,8 @@
     background: var(--color-paper);
     color: var(--color-ink);
     -webkit-text-size-adjust: 100%;
-    scroll-padding-top: 6rem;
+    scroll-padding-top: 7rem;
+    scrollbar-color: var(--color-accent-600) var(--color-paper);
   }
 
   body {
@@ -192,7 +253,7 @@
   }
 
   :focus-visible {
-    outline: 2px solid var(--color-accent-600);
+    outline: 2px solid var(--color-accent-800);
     outline-offset: 3px;
   }
 
@@ -205,6 +266,9 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
+    .split-word {
+      animation: none;
+    }
     *,
     *::before,
     *::after {

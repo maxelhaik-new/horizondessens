@@ -6,10 +6,12 @@ import { FiveContinents } from "@/components/home/five-continents";
 import { Hero } from "@/components/home/hero";
 import { KobidoFocus } from "@/components/home/kobido-focus";
 import { Offers } from "@/components/home/offers";
+import { Philosophy } from "@/components/home/philosophy";
 import { Practitioner } from "@/components/home/practitioner";
 import { Reviews } from "@/components/home/reviews";
 import { Salon } from "@/components/home/salon";
 import { Services } from "@/components/home/services";
+import { Steps } from "@/components/home/steps";
 import { WordsBand } from "@/components/home/words-band";
 import { site } from "@/lib/site";
 
@@ -48,8 +50,10 @@ export default function HomePage() {
     <>
       <Hero />
       <WordsBand />
+      <Philosophy />
       <Services />
       <KobidoFocus />
+      <Steps />
       <FiveContinents />
       <Salon />
       <Practitioner />

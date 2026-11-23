@@ -2,7 +2,10 @@ import type { ReactNode } from "react";
 
 import { cn } from "@/lib/cn";
 
-/** Surtitre en pastille (style Serelin). */
+/**
+ * Pastille de section (signature Serelin, choisie par Maxime).
+ * Texte accent-800 : contraste AA sur fond blanc translucide.
+ */
 export function Eyebrow({
   children,
   tone = "light",
@@ -15,10 +18,10 @@ export function Eyebrow({
   return (
     <p
       className={cn(
-        "inline-flex items-center rounded-full px-4 py-2 text-eyebrow",
-        tone === "light" && "bg-white text-ink-soft",
+        "inline-flex items-center rounded-full px-5 py-3 text-eyebrow",
+        tone === "light" && "bg-white/70 text-accent-800",
         tone === "glass" && "bg-white/15 text-white backdrop-blur-md",
-        tone === "dark" && "bg-white/10 text-white/80",
+        tone === "dark" && "bg-white/10 text-white/85",
         className,
       )}
     >

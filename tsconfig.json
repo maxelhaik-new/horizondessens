@@ -33,6 +33,7 @@
   "exclude": [
     "node_modules",
     "serelin",
+    "serelin components",
     "references",
     "docs",
     "assets",

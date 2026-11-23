@@ -1,5 +1,6 @@
 import { Reveal, RevealGroup, RevealItem } from "@/components/motion/reveal";
 import { RevealImage } from "@/components/motion/reveal-image";
+import { SplitWords } from "@/components/motion/split-words";
 import { ButtonLink, TextLink } from "@/components/ui/button-link";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { SparkIcon } from "@/components/ui/icons";
@@ -23,17 +24,18 @@ export async function KobidoFocus() {
           src={c["home.kobido.image"].src}
           alt={c["home.kobido.image"].alt}
           sizes="(min-width: 768px) 50vw, 100vw"
-          className="aspect-[4/5] rounded-media"
+          className="aspect-[4/5] rounded-card"
         />
 
-        <div className="flex flex-col items-start gap-6">
+        <div className="flex flex-col items-start gap-7">
           <Reveal>
             <Eyebrow>{c["home.kobido.eyebrow"]}</Eyebrow>
           </Reveal>
-          <Reveal delay={0.1}>
-            <h2 className="text-h2 text-balance">{c["home.kobido.title"]}</h2>
-          </Reveal>
-          <Reveal delay={0.2}>
+          <SplitWords
+            text={c["home.kobido.title"]}
+            className="text-h2 text-balance"
+          />
+          <Reveal delay={0.15}>
             <p className="text-lead text-pretty text-ink-soft">
               {c["home.kobido.text"]}
             </p>
@@ -47,15 +49,17 @@ export async function KobidoFocus() {
               <RevealItem
                 as="li"
                 key={benefit}
-                className="flex items-center gap-4 border-b border-line py-4"
+                className="flex items-center gap-4 border-b border-line py-5"
               >
-                <SparkIcon className="size-3 shrink-0 text-accent-500" />
-                <span className="text-body">{benefit}</span>
+                <SparkIcon className="size-3 shrink-0 text-accent-600" />
+                <span className="font-serif text-xl tracking-[-0.01em] italic md:text-2xl">
+                  {benefit}
+                </span>
               </RevealItem>
             ))}
           </RevealGroup>
 
-          <Reveal className="flex flex-wrap items-center gap-x-6 gap-y-3 pt-2">
+          <Reveal className="flex flex-wrap items-center gap-x-8 gap-y-3 pt-2">
             <ButtonLink href={routes.kobido}>Découvrir le Kobido</ButtonLink>
             <TextLink href={routes.reserver}>Réserver</TextLink>
           </Reveal>
