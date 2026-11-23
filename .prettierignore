@@ -1,0 +1,11 @@
+.next/
+node_modules/
+package-lock.json
+docs/
+references/
+assets/
+serelin/
+Images Elodie/
+.claude/
+.impeccable/
+*.md

@@ -33,3 +33,8 @@ Thumbs.db
 .idea/
 .vscode/*
 !.vscode/extensions.json
+
+# Divers (ajouts create-next-app)
+*.pem
+.pnp
+.pnp.*

@@ -1,0 +1,14 @@
+@import "tailwindcss";
+
+/*
+ * Design tokens : à définir avec la direction artistique (couleurs, typos,
+ * espacements, rayons, ombres, easing). Les déclarer ici dans @theme pour
+ * générer les utilitaires Tailwind correspondants.
+ */
+@theme {
+}
+
+body {
+  background: #fff;
+  color: #1a1a1a;
+}

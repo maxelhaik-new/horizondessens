@@ -30,12 +30,19 @@ La refonte accompagne deux changements :
 - **Décision de Maxime** (seul gérant du dépôt) : on **commit tout**, sauf l'évident (`node_modules`, `.env*`, builds, etc. : voir `.gitignore`).
 - Premier commit le 23/11/2026.
 - **Push** : à faire uniquement quand Maxime le demande.
-- **Supabase** : projet `vlpevjffaqzvksjfknhk` (https://supabase.com/dashboard/project/vlpevjffaqzvksjfknhk). Il n'est pas encore relié. La Supabase CLI n'est pas installée et il n'y a pas encore d'access token. Le lien se fera par la CLI ou par le MCP : c'est Maxime qui gère le token.
+- **Supabase** : projet `vlpevjffaqzvksjfknhk` (https://supabase.com/dashboard/project/vlpevjffaqzvksjfknhk). Le **serveur MCP Supabase** est déclaré au niveau du projet dans `.mcp.json` (23/11/2026) : transport http, `https://mcp.supabase.com/mcp?project_ref=vlpevjffaqzvksjfknhk&features=docs,account,database,debugging,development,functions,branching,feedback,notebooks`.
+- Il ne contient aucun secret. ✅ **Authentifié par OAuth et vérifié** le 23/11/2026 : l'URL de l'API est `https://vlpevjffaqzvksjfknhk.supabase.co` et le schéma `public` est vide pour l'instant.
+- Il est prévu pour plus tard, au moment de coder le CMS.
+- La Supabase CLI n'est pas installée.
 
 ## Documents de référence
 
 | Fichier | Contenu | Quand le lire |
 |---|---|---|
+| [PRODUCT.md](PRODUCT.md) | **La vérité produit durable, au format impeccable** : utilisateurs, objectif, positionnement, contraintes, engagements de marque, preuves disponibles, principes. Il est lu par le skill impeccable. | Avant tout travail de design ou de contenu |
+| [docs/contenu/plan-du-site.md](docs/contenu/plan-du-site.md) | Plan complet du site (pages, URL, SEO, navigation), pages légales obligatoires (mentions, CGV, confidentialité, cookies), redirections 301, règle des contenus éditables. **v1 à valider.** | Avant de rédiger ou de coder une page |
+| [docs/contenu/accueil-v1.md](docs/contenu/accueil-v1.md) | Contenu de l'accueil en texte : 10 sections, mise en page décrite, images proposées, clés éditables avec leur `maxLength`. **v1 à valider.** | Avant le design et le dev de l'accueil |
+| [assets/images/](assets/images/) | Images **validées par Maxime** (Sensoa et Unsplash), en pleine résolution, à compresser avant usage. | Pour toute image du site |
 | [docs/CONTEXTE.md](docs/CONTEXTE.md) | **Synthèse de référence** : acteurs, enjeux, positionnement, offre, DA, SEO, fonctionnalités, technique, planning. **§13 = décisions validées par Maxime, elles priment.** | Toujours, avant tout travail de contenu ou de design |
 | [docs/site-actuel.md](docs/site-actuel.md) | Scraping intégral de l'ancien site (23/11/2026) : textes mot pour mot, tarifs, structure, images. | Pour reprendre un contenu existant. **Ne pas re-visiter le site.** |
 | [docs/transcription-rdv-cadrage-2026-11-13.md](docs/transcription-rdv-cadrage-2026-11-13.md) | Transcription brute Whisper du RDV de cadrage (13/11/2026). Elle contient des erreurs : « qu'au bidot » = Kobido, « Calmermonie » = Calme et Harmonie, « Tensua / SensoA » = Sensoa. | Pour vérifier une nuance. Sinon, préférer CONTEXTE.md. |
@@ -45,13 +52,66 @@ La refonte accompagne deux changements :
 
 L'audio source n'est pas dans le projet : `~/Downloads/Elodie Poirier 13 Nov 2026.m4a`.
 
+## Code : stack initialisée (23/11/2026)
+
+> ⚠️ **Next.js 16.4** : ses API diffèrent de ce que l'on connaît d'habitude. Lis [AGENTS.md](AGENTS.md) (le fichier généré par Next) et la doc embarquée `node_modules/next/dist/docs/` **avant d'écrire du code Next**. `cacheComponents` et `partialPrefetching` sont activés.
+
+| Élément | Choix |
+|---|---|
+| Framework | Next.js 16.4.6 (App Router, Turbopack, `src/`), React 19.3, TypeScript strict |
+| Styles | Tailwind CSS 4.3. Les tokens vont dans le `@theme` de `src/app/globals.css`, **vide en attendant le design**. Pas de police chargée pour l'instant (`next/font`, à faire avec le design). |
+| Animations | `motion` (successeur de Framer Motion) : `import { motion } from "motion/react"` dans un composant client, `motion/react-client` côté serveur. |
+| Utilitaires | `cn()` (clsx + tailwind-merge) dans `src/lib/cn.ts`. Les données fixes (coordonnées, réseaux, URL SimplyBook) sont dans `src/lib/site.ts`. |
+| Qualité | ESLint (config Next), Prettier avec le plugin Tailwind (tri des classes). `serelin/`, `references/`, `docs/`, `assets/` et `.claude/` sont exclus du lint, de TypeScript et de Prettier. |
+| Redirections | Les anciennes URL du site PHP sont redirigées vers les nouvelles (308) dans `next.config.ts`. C'est testé. |
+| Images | `next/image` en AVIF/WebP. Les originaux en haute définition restent dans `assets/images/`, les versions web optimisées iront dans `public/images/`. |
+| Secrets | `.env.example` (Supabase, SimplyBook, Stripe) ; les vraies valeurs vont dans `.env.local`, ignoré par Git. |
+
+**Couche contenu** (`src/content/`), qui préfigure le CMS :
+- `schema.ts` : types de champs (`text`, `textarea`, `list`, `image`) avec leurs limites, et le helper `defineFields`.
+- `registry.ts` : **le registre des clés éditables**, vide pour l'instant. On y ajoute les clés page par page, en suivant les docs `docs/contenu/`.
+- `defaults.ts` : les valeurs par défaut. TypeScript impose une valeur pour chaque clé.
+- `get-content.ts` : `getContent(key)` et `getContents([...])`, **seul point d'accès aux contenus** (réservé au serveur). Avec le CMS, seul ce fichier changera.
+- `validate.ts` : vérification des longueurs, des listes et des `alt`. Elle est utilisée par `npm run content:check`, qui tourne aussi avant chaque build, et servira à valider les saisies du CMS.
+
+**Couche prestations** (`src/services/`) :
+- `getServices()` et `getService(slug)` lisent `local-services.ts`, vide pour l'instant. Plus tard, elles liront l'API SimplyBook.
+- L'éditorial des soins passe par les clés `service.<slug>.*`.
+
+**Scripts** :
+- `npm run dev`, `build` (avec `content:check` avant), `start` ;
+- `lint`, `typecheck` (`next typegen` puis `tsc`) ;
+- `format`, `format:check`, `content:check`.
+
+Le dossier **`serelin/`** a été ajouté par Maxime (un export de template daté de septembre 2026, probablement une référence design ❓). Il n'est utilisé par aucun code.
+
+## Ordre de construction (décidé le 23/11/2026)
+- On fait d'abord **une première version du site, sans CMS ni Supabase**. Le mini-CMS et Supabase viendront ensuite.
+- **Condition pour que ce ne soit pas contre-productif** : dès la v1, **aucun texte ni aucune image éditable n'est écrit en dur dans les composants**.
+  - Tout passe par une **couche de contenu typée**, qui préfigure le registre de champs du CMS : clé, type, `maxLength`, ratio d'image.
+  - En v1, ses valeurs par défaut sont dans un fichier local.
+  - Les composants lisent le contenu par clé, à travers une fonction du type `getContent()`.
+  - Le CMS remplacera seulement la source, en lisant Supabase avec repli sur ces valeurs par défaut, sans réécrire les composants.
+- Les prestations passent de la même façon par une interface `getServices()` : des données locales en v1, l'API SimplyBook ensuite.
+
+- **Ce qui a une clé éditable** : uniquement le **contenu principal** qu'Élodie doit logiquement maîtriser (titres, accroches, paragraphes, listes, images de contenu).
+  - **Pas** les metas, les menus, les liens ni les libellés d'interface. Ces éléments sont fixés dans le code.
+  - **Pas** les noms, durées et prix des soins : ils viennent de SimplyBook.
+  - Les clés `service.{id}.*` sont partagées entre les pages.
+- **Impeccable** sert **uniquement** au polish, à la rédaction de DESIGN.md *a posteriori* et aux fonctions de finition (audit, critique…). **Pas de `shape` ni de new-work** : Maxime les trouve trop approximatifs.
+- **Ordre de travail** : on valide d'abord **le contenu** (plan, puis pages en texte), **puis le design**, puis le dev.
+
 ## Démarche en étapes (définie par Maxime)
 
 1. **Étape 1 — Contexte** : document de contexte et questions de clarification. ✅ Terminée le 23/11/2026 : questionnaire répondu, il reste quelques points à vérifier avec Élodie.
-2. **Étape 2 — `/impeccable init`** : crée `PRODUCT.md`, puis un document de design. **À lancer uniquement quand Maxime le demande.**
+2. **Étape 2 — `/impeccable init`** : crée `PRODUCT.md`, puis un document de design.
+   - ✅ `PRODUCT.md` est écrit (23/11/2026).
+   - ⏳ Le **design (DESIGN.md et l'univers visuel) n'est pas commencé**, à la demande de Maxime. Il se fera avec `/impeccable` (new-work / shape), **uniquement quand Maxime le demande**.
+   - Impeccable 4.10.0 est installé au niveau du projet (`.claude/skills/impeccable`, agents dans `.claude/agents`, hooks dans `.claude/settings.local.json`).
+   - Pas d'outil de génération d'image : le chemin de construction est donc code-first.
 3. **Étapes suivantes** : définir le design et le contenu, puis créer le site.
 
-**On ne code pas et on n'anticipe pas de livrable avant que Maxime le demande.** Il l'a rappelé pour le RDV du 23/11 : « ne te précipite pas ».
+**On n'anticipe pas de livrable avant que Maxime le demande.** La stack est initialisée, mais le contenu et le design ne sont pas codés. Il l'a rappelé pour le RDV du 23/11 : « ne te précipite pas ».
 
 ## Règles de travail (toujours valables)
 
@@ -117,10 +177,19 @@ Pas de newsletter.
 | 2026-11-23 | Étape 1 | Précisions de Maxime : Sensoa est un concurrent, le CMS se fait avec édition en place, SimplyBook sans CSS payant et sans double saisie. → `docs/options-techniques.md`. **Validé par Maxime** : SimplyBook en hybride (API + widget thémé), mini-CMS maison (Supabase), Next.js. Scraping de Sensoa lancé par un sous-agent Sonnet → `references/sensoa/`. |
 | 2026-11-23 | Étape 1 | Scraping de Sensoa reçu (`references/sensoa/`). Synthèse concurrentielle → CONTEXTE.md v0.4, §14. |
 
+| 2026-11-23 | Étape 2 | Impeccable installé dans le projet. `/impeccable init` déroulé : courte interview (voix = **vouvoiement**, succès = **équilibre** entre réservations et acquisition, composition de la clientèle à vérifier), puis **PRODUCT.md** écrit. Le design n'est pas commencé. |
+
+| 2026-11-23 | Contenu | Plan du site v1 et accueil v1 rédigés (`docs/contenu/`), **en attente de validation par Maxime**. |
+
+| 2026-11-23 | Stack | Next.js 16.4, Tailwind 4, Motion, ESLint et Prettier initialisés. Couches contenu et prestations prêtes (vides). Redirections 301. Typecheck, lint, format et build OK. Aucun contenu ni design codé. |
+
 ### Questions encore ouvertes
+- À quoi sert le dossier `serelin/` (une référence design ?) ? Faut-il le garder dans le dépôt ?
+- **Pour l'accueil v1** : le nom du massage sur mesure (proposition : « Rituel Horizon »), l'année de début de pratique (2017, 2018 ou « 8 ans »), une image jambes ou pieds manquante, le mockup carte cadeau à produire, la confirmation des 2 images Sensoa où l'on voit une personne massée, les horaires et l'accès au salon.
+- **Pour les CGV et les mentions légales** : le statut juridique, le régime de TVA, le médiateur de la consommation, la politique d'annulation des rendez-vous, la cessibilité de la carte cadeau, le choix de la mesure d'audience.
+- La clientèle est-elle réservée aux femmes ou mixte ? À vérifier avec Élodie.
 - Élodie est **déjà présentée sur le site de Sensoa** (« Bienvenue à Élodie », « Séance avec Elodie »). Faut-il gérer cette double présence, et comment ?
 - ~~Photos du salon et de la Loire issues de Sensoa~~ → ✅ Réutilisables, Maxime en est l'auteur. **Sauf** les images où l'on voit une masseuse ou une personne massée.
-- Le skill `/impeccable` n'est **pas installé** dans l'environnement (vérifié le 23/11/2026). Il faut l'installer, ou rédiger PRODUCT.md sans lui.
 - Maxime doit remplir la colonne « Réutilisable ? » dans `references/sensoa/sensoa-site.md`.
 - Le SIRET et le statut juridique d'Élodie (mentions légales).
 - **À vérifier par Maxime avec Élodie** : le sort des anciennes prestations (Reiki seul, Relaxant, Vitalité, pierres chaudes, réflexo seule, seniors), le Reiki en séance seule, le mode de souscription de l'abonnement.
@@ -133,7 +202,8 @@ Pas de newsletter.
 - Maxime choisit les images Sensoa réutilisables. Ensuite, les compresser et les copier dans les assets du projet : tâche candidate pour Sonnet.
 - Téléchargement des images de l'ancien site dans `assets/legacy/` : candidat Sonnet.
 - Vectorisation simplifiée du logo en SVG (provisoire).
-- Étape 2 : `/impeccable init`, lancé par Maxime.
+- Suite de l'étape 2 : définir le design avec `/impeccable` (shape ou new-work), **sur demande de Maxime uniquement**.
+- Fichiers impeccable à committer : `PRODUCT.md`, plus tard `DESIGN.md` et `.impeccable/`. Il faut aussi décider si l'on committe `.claude/` (skill et agents) ; `settings.local.json` est en principe local.
 
 ## Outillage local
 
