@@ -36,7 +36,7 @@ La refonte accompagne deux changements :
 - **Utilisé par le mini-CMS** depuis le 23/11/2026 (voir « Mini-CMS » plus bas et `docs/cms.md`). Les écritures (DDL, DELETE) via le MCP peuvent être refusées par le mode de permissions : demander à Maxime.
 - La Supabase CLI n'est pas installée. Migrations versionnées dans `supabase/migrations/`.
 - **Stripe** : serveur MCP officiel `https://mcp.stripe.com`, pour la carte cadeau. L'OAuth échoue (la redirection `claude://` ne revient pas à l'app) : le serveur est donc déclaré **en portée locale** (`~/.claude.json`, projet courant, **hors du dépôt public**) avec l'en-tête `Authorization: Bearer <clé secrète de test>` (24/11/2026). Il n'est **plus** dans `.mcp.json`. Si la clé change, mettre à jour cette entrée locale.
-  - **Clés de test** (compte Stripe d'Élodie `acct_1UfFPNIKYew1AWjw`, FR, EUR, mode test) dans `.env.local` (`STRIPE_SECRET_KEY`, `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY`), **vérifiées par l'API** le 24/11/2026. `STRIPE_WEBHOOK_SECRET` vide (à créer avec le webhook). Compte non activé pour les vrais paiements (`charges_enabled: false`) : Élodie devra l'activer avant la mise en ligne. Pas encore sur Vercel.
+  - **Clés de test** (compte Stripe d'Élodie `acct_1UfFPNIKYew1AWjw`, FR, EUR, mode test) dans `.env.local` (`STRIPE_SECRET_KEY`, `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY`), **vérifiées par l'API** le 24/11/2026, et sur Vercel avec le secret du webhook de test (voir « Cartes cadeaux : paiement Stripe »). Compte non activé pour les vrais paiements (`charges_enabled: false`) : Élodie devra l'activer avant la mise en ligne.
 
 ## Documents de référence
 
@@ -270,7 +270,8 @@ Critique d'ensemble : 24/32 (`.impeccable/critique/2026-11-23T21-45-22Z__src-app
 - **Registre = Stripe** : métadonnées du paiement (`code`, `prestation`, `beneficiaire`, `de_la_part_de`, `valable_jusqu_au`, `carte_envoyee`), description « Carte cadeau Kobido 1h15 · HDS-… ». Recherche par numéro vérifiée (`payment_intents/search`).
 - **E-mails** : `src/lib/resend.ts` (`sendEmail`, pièces jointes, idempotence), partagé avec le formulaire de contact ; charte commune `src/lib/email-style.ts`.
 - **Testé en local le 24/11/2026** (mode test, carte 4242) : paiement, page de remerciement, PDF, registre, e-mail à Élodie reçu une seule fois malgré les rechargements, webhook (signature refusée / acceptée). L'e-mail à l'acheteur échoue **tant que le domaine Resend n'est pas vérifié** (normal en mode test) : la page le dit et propose le PDF.
-- **Reste** (CONTEXTE.md §15) : endpoint webhook dans Stripe + `STRIPE_WEBHOOK_SECRET`, variables Stripe sur Vercel, activation du compte d'Élodie, domaine Resend vérifié, clés live.
+- **Webhook de test** `we_1UfMElIKYew1AWjwNfm76vjE` → `https://horizondessens.vercel.app/api/stripe/webhook` et **variables Stripe de test sur Vercel** (Production et Preview), le 24/11/2026. En local, `STRIPE_WEBHOOK_SECRET` reste vide (Stripe ne peut pas joindre localhost ; la page de remerciement remet la carte).
+- **Reste** (CONTEXTE.md §15) : pousser pour activer le webhook de test, activation du compte d'Élodie, domaine Resend vérifié, puis à la bascule webhook live sur `horizondessens.fr` et clés live en Production.
 - Le symbole teinté du PDF est régénéré par `npm run assets:brand`. CGV et confidentialité mises à jour (moyens de paiement, petit mot, Resend).
 
 ## Mini-CMS (23-24/11/2026) — détails dans `docs/cms.md`

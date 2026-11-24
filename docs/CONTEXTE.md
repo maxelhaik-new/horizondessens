@@ -415,10 +415,11 @@ Décision de Maxime : les pages affichent les hypothèses **sans mention « à c
 ### Cartes cadeaux (Stripe)
 - [x] **Paiement branché** (24/11/2026, mode test) : Stripe Checkout, saisie du bénéficiaire, de « De la part de » et d'un petit mot sur la page Stripe, PDF généré à la charte, e-mail à l'acheteur avec le PDF, copie à Élodie, registre dans Stripe (recherche par numéro), page `/carte-cadeau/merci`, téléchargement du PDF, webhook `/api/stripe/webhook`. Testé de bout en bout en local (carte de test).
 - [ ] **Élodie active son compte Stripe** (identité, IBAN) : aujourd'hui `charges_enabled: false`. Vérifier le nom affiché (« environnement de test ELODIE NGUYEN ») et le libellé bancaire (`HORIZONDESSENS.FR`).
-- [ ] **Webhook Stripe** : créer l'endpoint `https://horizondessens.fr/api/stripe/webhook` (et un endpoint de test sur l'URL Vercel), événements `checkout.session.completed` et `checkout.session.async_payment_succeeded` ; copier son secret dans `STRIPE_WEBHOOK_SECRET`.
-- [ ] **Variables sur Vercel** : `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`, `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY` (test en Preview, **live** en Production). Les clés live ne passent jamais par une conversation.
+- [x] **Webhook de test** créé le 24/11/2026 (`we_1UfMElIKYew1AWjwNfm76vjE`) : `https://horizondessens.vercel.app/api/stripe/webhook`, événements `checkout.session.completed` et `checkout.session.async_payment_succeeded`. Actif dès que le code est poussé et déployé.
+- [x] **Variables de test sur Vercel** (Production et Preview, 24/11/2026) : `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET` (secret du webhook de test), `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY`.
+- [ ] **À la bascule (live)** : créer dans le compte live d'Élodie le webhook `https://horizondessens.fr/api/stripe/webhook` (mêmes événements), puis remplacer en **Production** les 3 variables par les valeurs live et son nouveau secret (Preview garde le test). Supprimer le webhook de test s'il n'est plus utile. Les clés live ne passent jamais par une conversation.
 - [ ] **Domaine Resend vérifié** : indispensable pour envoyer la carte à l'acheteur (en mode test, Resend n'accepte que l'adresse du compte).
-- [ ] **Régénérer la clé secrète Stripe de test** (collée dans une conversation) et mettre à jour `.env.local` et l'entrée locale du MCP Stripe (`~/.claude.json`).
+- [ ] **Régénérer la clé secrète Stripe de test** (collée dans une conversation) et mettre à jour `.env.local`, Vercel (Production et Preview) et l'entrée locale du MCP Stripe (`~/.claude.json`).
 - [ ] Faire valider le PDF par Élodie (ou le caler sur son modèle Canva plus tard).
 - [ ] Paiement de test puis paiement réel remboursé.
 
