@@ -14,7 +14,7 @@ import { formatDuration, formatPrice } from "@/services/format";
 /**
  * Les cartes à offrir, dessinées comme de vraies cartes cadeaux (logo,
  * durée en grand, prix). Chaque bouton envoie vers le paiement
- * (`/carte-cadeau/commander`, Stripe Checkout à brancher).
+ * (`/carte-cadeau/commander` → Stripe Checkout, voir `src/lib/gift-card/`).
  */
 export async function GiftCardCards() {
   const [c, cards] = await Promise.all([

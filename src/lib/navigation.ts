@@ -9,8 +9,12 @@ export const routes = {
   kobido: "/kobido",
   salon: "/le-salon",
   carteCadeau: "/carte-cadeau",
-  /** Paiement d'une carte cadeau (POST, Stripe Checkout à brancher). */
+  /** Paiement d'une carte cadeau (POST → Stripe Checkout). */
   carteCadeauCommander: "/carte-cadeau/commander",
+  /** Retour après paiement (`?session_id=`), non indexé. */
+  carteCadeauMerci: "/carte-cadeau/merci",
+  /** Téléchargement du PDF d'une carte payée (`?session_id=`). */
+  carteCadeauPdf: "/carte-cadeau/pdf",
   contact: "/contact",
   mentionsLegales: "/mentions-legales",
   cgv: "/cgv",

@@ -1,7 +1,8 @@
 /**
  * Génère les icônes (favicon.ico, icon.png, apple-icon.png) et les images de
  * partage (opengraph-image.jpg + .alt.txt) de chaque page, à partir du
- * symbole du logo et des photos de public/images/.
+ * symbole du logo et des photos de public/images/, ainsi que le symbole
+ * teinté du PDF des cartes cadeaux.
  * Usage : npm run assets:brand (à relancer si le logo ou une photo change).
  */
 import { createRequire } from "node:module";
@@ -133,4 +134,9 @@ for (const [dir, src, alt] of og) {
   await writeFile(out + "opengraph-image.jpg", buf);
   await writeFile(out + "opengraph-image.alt.txt", alt);
 }
+// Symbole teinté pour le PDF des cartes cadeaux (src/lib/gift-card/pdf.ts)
+await writeFile(
+  root + "/src/lib/gift-card/assets/symbole.png",
+  await tinted(320, MARK),
+);
 console.log("ok");

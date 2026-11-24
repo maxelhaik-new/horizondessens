@@ -15,6 +15,7 @@ const lightPages: readonly string[] = [
   ...legalNav.map((item) => item.href),
   routes.salon,
   routes.carteCadeau,
+  routes.carteCadeauMerci,
   routes.reserver,
 ];
 

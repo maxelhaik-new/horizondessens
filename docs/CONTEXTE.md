@@ -281,6 +281,12 @@ Décision de Maxime : les pages affichent les hypothèses **sans mention « à c
 - **Confidentialité** : durées de conservation standard CNIL (3 ans contacts/clients, 10 ans comptable), aucun outil d'audience, Google Maps chargé au clic.
 - Le tout doit être **relu par Élodie**, idéalement avec un conseiller.
 
+#### Cartes cadeaux en ligne : choix de Maxime (24/11/2026)
+- **Saisie sur la page Stripe** : « Pour qui ? » (obligatoire, 60 caractères), « De la part de » et « Un petit mot » (facultatifs, 60 et 200 caractères). Pas de formulaire sur le site.
+- **Registre dans Stripe** : numéro `HDS-XXXX-XXXX`, prestation, bénéficiaire et validité dans les métadonnées du paiement (recherche par numéro dans le tableau de bord), plus une copie de chaque carte par e-mail à Élodie. Pas de table Supabase ni de suivi « utilisée » pour l'instant.
+- **PDF généré à la charte du site** (A5 paysage), en attendant éventuellement un fond Canva d'Élodie.
+- **Paiement par carte bancaire** (Apple Pay et Google Pay compris), pas de Klarna ni autres moyens. Prix lus dans les prestations (aucun produit saisi dans Stripe). Pas de TVA (franchise en base).
+
 ## 14. Enseignements du site concurrent Sensoa (analyse du 23/11/2026)
 
 > Source : [references/sensoa/sensoa-site.md](../references/sensoa/sensoa-site.md) (71 URL) et 145 images dans `references/sensoa/images/` (218 Mo, en pleine résolution).
@@ -407,9 +413,13 @@ Décision de Maxime : les pages affichent les hypothèses **sans mention « à c
 - [ ] ⚠️ **Mettre à jour les prestations dans SimplyBook** : la page de réservation affiche encore l'ancienne carte (« Kobido Lumière 1h 85 € », « Cure Renaissance », « 5 Continents 1h20 95 € »…). Noms, durées et prix doivent correspondre à la carte 2026 (Kobido 1h 100 € / 1h15 120 €, Calme et harmonie, 5 Continents, Jambes légères, Rituel Horizon 1h15 120 €, abonnement Kobido 90 €). **Modifier** les prestations liées (24, 15, 21) sans les recréer, pour garder leurs IDs (sinon, les mettre à jour dans `local-services.ts`), et masquer les anciennes prestations. À faire par Élodie ou avec ses accès, sans casser les rendez-vous en cours.
 
 ### Cartes cadeaux (Stripe)
-- [ ] Compte Stripe d'Élodie, clés **live** et webhook (`STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`, `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY`).
-- [ ] Brancher Stripe Checkout dans `src/app/carte-cadeau/commander/route.ts` (aujourd'hui : redirection vers Contact).
-- [ ] Génération du PDF, envoi par e-mail (Resend), notification à Élodie, numéro et validité 6 mois, nom du bénéficiaire (carte nominative).
+- [x] **Paiement branché** (24/11/2026, mode test) : Stripe Checkout, saisie du bénéficiaire, de « De la part de » et d'un petit mot sur la page Stripe, PDF généré à la charte, e-mail à l'acheteur avec le PDF, copie à Élodie, registre dans Stripe (recherche par numéro), page `/carte-cadeau/merci`, téléchargement du PDF, webhook `/api/stripe/webhook`. Testé de bout en bout en local (carte de test).
+- [ ] **Élodie active son compte Stripe** (identité, IBAN) : aujourd'hui `charges_enabled: false`. Vérifier le nom affiché (« environnement de test ELODIE NGUYEN ») et le libellé bancaire (`HORIZONDESSENS.FR`).
+- [ ] **Webhook Stripe** : créer l'endpoint `https://horizondessens.fr/api/stripe/webhook` (et un endpoint de test sur l'URL Vercel), événements `checkout.session.completed` et `checkout.session.async_payment_succeeded` ; copier son secret dans `STRIPE_WEBHOOK_SECRET`.
+- [ ] **Variables sur Vercel** : `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`, `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY` (test en Preview, **live** en Production). Les clés live ne passent jamais par une conversation.
+- [ ] **Domaine Resend vérifié** : indispensable pour envoyer la carte à l'acheteur (en mode test, Resend n'accepte que l'adresse du compte).
+- [ ] **Régénérer la clé secrète Stripe de test** (collée dans une conversation) et mettre à jour `.env.local` et l'entrée locale du MCP Stripe (`~/.claude.json`).
+- [ ] Faire valider le PDF par Élodie (ou le caler sur son modèle Canva plus tard).
 - [ ] Paiement de test puis paiement réel remboursé.
 
 ### CMS (Supabase) — voir [cms.md](cms.md)

@@ -35,6 +35,8 @@ La refonte accompagne deux changements :
 - Il ne contient aucun secret. ✅ **Authentifié par OAuth et vérifié** le 23/11/2026 : l'URL de l'API est `https://vlpevjffaqzvksjfknhk.supabase.co` et le schéma `public` est vide pour l'instant.
 - **Utilisé par le mini-CMS** depuis le 23/11/2026 (voir « Mini-CMS » plus bas et `docs/cms.md`). Les écritures (DDL, DELETE) via le MCP peuvent être refusées par le mode de permissions : demander à Maxime.
 - La Supabase CLI n'est pas installée. Migrations versionnées dans `supabase/migrations/`.
+- **Stripe** : serveur MCP officiel `https://mcp.stripe.com`, pour la carte cadeau. L'OAuth échoue (la redirection `claude://` ne revient pas à l'app) : le serveur est donc déclaré **en portée locale** (`~/.claude.json`, projet courant, **hors du dépôt public**) avec l'en-tête `Authorization: Bearer <clé secrète de test>` (24/11/2026). Il n'est **plus** dans `.mcp.json`. Si la clé change, mettre à jour cette entrée locale.
+  - **Clés de test** (compte Stripe d'Élodie `acct_1UfFPNIKYew1AWjw`, FR, EUR, mode test) dans `.env.local` (`STRIPE_SECRET_KEY`, `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY`), **vérifiées par l'API** le 24/11/2026. `STRIPE_WEBHOOK_SECRET` vide (à créer avec le webhook). Compte non activé pour les vrais paiements (`charges_enabled: false`) : Élodie devra l'activer avant la mise en ligne. Pas encore sur Vercel.
 
 ## Documents de référence
 
@@ -220,7 +222,7 @@ Accueil et Kobido vérifiées à 320, 390, 768, 844×390 (paysage), 1024 et 1920
   - Nouvelles images `public/images/salon/loire-jardin.jpg` et `loire-couchant.jpg` (photos Sensoa de Maxime, lieu sans personne). Photo Sensoa `salon-06` (salle avec fauteuils) **non utilisée** : lieu non confirmé.
 - **Carte cadeau** `/carte-cadeau` (`src/components/gift-card/`), en **vitrine** :
   - `hero` (texte + visuel de la carte légèrement incliné), `cards` (`id="formules"`, cartes dessinées comme de vraies cartes : Kobido 1h 100 € et 1h15 120 €, prix depuis `getGiftCards()` → `src/lib/gift-cards.ts`), `how-it-works` (4 étapes + « Bon à savoir » et lien CGV) ; note 5 Continents « sur demande ».
-  - Bouton « Offrir cette carte » = formulaire **POST** vers `/carte-cadeau/commander` (`src/app/carte-cadeau/commander/route.ts`, `routes.carteCadeauCommander`). **Aujourd'hui : redirection 303 vers `/contact#ecrire`.** C'est là qu'on branchera Stripe Checkout (session, champ « bénéficiaire », webhook → PDF).
+  - Bouton « Offrir cette carte » = formulaire **POST** vers `/carte-cadeau/commander` (`src/app/carte-cadeau/commander/route.ts`, `routes.carteCadeauCommander`) → **Stripe Checkout** (voir « Cartes cadeaux : paiement Stripe »). Sans clé Stripe : repli vers `/contact#ecrire`.
   - `RemixButton` ajouté dans `button-link.tsx` (bouton remix en `<button>`).
 - Header : `/le-salon` et `/carte-cadeau` ajoutées aux `lightPages` (pilule opaque dès le haut).
 - **122 clés** (`salon.*`, `cadeau.*`). Build : 9 pages statiques + la route dynamique de commande. Vérifié en 1440 et 375 px.
@@ -260,6 +262,16 @@ Critique d'ensemble : 24/32 (`.impeccable/critique/2026-11-23T21-45-22Z__src-app
 - Clés `reserver.*` (7) et `service.rituel-horizon.short` : **129 clés**. Barre « Réserver » mobile masquée sur cette page ; en-tête opaque dès le haut.
 - SEO : `pageMetadata`, sitemap (0.8), image de partage, fil d'Ariane, `ReserveAction` → `/reserver`.
 - Vérifié : liens testés (calendrier ouvert directement pour 24, 15 et 21), rendu 1440 et 375 px.
+
+## Cartes cadeaux : paiement Stripe (24/11/2026)
+
+- **Parcours** : « Offrir cette carte » → `POST /carte-cadeau/commander` → **Stripe Checkout** (hébergé, thémé par `branding_settings` : fond papier, bouton nuit, pilules) → retour sur `/carte-cadeau/merci?session_id=` (noindex, dynamique) → téléchargement `/carte-cadeau/pdf?session_id=`. Le **webhook** `/api/stripe/webhook` (`checkout.session.completed`, `…async_payment_succeeded`) remet la carte même si l'acheteur ferme la page.
+- **Code** (`src/lib/gift-card/`) : `stripe.ts` (client, `null` sans clé), `checkout.ts` (session : prix de `getGiftCards()`, 3 champs Stripe « Pour qui ? », « De la part de », « Un petit mot », `allowed_payment_method_types: ["card"]`, numéro tiré ici), `order.ts` (lecture d'une session payée → `GiftCardOrder`, numéro `HDS-XXXX-XXXX` sans caractères ambigus, validité 6 mois), `pdf.ts` (**pdf-lib** + fontkit, A5 paysage à la charte, polices WOFF OFL et symbole teinté dans `assets/`, inclus au déploiement par `outputFileTracingIncludes`), `emails.ts` (acheteur, Élodie), `fulfill.ts` (**idempotent** : métadonnée `carte_envoyee` + clés d'idempotence Resend ; un 409 Resend = déjà envoyé).
+- **Registre = Stripe** : métadonnées du paiement (`code`, `prestation`, `beneficiaire`, `de_la_part_de`, `valable_jusqu_au`, `carte_envoyee`), description « Carte cadeau Kobido 1h15 · HDS-… ». Recherche par numéro vérifiée (`payment_intents/search`).
+- **E-mails** : `src/lib/resend.ts` (`sendEmail`, pièces jointes, idempotence), partagé avec le formulaire de contact ; charte commune `src/lib/email-style.ts`.
+- **Testé en local le 24/11/2026** (mode test, carte 4242) : paiement, page de remerciement, PDF, registre, e-mail à Élodie reçu une seule fois malgré les rechargements, webhook (signature refusée / acceptée). L'e-mail à l'acheteur échoue **tant que le domaine Resend n'est pas vérifié** (normal en mode test) : la page le dit et propose le PDF.
+- **Reste** (CONTEXTE.md §15) : endpoint webhook dans Stripe + `STRIPE_WEBHOOK_SECRET`, variables Stripe sur Vercel, activation du compte d'Élodie, domaine Resend vérifié, clés live.
+- Le symbole teinté du PDF est régénéré par `npm run assets:brand`. CGV et confidentialité mises à jour (moyens de paiement, petit mot, Resend).
 
 ## Mini-CMS (23-24/11/2026) — détails dans `docs/cms.md`
 
@@ -389,6 +401,7 @@ Pas de newsletter.
 | 2026-11-23 | Dev | Réponses d'Élodie reportées. **Pages légales** (mentions, CGV, confidentialité) et **page Contact** (formulaire Resend, carte au clic). Build statique, vérifié en desktop et en mobile. |
 | 2026-11-23 | Dev | **Page Réserver** : liste des soins, chaque durée ouvre directement son calendrier SimplyBook (pas d'iframe). Les boutons « Réserver » généraux y mènent. |
 | 2026-11-23 | SEO | **Stratégie SEO** (`docs/seo/`) et SEO technique : metas par page, sitemap, robots, manifeste, icônes, images de partage, 404, JSON-LD commun. Indexation limitée au vrai domaine. |
+| 2026-11-24 | Dev | **Cartes cadeaux payantes** : Stripe Checkout, PDF à la charte, e-mails (acheteur, Élodie), registre dans Stripe, page de remerciement, webhook. Testé en local en mode test. |
 | 2026-11-24 | CMS | **Mini-CMS** : schéma Supabase (RLS, bucket), édition en place sur les vraies pages (Draft Mode), photos, brouillons et publication, `/admin`. 131 clés marquées sur toutes les pages. Variables sur Vercel. Reste : compte éditeur et test de bout en bout. |
 
 ### Questions encore ouvertes

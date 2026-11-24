@@ -15,6 +15,12 @@ const nextConfig: NextConfig = {
       },
     },
   },
+  // Polices et symbole du PDF des cartes cadeaux, lus à l'exécution.
+  outputFileTracingIncludes: {
+    "/carte-cadeau/merci": ["./src/lib/gift-card/assets/**/*"],
+    "/carte-cadeau/pdf": ["./src/lib/gift-card/assets/**/*"],
+    "/api/stripe/webhook": ["./src/lib/gift-card/assets/**/*"],
+  },
   images: {
     // Photos remplacées depuis le CMS (bucket Supabase public).
     remotePatterns: [

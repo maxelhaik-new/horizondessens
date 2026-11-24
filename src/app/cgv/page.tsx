@@ -163,10 +163,12 @@ export default async function CgvPage() {
           </p>
           <h3>Commande et paiement</h3>
           <p>
-            Le paiement s&apos;effectue en ligne, par carte bancaire, via le
-            prestataire sécurisé Stripe. {site.name} n&apos;a jamais accès à vos
-            données bancaires. La commande est définitive dès la confirmation du
-            paiement.
+            Le paiement s&apos;effectue en ligne, par carte bancaire (y compris
+            Apple Pay ou Google Pay), via le prestataire sécurisé Stripe. Lors
+            de la commande, vous indiquez le nom du ou de la bénéficiaire et, si
+            vous le souhaitez, un petit mot qui figurera sur la carte.{" "}
+            {site.name} n&apos;a jamais accès à vos données bancaires. La
+            commande est définitive dès la confirmation du paiement.
           </p>
           <h3>Envoi</h3>
           <p>

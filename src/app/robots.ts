@@ -16,7 +16,13 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: "*",
       allow: "/",
-      disallow: [routes.carteCadeauCommander, "/admin", "/api/"],
+      disallow: [
+        routes.carteCadeauCommander,
+        routes.carteCadeauMerci,
+        routes.carteCadeauPdf,
+        "/admin",
+        "/api/",
+      ],
     },
     sitemap: `${site.url}/sitemap.xml`,
     host: site.url,

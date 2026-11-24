@@ -57,6 +57,7 @@ Migration : `supabase/migrations/20261123180000_cms.sql` (appliquée le 23/11/20
    select id from auth.users where email = 'adresse@exemple.fr';
    ```
 3. **Mot de passe oublié** : lien sur `/admin` → e-mail → `/admin/bienvenue` → `/admin/mot-de-passe`.
+4. **Lien expiré** (1 h, usage unique ; certains antivirus de messagerie « ouvrent » le lien avant vous) : générer un lien **sans e-mail** avec l'API admin `POST /auth/v1/admin/generate_link` (`{"type":"recovery","email":…,"redirect_to":"<site>/admin/bienvenue"}`, clé secrète) et le transmettre directement.
 
 ### E-mails d'authentification (limites actuelles)
 - Serveur d'e-mail **par défaut de Supabase** : n'envoie **qu'aux membres de l'organisation Supabase**, 2 e-mails par heure, modèles **en anglais** et **non modifiables** sur l'offre gratuite. ⚠️ **L'invitation d'Élodie ne partira pas** tant qu'un SMTP personnalisé n'est pas configuré.

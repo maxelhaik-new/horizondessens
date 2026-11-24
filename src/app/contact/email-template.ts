@@ -1,11 +1,11 @@
 import "server-only";
 
+import { SANS, SERIF, emailColors as C, esc } from "@/lib/email-style";
 import { site } from "@/lib/site";
 
 /*
- * Mise en forme de l'e-mail reçu par Élodie : HTML en tableaux et styles en
- * ligne (compatibles Gmail, Outlook, Apple Mail), aux couleurs du site, et
- * version texte de repli. Toutes les saisies sont échappées.
+ * Mise en forme de l'e-mail reçu par Élodie (charte : `src/lib/email-style.ts`)
+ * et version texte de repli. Toutes les saisies sont échappées.
  */
 
 export type ContactMessage = {
@@ -15,27 +15,6 @@ export type ContactMessage = {
   subject: string;
   message: string;
 };
-
-const C = {
-  paper: "#f7ece9",
-  card: "#fbf6f5",
-  blush: "#eed5ce",
-  ink: "#1a110f",
-  soft: "#525252",
-  accent: "#7a483a",
-  line: "#eadcd8",
-};
-const SERIF = "'Instrument Serif', Georgia, 'Times New Roman', serif";
-const SANS = "Manrope, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif";
-
-function esc(value: string) {
-  return value
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#39;");
-}
 
 function row(label: string, value: string) {
   return `<tr>

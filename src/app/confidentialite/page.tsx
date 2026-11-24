@@ -51,11 +51,12 @@ const sections: LegalSection[] = [
         </p>
         <h3>Achat d&apos;une carte cadeau</h3>
         <p>
-          Nom et e-mail de l&apos;acheteur, nom du ou de la bénéficiaire, pour
-          établir et envoyer la carte. Le paiement est traité par Stripe :{" "}
-          {site.name} n&apos;a jamais accès à vos données bancaires. Base légale
-          : l&apos;exécution du contrat et les obligations comptables.
-          Conservation : 10 ans pour les pièces comptables.
+          Nom et e-mail de l&apos;acheteur, nom du ou de la bénéficiaire et,
+          s&apos;ils sont indiqués, l&apos;expéditeur et le petit mot de la
+          carte, pour établir et envoyer la carte. Le paiement est traité par
+          Stripe : {site.name} n&apos;a jamais accès à vos données bancaires.
+          Base légale : l&apos;exécution du contrat et les obligations
+          comptables. Conservation : 10 ans pour les pièces comptables.
         </p>
         <h3>Navigation</h3>
         <p>
@@ -80,7 +81,8 @@ const sections: LegalSection[] = [
             <strong>Vercel</strong> : hébergement du site ;
           </li>
           <li>
-            <strong>Resend</strong> : acheminement des messages du formulaire ;
+            <strong>Resend</strong> : acheminement des messages du formulaire et
+            envoi des cartes cadeaux par e-mail ;
           </li>
           <li>
             <strong>SimplyBook.me</strong> : prise de rendez-vous en ligne ;

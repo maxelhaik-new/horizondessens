@@ -46,6 +46,8 @@ type ButtonLinkProps = {
   size?: Size;
   className?: string;
   onClick?: () => void;
+  /** Lien de téléchargement (fichier servi par une route) : `<a download>`. */
+  download?: boolean;
 };
 
 function isExternal(href: string) {
@@ -60,6 +62,7 @@ export function ButtonLink({
   size = "md",
   className,
   onClick,
+  download,
 }: ButtonLinkProps) {
   const v = variants[variant];
   const s = sizes[size];
@@ -89,8 +92,8 @@ export function ButtonLink({
     </>
   );
 
-  return isExternal(href) ? (
-    <a href={href} className={classes} onClick={onClick}>
+  return isExternal(href) || download ? (
+    <a href={href} className={classes} onClick={onClick} download={download}>
       {content}
     </a>
   ) : (

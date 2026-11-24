@@ -1,16 +1,15 @@
 "use server";
 
+import { isEmailConfigured, sendEmail } from "@/lib/resend";
 import { site } from "@/lib/site";
 
 import { renderContactEmail } from "./email-template";
 import { contactSubjects, type ContactState } from "./contact-schema";
 
 /*
- * Envoi du formulaire de contact par e-mail, via l'API REST de Resend
- * (pas de dépendance npm). Variables d'environnement :
- * - RESEND_API_KEY : clé Resend (domaine horizondessens.fr vérifié) ;
- * - CONTACT_FROM_EMAIL : expéditeur, ex. « Horizon des Sens <contact@horizondessens.fr> » ;
- * - CONTACT_TO_EMAIL : destinataire (par défaut l'e-mail d'Élodie).
+ * Envoi du formulaire de contact par e-mail, via Resend (`src/lib/resend.ts` :
+ * RESEND_API_KEY, CONTACT_FROM_EMAIL). CONTACT_TO_EMAIL : destinataire (par
+ * défaut l'e-mail d'Élodie).
  * Sans clé, le formulaire répond par une erreur qui propose l'e-mail direct.
  */
 
@@ -56,40 +55,18 @@ export async function sendContactMessage(
   if (Object.keys(errors).length > 0)
     return { status: "error", errors, values };
 
-  const apiKey = process.env.RESEND_API_KEY;
-  const from = process.env.CONTACT_FROM_EMAIL;
-  if (!apiKey || !from) {
-    console.error("Contact : RESEND_API_KEY ou CONTACT_FROM_EMAIL manquant.");
+  if (!isEmailConfigured())
     return { status: "error", unavailable: true, values };
-  }
 
   const email = renderContactEmail({ ...values, subject }, new Date());
-
-  try {
-    const res = await fetch("https://api.resend.com/emails", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${apiKey}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        from,
-        to: [process.env.CONTACT_TO_EMAIL || site.email],
-        reply_to: values.email,
-        subject: email.subject,
-        html: email.html,
-        text: email.text,
-      }),
-      signal: AbortSignal.timeout(10_000),
-    });
-    if (!res.ok) {
-      console.error("Contact : Resend a répondu", res.status, await res.text());
-      return { status: "error", unavailable: true, values };
-    }
-  } catch (error) {
-    console.error("Contact : envoi impossible", error);
-    return { status: "error", unavailable: true, values };
-  }
+  const sent = await sendEmail({
+    to: [process.env.CONTACT_TO_EMAIL || site.email],
+    replyTo: values.email,
+    subject: email.subject,
+    html: email.html,
+    text: email.text,
+  });
+  if (!sent.ok) return { status: "error", unavailable: true, values };
 
   return { status: "success" };
 }
