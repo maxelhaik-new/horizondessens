@@ -67,6 +67,13 @@ Migration : `supabase/migrations/20261123180000_cms.sql` (appliquée le 23/11/20
 ### Variables
 `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` (publiques, protégées par le RLS) : dans `.env.local` et sur Vercel (production, preview, development). **Aucune clé secrète n'est nécessaire.**
 
+### Publication en ligne et environnements
+- **Sur le site en ligne** (`horizondessens.fr/admin`, ou `horizondessens.vercel.app/admin` avant la bascule) : « Publier » écrit dans Supabase puis invalide le cache de Vercel (`updateTag`). La modification est **en ligne immédiatement**, sans commit, push ni déploiement.
+- **En local** (`localhost:3005`) : la base est **la même**. Publier depuis le local publie donc pour de vrai, mais n'invalide pas le cache de Vercel : la modification n'apparaît en ligne qu'au prochain déploiement. Élodie édite uniquement en ligne ; en local, éviter de publier des essais.
+
+### Test de non-régression
+`npm run test:cms` (`tests/cms.integration.test.ts`, runner Node + tsx). Sur le vrai projet, avec une vraie session d'éditeur ouverte sans e-mail (lien magique généré par la clé secrète) : un visiteur ne peut ni écrire, ni lire les brouillons, ni publier ; brouillon invisible du public ; « Publier » met en ligne et archive ; « Rétablir l'original » + « Publier » retire. Il n'utilise que la clé `test.cms.regression` (jamais lue par le site), ne publie que celle-ci, et **efface tout ce qu'il a créé à la fin** (contenu, brouillon, historique), même en cas d'échec. Variables dans `.env.local` : `SUPABASE_SECRET_KEY` (test uniquement, **jamais sur Vercel**) et `CMS_TEST_EDITOR_EMAIL`. Sans elles, le test est ignoré.
+
 ## 4. Guide express pour Élodie
 
 1. Aller sur **horizondessens.fr/admin** et se connecter.

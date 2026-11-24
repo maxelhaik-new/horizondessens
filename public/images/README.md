@@ -37,3 +37,5 @@ Total : 42.6 Mo (sources) vers 3.88 Mo.
 - Photos du salon : Maxime Elhaik.
 - Mockups de carte cadeau : temporaires.
 - `salon/loire-jardin.jpg` (depuis `references/sensoa/images/blog-massage-avec-vue-sur-la-loire-01.jpeg`) et `salon/loire-couchant.jpg` (depuis `salon-04.jpeg`) : photos de la Loire depuis le salon, Maxime Elhaik (réutilisation validée : lieu sans personne).
+
+**24/11/2026** : `carte-cadeau/main-carte-1/2/3.jpg` remplacées par les mêmes photos avec la carte cadeau V5 de Maxime incrustée (perspective, lumière, grain conservés). Sources : `assets/carte-cadeau-incrustation/mockup-carte-v5*.png` ; les mockups vierges restent dans `assets/Cartes cadeau temp/`.
