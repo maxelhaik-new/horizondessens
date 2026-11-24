@@ -20,7 +20,7 @@ L'agent (Claude) est **responsable de la bascule** quand Maxime la demande. Acc�
 
 - [x] Domaine Resend vérifié, e-mails du site et de Supabase en `contact@horizondessens.fr` (24/11/2026).
 - [x] Zone d'origine sauvegardée : `docs/dns/zone-horizondessens-2026-11-24.txt` (référence de retour arrière).
-- [ ] Travail commité, poussé et déployé sur `horizondessens.vercel.app`, vérifié (pages, CMS, carte cadeau en test).
+- [x] Travail commité, poussé (`4793b4f`) et déployé sur `horizondessens.vercel.app` le 24/11/2026 : pages principales en 200. ⏳ Reste à vérifier en ligne : une publication CMS et un achat de carte cadeau en test. À refaire avant le go si du travail a été ajouté depuis.
 - [ ] Contenus validés par Élodie (textes à valider, CGV et mentions sur hypothèses : voir CONTEXTE.md §13).
 - [ ] Prestations SimplyBook à jour (noms, prix 2026, prestations manquantes et leurs IDs dans `local-services.ts`).
 - [ ] **Compte Stripe d'Élodie activé** (`charges_enabled: true`). Maxime attend cette activation.
@@ -76,3 +76,4 @@ Remettre chez OVH l'A racine (et l'A `www`, en supprimant le CNAME) sur `87.98.1
 | Date | Étape | Fait par | Remarque |
 |---|---|---|---|
 | 24/11/2026 | Préparation | Claude | Resend vérifié, zone sauvegardée, ce déroulé rédigé. Bascule **non lancée** (attend le go de Maxime). |
+| 24/11/2026 | Déploiement | Claude | Commit `4793b4f` poussé, production Vercel prête, pages en 200. |
