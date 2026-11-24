@@ -59,10 +59,10 @@ Migration : `supabase/migrations/20261123180000_cms.sql` (appliquée le 23/11/20
 3. **Mot de passe oublié** : lien sur `/admin` → e-mail → `/admin/bienvenue` → `/admin/mot-de-passe`.
 4. **Lien expiré** (1 h, usage unique ; certains antivirus de messagerie « ouvrent » le lien avant vous) : générer un lien **sans e-mail** avec l'API admin `POST /auth/v1/admin/generate_link` (`{"type":"recovery","email":…,"redirect_to":"<site>/admin/bienvenue"}`, clé secrète) et le transmettre directement.
 
-### E-mails d'authentification (limites actuelles)
-- Serveur d'e-mail **par défaut de Supabase** : n'envoie **qu'aux membres de l'organisation Supabase**, 2 e-mails par heure, modèles **en anglais** et **non modifiables** sur l'offre gratuite. ⚠️ **L'invitation d'Élodie ne partira pas** tant qu'un SMTP personnalisé n'est pas configuré.
-- À faire : **SMTP Resend** dans Supabase (Authentication → Emails → SMTP : `smtp.resend.com`, port 465, utilisateur `resend`, mot de passe = une clé API Resend, expéditeur `contact@horizondessens.fr`) une fois le domaine vérifié chez OVH. On pourra alors traduire les modèles (invitation, mot de passe oublié).
-- **Site URL** Supabase = `http://localhost:3005` pour l'instant (liens des e-mails). Liste blanche : `localhost:3005`, `horizondessens.vercel.app`, `horizondessens.fr`. **À passer à `https://horizondessens.fr` à la mise en ligne.**
+### E-mails d'authentification
+- Depuis le 24/11/2026, Supabase envoie par **SMTP Resend** (`smtp.resend.com:465`, utilisateur `resend`, clé dédiée « Supabase SMTP (auth CMS) », expéditeur « Horizon des Sens <contact@horizondessens.fr> », 30 e-mails/h). L'envoi vers n'importe quelle adresse fonctionne : **Élodie peut être invitée**.
+- Modèles **en français**, versionnés dans `supabase/templates/` (`invite.html`, `recovery.html`), appliqués par l'API de gestion (`PATCH /v1/projects/{ref}/config/auth`, champs `mailer_subjects_*` et `mailer_templates_*_content`). Après modification d'un fichier, les réappliquer.
+- **Site URL** Supabase = `http://localhost:3005` pour l'instant (lien par défaut des e-mails). Liste blanche : `localhost:3005`, `horizondessens.vercel.app`, `horizondessens.fr`. **À passer à `https://horizondessens.fr` à la mise en ligne.** Pour inviter Élodie avant, passer `redirect_to=https://horizondessens.vercel.app/admin/bienvenue`.
 
 ### Variables
 `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` (publiques, protégées par le RLS) : dans `.env.local` et sur Vercel (production, preview, development). **Aucune clé secrète n'est nécessaire.**

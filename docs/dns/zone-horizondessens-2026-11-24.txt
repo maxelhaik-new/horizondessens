@@ -1,0 +1,31 @@
+; Zone DNS horizondessens.fr telle qu'exportée d'OVH le 24/11/2026,
+; AVANT toute modification (Resend, bascule vers Vercel). Sauvegarde de référence.
+$TTL 3600
+@	IN SOA dns112.ovh.net. tech.ovh.net. (2093494932 86400 3600 3600000 300)
+        IN NS     dns112.ovh.net.
+        IN NS     ns112.ovh.net.
+        IN MX     1 mx1.mail.ovh.net.
+        IN MX     5 mx2.mail.ovh.net.
+        IN MX     100 mx3.mail.ovh.net.
+        IN A     87.98.154.146
+    600 IN TXT     "v=spf1 include:mx.ovh.com ~all"
+        IN TXT     "1|www.horizondessens.fr"
+        IN TXT     "google-site-verification=dfDHF5VmWRAJlFQWESxU3-tg6bREuxh3K6ozoVbScMU"
+_autodiscover._tcp        IN SRV     0 0 443 mailconfig.ovh.net.
+_imaps._tcp        IN SRV     0 0 993 ssl0.ovh.net.
+_submission._tcp        IN SRV     0 0 465 ssl0.ovh.net.
+autoconfig        IN CNAME     mailconfig.ovh.net.
+autodiscover        IN CNAME     mailconfig.ovh.net.
+ftp        IN CNAME     horizondessens.fr.
+imap        IN CNAME     ssl0.ovh.net.
+mail        IN CNAME     ssl0.ovh.net.
+ovhmo3699594-selector1._domainkey        IN CNAME     ovhmo3699594-selector1._domainkey.1769596.lm.dkim.mail.ovh.net.
+ovhmo3699594-selector2._domainkey        IN CNAME     ovhmo3699594-selector2._domainkey.1769595.lm.dkim.mail.ovh.net.
+pop3        IN CNAME     ssl0.ovh.net.
+smtp        IN CNAME     ssl0.ovh.net.
+www        IN MX     1 mx1.mail.ovh.net.
+www        IN MX     100 mx3.mail.ovh.net.
+www        IN MX     5 mx2.mail.ovh.net.
+www        IN A     87.98.154.146
+www        IN TXT     "3|welcome"
+www        IN TXT     "l|fr"

@@ -1,0 +1,80 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "design-system-font",
+        "value": "georgia",
+        "files": [
+          "supabase/templates/invite.html"
+        ],
+        "createdAt": "2026-11-24T17:49:01.656Z",
+        "reason": "Claude: e-mails HTML, polices web peu fiables chez les clients mail; Georgia/Helvetica = repli email-safe d'Instrument Serif/Manrope"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "helvetica",
+        "files": [
+          "supabase/templates/invite.html"
+        ],
+        "createdAt": "2026-11-24T17:49:01.668Z",
+        "reason": "Claude: e-mails HTML, polices web peu fiables chez les clients mail; Georgia/Helvetica = repli email-safe d'Instrument Serif/Manrope"
+      },
+      {
+        "rule": "overused-font",
+        "value": "helvetica",
+        "files": [
+          "supabase/templates/invite.html"
+        ],
+        "createdAt": "2026-11-24T17:49:01.679Z",
+        "reason": "Claude: e-mails HTML, polices web peu fiables chez les clients mail; Georgia/Helvetica = repli email-safe d'Instrument Serif/Manrope"
+      },
+      {
+        "rule": "cream-palette",
+        "value": "*",
+        "files": [
+          "supabase/templates/invite.html"
+        ],
+        "createdAt": "2026-11-24T17:49:01.692Z",
+        "reason": "Claude: fond = token paper du site (DESIGN.md), même charte que les e-mails du site"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "georgia",
+        "files": [
+          "supabase/templates/recovery.html"
+        ],
+        "createdAt": "2026-11-24T17:49:01.704Z",
+        "reason": "Claude: e-mails HTML, polices web peu fiables chez les clients mail; Georgia/Helvetica = repli email-safe d'Instrument Serif/Manrope"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "helvetica",
+        "files": [
+          "supabase/templates/recovery.html"
+        ],
+        "createdAt": "2026-11-24T17:49:01.715Z",
+        "reason": "Claude: e-mails HTML, polices web peu fiables chez les clients mail; Georgia/Helvetica = repli email-safe d'Instrument Serif/Manrope"
+      },
+      {
+        "rule": "overused-font",
+        "value": "helvetica",
+        "files": [
+          "supabase/templates/recovery.html"
+        ],
+        "createdAt": "2026-11-24T17:49:01.726Z",
+        "reason": "Claude: e-mails HTML, polices web peu fiables chez les clients mail; Georgia/Helvetica = repli email-safe d'Instrument Serif/Manrope"
+      },
+      {
+        "rule": "cream-palette",
+        "value": "*",
+        "files": [
+          "supabase/templates/recovery.html"
+        ],
+        "createdAt": "2026-11-24T17:49:01.737Z",
+        "reason": "Claude: fond = token paper du site (DESIGN.md), même charte que les e-mails du site"
+      }
+    ]
+  }
+}

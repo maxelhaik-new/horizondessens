@@ -386,8 +386,8 @@ Décision de Maxime : les pages affichent les hypothèses **sans mention « à c
 
 ### Formulaire de contact (Resend)
 - [x] Domaine `horizondessens.fr` créé dans Resend (région eu-west-1, 23/11/2026), statut « non vérifié ».
-- [ ] **Obtenir l'accès à la zone DNS OVH d'Élodie** (prérequis).
-- [ ] Ajouter chez OVH (Zone DNS → Ajouter une entrée ; saisir seulement le sous-domaine) :
+- [x] **Accès à la zone DNS OVH** : MCP OVH authentifié par Maxime (24/11/2026), zone sauvegardée dans `docs/dns/`.
+- [x] Ajouté chez OVH le 24/11/2026 par Claude via le MCP OVH, + TXT `_dmarc` `v=DMARC1; p=none;` (Zone DNS → Ajouter une entrée ; saisir seulement le sous-domaine) :
 
   | Type | Sous-domaine | Valeur | Priorité |
   |---|---|---|---|
@@ -397,11 +397,11 @@ Décision de Maxime : les pages affichent les hypothèses **sans mention « à c
   | CNAME | `rsend` | `send.forge.rmta.net.` | — |
 
   Sans impact sur l'ancien site ni sur la messagerie d'Élodie (MX principaux intacts). Valeurs à recontrôler dans Resend (ou via le MCP `get-domain`) au moment de les saisir.
-- [ ] Lancer la vérification (MCP Resend `verify-domain`, ou bouton Verify) après propagation (quelques minutes à quelques heures).
-- [x] Sur **Vercel** (Production et Preview) : `RESEND_API_KEY`, `CONTACT_FROM_EMAIL="Horizon des Sens <contact@horizondessens.fr>"`, `CONTACT_TO_EMAIL=e.nguyen@horizondessens.fr` (ajoutées le 23/11/2026, effectives au prochain déploiement).
+- [x] **Domaine vérifié dans Resend le 24/11/2026** (4 enregistrements « verified »). Envoi testé depuis `contact@horizondessens.fr` : délivré.
+- [x] Sur **Vercel** : `CONTACT_FROM_EMAIL="Horizon des Sens <contact@horizondessens.fr>"` (Production et Preview), `CONTACT_TO_EMAIL=e.nguyen@horizondessens.fr` en **Production**, `maxelhaik@gmail.com` en **Preview** (essais sans déranger Élodie). Mis à jour et production redéployée le 24/11/2026.
 - [x] Supprimer le projet Vercel en double `horizondessens-y5z8`.
 - [ ] **Régénérer la clé Resend** (l'actuelle a été collée dans une conversation) et la remplacer dans Vercel et `.env.local`.
-- [ ] Repasser `.env.local` du mode test (`onboarding@resend.dev` → `maxelhaik@gmail.com`) au mode réel, une fois le domaine vérifié.
+- [x] `.env.local` : expéditeur `contact@horizondessens.fr` ; destinataire laissé à `maxelhaik@gmail.com` pour les essais locaux (24/11/2026).
 - [ ] Test de bout en bout : message reçu par Élodie, « Répondre » renvoie bien à l'expéditeur, pas en indésirables.
 
 ### Réservation (SimplyBook)
@@ -418,7 +418,7 @@ Décision de Maxime : les pages affichent les hypothèses **sans mention « à c
 - [x] **Webhook de test** créé le 24/11/2026 (`we_1UfMElIKYew1AWjwNfm76vjE`) : `https://horizondessens.vercel.app/api/stripe/webhook`, événements `checkout.session.completed` et `checkout.session.async_payment_succeeded`. Actif dès que le code est poussé et déployé.
 - [x] **Variables de test sur Vercel** (Production et Preview, 24/11/2026) : `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET` (secret du webhook de test), `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY`.
 - [ ] **À la bascule (live)** : créer dans le compte live d'Élodie le webhook `https://horizondessens.fr/api/stripe/webhook` (mêmes événements), puis remplacer en **Production** les 3 variables par les valeurs live et son nouveau secret (Preview garde le test). Supprimer le webhook de test s'il n'est plus utile. Les clés live ne passent jamais par une conversation.
-- [ ] **Domaine Resend vérifié** : indispensable pour envoyer la carte à l'acheteur (en mode test, Resend n'accepte que l'adresse du compte).
+- [x] **Domaine Resend vérifié** (24/11/2026) : la carte peut partir chez l'acheteur. Reste à refaire un achat test vers une autre adresse.
 - [ ] **Régénérer la clé secrète Stripe de test** (collée dans une conversation) et mettre à jour `.env.local`, Vercel (Production et Preview) et l'entrée locale du MCP Stripe (`~/.claude.json`).
 - [ ] Faire valider le PDF par Élodie (ou le caler sur son modèle Canva plus tard).
 - [ ] Paiement de test puis paiement réel remboursé.
@@ -427,10 +427,11 @@ Décision de Maxime : les pages affichent les hypothèses **sans mention « à c
 - [x] Mini-CMS : édition en place (mode édition = Draft Mode), brouillons, publication, images (bucket `cms-media`), `getContent()` lu depuis Supabase avec repli sur `defaults.ts` (23-24/11/2026).
 - [x] Variables `NEXT_PUBLIC_SUPABASE_URL` et `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` sur Vercel (production, preview, development).
 - [x] Compte de Maxime (`maxelhaik@gmail.com`) invité et ajouté à `cms_editors` (24/11/2026).
-- [ ] **Test de bout en bout** : lien d'invitation → mot de passe → texte, photo, publication, revalidation en ligne.
-- [ ] **SMTP Resend dans Supabase Auth** (domaine vérifié requis) : sans lui, les e-mails d'auth ne partent qu'aux membres de l'org Supabase → **l'invitation d'Élodie est impossible**. Puis traduire les modèles d'e-mail.
+- [x] **Test de bout en bout en local** par Maxime (24/11/2026) + test de non-régression `npm run test:cms`. Reste : une publication sur le site en ligne.
+- [x] **SMTP Resend dans Supabase Auth** (24/11/2026) : `smtp.resend.com:465`, clé Resend dédiée « Supabase SMTP (auth CMS) » (envoi seul, limitée au domaine), expéditeur « Horizon des Sens <contact@horizondessens.fr> », 30 e-mails/h. Modèles **invitation** et **mot de passe oublié** en français (`supabase/templates/`). « Mot de passe oublié » testé : délivré.
+- [ ] Inviter Élodie (possible dès maintenant ; le lien pointera vers la Site URL tant qu'elle est en localhost : attendre la mise en ligne ou passer `redirect_to` vers `horizondessens.vercel.app`).
 - [ ] À la mise en ligne : Supabase Auth **Site URL** → `https://horizondessens.fr` (aujourd'hui `http://localhost:3005`).
-- [ ] Supprimer la ligne de test `home.hero.lead` (« TEST CMS… ») de `cms_content` si elle y est encore.
+- [x] Ligne de test `home.hero.lead` (« TEST CMS… ») retirée (24/11/2026).
 - [ ] Désactiver les inscriptions publiques dans Supabase Auth (Authentication → Sign In / Providers → « Allow new users to sign up » : off). Sans effet sur la sécurité du CMS (seuls les comptes de `cms_editors` éditent), mais plus propre.
 - [ ] **Révoquer le jeton d'accès Supabase** `sbp_…` collé dans une conversation (Account → Access Tokens).
 - [ ] Compte d'Élodie, prise en main (guide express : cms.md §4).
@@ -451,8 +452,13 @@ Décision de Maxime : les pages affichent les hypothèses **sans mention « à c
 - [ ] **Fiche Google Business Profile** (Élodie) : nouvelle adresse, horaires, catégories, lien du site et de réservation, services, photos ; nom exact « Horizon des Sens » ; attention à la confusion avec la fiche Sensoa (même adresse). Puis demander des avis et y répondre.
 - [ ] Cohérence NAP : nouvelle adresse sur Facebook, Instagram, SimplyBook, PagesJaunes et annuaires ; demander un lien depuis l'annuaire des praticiens M5C.
 
-### Bascule
-- [ ] Ajouter le domaine dans Vercel (`horizondessens.fr` et `www`), puis modifier chez **OVH** les enregistrements A/CNAME indiqués par Vercel. Ne pas toucher aux MX de la messagerie.
-- [ ] L'ancien site n'est pas supprimé (le garder accessible le temps de vérifier).
-- [ ] Après bascule : HTTPS, redirection www, formulaires, réservation, paiement et carte testés en production.
-- [ ] Passer le dépôt GitHub en **privé** (prévu).
+### Bascule — déroulé détaillé : [bascule-domaine.md](bascule-domaine.md)
+> ⛔ Uniquement sur le **go explicite de Maxime**. L'agent (Claude) est **responsable de la bascule** quand Maxime la demande (OVH par MCP, Vercel par CLI). Stripe live reste hors agent. Tenir `bascule-domaine.md` à jour (cases, journal).
+- [ ] Prérequis : travail poussé et déployé, contenus validés par Élodie, SimplyBook à jour, **compte Stripe d'Élodie activé** (attendu), webhook et clés Stripe live en Production.
+- [ ] **La veille : TTL des enregistrements du site à 300 s** (agent, à garder en tête).
+- [ ] Vercel : ajouter `horizondessens.fr` (principal) et `www` (redirection).
+- [ ] OVH : A racine → Vercel ; `www` nettoyé (A, MX, TXT d'hébergement) puis CNAME Vercel ; recharger la zone. **Messagerie, Resend et vérification Google intacts.**
+- [ ] Redéployer la production (indexation), Site URL Supabase → `https://horizondessens.fr`.
+- [ ] Contrôles en production (HTTPS, www, redirections 308, robots, contact, carte cadeau réelle remboursée, CMS, e-mails, messagerie d'Élodie).
+- [ ] L'ancien site n'est pas supprimé (retour arrière : A → `87.98.154.146`).
+- [ ] Après : Search Console, fiche Google, sécurité (jeton `sbp_`, clés de test régénérées, inscriptions Supabase fermées), invitation d'Élodie, dépôt GitHub en **privé**.

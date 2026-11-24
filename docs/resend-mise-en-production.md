@@ -1,6 +1,10 @@
 # Resend : sortir du mode test
 
-> Rédigé le 24/11/2026. Domaine `horizondessens.fr` déjà créé dans Resend (région eu-west-1), statut **« not_started »** : aucun enregistrement DNS n'est encore posé.
+> Rédigé le 24/11/2026. ✅ **Étape 1 faite le 24/11/2026 par Claude via le MCP OVH** (5 enregistrements créés, zone rechargée, vérifiés sur `dns112.ovh.net` ; racine inchangée). Vérification Resend lancée.
+>
+> ✅ **Étapes 2 à 4 faites le 24/11/2026** : domaine **vérifié** ; variables Vercel mises à jour (Preview → `maxelhaik@gmail.com`) et production redéployée ; SMTP Supabase via une clé dédiée, modèles en français (`supabase/templates/`). Envois testés et délivrés. Reste (étape 5) : formulaire de contact et achat de carte cadeau en ligne.
+>
+> Contexte initial : Domaine `horizondessens.fr` déjà créé dans Resend (région eu-west-1), statut **« not_started »** : aucun enregistrement DNS n'est encore posé.
 
 ## Pourquoi on est « en mode test »
 
@@ -11,7 +15,7 @@ Tant que le domaine n'est pas vérifié, Resend n'envoie **qu'à l'adresse du ti
 
 **Pour en sortir : prouver à Resend que l'on contrôle le domaine**, en ajoutant 4 enregistrements DNS chez OVH.
 
-## Étape 1 — Chez OVH (Maxime, 10 minutes)
+## Étape 1 — Chez OVH (Maxime, 10 minutes, ou Claude via le MCP OVH après validation)
 
 1. [OVH Manager](https://www.ovh.com/manager/) → **Web Cloud** → **Noms de domaine** → `horizondessens.fr` → onglet **Zone DNS**.
 2. **Ajouter une entrée** pour chacune des lignes ci-dessous. OVH ajoute lui-même `.horizondessens.fr` au sous-domaine : ne saisir que la partie indiquée. TTL : laisser la valeur par défaut.
@@ -73,3 +77,9 @@ Une fois ce SMTP en place, Supabase autorise :
 ## Limites de l'offre gratuite Resend
 
 3 000 e-mails par mois, 100 par jour, 1 domaine. C'est largement suffisant pour le site d'Élodie.
+
+## Zone actuelle et bascule (pour mémoire)
+
+- Sauvegarde de la zone avant toute modification : `docs/dns/zone-horizondessens-2026-11-24.txt`.
+- Aucun enregistrement existant n'entre en conflit avec ceux de Resend (`send`, `rsend`, `resend._domainkey`, `_dmarc` sont libres). Le DKIM d'OVH (`ovhmo3699594-selector1/2._domainkey`) concerne la messagerie d'Élodie et reste en place.
+- **La bascule du site** (A de la racine et de `www`, aujourd'hui `87.98.154.146`, l'hébergement OVH de l'ancien site) **vers Vercel est une étape distincte**, faite uniquement sur le go de Maxime. Elle ne touche ni aux MX, ni au SPF, ni aux enregistrements de messagerie.
