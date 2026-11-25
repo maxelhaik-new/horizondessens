@@ -8,6 +8,7 @@ import {
   contactSubjects,
   type ContactState,
 } from "@/app/contact/contact-schema";
+import { buttonClass } from "@/components/ui/button-link";
 import { CheckIcon } from "@/components/ui/icons";
 import { cn } from "@/lib/cn";
 import { routes } from "@/lib/navigation";
@@ -16,7 +17,7 @@ import { site } from "@/lib/site";
 const initialState: ContactState = { status: "idle" };
 
 const fieldClass =
-  "w-full rounded-2xl border border-transparent bg-paper px-5 py-4 text-body text-ink transition-[border-color,background-color] duration-300 placeholder:text-ink-subtle hover:border-line focus:border-accent-600 focus:bg-white focus:outline-none aria-invalid:border-accent-700";
+  "w-full rounded-2xl border border-transparent bg-paper px-5 py-4 text-body text-ink transition max-md:text-base-[border-color,background-color] duration-300 placeholder:text-ink-subtle hover:border-line focus:border-accent-600 focus:bg-white focus:outline-none aria-invalid:border-accent-700";
 
 /** Formulaire de contact (server action + Resend), validé côté serveur. */
 export function ContactForm() {
@@ -169,7 +170,7 @@ export function ContactForm() {
       <button
         type="submit"
         disabled={pending}
-        className="mt-1 inline-flex h-14 items-center justify-center rounded-full bg-night px-8 font-medium tracking-[0.016em] text-white shadow-lift transition-colors duration-300 hover:bg-accent-950 disabled:cursor-wait disabled:opacity-70"
+        className={cn(buttonClass({ variant: "primary", plain: true }), "mt-1")}
       >
         {pending ? "Envoi en cours…" : "Envoyer le message"}
       </button>

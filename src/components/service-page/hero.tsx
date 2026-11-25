@@ -28,9 +28,9 @@ export async function ServiceHero({ slug }: { slug: ServicePageSlug }) {
   const variants = service?.variants ?? [];
 
   return (
-    <section className="overflow-hidden bg-night pt-28 pb-12 text-white md:pt-36 md:pb-20">
-      <div className="container-site grid items-end gap-12 lg:grid-cols-[1.15fr_1fr] lg:gap-16">
-        <div className="flex flex-col items-start gap-7">
+    <section className="overflow-hidden bg-night pt-24 pb-10 text-white md:pt-36 md:pb-20">
+      <div className="container-site grid items-end gap-8 lg:grid-cols-[1.15fr_1fr] lg:gap-16">
+        <div className="flex flex-col items-start gap-6 md:gap-7">
           <SplitWords
             as="h1"
             text={c["hero.title"]}
@@ -54,7 +54,7 @@ export async function ServiceHero({ slug }: { slug: ServicePageSlug }) {
             </ButtonLink>
           </div>
 
-          <div className="mt-4 flex w-full animate-rise flex-wrap items-end gap-x-10 gap-y-6 border-t border-white/20 pt-6 [animation-delay:800ms]">
+          <div className="mt-2 flex w-full animate-rise flex-wrap items-end gap-x-10 gap-y-5 border-t border-white/20 pt-6 [animation-delay:800ms]">
             {variants.length > 0 ? (
               <dl className="flex gap-6">
                 {variants.map((v, i) => (
@@ -97,7 +97,7 @@ export async function ServiceHero({ slug }: { slug: ServicePageSlug }) {
         </div>
 
         <div className="relative animate-rise [animation-delay:200ms]">
-          <div className="relative aspect-[4/5] overflow-hidden rounded-card">
+          <div className="relative aspect-[3/2] overflow-hidden rounded-card sm:aspect-[4/3] lg:aspect-[4/5]">
             <Image
               {...c.edit("hero.image")}
               src={c["hero.image"].src}

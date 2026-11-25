@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 
 import { LogoSymbol } from "@/components/brand/logo";
+import { buttonClass } from "@/components/ui/button-link";
 
 /**
  * Cadre des pages de l'espace d'édition (connexion, mot de passe) :
@@ -43,8 +44,11 @@ export function AdminShell({
 export const adminInput =
   "h-12 w-full rounded-2xl border border-line bg-white px-4 text-body text-ink outline-none transition-colors focus:border-accent-500";
 
-export const adminButton =
-  "inline-flex h-12 items-center justify-center rounded-full bg-night px-6 text-sm font-medium text-white shadow-lift transition-opacity disabled:opacity-60";
+export const adminButton = buttonClass({
+  variant: "primary",
+  size: "sm",
+  plain: true,
+});
 
 export function AdminAlert({ children }: { children: ReactNode }) {
   return (

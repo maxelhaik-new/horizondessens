@@ -21,31 +21,25 @@ type ServicePageConfig = {
   label: string;
   /** Badge affiché dans le hero (le texte vient de `home.5c.licence`). */
   badge?: "m5c";
-  /** Carte cadeau : achat en ligne, ou sur demande (contact). */
-  gift: "online" | "on-request";
 };
 
 const pages = {
   "calme-et-harmonie": {
     path: "/massage-calme-et-harmonie",
     label: "Calme et harmonie",
-    gift: "on-request",
   },
   "5-continents": {
     path: routes.cinqContinents,
     label: "Massage des 5 Continents",
     badge: "m5c",
-    gift: "on-request",
   },
   "jambes-legeres": {
     path: "/jambes-legeres-reflexologie-plantaire",
     label: "Jambes légères",
-    gift: "on-request",
   },
   "rituel-horizon": {
     path: "/rituel-horizon",
     label: "Rituel Horizon",
-    gift: "on-request",
   },
 } as const satisfies Partial<Record<ServiceSlug, ServicePageConfig>>;
 

@@ -16,18 +16,18 @@ export async function Practitioner() {
 
   return (
     <section id="elodie" className="bg-paper px-3 md:px-4">
-      <div className="rounded-card bg-blush py-16 md:py-24">
-        <div className="container-site grid items-center gap-12 md:grid-cols-[0.9fr_1.1fr] md:gap-16 lg:gap-24">
+      <div className="rounded-card bg-blush py-12 md:py-24">
+        <div className="container-site grid items-center gap-8 md:grid-cols-[0.9fr_1.1fr] md:gap-16 lg:gap-24">
           <RevealImage
             src={c["home.elodie.image"].src}
             alt={c["home.elodie.image"].alt}
             edit={c.edit("home.elodie.image")}
             sizes="(min-width: 768px) 40vw, 100vw"
-            className="mx-auto aspect-[4/5] w-full max-w-md rounded-card"
+            className="mx-auto aspect-square w-full max-w-md rounded-card md:aspect-[4/5]"
             parallax={4}
           />
 
-          <div className="flex flex-col items-start gap-6">
+          <div className="flex flex-col items-start gap-5 md:gap-6">
             <div className="flex flex-col gap-2">
               <SplitWords
                 text={c["home.elodie.title"]}

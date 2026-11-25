@@ -20,9 +20,9 @@ export async function FiveContinents() {
 
   return (
     <section id="5-continents" className="bg-paper px-3 py-3 md:px-4 md:py-4">
-      <div className="rounded-card bg-night py-16 text-white md:py-24">
-        <div className="container-site grid items-center gap-12 md:grid-cols-[1fr_1.1fr] md:gap-16 lg:gap-24">
-          <div className="order-2 flex flex-col items-start gap-7 md:order-1">
+      <div className="rounded-card bg-night py-12 text-white md:py-24">
+        <div className="container-site grid items-center gap-8 md:grid-cols-[1fr_1.1fr] md:gap-16 lg:gap-24">
+          <div className="order-2 flex flex-col items-start gap-6 md:order-1 md:gap-7">
             <Reveal>
               <Eyebrow tone="dark" edit={c.edit("home.5c.eyebrow")}>
                 {c["home.5c.eyebrow"]}
@@ -80,7 +80,7 @@ export async function FiveContinents() {
             alt={c["home.5c.image"].alt}
             edit={c.edit("home.5c.image")}
             sizes="(min-width: 768px) 55vw, 100vw"
-            className="order-1 aspect-[4/5] rounded-panel md:order-2"
+            className="order-1 aspect-[4/3] rounded-panel md:order-2 md:aspect-[4/5]"
             parallax={10}
           />
         </div>

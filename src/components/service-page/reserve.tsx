@@ -12,15 +12,13 @@ import { giftLink } from "./gift";
 
 /**
  * Réserver (`id="reserver"`) : ce que comprend la séance, le module de
- * réservation (durée et prix y sont affichés), puis l'abonnement et « Offrir ».
+ * réservation (durée et prix y sont affichés), puis « Offrir ». L'abonnement
+ * ne concerne que le Kobido (réponse d'Élodie) : il n'apparaît pas ici.
  * Remplace les anciennes sections « Formule » et « Réservation ».
  */
 export async function ServiceReserve({ slug }: { slug: ServicePageSlug }) {
-  const c = await getServicePageContents(slug, [
-    "reserver.text",
-    "reserver.abonnement",
-  ] as const);
-  const gift = giftLink(slug);
+  const c = await getServicePageContents(slug, ["reserver.text"] as const);
+  const gift = giftLink();
 
   return (
     <BookingSection
@@ -58,10 +56,9 @@ export async function ServiceReserve({ slug }: { slug: ServicePageSlug }) {
       footer={
         <Reveal className="flex flex-col items-start gap-5 border-t border-line pt-8 md:flex-row md:items-center md:justify-between md:gap-10">
           <p className="max-w-2xl text-body text-pretty text-ink-soft">
-            <span className="font-medium text-ink">En abonnement. </span>
-            <span {...c.edit("reserver.abonnement")}>
-              {c["reserver.abonnement"]}
-            </span>
+            <span className="font-medium text-ink">À offrir. </span>
+            Une carte cadeau d&apos;une séance d&apos;1h15, pour le soin de son
+            choix. Réglée en ligne, reçue par e-mail.
           </p>
           <TextLink href={gift.href} className="shrink-0">
             {gift.label}

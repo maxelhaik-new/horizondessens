@@ -30,7 +30,7 @@ export default function NotFound() {
           </ButtonLink>
           <TextLink href={routes.kobido}>Le Kobido</TextLink>
           <TextLink href={routes.cinqContinents}>Le 5 Continents</TextLink>
-          <TextLink href={routes.reserver}>Réserver un soin</TextLink>
+          <TextLink href={routes.reserver}>Choisir un soin</TextLink>
         </div>
       </div>
     </section>

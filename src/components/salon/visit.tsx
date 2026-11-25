@@ -40,7 +40,7 @@ export async function SalonVisit() {
             </p>
             <div className="flex flex-wrap items-center gap-x-8 gap-y-4 pt-2">
               <ButtonLink href={routes.reserver} variant="light">
-                Réserver un soin
+                Choisir un soin
               </ButtonLink>
               <TextLink href={routes.contact} className="text-white">
                 Me contacter

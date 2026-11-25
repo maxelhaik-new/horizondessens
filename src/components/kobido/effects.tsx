@@ -1,10 +1,14 @@
-import { RevealGroup, RevealItem } from "@/components/motion/reveal";
+import { Reveal } from "@/components/motion/reveal";
 import { RevealImage } from "@/components/motion/reveal-image";
+import { Rail } from "@/components/ui/rail";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { getContents } from "@/content/get-content";
 import { cn } from "@/lib/cn";
 
-/** Ressentis : grille « bento » asymétrique (une carte sombre, une avec image). */
+/**
+ * Ressentis : grille « bento » asymétrique (une carte sombre, une avec image).
+ * Mobile : rail horizontal aimanté.
+ */
 export async function KobidoEffects() {
   const c = await getContents([
     "kobido.effets.eyebrow",
@@ -31,19 +35,24 @@ export async function KobidoEffects() {
             title: c.edit("kobido.effets.title"),
           }}
         />
-        <RevealGroup className="mt-12 grid gap-3 md:mt-16 md:grid-cols-6 md:gap-4">
+        <Rail
+          label={c["kobido.effets.title"]}
+          className="mt-10 md:mt-16 md:grid md:grid-cols-6 md:gap-4"
+        >
           {items.map((item, i) => (
-            <RevealItem
+            <Reveal
               key={i}
+              as="li"
+              delay={i * 0.06}
               className={cn(
-                "flex flex-col justify-between gap-10 rounded-card p-8 md:p-10",
+                "flex flex-col justify-between gap-10 rounded-card p-7 md:p-10",
                 styles[i % styles.length],
               )}
             >
-              <div className="flex flex-col justify-between gap-10 md:py-7">
+              <div className="flex h-full flex-col justify-between gap-8 md:gap-10 md:py-7">
                 <span
                   className={cn(
-                    "font-serif text-5xl leading-none italic md:text-6xl",
+                    "font-serif text-4xl leading-none italic md:text-6xl",
                     i === 0 ? "text-accent-300" : "text-accent-700",
                   )}
                   aria-hidden
@@ -77,9 +86,9 @@ export async function KobidoEffects() {
                   className="hidden min-h-64 rounded-panel md:block"
                 />
               ) : null}
-            </RevealItem>
+            </Reveal>
           ))}
-        </RevealGroup>
+        </Rail>
       </div>
     </section>
   );

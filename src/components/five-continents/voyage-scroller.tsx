@@ -11,6 +11,7 @@ import {
 import Image from "next/image";
 import { useLayoutEffect, useRef, useState } from "react";
 
+import { Rail } from "@/components/ui/rail";
 import type { EditAttrs } from "@/content/edit";
 import { cn } from "@/lib/cn";
 
@@ -27,7 +28,8 @@ const number = (i: number) => String(i + 1).padStart(2, "0");
  * Les chapitres du voyage.
  * Desktop : la section s'épingle et les chapitres défilent horizontalement
  * au rythme du scroll vertical, avec une jauge de progression.
- * Mobile ou mouvement réduit : les chapitres s'empilent, sans effet.
+ * Mobile et tablette : rail horizontal aimanté (swipe). Mouvement réduit sur
+ * desktop : les chapitres s'empilent, sans effet.
  */
 export function VoyageScroller({
   heading,
@@ -44,31 +46,39 @@ export function VoyageScroller({
       {pinned ? <Pinned heading={heading} items={items} /> : null}
       <div
         className={cn(
-          "container-site flex flex-col gap-12 section-y",
+          "container-site flex flex-col gap-10 section-y md:gap-12",
           pinned && "lg:hidden",
         )}
       >
         {heading}
-        <ol className="flex flex-col gap-14 md:gap-20">
-          {items.map((item, i) => (
-            <li
-              key={i}
-              className="grid items-center gap-6 md:grid-cols-2 md:gap-12"
-            >
-              <div className="relative aspect-[4/3] overflow-hidden rounded-panel md:aspect-[4/5]">
-                <Image
-                  {...item.edit?.image}
-                  src={item.image}
-                  alt=""
-                  fill
-                  sizes="(min-width: 768px) 45vw, 100vw"
-                  className="object-cover"
-                />
-              </div>
-              <ChapterText item={item} index={i} />
-            </li>
-          ))}
-        </ol>
+        <div>
+          <Rail
+            as="ol"
+            until="lg"
+            tone="dark"
+            label="Les chapitres du soin"
+            className="lg:flex lg:flex-col lg:gap-20"
+          >
+            {items.map((item, i) => (
+              <li
+                key={i}
+                className="flex flex-col gap-5 lg:grid lg:grid-cols-2 lg:items-center lg:gap-12"
+              >
+                <div className="relative aspect-[4/5] overflow-hidden rounded-panel sm:aspect-[4/3] lg:aspect-[4/5]">
+                  <Image
+                    {...item.edit?.image}
+                    src={item.image}
+                    alt=""
+                    fill
+                    sizes="(min-width: 1024px) 45vw, (min-width: 768px) 46vw, 84vw"
+                    className="object-cover"
+                  />
+                </div>
+                <ChapterText item={item} index={i} />
+              </li>
+            ))}
+          </Rail>
+        </div>
       </div>
     </>
   );
@@ -76,19 +86,19 @@ export function VoyageScroller({
 
 function ChapterText({ item, index }: { item: Chapter; index: number }) {
   return (
-    <div className="flex flex-col gap-4">
-      <p className="font-serif text-2xl text-accent-300 italic">
+    <div className="flex flex-col gap-3 lg:gap-4">
+      <p className="font-serif text-xl text-accent-300 italic lg:text-2xl">
         Chapitre {number(index)}
       </p>
       <h3
         {...item.edit?.title}
-        className="text-h3 font-serif tracking-[-0.02em] text-balance italic"
+        className="text-h4 font-serif tracking-[-0.02em] text-balance italic lg:text-h3"
       >
         {item.title}
       </h3>
       <p
         {...item.edit?.text}
-        className="max-w-md text-lead text-pretty text-white/75"
+        className="max-w-md text-body text-pretty text-white/75 lg:text-lead"
       >
         {item.text}
       </p>

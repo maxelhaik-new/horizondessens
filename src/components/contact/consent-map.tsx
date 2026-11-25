@@ -1,5 +1,6 @@
 "use client";
 
+import { buttonClass } from "@/components/ui/button-link";
 import { PinIcon } from "@/components/ui/icons";
 import { setConsent, useConsent } from "@/lib/consent";
 
@@ -32,7 +33,7 @@ export function ConsentMap({ query, title }: { query: string; title: string }) {
           <button
             type="button"
             onClick={() => setConsent("granted")}
-            className="inline-flex h-11 items-center rounded-full bg-night px-6 text-sm font-medium text-white shadow-lift transition-colors hover:bg-accent-950"
+            className={buttonClass({ size: "sm", plain: true })}
           >
             Accepter et afficher
           </button>

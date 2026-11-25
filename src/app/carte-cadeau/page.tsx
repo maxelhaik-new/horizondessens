@@ -8,11 +8,11 @@ import { JsonLd } from "@/components/seo/json-ld";
 import { breadcrumbJsonLd, ids, pageMetadata } from "@/lib/seo";
 import { site } from "@/lib/site";
 
-// Metas fixes (non éditables) — mots-clés : « carte cadeau Kobido Tours », « carte cadeau massage Tours ».
+// Metas fixes (non éditables) — mots-clés : « carte cadeau massage Tours », « carte cadeau Kobido Tours ».
 export const metadata: Metadata = pageMetadata({
-  title: "Carte cadeau Kobido à Tours",
+  title: "Carte cadeau massage et Kobido à Tours",
   description:
-    "Offrez un Kobido d'1h ou d'1h15 chez Horizon des Sens, à Saint-Cyr-sur-Loire. Carte cadeau réglée en ligne, envoyée par e-mail, valable 6 mois.",
+    "Offrez une séance d'1h ou d'1h15 chez Horizon des Sens, à Saint-Cyr-sur-Loire : Kobido ou massage, au choix. Réglée en ligne, envoyée par e-mail, valable 6 mois.",
   path: "/carte-cadeau",
 });
 
@@ -23,11 +23,11 @@ export default async function GiftCardPage() {
     {
       "@context": "https://schema.org",
       "@type": "Product",
-      name: "Carte cadeau Kobido",
+      name: `Carte cadeau ${site.name}`,
       brand: { "@type": "Brand", name: site.name },
       offers: cards.map((card) => ({
         "@type": "Offer",
-        name: `Carte cadeau ${card.name} ${card.durationMinutes} min`,
+        name: `Carte cadeau séance ${card.durationMinutes} min`,
         price: card.priceEuros,
         priceCurrency: "EUR",
         url: `${site.url}/carte-cadeau`,

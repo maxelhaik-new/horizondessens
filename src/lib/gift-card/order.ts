@@ -27,7 +27,7 @@ export type GiftCardOrder = {
   paymentIntentId: string | null;
   /** Numéro unique, ex. HDS-7K3M-Q9PX. */
   code: string;
-  /** Prestation offerte, ex. « Kobido ». */
+  /** Prestation offerte, ex. « Séance » (« Kobido » pour les cartes d'avant le 26/11/2026). */
   title: string;
   durationMinutes: number;
   priceEuros: number;

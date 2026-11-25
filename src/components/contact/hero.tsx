@@ -1,11 +1,9 @@
 import Image from "next/image";
-import Link from "next/link";
 
 import { SplitWords } from "@/components/motion/split-words";
 import { ButtonLink } from "@/components/ui/button-link";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { getContents } from "@/content/get-content";
-import { routes } from "@/lib/navigation";
 
 /**
  * Hero Contact : image cadrée dans une grande carte arrondie (et non plein
@@ -38,25 +36,6 @@ export async function ContactHero() {
         />
 
         <div className="container-site flex flex-col items-start gap-6 pt-36 pb-10 md:pb-16">
-          <nav
-            aria-label="Fil d'Ariane"
-            className="animate-rise text-sm text-white/70"
-          >
-            <ol className="flex items-center gap-2">
-              <li>
-                <Link
-                  href={routes.home}
-                  className="transition-colors hover:text-white"
-                >
-                  Accueil
-                </Link>
-              </li>
-              <li aria-hidden>/</li>
-              <li aria-current="page" className="text-white">
-                Contact
-              </li>
-            </ol>
-          </nav>
           <div className="animate-rise [animation-delay:100ms]">
             <Eyebrow tone="glass" edit={c.edit("contact.hero.eyebrow")}>
               {c["contact.hero.eyebrow"]}

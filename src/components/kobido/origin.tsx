@@ -20,8 +20,8 @@ export async function KobidoOrigin() {
 
   return (
     <section className="bg-paper section-y">
-      <div className="container-site grid gap-12 lg:grid-cols-[5fr_6fr] lg:gap-24">
-        <div className="flex flex-col items-start gap-7 lg:sticky lg:top-32 lg:self-start">
+      <div className="container-site grid gap-8 lg:grid-cols-[5fr_6fr] lg:gap-24">
+        <div className="flex flex-col items-start gap-6 md:gap-7 lg:sticky lg:top-32 lg:self-start">
           <Reveal>
             <Eyebrow edit={c.edit("kobido.origine.eyebrow")}>
               {c["kobido.origine.eyebrow"]}
@@ -41,11 +41,11 @@ export async function KobidoOrigin() {
           />
         </div>
 
-        <div className="flex flex-col gap-8 lg:pt-24">
+        <div className="flex flex-col gap-6 md:gap-8 lg:pt-24">
           <Reveal>
             <p
               {...c.edit("kobido.origine.text", 0, "para")}
-              className="text-xl leading-[1.5] tracking-[-0.005em] text-pretty text-ink md:text-2xl"
+              className="text-lg leading-[1.55] tracking-[-0.005em] text-pretty text-ink md:text-2xl"
             >
               {first}
             </p>
@@ -61,7 +61,7 @@ export async function KobidoOrigin() {
             </Reveal>
           ))}
           <Reveal>
-            <blockquote className="mt-6 border-l border-accent-500 pl-6 md:mt-10 md:pl-10">
+            <blockquote className="mt-2 border-l border-accent-500 pl-6 md:mt-10 md:pl-10">
               <p
                 {...c.edit("kobido.origine.quote")}
                 className="text-h4 font-serif tracking-[-0.02em] text-balance italic"
@@ -75,7 +75,7 @@ export async function KobidoOrigin() {
             alt=""
             edit={c.edit("kobido.origine.image")}
             sizes="100vw"
-            className="aspect-[4/5] rounded-panel sm:mx-auto sm:max-w-md lg:hidden"
+            className="aspect-[3/2] rounded-panel sm:mx-auto sm:aspect-[4/5] sm:max-w-md lg:hidden"
           />
         </div>
       </div>

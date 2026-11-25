@@ -64,6 +64,11 @@ components:
     height: "3.5rem"
   button-primary-hover:
     backgroundColor: "{colors.accent-950}"
+  button-soft:
+    backgroundColor: "#ffffff8c"
+    textColor: "{colors.night}"
+    rounded: "{rounded.pill}"
+    height: "3.5rem"
   button-light:
     backgroundColor: "#ffffff"
     textColor: "{colors.night}"
@@ -107,7 +112,7 @@ Le site est une page d'accueil longue, en mode Persuade : réserver un soin ou d
 Palette neutre chaude tirée vers le rose et l'ocre, un seul accent terracotta, un noir chaud pour les boutons et les sections sombres.
 
 ### Primary
-- **Noir chaud** (`#1a110f`, `night` et `ink`) : boutons principaux, titres, hero et section sombre 5 Continents. Jamais du noir pur.
+- **Noir chaud** (`#1a110f`, `night` et `ink`) : titres, hero, section sombre 5 Continents et les rares boutons `primary`. Jamais du noir pur.
 - **Terracotta** (`accent-600` `#af6753`, `accent-800` `#7a483a`) : accent. `accent-800` est le minimum pour du petit texte sur fond clair (contraste AA). `accent-600` sert aux éléments non textuels (barre de défilement).
 
 ### Neutral
@@ -161,10 +166,13 @@ Langage d'arrondis généreux. Cartes `rounded-card` (40 px), panneaux et images
 ## Components
 
 ### Buttons
-- **Shape :** pilule, 48 px de haut sur mobile, 56 px dès 768 px (`md`), 40 px en `sm`.
-- **Primary (dark) :** fond `night`, texte blanc, ombre Lift. Une pastille blanche avec un chevron est à gauche au repos.
-- **Light :** fond blanc, texte `night`, pastille `night`. Pour les fonds sombres ou colorés.
-- **Hover :** la pastille glisse à droite pendant que le texte glisse à gauche, ressort de 0.6 s (`ease-spring`). Le fond passe à `accent-950` (dark) ou `paper-soft` (light).
+Modèle **global** déclaré dans `src/app/globals.css` (classes `btn`, `btn-soft`, `btn-primary`, `btn-light`, `btn-sm`, `btn-plain`, variables `--btn-*`), consommé par `ButtonLink`, `RemixButton` et `buttonClass()` (`src/components/ui/button-link.tsx`). Aucun bouton ne définit ses couleurs ou sa géométrie dans un composant.
+- **Shape :** pilule, 48 px de haut sur mobile, 56 px dès 768 px ; 44 px en `sm`.
+- **Soft (défaut) :** blanc à 55 %, contour fin `line-strong`, texte `ink`, pastille `accent-200`. Au survol : fond blanc, pastille `accent-800`. Pour tous les appels répétés (cartes de soin, offres, « Découvrir »).
+- **Primary :** fond `night`, pastille `accent-200`, ombre courte. **Rare** : actions qui engagent (confirmer un RDV, envoyer, payer, télécharger) et un seul appel par page au plus (appel final de l'accueil, barre « Réserver » mobile).
+- **Light :** fond blanc, pastille `accent-200` (`night` au survol). Sur photo ou fond sombre.
+- **Plain :** sans pastille, texte centré (formulaires, choix des cookies, à poids égal).
+- **Hover :** la pastille glisse à droite pendant que le texte glisse à gauche, 0,5 s en `ease-soft` (sans rebond). Désactivé avec `prefers-reduced-motion`. Focus : contour `accent-800` décalé de 3 px.
 - **Text link :** lien souligné, soulignement à 30 % qui passe à 100 % au survol. Pour les actions secondaires.
 
 ### Eyebrow pill
@@ -175,7 +183,7 @@ Pastille de section : fond blanc à 70 %, texte `accent-800`, majuscules espacé
 - **Offer / final CTA card :** même rayon, fond clair, logo, titre italique à gauche, texte et appel à droite.
 
 ### FAQ item
-Élément `<details name>` natif : fond `paper-soft`, rayon 32 px, question en 18 px, pastille `night` avec un plus qui tourne de 45 degrés à l'ouverture. Une seule question ouverte à la fois.
+Élément `<details name>` natif : fond `paper-soft`, rayon 32 px, question en 18 px, pastille cerclée d'un filet avec un plus qui tourne de 45 degrés et se remplit en `night` à l'ouverture. Une seule question ouverte à la fois.
 
 ### Navigation
 En-tête en pilule flottante de 72 px (64 px sur mobile), transparente sur le hero sombre, puis blanche à 70 % avec un flou fort au défilement. Mobile : menu plein écran et barre « Réserver » fixe en bas.

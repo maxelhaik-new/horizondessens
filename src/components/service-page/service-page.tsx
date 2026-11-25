@@ -14,7 +14,7 @@ import { ServiceReserve } from "./reserve";
  * 1. hero (titre, accroche, durée et prix, « Réserver ce massage ») ;
  * 2. le soin (chapeau + les temps du soin, une image) ;
  * 3. réserver (`#reserver` : ce que comprend la séance, module intégré,
- *    abonnement et « Offrir ») ;
+ *    « Offrir ») ;
  * 4. FAQ (dont « Comment se passe la séance ? ») ;
  * 5. pied de page.
  * Chaque information n'apparaît qu'une fois. Contenu : `soin.<slug>.*`

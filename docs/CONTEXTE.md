@@ -216,7 +216,7 @@ Graphie du nom : « Horizon des **S**ens » sur la carte 2026, « HORIZON DES SE
 | Nom et email affichés | **Élodie Poirier**. On garde l'email actuel `e.nguyen@horizondessens.fr`. Téléphone : 06 76 95 90 03. |
 | Cabinet de la mère | **Sensoa**, https://www.sensoa-massage.fr/. Maxime en est aussi le développeur. **Sensoa et Horizon des Sens sont des salons concurrents**, même s'ils partagent le cabinet et ont des points communs (clientèle, Kobido…). Le site de Sensoa sert de **référence d'idées** (structure, sections, fonctionnalités, intégrations), mais on **ne reprend aucun texte tel quel**. Les **images** ne sont réutilisées qu'après **choix explicite de Maxime**. Scraping : `references/sensoa/`. L'identité doit rester **propre à Horizon des Sens** : des codes doux, mais différenciés. |
 | Mention du cabinet partagé / des autres praticiennes | **Pas pour l'instant.** Ce sera peut-être fait plus tard, sous forme de partenariat. |
-| Citation « Si tu écoutes ton corps… » | **Retirée** du site. |
+| Citation « Si tu écoutes ton corps… » | **Conservée, uniquement comme philosophie d'Élodie** (décision du 26/11/2026, remplace « retirée ») : section Philosophie de l'accueil ; éventuellement la citation de la page Le salon ou une page de soin si un emplacement est prévu. Nulle part ailleurs. Tutoiement assumé (c'est une citation). |
 | Fiche Google Business | **Hors périmètre** : Élodie s'en charge. On vérifie seulement la cohérence des NAP. |
 
 ### Offre
@@ -233,7 +233,7 @@ Graphie du nom : « Horizon des **S**ens » sur la carte 2026, « HORIZON DES SE
 ### Site et technique
 | Sujet | Décision |
 |---|---|
-| Architecture | **Une page d'accueil longue et des pages clés** : Accueil (one-page), **Kobido**, **Le salon** (le lieu à Saint-Cyr), **Carte cadeau**, **Réserver** (avec des items et widgets SimplyBook intégrés), **Contact**. Pas de page dédiée au 5 Continents pour l'instant : c'est une section de l'accueil. Mentions légales à ajouter. |
+| Architecture | **Une page d'accueil longue et des pages clés** : Accueil, **Kobido**, **5 Continents** et les 3 autres soins (pages dédiées depuis le 25/11/2026), **Le salon**, **Carte cadeau**, **Soins et tarifs** (`/reserver`), **Contact**, pages légales. |
 | Édition des contenus | **CMS minimaliste avec édition directe sur une page qui ressemble au site.** Seuls les textes et les images sont modifiables par la cliente, avec une **limite de caractères par champ**. Le contenu est **stocké à distance**, pas dans des fichiers locaux ni dans Git. ✅ **Décidé : un mini-CMS maison** (Next.js + Supabase, édition en place sur `/admin`). Voir [options-techniques.md §B](options-techniques.md). |
 | Stack | ✅ **Next.js** (React) + Tailwind + Framer Motion sur Vercel, avec des pages statiques revalidées à la publication, pour le SEO. |
 | Mini-CMS (mis en place le 23-24/11/2026) | ✅ Édition **sur les vraies pages** (connexion `/admin` → Draft Mode) : clic sur un texte = édition dans l'élément lui-même (vraie typo, mise en page recalculée en direct), limite stricte par champ ; bouton « Remplacer » discret sur les photos (optimisées en WebP dans le navigateur) ; brouillons puis « Publier » ; « Rétablir l'original ». Supabase : `cms_content` (publié, public), `cms_drafts` (RLS éditeurs), `cms_revisions`, `cms_editors`, bucket `cms-media`. **HTML public inchangé**, pages statiques. Détails : [cms.md](cms.md). |
@@ -286,6 +286,11 @@ Décision de Maxime : les pages affichent les hypothèses **sans mention « à c
 - **Registre dans Stripe** : numéro `HDS-XXXX-XXXX`, prestation, bénéficiaire et validité dans les métadonnées du paiement (recherche par numéro dans le tableau de bord), plus une copie de chaque carte par e-mail à Élodie. Pas de table Supabase ni de suivi « utilisée » pour l'instant.
 - **PDF généré à la charte du site** (A5 paysage), en attendant éventuellement un fond Canva d'Élodie.
 - **Paiement par carte bancaire** (Apple Pay et Google Pay compris), pas de Klarna ni autres moyens. Prix lus dans les prestations (aucun produit saisi dans Stripe). Pas de TVA (franchise en base).
+
+### Revue d'ensemble avant déploiement (26/11/2026)
+- **Carte cadeau généraliste** (décision de Maxime) : plus seulement Kobido. Deux cartes « **Séance 1h** » (100 €, Kobido) et « **Séance 1h15** » (120 €, le soin de son choix parmi toute la carte). Prix = tarif le plus bas de la durée (`src/lib/gift-cards.ts`). **Pour un soin plus cher (5 Continents, 135 €), la différence se règle au salon** (CGV) : règle posée par Claude, **à confirmer par Élodie**. Plus de carte « sur demande » : toutes les pages de soin renvoient vers `/carte-cadeau`. Les aperçus image ont été mis à jour par Maxime. Le PDF affiche « Séance 1h15 ».
+- **Abonnement** : uniquement Kobido (réponse d'Élodie). Retiré des 4 autres pages de soin.
+- Boutons « Réserver un soin » qui menaient à « Soins et tarifs » renommés **« Choisir un soin »** ; fil d'Ariane visible retiré de Contact et des pages légales (JSON-LD conservé) ; bouton « Découvrir Élodie » retiré de la Philosophie (doublon de « Mon parcours »).
 
 ### Réservation intégrée (25/11/2026)
 - **Pas de paiement en ligne à la réservation** (règlement sur place). Si les absences posent problème : rappel SMS, puis empreinte bancaire pour les nouveaux clients.
@@ -387,10 +392,10 @@ Décision de Maxime : les pages affichent les hypothèses **sans mention « à c
 - [ ] Faire valider par Élodie le récit de son parcours (page Le salon).
 - [x] Page **Réserver** (`/reserver`) : tous les soins et tarifs ; chaque durée mène au module de réservation de la page du soin (25/11/2026).
 - [x] **Pages de soin** : Kobido, Calme et harmonie, 5 Continents, Jambes légères, Rituel Horizon, chacune avec le module de réservation intégré (25/11/2026). Textes à valider par Élodie.
-- [x] Navigation : sous-menu « Soins », « Réserver » de l'en-tête → `/reserver`, pied de page vers les pages de soin (25/11/2026).
-- [ ] Page 404 aux couleurs du site.
+- [x] Navigation : sous-menu « Soins », liens directs Kobido et 5 Continents, pied de page vers les pages de soin ; pas de bouton « Réserver » dans l'en-tête (25/11/2026).
+- [x] Page 404 aux couleurs du site (23/11/2026).
 - [ ] Textes relus et validés par Élodie (accueil, Kobido : citation de l'approche, déroulé, FAQ, contre-indications).
-- [ ] Accès et stationnement du salon (`home.final.access` affiche « informations à venir »).
+- [ ] Stationnement du salon : à préciser avec Élodie (`home.final.access` décrit l'accès, publié dans le CMS, sans le stationnement).
 - [ ] Logo définitif en SVG (fourni par Maxime) à la place du provisoire.
 - [ ] Image jambes ou pieds pour Jambes légères, portrait professionnel d'Élodie (si shooting).
 - [ ] Badge M5C : règles d'usage de la fédération.
@@ -447,6 +452,7 @@ Décision de Maxime : les pages affichent les hypothèses **sans mention « à c
 - [x] **Domaine Resend vérifié** (24/11/2026) : la carte peut partir chez l'acheteur. Reste à refaire un achat test vers une autre adresse.
 - [ ] **Régénérer la clé secrète Stripe de test** (collée dans une conversation) et mettre à jour `.env.local`, Vercel (Production et Preview) et l'entrée locale du MCP Stripe (`~/.claude.json`).
 - [ ] Faire valider le PDF par Élodie (ou le caler sur son modèle Canva plus tard).
+- [ ] Faire valider par Élodie la **carte cadeau généraliste** (26/11/2026) : séance 1h (Kobido) / 1h15 (tous les soins), différence réglée au salon pour le 5 Continents.
 - [ ] Paiement de test puis paiement réel remboursé.
 
 ### CMS (Supabase) — voir [cms.md](cms.md)

@@ -172,7 +172,7 @@ export const contentDefaults: ContentValues = {
   },
   "home.cadeau.title": "Offrez une parenthèse",
   "home.cadeau.text":
-    "Choisissez un soin, réglez en ligne, recevez la carte par e-mail. Valable 6 mois.",
+    "Une séance d'1h ou d'1h15, pour le soin de son choix. Réglée en ligne, reçue par e-mail, valable 6 mois.",
 
   // --- FAQ ---
   "home.faq.eyebrow": "Questions fréquentes",
@@ -361,8 +361,6 @@ export const contentDefaults: ContentValues = {
 
   "soin.5-continents.reserver.text":
     "Le massage complet du corps en deux temps, puis le soin énergétique. L'échange avant le soin et le retour au calme sont compris.",
-  "soin.5-continents.reserver.abonnement":
-    "6 séances dans l'année, avec 10 € de moins sur chaque séance, pour en faire un rendez-vous régulier.",
 
   "soin.5-continents.faq.title": "Questions sur le 5 Continents",
   "soin.5-continents.faq.intro":
@@ -429,8 +427,6 @@ export const contentDefaults: ContentValues = {
 
   "soin.calme-et-harmonie.reserver.text":
     "Le massage du dos, du visage et du crâne, puis un temps de Reiki. L'échange avant le soin et le retour au calme sont compris.",
-  "soin.calme-et-harmonie.reserver.abonnement":
-    "6 séances dans l'année, avec 10 € de moins sur chaque séance, pour en faire un rendez-vous régulier.",
 
   "soin.calme-et-harmonie.faq.title": "Questions sur Calme et harmonie",
   "soin.calme-et-harmonie.faq.intro":
@@ -498,8 +494,6 @@ export const contentDefaults: ContentValues = {
 
   "soin.jambes-legeres.reserver.text":
     "Le massage complet des jambes, puis la réflexologie plantaire. L'échange avant le soin et le retour au calme sont compris.",
-  "soin.jambes-legeres.reserver.abonnement":
-    "6 séances dans l'année, avec 10 € de moins sur chaque séance, pour garder des jambes légères au fil des saisons.",
 
   "soin.jambes-legeres.faq.title": "Questions sur Jambes légères",
   "soin.jambes-legeres.faq.intro":
@@ -567,8 +561,6 @@ export const contentDefaults: ContentValues = {
 
   "soin.rituel-horizon.reserver.text":
     "Un temps d'échange, puis un massage composé selon vos zones de tension. Le retour au calme est compris.",
-  "soin.rituel-horizon.reserver.abonnement":
-    "6 séances dans l'année, avec 10 € de moins sur chaque séance, pour un massage qui suit l'évolution de vos besoins.",
 
   "soin.rituel-horizon.faq.title": "Questions sur le Rituel Horizon",
   "soin.rituel-horizon.faq.intro":
@@ -711,7 +703,7 @@ export const contentDefaults: ContentValues = {
     "Réservez votre séance en ligne, ou écrivez-moi pour toute question sur l'accès ou les soins.",
 
   // --- Carte cadeau ---
-  "cadeau.hero.title": "Offrez une parenthèse de Kobido",
+  "cadeau.hero.title": "Offrez un moment de pause",
   "cadeau.hero.lead":
     "Une carte cadeau à offrir en quelques minutes : choisissez la durée, réglez en ligne et recevez-la aussitôt par e-mail, prête à être offerte.",
   "cadeau.hero.image": {
@@ -720,14 +712,14 @@ export const contentDefaults: ContentValues = {
   },
   "cadeau.formules.title": "Choisissez la carte",
   "cadeau.formules.intro":
-    "Deux durées, pour un premier Kobido ou pour aller plus loin dans la détente. La carte est valable 6 mois.",
+    "Deux durées de séance : 1h pour un Kobido, 1h15 pour le soin de son choix parmi toute la carte. Valable 6 mois.",
   "cadeau.formules.note":
-    "Vous souhaitez offrir un Massage des 5 Continents ? La carte est disponible sur demande : écrivez-moi.",
+    "Pour un soin au tarif plus élevé, comme le Massage des 5 Continents, la différence se règle au salon. Une question ?",
   "cadeau.steps.title": "Comment ça marche",
   "cadeau.steps.items": [
     {
       title: "Choisissez",
-      text: "Kobido 1h ou 1h15, et le nom de la personne à qui vous l'offrez.",
+      text: "Une séance d'1h ou d'1h15, et le nom de la personne à qui vous l'offrez.",
     },
     {
       title: "Réglez en ligne",
@@ -739,7 +731,7 @@ export const contentDefaults: ContentValues = {
     },
     {
       title: "Le soin",
-      text: "La personne réserve sa séance quand elle le souhaite, dans les 6 mois, en indiquant le numéro de la carte.",
+      text: "La personne choisit son soin et réserve quand elle le souhaite, dans les 6 mois, en indiquant le numéro de la carte.",
     },
   ],
   "cadeau.steps.image": {
@@ -750,7 +742,7 @@ export const contentDefaults: ContentValues = {
   "cadeau.conditions.items": [
     "Valable 6 mois à compter de la date d'achat.",
     "Nominative : elle est établie au nom de la personne qui la reçoit.",
-    "Utilisable en une fois, pour la séance indiquée.",
+    "Utilisable en une fois, pour une séance de la durée indiquée.",
     "Non remboursable, sauf droit de rétractation de 14 jours.",
   ],
 

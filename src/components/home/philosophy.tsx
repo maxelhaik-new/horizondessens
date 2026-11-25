@@ -3,10 +3,8 @@ import Image from "next/image";
 import { Parallax } from "@/components/motion/parallax";
 import { Reveal } from "@/components/motion/reveal";
 import { SplitWords } from "@/components/motion/split-words";
-import { ButtonLink } from "@/components/ui/button-link";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { getContents } from "@/content/get-content";
-import { routes } from "@/lib/navigation";
 import { cn } from "@/lib/cn";
 
 /** Médaillons flottants (décor, non éditables) — position, taille, vitesse. */
@@ -85,11 +83,6 @@ export async function Philosophy() {
           edit={c.edit("home.philo.text")}
           className="max-w-4xl text-h2 text-balance text-ink"
         />
-        <Reveal delay={0.2}>
-          <ButtonLink href={`${routes.salon}#elodie`}>
-            Découvrir Élodie
-          </ButtonLink>
-        </Reveal>
       </div>
     </section>
   );

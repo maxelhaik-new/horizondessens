@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { Fragment } from "react";
 
 import { LegalPage, type LegalSection } from "@/components/legal/legal-page";
 import { routes } from "@/lib/navigation";
 import { pageMetadata } from "@/lib/seo";
 import { site } from "@/lib/site";
-import { formatVariant } from "@/services/format";
+import { getGiftCards } from "@/lib/gift-cards";
+import { formatDuration, formatVariant } from "@/services/format";
 import { getServices } from "@/services/get-services";
 
 export const metadata: Metadata = pageMetadata({
@@ -18,7 +20,10 @@ export const metadata: Metadata = pageMetadata({
 const { address, legal } = site;
 
 export default async function CgvPage() {
-  const services = await getServices();
+  const [services, giftCards] = await Promise.all([
+    getServices(),
+    getGiftCards(),
+  ]);
   const kobido = services.find((s) => s.slug === "kobido");
 
   const sections: LegalSection[] = [
@@ -158,11 +163,21 @@ export default async function CgvPage() {
         <>
           <h3>Offre</h3>
           <p>
-            Les cartes cadeaux vendues en ligne correspondent à une séance de{" "}
-            <strong>Kobido 1h (100 €)</strong> ou de{" "}
-            <strong>Kobido 1h15 (120 €)</strong>. Une carte cadeau pour le
-            Massage des 5 Continents peut être obtenue sur demande, directement
-            auprès d&apos;{site.practitioner}.
+            Les cartes cadeaux vendues en ligne correspondent à une séance
+            d&apos;une durée donnée, pour le soin de son choix parmi ceux de
+            cette durée :{" "}
+            {giftCards.map((card, i) => (
+              <Fragment key={card.id}>
+                {i > 0 ? " ou " : null}
+                <strong>
+                  séance {formatDuration(card.durationMinutes)} (
+                  {card.priceEuros} €)
+                </strong>{" "}
+                ({card.soins.join(", ")})
+              </Fragment>
+            ))}
+            . Pour un soin dont le tarif est supérieur à la valeur de la carte,
+            la différence est réglée au salon, le jour de la séance.
           </p>
           <h3>Commande et paiement</h3>
           <p>
@@ -196,9 +211,9 @@ export default async function CgvPage() {
               rétractation ci-dessous.
             </li>
             <li>
-              Elle s&apos;utilise en une seule fois, pour la prestation
-              indiquée. Le ou la bénéficiaire réserve sa séance en mentionnant
-              le numéro de la carte.
+              Elle s&apos;utilise en une seule fois, pour une séance de la durée
+              indiquée. Le ou la bénéficiaire choisit son soin et réserve sa
+              séance en mentionnant le numéro de la carte.
             </li>
           </ul>
           <h3>Droit de rétractation</h3>

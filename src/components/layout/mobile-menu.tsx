@@ -6,15 +6,27 @@ import {
   useReducedMotion,
 } from "motion/react";
 import Link from "next/link";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { ButtonLink } from "@/components/ui/button-link";
-import { featuredSoins, mainNav, routes } from "@/lib/navigation";
+import { ChevronRightIcon } from "@/components/ui/icons";
+import { cn } from "@/lib/cn";
+import { mainNav, routes } from "@/lib/navigation";
 import { site } from "@/lib/site";
 import { soinsNav } from "@/services/pages";
 
-/** Sous-liste « Soins » : les soins mis en avant ont déjà leur grand lien. */
-const otherSoins = soinsNav.filter((s) => !featuredSoins.includes(s.href));
+/** Sous-menu « Soins » : toutes les pages de soin, libellés courts. */
+const soins = soinsNav.map((s) => ({
+  ...s,
+  label: s.label.replace(/^Massage des /, ""),
+}));
+
+/**
+ * Taille commune à toutes les entrées des deux panneaux (25/11/2026) : la
+ * plus longue (« Calme et harmonie ») doit tenir sur une ligne dès 320 px.
+ */
+const itemText =
+  "font-serif text-[min(60px,11.2vw)] leading-[1.08] tracking-[0.4px] italic";
 
 /*
  * Menu mobile « à voiles courbes » (inspiré du composant CurveMenuOverlay,
@@ -24,6 +36,11 @@ const otherSoins = soinsNav.filter((s) => !featuredSoins.includes(s.href));
  * - fermeture : les liens redescendent, le voile sombre redescend en se
  *   creusant, puis le voile rosé.
  * Mêmes tracés SVG, durées et courbes que l'original.
+ *
+ * Sous-menu (25/11/2026) : « Soins » est une entrée comme les autres ; au
+ * toucher, le panneau principal glisse à gauche et celui des soins arrive
+ * de la droite, avec les mêmes tailles et un retour. À la fermeture, tout le
+ * contenu disparaît ensemble, puis on revient au panneau principal.
  */
 
 const CLOSED = "M0,100 L0,100 Q50,100 100,100 L100,100 Z";
@@ -51,6 +68,19 @@ export function MobileMenu({ id, open, onNavigate }: Props) {
   const reduceMotion = useReducedMotion();
   const running = useRef<AnimationPlaybackControls[]>([]);
   const first = useRef(true);
+  const [panel, setPanel] = useState<"main" | "soins">("main");
+  const soinsButton = useRef<HTMLButtonElement>(null);
+  const backButton = useRef<HTMLButtonElement>(null);
+
+  const showPanel = (next: "main" | "soins") => {
+    setPanel(next);
+    // Le focus suit le panneau affiché (clavier et lecteurs d'écran).
+    requestAnimationFrame(() =>
+      (next === "soins" ? backButton : soinsButton).current?.focus({
+        preventScroll: true,
+      }),
+    );
+  };
 
   useEffect(() => {
     if (first.current) {
@@ -70,7 +100,9 @@ export function MobileMenu({ id, open, onNavigate }: Props) {
         const l2 = q("[data-layer='2']");
         const items = q("[data-item]");
         const extra = q("[data-extra]");
+        const panels = q("[data-panels]");
         running.current = [
+          animate(panels, { opacity: 1 }, { duration: 0 }),
           animate(
             l1,
             { d: [CLOSED, BEND_1, OPEN] },
@@ -120,6 +152,7 @@ export function MobileMenu({ id, open, onNavigate }: Props) {
     const l2 = q("[data-layer='2']");
     const items = q("[data-item]");
     const extra = q("[data-extra]");
+    const panels = q("[data-panels]");
     const fade = 0.25;
     const l2Start = fade;
     const l1Start = fade + 0.45 + (0.6 - 0.225);
@@ -137,6 +170,12 @@ export function MobileMenu({ id, open, onNavigate }: Props) {
         extra,
         { opacity: 0, y: "20%" },
         { duration: fade * k, ease: POWER2_IN },
+      ),
+      // Tout le contenu part en même temps (aucune entrée ne traîne).
+      animate(
+        panels,
+        { opacity: 0 },
+        { duration: 0.3 * k, delay: 0.1 * k, ease: POWER2_IN },
       ),
       animate(
         l2,
@@ -162,7 +201,9 @@ export function MobileMenu({ id, open, onNavigate }: Props) {
     running.current = controls;
     let cancelled = false;
     Promise.all(controls.map((c) => c.finished)).then(() => {
-      if (!cancelled) scope.current?.classList.add("hidden");
+      if (cancelled) return;
+      scope.current?.classList.add("hidden");
+      setPanel("main");
     });
     return () => {
       cancelled = true;
@@ -195,44 +236,111 @@ export function MobileMenu({ id, open, onNavigate }: Props) {
       ))}
 
       <div className="relative flex h-full flex-col justify-center-safe gap-[clamp(28px,5vh,60px)] overflow-y-auto overscroll-contain px-[8vw] pt-24 pb-[5vh] text-white">
-        <nav aria-label="Navigation mobile">
-          <ul className="flex flex-col gap-[clamp(8px,1.5vh,20px)]">
-            {mainNav.map((item) => (
-              <li key={item.href} className="overflow-hidden">
-                <Link
-                  href={item.href}
-                  onClick={onNavigate}
-                  data-item
-                  style={{ transform: "translateY(110%)" }}
-                  className="inline-block pr-5 font-serif text-[min(84px,15vw)] leading-none tracking-[0.8px] italic transition-opacity duration-300"
-                >
-                  {item.label}
-                </Link>
-                {item.label === "Soins" ? (
-                  // Sous-liste des pages de soin (critique impeccable, 25/11) :
-                  // petite, en fondu avec les coordonnées (`data-extra`).
-                  <ul
-                    data-extra
-                    aria-label="Nos soins"
-                    className="mt-1 flex flex-wrap gap-x-4 text-[0.95rem] text-white/75 opacity-0"
+        <div data-panels className="grid overflow-x-clip">
+          {/* Panneau principal */}
+          <nav
+            aria-label="Navigation mobile"
+            inert={panel !== "main"}
+            className={cn(
+              "col-start-1 row-start-1 transition-[translate,opacity] duration-700 ease-soft motion-reduce:transition-none",
+              panel !== "main" &&
+                "pointer-events-none -translate-x-1/3 opacity-0",
+            )}
+          >
+            <ul className="flex flex-col gap-[clamp(6px,1.4vh,16px)]">
+              {mainNav.map((item) => (
+                <li key={item.href} className="overflow-hidden">
+                  {item.label === "Soins" ? (
+                    <button
+                      ref={soinsButton}
+                      type="button"
+                      data-item
+                      aria-expanded={panel === "soins"}
+                      aria-controls="menu-mobile-soins"
+                      onClick={() => showPanel("soins")}
+                      style={{ transform: "translateY(110%)" }}
+                      className={cn(
+                        itemText,
+                        "flex w-full cursor-pointer items-center justify-between gap-4 pr-1 text-left",
+                      )}
+                    >
+                      {item.label}
+                      <span
+                        aria-hidden
+                        className="grid size-11 shrink-0 place-items-center rounded-full border border-white/25 not-italic"
+                      >
+                        <ChevronRightIcon className="size-4" />
+                      </span>
+                    </button>
+                  ) : (
+                    <Link
+                      href={item.href}
+                      onClick={onNavigate}
+                      data-item
+                      style={{ transform: "translateY(110%)" }}
+                      className={cn(itemText, "inline-block pr-5")}
+                    >
+                      {item.label}
+                    </Link>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </nav>
+
+          {/* Panneau « Soins » */}
+          <nav
+            id="menu-mobile-soins"
+            aria-label="Nos soins"
+            inert={panel !== "soins"}
+            className={cn(
+              "col-start-1 row-start-1 flex flex-col items-start transition-[translate,opacity] duration-700 ease-soft motion-reduce:transition-none",
+              panel !== "soins" &&
+                "pointer-events-none translate-x-1/3 opacity-0",
+            )}
+          >
+            <button
+              ref={backButton}
+              type="button"
+              onClick={() => showPanel("main")}
+              className="mb-[clamp(4px,1vh,12px)] -ml-1 inline-flex min-h-11 cursor-pointer items-center gap-2 pr-3 text-eyebrow text-white/70 transition-colors hover:text-white"
+            >
+              <ChevronRightIcon className="size-4 rotate-180" />
+              Menu
+            </button>
+            <ul className="flex flex-col gap-[clamp(6px,1.4vh,16px)]">
+              {soins.map((soin, i) => (
+                <li key={soin.href} className="overflow-hidden">
+                  <Link
+                    href={soin.href}
+                    onClick={onNavigate}
+                    style={{
+                      transitionDelay:
+                        panel === "soins" ? `${120 + i * 60}ms` : "0ms",
+                    }}
+                    className={cn(
+                      itemText,
+                      "inline-block pr-2 whitespace-nowrap transition-[translate] duration-700 ease-soft motion-reduce:transition-none",
+                      panel === "soins"
+                        ? "translate-y-0"
+                        : "translate-y-[110%]",
+                    )}
                   >
-                    {otherSoins.map((soin) => (
-                      <li key={soin.href}>
-                        <Link
-                          href={soin.href}
-                          onClick={onNavigate}
-                          className="inline-flex min-h-10 items-center underline-offset-4 transition-colors hover:text-white hover:underline"
-                        >
-                          {soin.label}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                ) : null}
-              </li>
-            ))}
-          </ul>
-        </nav>
+                    {soin.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+            <Link
+              href={routes.reserver}
+              onClick={onNavigate}
+              className="mt-[clamp(10px,2vh,24px)] inline-flex min-h-11 items-center gap-2 text-base text-white/75 underline-offset-4 transition-colors hover:text-white hover:underline"
+            >
+              Tous les soins et tarifs
+              <ChevronRightIcon className="size-4" />
+            </Link>
+          </nav>
+        </div>
 
         <div data-extra className="flex flex-col items-start gap-6 opacity-0">
           <div className="flex flex-col gap-3 text-base leading-[1.4] text-white/75">
@@ -254,7 +362,7 @@ export function MobileMenu({ id, open, onNavigate }: Props) {
             variant="light"
             onClick={onNavigate}
           >
-            Réserver un soin
+            Choisir un soin
           </ButtonLink>
         </div>
       </div>

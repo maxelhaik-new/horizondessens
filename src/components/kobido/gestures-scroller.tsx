@@ -4,6 +4,7 @@ import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
+import { Rail } from "@/components/ui/rail";
 import type { EditAttrs } from "@/content/edit";
 import { cn } from "@/lib/cn";
 
@@ -17,7 +18,7 @@ type Gesture = {
 /**
  * Desktop : l'image reste collée à gauche et se remplace (fondu) selon le
  * geste au centre de l'écran ; le geste actif est mis en avant.
- * Mobile : chaque geste a son image, sans effet.
+ * Mobile et tablette : rail horizontal aimanté, une carte par geste.
  * Utilisé par la page Kobido.
  */
 export function GesturesScroller({
@@ -49,7 +50,7 @@ export function GesturesScroller({
   const current = items[active] ?? items[0];
 
   return (
-    <div className="mt-12 grid gap-10 md:mt-16 lg:grid-cols-2 lg:gap-20">
+    <div className="mt-10 grid md:mt-16 lg:grid-cols-2 lg:gap-20">
       <div className="hidden lg:block">
         <div className="sticky top-28 aspect-[4/5] overflow-hidden rounded-card bg-night">
           <AnimatePresence initial={false}>
@@ -78,7 +79,12 @@ export function GesturesScroller({
         </div>
       </div>
 
-      <ol className="flex flex-col lg:py-[18vh]">
+      <Rail
+        as="ol"
+        until="lg"
+        label={`${label}s`}
+        className="lg:flex lg:flex-col lg:py-[18vh]"
+      >
         {items.map((item, i) => (
           <li
             key={i}
@@ -87,38 +93,38 @@ export function GesturesScroller({
             }}
             data-index={i}
             className={cn(
-              "flex flex-col gap-5 border-t border-line py-10 transition-opacity duration-500 last:border-b lg:min-h-[45vh] lg:justify-center lg:py-12",
+              "flex flex-col gap-3 rounded-card bg-paper/70 p-2.5 pb-6 transition-opacity duration-500 lg:min-h-[45vh] lg:justify-center lg:gap-5 lg:rounded-none lg:border-t lg:border-line lg:bg-transparent lg:p-0 lg:py-12 lg:last:border-b",
               i === active ? "lg:opacity-100" : "lg:opacity-55",
             )}
           >
-            <div className="relative aspect-[4/3] overflow-hidden rounded-panel lg:hidden">
+            <div className="relative mb-2 aspect-[4/3] overflow-hidden rounded-[1.75rem] lg:hidden">
               <Image
                 {...item.edit?.image}
                 src={item.image}
                 alt=""
                 fill
-                sizes="100vw"
+                sizes="(min-width: 768px) 46vw, 84vw"
                 className="object-cover"
               />
             </div>
-            <p className="text-eyebrow text-accent-800">
+            <p className="px-3 text-eyebrow text-accent-800 lg:px-0">
               {label} {String(i + 1).padStart(2, "0")}
             </p>
             <h3
               {...item.edit?.title}
-              className="text-h3 font-serif tracking-[-0.02em] italic"
+              className="px-3 text-h4 font-serif tracking-[-0.02em] italic lg:px-0 lg:text-h3"
             >
               {item.title}
             </h3>
             <p
               {...item.edit?.text}
-              className="max-w-md text-lead text-pretty text-ink-soft"
+              className="max-w-md px-3 text-body text-pretty text-ink-soft lg:px-0 lg:text-lead"
             >
               {item.text}
             </p>
           </li>
         ))}
-      </ol>
+      </Rail>
     </div>
   );
 }

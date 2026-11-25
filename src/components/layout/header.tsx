@@ -163,15 +163,19 @@ export function Header() {
         <div
           data-cms-hide
           className={cn(
-            "fixed inset-x-0 bottom-0 z-40 p-3 transition-[opacity,translate] duration-500 ease-soft sm:hidden",
+            "fixed inset-x-0 bottom-0 z-40 px-3 pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] transition-[opacity,translate] duration-500 ease-soft sm:hidden",
             (open || heroCtaVisible) &&
               "pointer-events-none translate-y-4 opacity-0",
           )}
           aria-hidden={open || heroCtaVisible}
           inert={open || heroCtaVisible}
         >
-          <ButtonLink href={bookHref} className="w-full justify-between">
-            {bookHref === "#reserver" ? "Réserver ce soin" : "Réserver un soin"}
+          <ButtonLink
+            href={bookHref}
+            variant="primary"
+            className="w-full justify-between"
+          >
+            {bookHref === "#reserver" ? "Réserver ce soin" : "Choisir un soin"}
           </ButtonLink>
         </div>
       )}

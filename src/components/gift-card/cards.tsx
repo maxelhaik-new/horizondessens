@@ -28,7 +28,7 @@ export async function GiftCardCards() {
 
   return (
     <section id="formules" className="scroll-mt-24 bg-mist section-y">
-      <div className="container-site flex flex-col gap-12 md:gap-16">
+      <div className="container-site flex flex-col gap-10 md:gap-16">
         <div className="mx-auto flex max-w-2xl flex-col items-center gap-5 text-center">
           <SplitWords
             text={c["cadeau.formules.title"]}
@@ -52,7 +52,7 @@ export async function GiftCardCards() {
                   action={routes.carteCadeauCommander}
                   method="post"
                   className={cn(
-                    "flex h-full flex-col gap-10 rounded-card p-6 shadow-soft sm:p-8 md:p-10",
+                    "flex h-full flex-col gap-7 rounded-card p-6 shadow-soft sm:p-8 md:gap-10 md:p-10",
                     dark ? "bg-night text-white" : "bg-paper-soft text-ink",
                   )}
                 >
@@ -88,8 +88,18 @@ export async function GiftCardCards() {
                     >
                       {card.name}
                     </p>
-                    <p className="font-serif text-7xl leading-none tracking-[-0.03em] italic md:text-8xl">
+                    <p className="font-serif text-6xl leading-none tracking-[-0.03em] italic md:text-8xl">
                       {formatDuration(card.durationMinutes)}
+                    </p>
+                    <p
+                      className={cn(
+                        "mt-2 text-sm text-pretty",
+                        dark ? "text-white/75" : "text-ink-soft",
+                      )}
+                    >
+                      {card.soins.length === 1
+                        ? `Pour un ${card.soins[0]}`
+                        : `Pour le soin de son choix : ${card.soins.join(", ")}`}
                     </p>
                   </div>
 
@@ -102,7 +112,7 @@ export async function GiftCardCards() {
                     <p className="font-serif text-4xl italic">
                       {formatPrice(card.priceEuros)}
                     </p>
-                    <RemixButton variant={dark ? "light" : "dark"}>
+                    <RemixButton variant={dark ? "light" : "primary"}>
                       Offrir cette carte
                     </RemixButton>
                   </div>
@@ -117,7 +127,7 @@ export async function GiftCardCards() {
             {c["cadeau.formules.note"]}
           </span>{" "}
           <Link
-            href={routes.contact}
+            href={`${routes.contact}#ecrire`}
             className="font-medium text-ink underline decoration-current/30 underline-offset-4 hover:decoration-current"
           >
             Me contacter

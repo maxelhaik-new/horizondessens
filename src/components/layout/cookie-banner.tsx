@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 
+import { buttonClass } from "@/components/ui/button-link";
 import { setConsent, useConsent } from "@/lib/consent";
 import { routes } from "@/lib/navigation";
 
@@ -51,14 +52,14 @@ export function CookieBanner() {
               <button
                 type="button"
                 onClick={() => setConsent("denied")}
-                className="inline-flex h-11 items-center justify-center rounded-full bg-white px-5 font-medium text-ink shadow-lift transition-colors hover:bg-paper"
+                className={buttonClass({ size: "sm", plain: true })}
               >
                 Refuser
               </button>
               <button
                 type="button"
                 onClick={() => setConsent("granted")}
-                className="inline-flex h-11 items-center justify-center rounded-full bg-night px-5 font-medium text-white shadow-lift transition-colors hover:bg-accent-950"
+                className={buttonClass({ size: "sm", plain: true })}
               >
                 Accepter
               </button>

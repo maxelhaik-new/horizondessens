@@ -51,6 +51,9 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: "#f7ece9",
+  // Plein écran jusque sous l'encoche ; les éléments fixés en bas
+  // (barre « Réserver ») tiennent compte de `safe-area-inset-bottom`.
+  viewportFit: "cover",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

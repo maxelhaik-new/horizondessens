@@ -36,7 +36,7 @@ export async function ContactConversation() {
             >
               {c["contact.form.intro"]}
             </p>
-            <TextLink href={routes.reserver}>Réserver en ligne</TextLink>
+            <TextLink href={routes.reserver}>Voir les soins et tarifs</TextLink>
           </div>
 
           <ul className="flex flex-col gap-4">

@@ -129,6 +129,7 @@ async function Confirmation({
           <ButtonLink
             href={`${routes.carteCadeauPdf}?session_id=${encodeURIComponent(order.sessionId)}`}
             download
+            variant="primary"
           >
             Télécharger la carte
           </ButtonLink>

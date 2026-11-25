@@ -34,7 +34,9 @@ export async function FinalCta() {
               {c["home.final.text"]}
             </p>
             <div className="flex flex-wrap items-center gap-x-8 gap-y-3">
-              <ButtonLink href={routes.reserver}>Réserver un soin</ButtonLink>
+              <ButtonLink href={routes.reserver} variant="primary">
+                Choisir un soin
+              </ButtonLink>
               <TextLink href={site.phone.href}>{site.phone.display}</TextLink>
             </div>
           </div>

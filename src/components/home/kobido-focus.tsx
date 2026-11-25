@@ -20,16 +20,16 @@ export async function KobidoFocus() {
 
   return (
     <section className="bg-paper section-y">
-      <div className="container-site grid items-center gap-12 md:grid-cols-2 md:gap-16 lg:gap-24">
+      <div className="container-site grid items-center gap-8 md:grid-cols-2 md:gap-16 lg:gap-24">
         <RevealImage
           src={c["home.kobido.image"].src}
           alt={c["home.kobido.image"].alt}
           edit={c.edit("home.kobido.image")}
           sizes="(min-width: 768px) 50vw, 100vw"
-          className="aspect-[4/5] rounded-card"
+          className="aspect-[4/3] rounded-card md:aspect-[4/5]"
         />
 
-        <div className="flex flex-col items-start gap-7">
+        <div className="flex flex-col items-start gap-6 md:gap-7">
           <Reveal>
             <Eyebrow edit={c.edit("home.kobido.eyebrow")}>
               {c["home.kobido.eyebrow"]}
@@ -57,12 +57,12 @@ export async function KobidoFocus() {
               <RevealItem
                 as="li"
                 key={i}
-                className="flex items-center gap-4 border-b border-line py-5"
+                className="flex items-center gap-4 border-b border-line py-4 md:py-5"
               >
                 <SparkIcon className="size-3 shrink-0 text-accent-600" />
                 <span
                   {...c.edit("home.kobido.benefits", i)}
-                  className="font-serif text-xl tracking-[-0.01em] italic md:text-2xl"
+                  className="font-serif text-lg tracking-[-0.01em] italic md:text-2xl"
                 >
                   {benefit}
                 </span>

@@ -30,7 +30,7 @@ export async function createGiftCardCheckout(
   if (!stripe) return null;
 
   const duration = formatDuration(card.durationMinutes);
-  const label = `Carte cadeau ${card.name} ${duration}`;
+  const label = `Carte cadeau ${card.name.toLowerCase()} ${duration}`;
   const code = newGiftCardCode();
   const metadata = {
     type: GIFT_CARD_TYPE,
@@ -58,7 +58,7 @@ export async function createGiftCardCheckout(
             unit_amount: card.priceEuros * 100,
             product_data: {
               name: label,
-              description: `Valable ${GIFT_CARD_VALIDITY_MONTHS} mois, envoyée par e-mail au format PDF.`,
+              description: `Une séance de ${duration}, pour le soin de son choix. Valable ${GIFT_CARD_VALIDITY_MONTHS} mois, envoyée par e-mail au format PDF.`,
               ...(isPublic
                 ? { images: [`${origin}/carte-cadeau/opengraph-image.jpg`] }
                 : {}),

@@ -22,19 +22,19 @@ export async function GiftCardHowItWorks() {
 
   return (
     <section className="section-y">
-      <div className="container-site grid gap-12 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-20">
+      <div className="container-site grid gap-8 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-20">
         <div className="lg:sticky lg:top-32 lg:self-start">
           <RevealImage
             src={c["cadeau.steps.image"].src}
             edit={c.edit("cadeau.steps.image")}
             alt={c["cadeau.steps.image"].alt}
             sizes="(min-width: 1024px) 38vw, 100vw"
-            className="aspect-[4/5] max-h-[70vh] w-full rounded-card"
+            className="aspect-[3/2] max-h-[70vh] w-full rounded-card sm:aspect-[4/5]"
           />
         </div>
 
-        <div className="flex flex-col gap-14">
-          <div className="flex flex-col gap-8">
+        <div className="flex flex-col gap-10 md:gap-14">
+          <div className="flex flex-col gap-6 md:gap-8">
             <SplitWords
               text={c["cadeau.steps.title"]}
               edit={c.edit("cadeau.steps.title")}
@@ -45,7 +45,7 @@ export async function GiftCardHowItWorks() {
                 <RevealItem
                   key={i}
                   as="li"
-                  className="grid grid-cols-[3rem_1fr] gap-4 border-b border-line py-7 md:grid-cols-[4rem_1fr]"
+                  className="grid grid-cols-[3rem_1fr] gap-4 border-b border-line py-5 md:grid-cols-[4rem_1fr] md:py-7"
                 >
                   <span className="font-serif text-3xl leading-none text-accent-800 italic tabular-nums">
                     {String(i + 1).padStart(2, "0")}
@@ -69,7 +69,7 @@ export async function GiftCardHowItWorks() {
             </RevealGroup>
           </div>
 
-          <Reveal className="flex flex-col gap-6 rounded-card bg-paper-soft p-8 md:p-10">
+          <Reveal className="flex flex-col gap-5 rounded-card bg-paper-soft p-6 md:gap-6 md:p-10">
             <h2 {...c.edit("cadeau.conditions.title")} className="text-h4">
               {c["cadeau.conditions.title"]}
             </h2>

@@ -37,7 +37,7 @@ export async function SalonHero() {
             {c["salon.hero.lead"]}
           </p>
           <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
-            <ButtonLink href={routes.reserver}>Réserver un soin</ButtonLink>
+            <ButtonLink href={routes.reserver}>Choisir un soin</ButtonLink>
             <p className="text-sm text-ink-subtle">
               {address.street}
               <br />

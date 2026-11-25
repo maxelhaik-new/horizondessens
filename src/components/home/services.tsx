@@ -2,6 +2,7 @@ import { Reveal } from "@/components/motion/reveal";
 import { RevealImage } from "@/components/motion/reveal-image";
 import { SplitWords } from "@/components/motion/split-words";
 import { ButtonLink, TextLink } from "@/components/ui/button-link";
+import { Rail } from "@/components/ui/rail";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { getContents } from "@/content/get-content";
 import { formatVariant } from "@/services/format";
@@ -64,24 +65,29 @@ export async function Services() {
           }}
         />
 
-        <ol className="mt-14 flex flex-col gap-6 md:mt-20 md:gap-8">
+        {/* Mobile : rail horizontal aimanté (une carte par écran, la suivante en amorce). */}
+        <Rail
+          as="ol"
+          label="Les soins"
+          className="mt-10 md:mt-20 md:flex md:flex-col md:gap-8"
+        >
           {featured.map((service) => {
             const image = c[`service.${service.slug}.image`];
             return (
-              <li key={service.slug}>
-                <Reveal>
-                  <article className="group grid gap-6 rounded-card bg-paper p-3 md:grid-cols-[1.25fr_1fr] md:gap-12 md:p-4 lg:min-h-[35rem]">
+              <li key={service.slug} className="flex">
+                <Reveal className="flex w-full">
+                  <article className="group grid w-full content-start gap-5 rounded-card bg-paper p-2.5 md:grid-cols-[1.25fr_1fr] md:content-stretch md:gap-12 md:p-4 lg:min-h-[35rem]">
                     <RevealImage
                       src={image.src}
                       alt={image.alt}
                       edit={c.edit(`service.${service.slug}.image`)}
-                      sizes="(min-width: 768px) 55vw, 100vw"
-                      className="aspect-[4/3] rounded-panel md:aspect-auto md:h-full"
+                      sizes="(min-width: 768px) 55vw, 84vw"
+                      className="aspect-[4/3] rounded-[1.75rem] md:aspect-auto md:h-full md:rounded-panel"
                       parallax={6}
                       imageClassName="transition-transform duration-[1400ms] ease-serelin group-hover:scale-105"
                     />
-                    <div className="flex flex-col justify-between gap-10 px-3 pb-4 md:py-10 md:pr-10 md:pl-0">
-                      <div className="flex flex-col gap-5">
+                    <div className="flex h-full flex-col justify-between gap-7 px-3 pb-4 md:gap-10 md:py-10 md:pr-10 md:pl-0">
+                      <div className="flex flex-col gap-3 md:gap-5">
                         <SplitWords
                           as="h3"
                           text={service.name}
@@ -95,12 +101,12 @@ export async function Services() {
                         </p>
                         <p
                           {...c.edit(`service.${service.slug}.short`)}
-                          className="max-w-md text-lead text-pretty text-ink-soft"
+                          className="max-w-md text-body text-pretty text-ink-soft md:text-lead"
                         >
                           {c[`service.${service.slug}.short`]}
                         </p>
                       </div>
-                      <div className="flex flex-col gap-6">
+                      <div className="flex flex-col gap-5 md:gap-6">
                         <ul
                           className="flex flex-wrap gap-2"
                           aria-label="Durées et tarifs"
@@ -108,13 +114,13 @@ export async function Services() {
                           {service.variants.map((v) => (
                             <li
                               key={v.durationMinutes}
-                              className="rounded-full bg-white/80 px-4 py-2 text-sm font-medium"
+                              className="rounded-full bg-white/80 px-3.5 py-1.5 text-sm font-medium md:px-4 md:py-2"
                             >
                               {formatVariant(v)}
                             </li>
                           ))}
                         </ul>
-                        <div className="flex flex-wrap items-center gap-x-8 gap-y-3">
+                        <div className="flex flex-wrap items-center gap-x-6 gap-y-3 md:gap-x-8">
                           <ButtonLink href={bookingAnchor(service.slug)}>
                             Réserver
                           </ButtonLink>
@@ -129,9 +135,9 @@ export async function Services() {
               </li>
             );
           })}
-        </ol>
+        </Rail>
 
-        <Reveal className="mx-auto mt-14 flex max-w-2xl flex-col items-center gap-6 text-center md:mt-20">
+        <Reveal className="mx-auto mt-10 flex max-w-2xl flex-col items-center gap-5 text-center md:mt-20 md:gap-6">
           <p
             {...c.edit("home.soins.surmesure")}
             className="text-lead text-pretty"

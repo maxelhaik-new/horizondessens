@@ -2,7 +2,7 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 
 import { cn } from "@/lib/cn";
-import { legalNav, routes } from "@/lib/navigation";
+import { legalNav } from "@/lib/navigation";
 import { site } from "@/lib/site";
 
 export type LegalSection = { id: string; title: string; body: ReactNode };
@@ -26,23 +26,6 @@ export function LegalPage({
   return (
     <article className="pt-32 pb-20 md:pt-40 lg:pb-28">
       <header className="container-site flex flex-col gap-8 pb-12 md:pb-16">
-        <nav aria-label="Fil d'Ariane" className="text-sm text-ink-subtle">
-          <ol className="flex items-center gap-2">
-            <li>
-              <Link
-                href={routes.home}
-                className="transition-colors hover:text-ink"
-              >
-                Accueil
-              </Link>
-            </li>
-            <li aria-hidden>/</li>
-            <li aria-current="page" className="text-ink">
-              {title}
-            </li>
-          </ol>
-        </nav>
-
         <nav aria-label="Pages légales">
           <ul className="flex w-fit max-w-full flex-wrap gap-1 rounded-[1.75rem] bg-paper-soft p-1 shadow-soft">
             {legalNav.map((item) => {

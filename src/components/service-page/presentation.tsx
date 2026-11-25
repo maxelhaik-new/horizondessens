@@ -25,7 +25,7 @@ export async function ServicePresentation({
 
   return (
     <section className="bg-paper section-y">
-      <div className="container-site grid gap-x-24 gap-y-10 lg:grid-cols-[5fr_7fr] lg:grid-rows-[auto_1fr]">
+      <div className="container-site grid gap-x-24 gap-y-8 lg:grid-cols-[5fr_7fr] lg:grid-rows-[auto_1fr]">
         <SplitWords
           text={c["soin.title"]}
           edit={c.edit("soin.title")}
@@ -37,14 +37,14 @@ export async function ServicePresentation({
           alt={c["soin.image"].alt}
           edit={c.edit("soin.image")}
           sizes="(min-width: 1024px) 38vw, (min-width: 640px) 28rem, 100vw"
-          className="aspect-[4/5] rounded-panel sm:max-w-md lg:col-start-1 lg:row-start-2 lg:max-w-none lg:self-start"
+          className="aspect-[3/2] rounded-panel sm:aspect-[4/5] sm:max-w-md lg:col-start-1 lg:row-start-2 lg:max-w-none lg:self-start"
         />
 
-        <div className="flex flex-col gap-10 lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:pt-3">
+        <div className="flex flex-col gap-8 lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:pt-3">
           <Reveal>
             <p
               {...c.edit("soin.text")}
-              className="text-xl leading-[1.5] tracking-[-0.005em] text-pretty text-ink md:text-2xl"
+              className="text-lg leading-[1.55] tracking-[-0.005em] text-pretty text-ink md:text-2xl"
             >
               {c["soin.text"]}
             </p>
@@ -56,7 +56,7 @@ export async function ServicePresentation({
                 <RevealItem
                   as="li"
                   key={i}
-                  className="grid grid-cols-[2.75rem_1fr] gap-x-4 border-t border-line py-7 md:grid-cols-[4rem_1fr] md:py-8"
+                  className="grid grid-cols-[2.75rem_1fr] gap-x-4 border-t border-line py-5 md:grid-cols-[4rem_1fr] md:py-8"
                 >
                   <span
                     aria-hidden

@@ -80,11 +80,6 @@ const servicePageCommon = (label: string) =>
       label: `${label} · Réserver — ce que comprend la séance`,
       maxLength: 200,
     },
-    "reserver.abonnement": {
-      type: "textarea",
-      label: `${label} · Réserver — abonnement`,
-      maxLength: 200,
-    },
 
     "faq.title": {
       type: "text",
@@ -751,7 +746,7 @@ export const contentFields = defineFields({
   },
   "cadeau.formules.note": {
     type: "textarea",
-    label: "Carte cadeau · Formules — note 5 Continents",
+    label: "Carte cadeau · Formules — note",
     maxLength: 200,
   },
   "cadeau.steps.title": {

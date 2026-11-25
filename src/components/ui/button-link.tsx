@@ -5,45 +5,54 @@ import { cn } from "@/lib/cn";
 
 import { ChevronRightIcon } from "./icons";
 
-type Variant = "dark" | "light";
-type Size = "sm" | "md";
-
-const variants: Record<Variant, { button: string; circle: string }> = {
-  dark: {
-    button: "bg-night text-white hover:bg-accent-950",
-    circle: "bg-white text-night",
-  },
-  light: {
-    button: "bg-white text-night hover:bg-paper-soft",
-    circle: "bg-night text-white",
-  },
-};
-
 /**
- * Géométrie du bouton « remix » : la pastille est à gauche au repos ; au
- * survol elle glisse à droite (sens de la flèche) pendant que le texte
- * glisse à gauche d'autant (shift = inset + pastille + gap − padding gauche).
+ * Modèle de bouton global : la géométrie, les couleurs et le geste « remix »
+ * sont déclarés dans `src/app/globals.css` (classes `btn*`). Ici, on ne
+ * choisit que la variante et la taille.
+ *
+ * - `soft` (défaut) : pilule claire, pour la plupart des appels ;
+ * - `primary` : pilule sombre, rare (actions qui engagent, un appel par page) ;
+ * - `light` : pilule blanche, sur fond sombre ou photo.
  */
-const sizes: Record<Size, { button: string; text: string; circle: string }> = {
-  sm: {
-    button: "h-11 pl-[3.25rem] pr-4 text-sm",
-    text: "group-hover:-translate-x-9",
-    circle: "left-1.5 size-8 group-hover:left-[calc(100%-2.375rem)]",
-  },
-  md: {
-    button:
-      "h-12 pl-[3.625rem] pr-6 text-sm md:h-14 md:pl-[4.125rem] md:text-base",
-    text: "group-hover:-translate-x-[34px] md:group-hover:-translate-x-[42px]",
-    circle:
-      "left-1.5 size-9 group-hover:left-[calc(100%-2.625rem)] md:size-11 md:group-hover:left-[calc(100%-3.125rem)]",
-  },
+export type ButtonVariant = "soft" | "primary" | "light";
+export type ButtonSize = "sm" | "md";
+
+const variantClass: Record<ButtonVariant, string> = {
+  soft: "btn-soft",
+  primary: "btn-primary",
+  light: "btn-light",
 };
+
+/** Classes du modèle, pour un `<button>` ou un lien sans pastille. */
+export function buttonClass({
+  variant = "soft",
+  size = "md",
+  plain = false,
+}: { variant?: ButtonVariant; size?: ButtonSize; plain?: boolean } = {}) {
+  return cn(
+    "btn",
+    variantClass[variant],
+    size === "sm" && "btn-sm",
+    plain && "btn-plain",
+  );
+}
+
+function RemixContent({ children }: { children: ReactNode }) {
+  return (
+    <>
+      <span className="btn-label">{children}</span>
+      <span aria-hidden className="btn-dot">
+        <ChevronRightIcon className="size-4" />
+      </span>
+    </>
+  );
+}
 
 type ButtonLinkProps = {
   href: string;
   children: ReactNode;
-  variant?: Variant;
-  size?: Size;
+  variant?: ButtonVariant;
+  size?: ButtonSize;
   className?: string;
   onClick?: () => void;
   /** Lien de téléchargement (fichier servi par une route) : `<a download>`. */
@@ -54,43 +63,18 @@ function isExternal(href: string) {
   return /^(https?:|tel:|mailto:)/.test(href);
 }
 
-/** Bouton pilule avec pastille chevron et ombre en couches (style Serelin). */
+/** Bouton-lien « remix » (pilule et pastille chevron). */
 export function ButtonLink({
   href,
   children,
-  variant = "dark",
-  size = "md",
+  variant,
+  size,
   className,
   onClick,
   download,
 }: ButtonLinkProps) {
-  const v = variants[variant];
-  const s = sizes[size];
-  const classes = cn(
-    "group relative inline-flex shrink-0 items-center overflow-hidden rounded-full font-medium tracking-[0.016em] shadow-lift transition-colors duration-300",
-    v.button,
-    s.button,
-    className,
-  );
-  const content = (
-    <>
-      <span
-        className={cn("transition-transform duration-600 ease-spring", s.text)}
-      >
-        {children}
-      </span>
-      <span
-        aria-hidden
-        className={cn(
-          "absolute top-1/2 grid -translate-y-1/2 place-items-center rounded-full transition-[left] duration-600 ease-spring",
-          v.circle,
-          s.circle,
-        )}
-      >
-        <ChevronRightIcon className="size-4" />
-      </span>
-    </>
-  );
+  const classes = cn(buttonClass({ variant, size }), className);
+  const content = <RemixContent>{children}</RemixContent>;
 
   return isExternal(href) || download ? (
     <a href={href} className={classes} onClick={onClick} download={download}>
@@ -106,44 +90,23 @@ export function ButtonLink({
 /** Même bouton « remix », en `<button>` (formulaire ou action). */
 export function RemixButton({
   children,
-  variant = "dark",
-  size = "md",
+  variant,
+  size,
   className,
   type = "submit",
 }: {
   children: ReactNode;
-  variant?: Variant;
-  size?: Size;
+  variant?: ButtonVariant;
+  size?: ButtonSize;
   className?: string;
   type?: "submit" | "button";
 }) {
-  const v = variants[variant];
-  const s = sizes[size];
   return (
     <button
       type={type}
-      className={cn(
-        "group relative inline-flex shrink-0 cursor-pointer items-center overflow-hidden rounded-full font-medium tracking-[0.016em] shadow-lift transition-colors duration-300",
-        v.button,
-        s.button,
-        className,
-      )}
+      className={cn(buttonClass({ variant, size }), className)}
     >
-      <span
-        className={cn("transition-transform duration-600 ease-spring", s.text)}
-      >
-        {children}
-      </span>
-      <span
-        aria-hidden
-        className={cn(
-          "absolute top-1/2 grid -translate-y-1/2 place-items-center rounded-full transition-[left] duration-600 ease-spring",
-          v.circle,
-          s.circle,
-        )}
-      >
-        <ChevronRightIcon className="size-4" />
-      </span>
+      <RemixContent>{children}</RemixContent>
     </button>
   );
 }

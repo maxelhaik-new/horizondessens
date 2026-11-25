@@ -92,7 +92,7 @@ export async function BookingServices() {
               <RevealItem
                 key={service.slug}
                 as="li"
-                className="grid grid-cols-[4.5rem_1fr] items-start gap-x-4 gap-y-5 rounded-card bg-paper-soft p-4 sm:grid-cols-[9rem_1fr] sm:items-center sm:gap-x-6 md:p-5 lg:grid-cols-[13rem_1fr_auto] lg:gap-8"
+                className="grid grid-cols-[4.5rem_1fr] items-start gap-x-4 gap-y-4 rounded-card bg-paper-soft p-4 sm:grid-cols-[9rem_1fr] sm:items-center sm:gap-x-6 md:p-5 lg:grid-cols-[13rem_1fr_auto] lg:gap-8"
               >
                 <div className="relative aspect-square overflow-hidden rounded-2xl sm:rounded-media lg:aspect-[4/3]">
                   {e.image ? (
@@ -118,7 +118,7 @@ export async function BookingServices() {
                   >
                     {e.subtitle}
                   </p>
-                  <h3 className="text-h3">{service.name}</h3>
+                  <h3 className="text-h4 sm:text-h3">{service.name}</h3>
                   <p
                     {...c.edit(`${key}.short` as EditKey)}
                     className="max-w-xl text-body text-pretty text-ink-soft"

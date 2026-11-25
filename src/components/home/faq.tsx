@@ -52,7 +52,7 @@ export async function Faq() {
                   >
                     {question}
                   </span>
-                  <span className="grid size-10 shrink-0 place-items-center rounded-full bg-night text-white shadow-lift transition-transform duration-500 ease-soft group-open:rotate-45">
+                  <span className="grid size-10 shrink-0 place-items-center rounded-full border border-line transition-[transform,background-color,color] duration-500 ease-soft group-open:rotate-45 group-open:bg-night group-open:text-white">
                     <PlusIcon className="size-4" />
                   </span>
                 </summary>

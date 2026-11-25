@@ -17,18 +17,20 @@ export async function Offers() {
   return (
     <section id="abonnement" className="bg-paper section-y">
       <RevealGroup className="container-site grid gap-4 md:grid-cols-[1fr_1.2fr] md:gap-6">
-        <RevealItem className="flex flex-col justify-between gap-16 rounded-card bg-blush p-8 md:p-12">
+        <RevealItem className="flex flex-col justify-between gap-6 rounded-card bg-blush p-7 md:gap-16 md:p-12">
           <h2 {...c.edit("home.abo.title")} className="text-h3 text-balance">
             {c["home.abo.title"]}
           </h2>
-          <div className="flex flex-col items-start gap-8">
+          <div className="flex flex-col items-start gap-6 md:gap-8">
             <p
               {...c.edit("home.abo.text")}
               className="max-w-sm text-lead text-pretty text-ink-soft"
             >
               {c["home.abo.text"]}
             </p>
-            <ButtonLink href={routes.contact}>Poser une question</ButtonLink>
+            <ButtonLink href={`${routes.contact}#ecrire`}>
+              Poser une question
+            </ButtonLink>
           </div>
         </RevealItem>
 
@@ -38,10 +40,10 @@ export async function Offers() {
             alt={c["home.cadeau.image"].alt}
             edit={c.edit("home.cadeau.image")}
             sizes="(min-width: 768px) 55vw, 100vw"
-            className="aspect-[4/3] rounded-panel"
+            className="aspect-[3/2] rounded-panel md:aspect-[4/3]"
             parallax={4}
           />
-          <div className="flex flex-col gap-5 px-5 pt-4 pb-6 md:px-8 md:pb-8">
+          <div className="flex flex-col gap-4 px-4 pt-3 pb-5 md:gap-5 md:px-8 md:pt-4 md:pb-8">
             <h2
               {...c.edit("home.cadeau.title")}
               className="text-h3 text-balance"
@@ -54,7 +56,7 @@ export async function Offers() {
             >
               {c["home.cadeau.text"]}
             </p>
-            <div className="pt-2">
+            <div className="pt-1 md:pt-2">
               <ButtonLink href={routes.carteCadeau}>
                 Offrir une carte cadeau
               </ButtonLink>

@@ -55,7 +55,7 @@ export async function Hero() {
             className="flex animate-rise flex-wrap items-center gap-x-8 gap-y-4 pt-2 [animation-delay:650ms]"
           >
             <ButtonLink href={routes.reserver} variant="light">
-              Réserver un soin
+              Choisir un soin
             </ButtonLink>
           </div>
         </div>

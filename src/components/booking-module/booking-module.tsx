@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useActionState, useCallback, useEffect, useState } from "react";
 
+import { buttonClass } from "@/components/ui/button-link";
 import { CheckIcon, ChevronRightIcon } from "@/components/ui/icons";
 import { bookAppointment, getAvailability } from "@/lib/booking/actions";
 import type {
@@ -18,7 +19,7 @@ import { site } from "@/lib/site";
 const initialState: BookingState = { status: "idle" };
 
 const fieldClass =
-  "w-full rounded-2xl border border-transparent bg-paper px-5 py-4 text-body text-ink transition-[border-color,background-color] duration-300 placeholder:text-ink-subtle hover:border-line focus:border-accent-600 focus:bg-white focus:outline-none aria-invalid:border-accent-700";
+  "w-full rounded-2xl border border-transparent bg-paper px-5 py-4 text-body text-ink transition max-md:text-base-[border-color,background-color] duration-300 placeholder:text-ink-subtle hover:border-line focus:border-accent-600 focus:bg-white focus:outline-none aria-invalid:border-accent-700";
 
 // Dates « YYYY-MM-DD » formatées sans décalage de fuseau.
 function asUtc(date: string) {
@@ -225,7 +226,7 @@ export function BookingModule({
       <input type="hidden" name="time" value={time ?? ""} />
 
       {/* 1. Formule, jour, heure */}
-      <div className="flex flex-col gap-8 rounded-card bg-paper-soft p-6 md:p-10">
+      <div className="flex flex-col gap-6 rounded-card bg-paper-soft p-5 sm:p-6 md:gap-8 md:p-10">
         {options.length > 1 ? (
           <fieldset className="flex flex-col gap-3">
             <legend className="mb-3 text-eyebrow text-accent-800">Durée</legend>
@@ -386,7 +387,7 @@ export function BookingModule({
       </div>
 
       {/* 2. Coordonnées */}
-      <div className="flex flex-col gap-5 rounded-card bg-paper-soft p-6 md:p-10">
+      <div className="flex flex-col gap-5 rounded-card bg-paper-soft p-5 sm:p-6 md:p-10">
         <p className="text-h4 font-serif tracking-[-0.02em] italic">
           Vos coordonnées
         </p>
@@ -404,106 +405,129 @@ export function BookingModule({
           )}
         </p>
 
-        <Field label="Nom et prénom" htmlFor="booking-name" error={errors.name}>
-          <input
-            id="booking-name"
-            name="name"
-            autoComplete="name"
-            required
-            maxLength={80}
-            value={contact.name}
-            onChange={(e) => setContact({ ...contact, name: e.target.value })}
-            aria-invalid={Boolean(errors.name)}
-            className={fieldClass}
-          />
-        </Field>
-        <Field label="E-mail" htmlFor="booking-email" error={errors.email}>
-          <input
-            id="booking-email"
-            name="email"
-            type="email"
-            autoComplete="email"
-            required
-            maxLength={120}
-            value={contact.email}
-            onChange={(e) => setContact({ ...contact, email: e.target.value })}
-            aria-invalid={Boolean(errors.email)}
-            className={fieldClass}
-          />
-        </Field>
-        <Field label="Téléphone" htmlFor="booking-phone" error={errors.phone}>
-          <input
-            id="booking-phone"
-            name="phone"
-            type="tel"
-            autoComplete="tel"
-            required
-            maxLength={25}
-            value={contact.phone}
-            onChange={(e) => setContact({ ...contact, phone: e.target.value })}
-            aria-invalid={Boolean(errors.phone)}
-            className={fieldClass}
-          />
-        </Field>
-
-        <div aria-hidden className="hidden">
-          <label>
-            Ne pas remplir
-            <input name="website" tabIndex={-1} autoComplete="off" />
-          </label>
-        </div>
-
-        <label className="flex cursor-pointer items-start gap-3 text-sm text-ink-soft">
-          <input
-            type="checkbox"
-            name="consent"
-            required
-            checked={consent}
-            onChange={(e) => setConsent(e.target.checked)}
-            className="mt-0.5 size-4 shrink-0 accent-night"
-          />
-          <span>
-            J&apos;accepte les{" "}
-            <Link href={routes.cgv} className="underline underline-offset-4">
-              conditions d&apos;annulation
-            </Link>{" "}
-            (prévenir au moins 24 h avant) et les{" "}
-            <a
-              href="https://simplybook.me/fr/terms-and-conditions"
-              target="_blank"
-              rel="noreferrer"
-              className="underline underline-offset-4"
-            >
-              conditions de SimplyBook.me
-            </a>
-            , l&apos;outil de réservation.
-          </span>
-        </label>
-        {errors.consent ? (
-          <p className="-mt-3 text-sm text-accent-800">{errors.consent}</p>
-        ) : null}
-        {errors.slot ? (
-          <p className="text-sm text-accent-800">{errors.slot}</p>
-        ) : null}
-
-        <button
-          type="submit"
-          disabled={pending || !date || !time}
-          className="mt-1 inline-flex h-14 cursor-pointer items-center justify-center rounded-full bg-night px-8 font-medium tracking-[0.016em] text-white shadow-lift transition-colors duration-300 hover:bg-accent-950 disabled:cursor-not-allowed disabled:opacity-50"
+        {/*
+         * Mobile : les champs n'apparaissent qu'une fois le créneau choisi
+         * (le formulaire vide doublait la hauteur du module). Ils restent
+         * dans le DOM : la saisie n'est jamais perdue.
+         */}
+        <div
+          className={cn(
+            "flex flex-col gap-5",
+            !(date && time) && "max-lg:hidden",
+          )}
         >
-          {pending ? "Réservation en cours…" : "Confirmer le rendez-vous"}
-        </button>
-        <p className="text-xs leading-relaxed text-ink-subtle">
-          Règlement sur place, le jour du soin. Vos coordonnées servent
-          uniquement à gérer ce rendez-vous (
-          <Link
-            href={routes.confidentialite}
-            className="underline underline-offset-4 hover:text-ink"
+          <Field
+            label="Nom et prénom"
+            htmlFor="booking-name"
+            error={errors.name}
           >
-            confidentialité
-          </Link>
-          ).
-        </p>
+            <input
+              id="booking-name"
+              name="name"
+              autoComplete="name"
+              required
+              maxLength={80}
+              value={contact.name}
+              onChange={(e) => setContact({ ...contact, name: e.target.value })}
+              aria-invalid={Boolean(errors.name)}
+              className={fieldClass}
+            />
+          </Field>
+          <Field label="E-mail" htmlFor="booking-email" error={errors.email}>
+            <input
+              id="booking-email"
+              name="email"
+              type="email"
+              autoComplete="email"
+              required
+              maxLength={120}
+              value={contact.email}
+              onChange={(e) =>
+                setContact({ ...contact, email: e.target.value })
+              }
+              aria-invalid={Boolean(errors.email)}
+              className={fieldClass}
+            />
+          </Field>
+          <Field label="Téléphone" htmlFor="booking-phone" error={errors.phone}>
+            <input
+              id="booking-phone"
+              name="phone"
+              type="tel"
+              autoComplete="tel"
+              required
+              maxLength={25}
+              value={contact.phone}
+              onChange={(e) =>
+                setContact({ ...contact, phone: e.target.value })
+              }
+              aria-invalid={Boolean(errors.phone)}
+              className={fieldClass}
+            />
+          </Field>
+
+          <div aria-hidden className="hidden">
+            <label>
+              Ne pas remplir
+              <input name="website" tabIndex={-1} autoComplete="off" />
+            </label>
+          </div>
+
+          <label className="flex cursor-pointer items-start gap-3 text-sm text-ink-soft">
+            <input
+              type="checkbox"
+              name="consent"
+              required
+              checked={consent}
+              onChange={(e) => setConsent(e.target.checked)}
+              className="mt-0.5 size-4 shrink-0 accent-night"
+            />
+            <span>
+              J&apos;accepte les{" "}
+              <Link href={routes.cgv} className="underline underline-offset-4">
+                conditions d&apos;annulation
+              </Link>{" "}
+              (prévenir au moins 24 h avant) et les{" "}
+              <a
+                href="https://simplybook.me/fr/terms-and-conditions"
+                target="_blank"
+                rel="noreferrer"
+                className="underline underline-offset-4"
+              >
+                conditions de SimplyBook.me
+              </a>
+              , l&apos;outil de réservation.
+            </span>
+          </label>
+          {errors.consent ? (
+            <p className="-mt-3 text-sm text-accent-800">{errors.consent}</p>
+          ) : null}
+          {errors.slot ? (
+            <p className="text-sm text-accent-800">{errors.slot}</p>
+          ) : null}
+
+          <button
+            type="submit"
+            disabled={pending || !date || !time}
+            className={cn(
+              buttonClass({ variant: "primary", plain: true }),
+              "mt-1",
+            )}
+          >
+            {pending ? "Réservation en cours…" : "Confirmer le rendez-vous"}
+          </button>
+          <p className="text-xs leading-relaxed text-ink-subtle">
+            Règlement sur place, le jour du soin. Vos coordonnées servent
+            uniquement à gérer ce rendez-vous (
+            <Link
+              href={routes.confidentialite}
+              className="underline underline-offset-4 hover:text-ink"
+            >
+              confidentialité
+            </Link>
+            ).
+          </p>
+        </div>
       </div>
     </form>
   );
@@ -524,7 +548,7 @@ export function BookingFallback() {
       <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
         <a
           href={site.phone.href}
-          className="inline-flex h-12 items-center rounded-full bg-night px-6 font-medium text-white"
+          className={buttonClass({ variant: "primary", plain: true })}
         >
           {site.phone.display}
         </a>
