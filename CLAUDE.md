@@ -151,6 +151,9 @@ Vérifié : typecheck, lint, format, `content:check` et build OK, page statique.
 - **Contenu** : 61 clés. Nouvelles clés : `home.trust.items` (valeur et libellé), `home.philo.*`, `home.steps.*`, `home.salon.gallery`, `home.faq.intro`.
 - **Rapport d'audit** : `.impeccable/audit/`.
 
+## Accueil : section « Votre séance » refaite (25/11/2026)
+- Elle répétait la composition de la Philosophie juste au-dessus (pastille + grand titre centrés) avec trois cartes hautes et vides. Désormais (`src/components/home/steps.tsx`) : titre court seul, aligné à gauche, posé sur un **fil** où se placent les 3 pictogrammes (horizontal sur desktop, rail vertical sur mobile). Clés `home.steps.title` et `home.steps.intro` **supprimées** ; `home.steps.eyebrow` sert de titre. ⚠️ Valeur publiée dans le CMS : « VOTRE séance » (saisie en majuscules pour l'ancienne pastille) → à corriger en « Votre séance » via `/admin`. Une ligne `home.steps.intro` publiée reste en base, sans effet.
+
 ## Images Midjourney intégrées (23/11/2026)
 Les 7 images de `assets/massage midjourney/` sont compressées en JPEG dans `public/images/massages/` et branchées dans `src/content/defaults.ts` : hero = `header1` (paysage, fait pour le hero), Kobido (carte) = `kobido-visage-1`, Calme et harmonie = `dos`, 5 Continents (carte) = `bras`, Jambes légères = `pieds`, focus Kobido = `visage-5`, focus 5 Continents = `massages/dos-2` (remplace le flacon d'huile, demandé par Maxime) (jamais deux dos proches). **Kobido = uniquement des visages** (seules 2 images de visage existent). Règle : **jamais deux fois la même image sur une page** (médaillons de la philosophie remplacés par `mains-epaules`, `massage-dos`, `massage-dos-2`).
 
@@ -180,6 +183,12 @@ Accueil et Kobido vérifiées à 320, 390, 768, 844×390 (paysage), 1024 et 1920
 - **Section Origine (Japon traditionnel)** : image `public/images/kobido/origine-japon.jpg` (cérémonie du thé, Tiago Ebisui, Unsplash), choisie par Maxime parmi 10 candidates gardées dans `assets/kobido-japon-candidats/`. Cadre passé en portrait 4:5 (hauteur plafonnée à 52vh en desktop pour rester dans la colonne collante).
 
 - **Heros épurés (distill + clarify)** : accueil = titre, accroche, un seul bouton « Réserver un soin ». Kobido = titre, accroche, un bouton, durées et prix, image. Retirés : surtitres, faits clés (2018, M5C, Reiki, Réflexo : déjà dans les sections 5 Continents et Élodie), fil d'Ariane visuel (le JSON-LD reste), liens secondaires, pastille sur l'image. Clés supprimées : `home.hero.eyebrow`, `home.trust.items`, `kobido.hero.eyebrow` (96 clés). Accroches reformulées, avec « Saint-Cyr-sur-Loire, près de Tours » conservé pour le SEO.
+
+## Page Kobido épurée (25/11/2026, `/impeccable distill`)
+- **Hero plein écran** (`kobido/hero.tsx`), sur le modèle du 5 Continents : image `public/images/kobido/hero-plein.jpg` (« visage 4 » Midjourney, mains qui encadrent le visage ; ≠ hero de l'accueil `header1`), titre, accroche, un bouton (`#reserver`), durées et prix à droite. Clé `kobido.hero.image` en ratio 16:9.
+- **Sections** : hero, origine, gestes, ressentis, **réserver** (`kobido/reserve.tsx` : ce que comprend la séance + module + cure + « Offrir un Kobido »), FAQ. **Supprimées** (doublons) : Formules (durées/prix déjà dans le module et le hero), Déroulé (gestes + FAQ), Mon approche (citation de l'accueil au tutoiement), appel final (réservation juste au-dessus). Clés `kobido.formules.*`, `seance.*`, `approche.*`, `final.*` supprimées ; nouvelles `kobido.reserver.text` / `.cure`. 165 clés.
+- Geste « Les lissages » : image `kobido/hero.jpg` (ancien hero), car `geste-lissage.jpg` était la même photo que le nouveau hero. Gestes inactifs à 55 % d'opacité (au lieu de 35 %, contraste). Menu « Soins » non actif sur Kobido / 5 Continents (liens directs).
+- ⚠️ Constaté, pas de mon fait : le bouton « Réserver » de l'en-tête desktop a été retiré (`header.tsx`) ; seule la barre mobile reste.
 
 ## Menu mobile « voiles courbes » (23/11/2026)
 

@@ -88,7 +88,7 @@ export function GesturesScroller({
             data-index={i}
             className={cn(
               "flex flex-col gap-5 border-t border-line py-10 transition-opacity duration-500 last:border-b lg:min-h-[45vh] lg:justify-center lg:py-12",
-              i === active ? "lg:opacity-100" : "lg:opacity-35",
+              i === active ? "lg:opacity-100" : "lg:opacity-55",
             )}
           >
             <div className="relative aspect-[4/3] overflow-hidden rounded-panel lg:hidden">

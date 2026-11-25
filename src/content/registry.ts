@@ -368,16 +368,12 @@ export const contentFields = defineFields({
   },
 
   // --- Les 3 temps d'une séance ---
+  // Clé historique « eyebrow » conservée (valeur publiée) : c'est désormais
+  // le seul titre de la section (« Votre séance »).
   "home.steps.eyebrow": {
     type: "text",
-    label: "Séance — pastille",
+    label: "Séance — titre (court)",
     maxLength: 30,
-  },
-  "home.steps.title": { type: "text", label: "Séance — titre", maxLength: 60 },
-  "home.steps.intro": {
-    type: "textarea",
-    label: "Séance — intro",
-    maxLength: 140,
   },
   "home.steps.items": {
     type: "items",
@@ -482,8 +478,8 @@ export const contentFields = defineFields({
   },
   "kobido.hero.image": {
     type: "image",
-    label: "Kobido · Hero — image",
-    ratio: "4:5",
+    label: "Kobido · Hero — image (plein écran)",
+    ratio: "16:9",
     altMaxLength: IMAGE_ALT,
   },
 
@@ -555,67 +551,15 @@ export const contentFields = defineFields({
     },
   },
 
-  "kobido.formules.eyebrow": {
-    type: "text",
-    label: "Kobido · Formules — pastille",
-    maxLength: 30,
-  },
-  "kobido.formules.title": {
-    type: "text",
-    label: "Kobido · Formules — titre",
-    maxLength: 60,
-  },
-  "kobido.formules.court": {
+  "kobido.reserver.text": {
     type: "textarea",
-    label: "Kobido · Formule 1h — description",
-    maxLength: 160,
-  },
-  "kobido.formules.long": {
-    type: "textarea",
-    label: "Kobido · Formule 1h15 — description",
-    maxLength: 160,
-  },
-  "kobido.formules.cure": {
-    type: "textarea",
-    label: "Kobido · Cure / abonnement — texte",
+    label: "Kobido · Réserver — ce que comprend la séance",
     maxLength: 200,
   },
-
-  "kobido.approche.eyebrow": {
-    type: "text",
-    label: "Kobido · Approche — pastille",
-    maxLength: 30,
-  },
-  "kobido.approche.quote": {
+  "kobido.reserver.cure": {
     type: "textarea",
-    label: "Kobido · Approche — citation d'Élodie",
-    maxLength: 220,
-  },
-  "kobido.approche.text": {
-    type: "textarea",
-    label: "Kobido · Approche — texte",
-    maxLength: 320,
-  },
-
-  "kobido.seance.eyebrow": {
-    type: "text",
-    label: "Kobido · Séance — pastille",
-    maxLength: 30,
-  },
-  "kobido.seance.title": {
-    type: "text",
-    label: "Kobido · Séance — titre",
-    maxLength: 60,
-  },
-  "kobido.seance.items": {
-    type: "items",
-    label: "Kobido · Séance — déroulé",
-    maxItems: 5,
-    fields: {
-      time: { label: "Repère (ex. 5 min)", maxLength: 14 },
-      title: { label: "Étape", maxLength: 35 },
-      text: { label: "Texte", maxLength: 140, multiline: true },
-    },
+    label: "Kobido · Réserver — cure / abonnement",
+    maxLength: 200,
   },
 
   "kobido.faq.title": {
@@ -638,22 +582,6 @@ export const contentFields = defineFields({
     },
   },
 
-  "kobido.final.title": {
-    type: "text",
-    label: "Kobido · Appel final — titre",
-    maxLength: 60,
-  },
-  "kobido.final.text": {
-    type: "textarea",
-    label: "Kobido · Appel final — texte",
-    maxLength: 160,
-  },
-  "kobido.final.image": {
-    type: "image",
-    label: "Kobido · Appel final — image",
-    ratio: "16:9",
-    altMaxLength: IMAGE_ALT,
-  },
   // ===== Pages de soin (soin.<slug>.*) =====
   ...servicePageFields("calme-et-harmonie"),
   ...servicePageFields("jambes-legeres"),

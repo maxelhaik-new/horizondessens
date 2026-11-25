@@ -113,7 +113,7 @@ export const indexedPages: {
     path: routes.kobido,
     priority: 0.9,
     changeFrequency: "monthly",
-    images: ["/images/kobido/hero.jpg", "/images/kobido/geste-lissage.jpg"],
+    images: ["/images/kobido/hero-plein.jpg", "/images/kobido/hero.jpg"],
   },
   ...(
     [
@@ -196,7 +196,7 @@ export const siteGraph = {
       image: [
         `${site.url}/images/salon/salle-loire.jpg`,
         `${site.url}/images/salon/fenetre-loire.jpg`,
-        `${site.url}/images/kobido/hero.jpg`,
+        `${site.url}/images/kobido/hero-plein.jpg`,
       ],
       telephone: site.phone.href.replace("tel:", ""),
       email: site.email,

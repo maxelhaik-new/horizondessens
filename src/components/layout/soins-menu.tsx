@@ -6,7 +6,7 @@ import { useEffect, useId, useRef, useState } from "react";
 
 import { ChevronRightIcon } from "@/components/ui/icons";
 import { cn } from "@/lib/cn";
-import { routes } from "@/lib/navigation";
+import { featuredSoins, routes } from "@/lib/navigation";
 import { soinsNav } from "@/services/pages";
 
 /**
@@ -51,8 +51,13 @@ export function SoinsMenu({ solid }: { solid: boolean }) {
     };
   }, [isOpen]);
 
+  // Actif sur les soins sans lien direct dans le menu (Kobido et
+  // 5 Continents ont le leur, `featuredSoins`).
   const active =
-    pathname === routes.reserver || soinsNav.some((s) => s.href === pathname);
+    pathname === routes.reserver ||
+    soinsNav.some(
+      (s) => s.href === pathname && !featuredSoins.includes(s.href),
+    );
 
   return (
     <li

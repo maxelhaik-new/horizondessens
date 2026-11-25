@@ -88,7 +88,7 @@ const og = [
   ],
   [
     "kobido",
-    "kobido/hero.jpg",
+    "kobido/hero-plein.jpg",
     "Séance de Kobido, massage facial japonais, chez Horizon des Sens",
   ],
   [

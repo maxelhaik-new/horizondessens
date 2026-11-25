@@ -1,15 +1,11 @@
 import type { Metadata } from "next";
 
-import { BookingSection } from "@/components/booking-module/booking-section";
-import { KobidoApproach } from "@/components/kobido/approach";
 import { KobidoEffects } from "@/components/kobido/effects";
 import { KobidoFaq } from "@/components/kobido/faq";
-import { KobidoFinalCta } from "@/components/kobido/final-cta";
-import { KobidoFormulas } from "@/components/kobido/formulas";
 import { KobidoGestures } from "@/components/kobido/gestures";
 import { KobidoHero } from "@/components/kobido/hero";
 import { KobidoOrigin } from "@/components/kobido/origin";
-import { KobidoSession } from "@/components/kobido/session";
+import { KobidoReserve } from "@/components/kobido/reserve";
 import { JsonLd } from "@/components/seo/json-ld";
 import { breadcrumbJsonLd, ids, pageMetadata } from "@/lib/seo";
 import { site } from "@/lib/site";
@@ -54,12 +50,8 @@ export default function KobidoPage() {
       <KobidoOrigin />
       <KobidoGestures />
       <KobidoEffects />
-      <KobidoFormulas />
-      <BookingSection slug="kobido" />
-      <KobidoSession />
-      <KobidoApproach />
+      <KobidoReserve />
       <KobidoFaq />
-      <KobidoFinalCta />
       <JsonLd data={jsonLd} />
     </>
   );

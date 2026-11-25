@@ -133,10 +133,7 @@ export const contentDefaults: ContentValues = {
   ],
 
   // --- Les 3 temps d'une séance ---
-  "home.steps.eyebrow": "La séance",
-  "home.steps.title": "Un moment pensé pour vous",
-  "home.steps.intro":
-    "Pas de protocole à la chaîne : chaque séance suit le même fil, et s'ajuste à vous.",
+  "home.steps.eyebrow": "Votre séance",
   "home.steps.items": [
     {
       title: "Un échange",
@@ -220,8 +217,8 @@ export const contentDefaults: ContentValues = {
   "kobido.hero.lead":
     "Le massage facial japonais, dans un salon calme face à la Loire. Une heure pour relâcher le visage, et tout le reste avec lui.",
   "kobido.hero.image": {
-    src: "/images/kobido/hero.jpg",
-    alt: "Kobido : les mains de la praticienne posées sur le front, visage détendu",
+    src: "/images/kobido/hero-plein.jpg",
+    alt: "Kobido : les mains de la praticienne encadrent un visage détendu, dans une lumière chaude",
   },
 
   "kobido.origine.eyebrow": "Origine",
@@ -241,7 +238,7 @@ export const contentDefaults: ContentValues = {
     {
       title: "Les lissages",
       text: "Des effleurements amples et enveloppants ouvrent le soin. Ils réchauffent la peau, apaisent le souffle et invitent le visage à se relâcher.",
-      image: "/images/kobido/geste-lissage.jpg",
+      image: "/images/kobido/hero.jpg",
     },
     {
       title: "Les pressions",
@@ -281,45 +278,10 @@ export const contentDefaults: ContentValues = {
     },
   ],
 
-  "kobido.formules.eyebrow": "Les formules",
-  "kobido.formules.title": "Deux durées, un même soin",
-  "kobido.formules.court":
-    "Le Kobido complet : visage, nuque et cuir chevelu. L'idéal pour une première découverte.",
-  "kobido.formules.long":
-    "Le même soin, avec plus de temps pour la nuque, les épaules et le repos final. Pour celles et ceux qui veulent prolonger.",
-  "kobido.formules.cure":
+  "kobido.reserver.text":
+    "Le Kobido complet : visage, nuque et cuir chevelu, après un temps d'échange. En 1h15, plus de temps pour la nuque, les épaules et le repos final.",
+  "kobido.reserver.cure":
     "Les effets du Kobido se prolongent avec la régularité. L'abonnement réunit 6 séances dans l'année, à 90 € la séance au lieu de 100 €.",
-
-  "kobido.approche.eyebrow": "Mon approche",
-  "kobido.approche.quote":
-    "Je ne cherche pas à transformer un visage. Je cherche à ce que vous vous sentiez bien dedans.",
-  "kobido.approche.text":
-    "Ancienne soignante, praticienne en massage bien-être depuis 2018 et initiée au Reiki, j'ai ajouté le Kobido à ma pratique en 2025. J'y retrouve ce qui me tient à cœur : l'écoute, la précision du geste et le temps qu'on s'accorde.",
-
-  "kobido.seance.eyebrow": "Déroulé",
-  "kobido.seance.title": "Votre séance, pas à pas",
-  "kobido.seance.items": [
-    {
-      time: "Arrivée",
-      title: "Un temps d'échange",
-      text: "Nous parlons de vos attentes, de votre peau et de ce dont vous avez besoin aujourd'hui.",
-    },
-    {
-      time: "Début",
-      title: "Le visage préparé",
-      text: "Installation confortable, puis un nettoyage doux pour que la peau accueille le soin.",
-    },
-    {
-      time: "Cœur du soin",
-      title: "Le massage Kobido",
-      text: "Lissages, pressions, percussions et modelage s'enchaînent sur le visage, la nuque et le crâne.",
-    },
-    {
-      time: "Fin",
-      title: "Un retour en douceur",
-      text: "Quelques minutes de repos, un verre d'eau, et vous repartez à votre rythme.",
-    },
-  ],
 
   "kobido.faq.title": "Questions sur le Kobido",
   "kobido.faq.intro":
@@ -351,14 +313,6 @@ export const contentDefaults: ContentValues = {
         "Non, et ce n'est pas son but. Le Kobido est un soin naturel qui détend et ravive le visage, sans rien promettre d'autre que du bien-être.",
     },
   ],
-
-  "kobido.final.title": "Offrez-vous une heure de Kobido",
-  "kobido.final.text":
-    "Réservez en ligne en quelques instants, ou offrez une séance avec une carte cadeau.",
-  "kobido.final.image": {
-    src: "/images/ambiance/flacon-ombre.jpg",
-    alt: "Flacon d'huile ambrée posé dans un jeu d'ombre et de lumière",
-  },
 
   // ===== Page Massage des 5 Continents (/massage-5-continents) · page sur mesure =====
   // Récit d'après la carte 2026, l'ancien site et le RDV : à valider par Élodie.
