@@ -4,9 +4,9 @@ import { SplitWords } from "@/components/motion/split-words";
 import { ButtonLink, TextLink } from "@/components/ui/button-link";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { getContents } from "@/content/get-content";
-import { routes } from "@/lib/navigation";
 import { formatVariant } from "@/services/format";
 import { getServices } from "@/services/get-services";
+import { bookingAnchor, servicePath } from "@/services/pages";
 import type { Service, ServiceSlug } from "@/services/types";
 
 type FeaturedSlug = Exclude<ServiceSlug, "rituel-horizon">;
@@ -115,9 +115,12 @@ export async function Services() {
                           ))}
                         </ul>
                         <div className="flex flex-wrap items-center gap-x-8 gap-y-3">
-                          <ButtonLink href={routes.reserver}>
+                          <ButtonLink href={bookingAnchor(service.slug)}>
                             Réserver
                           </ButtonLink>
+                          <TextLink href={servicePath(service.slug)}>
+                            Découvrir ce soin
+                          </TextLink>
                         </div>
                       </div>
                     </div>
@@ -135,7 +138,9 @@ export async function Services() {
           >
             {c["home.soins.surmesure"]}
           </p>
-          <TextLink href={routes.reserver}>Réserver le Rituel Horizon</TextLink>
+          <TextLink href={servicePath("rituel-horizon")}>
+            Découvrir le Rituel Horizon
+          </TextLink>
         </Reveal>
       </div>
     </section>

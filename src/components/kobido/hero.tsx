@@ -3,7 +3,6 @@ import Image from "next/image";
 import { SplitWords } from "@/components/motion/split-words";
 import { ButtonLink } from "@/components/ui/button-link";
 import { getContents } from "@/content/get-content";
-import { routes } from "@/lib/navigation";
 import { formatDuration, formatPrice } from "@/services/format";
 import { getService } from "@/services/get-services";
 
@@ -45,7 +44,7 @@ export async function KobidoHero() {
             data-hero-cta
             className="flex animate-rise flex-wrap items-center gap-x-8 gap-y-4 pt-1 [animation-delay:650ms]"
           >
-            <ButtonLink href={routes.reserver} variant="light">
+            <ButtonLink href="#reserver" variant="light">
               Réserver un Kobido
             </ButtonLink>
           </div>

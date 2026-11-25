@@ -21,13 +21,15 @@ export default function NotFound() {
         </h1>
         <p className="max-w-xl text-lead text-pretty text-white/75">
           Elle a peut-être changé d&apos;adresse avec le nouveau site. Les
-          soins, le Kobido et la réservation sont à portée de main.
+          soins, le Kobido, le 5 Continents et la réservation sont à portée de
+          main.
         </p>
         <div className="flex flex-wrap items-center gap-x-8 gap-y-4">
           <ButtonLink href={routes.home} variant="light">
             Retour à l&apos;accueil
           </ButtonLink>
           <TextLink href={routes.kobido}>Le Kobido</TextLink>
+          <TextLink href={routes.cinqContinents}>Le 5 Continents</TextLink>
           <TextLink href={routes.reserver}>Réserver un soin</TextLink>
         </div>
       </div>

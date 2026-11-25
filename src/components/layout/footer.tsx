@@ -4,7 +4,8 @@ import Link from "next/link";
 import { CookieSettingsButton } from "@/components/layout/cookie-banner";
 import { FacebookIcon, InstagramIcon } from "@/components/ui/icons";
 import { getContents } from "@/content/get-content";
-import { legalNav, mainNav, routes } from "@/lib/navigation";
+import { featuredSoins, legalNav, mainNav, routes } from "@/lib/navigation";
+import { soinsNav } from "@/services/pages";
 import { site } from "@/lib/site";
 
 /**
@@ -28,28 +29,31 @@ export async function Footer() {
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
           <nav aria-label="Pages" className="flex flex-col gap-1">
             <p className={columnTitle}>Pages</p>
-            {mainNav.map((item) => (
+            {mainNav
+              // Les soins sont dans la colonne « Soins ».
+              .filter(
+                (item) =>
+                  item.href !== routes.reserver &&
+                  !featuredSoins.includes(item.href),
+              )
+              .map((item) => (
+                <Link key={item.href} href={item.href} className={link}>
+                  {item.label}
+                </Link>
+              ))}
+          </nav>
+
+          <nav aria-label="Soins" className="flex flex-col gap-1">
+            <p className={columnTitle}>Soins</p>
+            {soinsNav.map((item) => (
               <Link key={item.href} href={item.href} className={link}>
                 {item.label}
               </Link>
             ))}
+            <Link href={routes.reserver} className={link}>
+              Tous les soins et tarifs
+            </Link>
           </nav>
-
-          <div className="flex flex-col gap-1">
-            <p className={columnTitle}>Soins</p>
-            <Link href="/#soins" className={link}>
-              Kobido
-            </Link>
-            <Link href="/#5-continents" className={link}>
-              Massage des 5 Continents
-            </Link>
-            <Link href="/#soins" className={link}>
-              Calme et harmonie
-            </Link>
-            <Link href="/#soins" className={link}>
-              Jambes légères
-            </Link>
-          </div>
 
           <address className="flex flex-col gap-1 not-italic">
             <p className={columnTitle}>Nous trouver</p>

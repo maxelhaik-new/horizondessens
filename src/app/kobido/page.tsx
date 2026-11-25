@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 
+import { BookingSection } from "@/components/booking-module/booking-section";
 import { KobidoApproach } from "@/components/kobido/approach";
 import { KobidoEffects } from "@/components/kobido/effects";
 import { KobidoFaq } from "@/components/kobido/faq";
@@ -54,6 +55,7 @@ export default function KobidoPage() {
       <KobidoGestures />
       <KobidoEffects />
       <KobidoFormulas />
+      <BookingSection slug="kobido" />
       <KobidoSession />
       <KobidoApproach />
       <KobidoFaq />

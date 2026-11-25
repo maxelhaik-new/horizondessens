@@ -266,7 +266,7 @@ Voir [options-techniques.md §A](options-techniques.md). |
 | Badge M5C (règles d'usage) | Inconnu. |
 | SimplyBook (abonnement, accès) | Pas de réponse. |
 | Cartes cadeaux | **Valables 6 mois.** Kobido 1h à 100 € et 1h15 à 120 €. Le **Massage des 5 Continents** est **à gérer séparément**. Cessibilité et remboursement : non précisés. |
-| Légal | **SIREN 841 843 337.** Élodie envoie le reste (statut, TVA, médiateur, annulation). |
+| Légal | **Certificat INSEE reçu le 24/11/2026** : entrepreneur individuel, nom **Poirier**, nom d'usage **Nguyen**, SIREN 841 843 337, SIRET 841 843 337 00012, APE 9604Z (entretien corporel), activité depuis le 28/09/2020, établissement encore déclaré à **Saint-Pierre-des-Corps**. Ajoutés aux mentions légales et aux CGV (sans date de naissance ni adresse personnelle). Reste : TVA, médiateur, annulation. |
 | Développeur du site | **Maxime Elhaik**, maxime.elhaik@gmail.com (crédit dans les mentions légales). |
 
 #### ⚠️ Pages légales : rédigées sur hypothèses, donc incomplètes (23/11/2026)
@@ -286,6 +286,24 @@ Décision de Maxime : les pages affichent les hypothèses **sans mention « à c
 - **Registre dans Stripe** : numéro `HDS-XXXX-XXXX`, prestation, bénéficiaire et validité dans les métadonnées du paiement (recherche par numéro dans le tableau de bord), plus une copie de chaque carte par e-mail à Élodie. Pas de table Supabase ni de suivi « utilisée » pour l'instant.
 - **PDF généré à la charte du site** (A5 paysage), en attendant éventuellement un fond Canva d'Élodie.
 - **Paiement par carte bancaire** (Apple Pay et Google Pay compris), pas de Klarna ni autres moyens. Prix lus dans les prestations (aucun produit saisi dans Stripe). Pas de TVA (franchise en base).
+
+### Réservation intégrée (25/11/2026)
+- **Pas de paiement en ligne à la réservation** (règlement sur place). Si les absences posent problème : rappel SMS, puis empreinte bancaire pour les nouveaux clients.
+- **Massage des 5 Continents : 135 €** la séance de 1h15 (décision de Maxime, 25/11), au lieu de 120 €.
+- Prestations « 2026 » **créées** dans SimplyBook (IDs 25 à 30) via l'API admin et branchées sur le site.
+- **API REST publique SimplyBook** activée (Catégories conservé). Pas d'API admin ni de MCP.
+- **Nouvelles prestations « 2026 »** dans SimplyBook, sans toucher aux legacy ; le site ne pointe plus vers les legacy. À créer : `docs/simplybook/prestations-2026.md`.
+- **Module de réservation** sur chaque page de soin (Kobido compris) ; `/reserver` et l'accueil y renvoient.
+- ⚠️ À régler dans SimplyBook avant la mise en ligne : aucun créneau après le 27/11, heures de début à aligner sur les horaires du site, adresse encore à Saint-Pierre-des-Corps, e-mails de confirmation à vérifier.
+- Pages Calme et harmonie, Jambes légères (avec réflexologie plantaire) et Rituel Horizon rédigées : **à valider par Élodie** (Reiki en fin de Calme et harmonie, contre-indications Jambes légères, abonnement sur tous les soins, carte cadeau « sur demande » hors Kobido).
+
+### Pages de soin (25/11/2026)
+- **Piste « remplacer SimplyBook »** étudiée : réaliste (Supabase, Resend et `/admin` déjà en place), mais le gros morceau est l'agenda d'Élodie. Ordre retenu : **les pages de soin d'abord**, avec des boutons qui mènent encore aux calendriers SimplyBook. Points à trancher avant l'agenda : salle partagée avec Sensoa ?, part des RDV pris par téléphone, rappels SMS, motif du départ de SimplyBook.
+- **Gabarit commun de page de soin**, dérivé de la page Kobido (qui garde sa page sur mesure). Premier exemplaire **à valider** : `/massage-5-continents`. Les autres soins attendent la validation de Maxime.
+- Textes du 5 Continents rédigés d'après la carte 2026, l'ancien site et le RDV : **à valider par Élodie**, en particulier l'ordre du soin (où se place le Reiki ?), « l'un des soins que l'on me demande le plus », l'abonnement appliqué à ce soin, la FAQ sur les huiles essentielles (précautions) et la carte cadeau « sur demande ».
+
+- **Gabarit refait en 5 sections (25/11/2026, demandé par Maxime)** : hero, le soin, réserver (ce que comprend la séance + module + abonnement et « Offrir »), FAQ, pied de page. Objectif : aucune redondance ni section inutile, et des pages de massage corps plus légères que le Kobido (cohérent avec §4 : les massages corps ne doivent pas prendre le dessus). Appliqué à **Calme et harmonie** ; **Jambes légères et Rituel Horizon** ensuite ; le **5 Continents aura sa page sur mesure**, comme le Kobido. Textes de Calme et harmonie resserrés : **toujours à valider par Élodie** (ajout d'une FAQ « Comment se passe la séance ? » ; retirés : bienfaits, dont « un sommeil plus serein », et citation).
+- **Suite (25/11/2026)** : Jambes légères et Rituel Horizon passés au gabarit en 5 sections, textes resserrés (Jambes légères : FAQ « Comment se passe la séance ? » ajoutée, « très apprécié l'été » retiré ; Rituel Horizon : bienfaits et déroulé fondus dans « Le soin »). **Page sur mesure du 5 Continents**, orientée récit : hero plein cadre, prologue, « le voyage, chapitre par chapitre » (les huiles, libérer, lâcher prise, le soin énergétique), réserver, FAQ. **Kobido et 5 Continents ont leur lien dans le menu**, en plus du sous-menu « Soins », pour les mettre en avant (§4). Textes **à valider par Élodie**, en particulier « l'un des soins que l'on me demande le plus » et l'ordre du soin (où se place le Reiki ?).
 
 ## 14. Enseignements du site concurrent Sensoa (analyse du 23/11/2026)
 
@@ -367,7 +385,9 @@ Décision de Maxime : les pages affichent les hypothèses **sans mention « à c
 ### Contenu et pages
 - [x] Pages **Le salon** et **Carte cadeau** (vitrine) créées le 23/11/2026.
 - [ ] Faire valider par Élodie le récit de son parcours (page Le salon).
-- [x] Page **Réserver** (`/reserver`) : liste des soins, chaque durée ouvre directement son calendrier SimplyBook, sans iframe (23/11/2026).
+- [x] Page **Réserver** (`/reserver`) : tous les soins et tarifs ; chaque durée mène au module de réservation de la page du soin (25/11/2026).
+- [x] **Pages de soin** : Kobido, Calme et harmonie, 5 Continents, Jambes légères, Rituel Horizon, chacune avec le module de réservation intégré (25/11/2026). Textes à valider par Élodie.
+- [x] Navigation : sous-menu « Soins », « Réserver » de l'en-tête → `/reserver`, pied de page vers les pages de soin (25/11/2026).
 - [ ] Page 404 aux couleurs du site.
 - [ ] Textes relus et validés par Élodie (accueil, Kobido : citation de l'approche, déroulé, FAQ, contre-indications).
 - [ ] Accès et stationnement du salon (`home.final.access` affiche « informations à venir »).
@@ -377,7 +397,9 @@ Décision de Maxime : les pages affichent les hypothèses **sans mention « à c
 - [ ] Avis Google (section masquée tant que `getReviews()` est vide).
 
 ### Légal (voir §13, « Pages légales : rédigées sur hypothèses »)
-- [ ] Infos envoyées par Élodie : confirmer statut (EI, micro-entreprise ?) et TVA (art. 293 B).
+- [x] Statut confirmé par le certificat INSEE (24/11/2026) : **entrepreneur individuel (EI)**, SIRET 841 843 337 00012, APE 9604Z ; mentions et CGV à jour.
+- [ ] Confirmer la TVA (art. 293 B, franchise en base ?) et le régime (micro-entreprise ?).
+- [ ] ⚠️ **Élodie déclare le transfert de son établissement** au 9 Quai des Maisons Blanches (guichet unique INPI) : l'INSEE indique encore Saint-Pierre-des-Corps. Un **nouveau SIRET** sera attribué → le reporter dans `site.legal.siret` (`src/lib/site.ts`).
 - [ ] **Nommer le médiateur de la consommation** dans les CGV (obligatoire).
 - [ ] Confirmer la politique d'annulation (24 h), le paiement des séances au salon, les modalités de l'abonnement Kobido, la carte cadeau 5 Continents.
 - [ ] Valider la mention « images générées par IA » dans les crédits.
@@ -405,12 +427,16 @@ Décision de Maxime : les pages affichent les hypothèses **sans mention « à c
 - [ ] Test de bout en bout : message reçu par Élodie, « Répondre » renvoie bien à l'expéditeur, pas en indésirables.
 
 ### Réservation (SimplyBook)
-- [ ] Accès administrateur, plan SimplyBook et disponibilité de la custom feature API.
-- [ ] Brancher `getServices()` sur l'API `getEventList` (repli : données locales) et variables `SIMPLYBOOK_COMPANY`, `SIMPLYBOOK_API_KEY`.
-- [x] Liens directs vers le calendrier de chaque prestation (`bookingHref`, IDs `simplybook: { service, category }` dans `local-services.ts`) : Kobido 1h, Calme et harmonie, 5 Continents (23/11/2026). Pas d'iframe (décision de Maxime).
-- [ ] Créer dans SimplyBook les prestations manquantes (**Kobido 1h15, Jambes légères, Rituel Horizon**) et renseigner leurs IDs ; en attendant, leurs boutons ouvrent la réservation générale.
-- [ ] Harmoniser l'apparence de la page SimplyBook (thème, couleurs, image de fond) avec le site, dans l'admin SimplyBook.
-- [ ] ⚠️ **Mettre à jour les prestations dans SimplyBook** : la page de réservation affiche encore l'ancienne carte (« Kobido Lumière 1h 85 € », « Cure Renaissance », « 5 Continents 1h20 95 € »…). Noms, durées et prix doivent correspondre à la carte 2026 (Kobido 1h 100 € / 1h15 120 €, Calme et harmonie, 5 Continents, Jambes légères, Rituel Horizon 1h15 120 €, abonnement Kobido 90 €). **Modifier** les prestations liées (24, 15, 21) sans les recréer, pour garder leurs IDs (sinon, les mettre à jour dans `local-services.ts`), et masquer les anciennes prestations. À faire par Élodie ou avec ses accès, sans casser les rendez-vous en cours.
+- [x] Module **API** activé (Catégories conservé, pas de captcha) ; **API REST publique** branchée côté serveur (25/11/2026). L'app n'utilise pas l'API admin.
+- [x] Prestations **« 2026 »** créées via l'API admin (IDs 25 à 30), legacy intactes et plus liées par le site (25/11/2026). Détail : `docs/simplybook/prestations-2026.md`.
+- [x] Module de réservation intégré sur les 5 pages de soin ; test réel réussi par Maxime (RDV 1196, annulé ensuite) (25/11/2026).
+- [x] Variables `SIMPLYBOOK_API_HOST`, `SIMPLYBOOK_COMPANY`, `SIMPLYBOOK_API_KEY` sur Vercel (Production, Preview, Development) (25/11/2026), actives au prochain déploiement.
+- [ ] Tester une réservation de bout en bout sur une prestation **2026**, puis l'annuler.
+- [ ] ⚠️ **Temps de pause** des prestations 2026 : 0 min à la création → 15 à 20 min dans l'interface SimplyBook.
+- [ ] ⚠️ **Agenda** : aucun créneau après le 27/11 ; heures fixes (9h, 11h, 15h, 16h, 17h) à aligner sur les horaires du site (9h30–11h / 13h30–17h) ; adresse SimplyBook encore à Saint-Pierre-des-Corps.
+- [ ] Vérifier les e-mails SimplyBook (confirmation, rappel, annulation) : actifs, en français, pour le client et pour Élodie.
+- [ ] Masquer les prestations legacy (et catégorie « Soins 2026 ») une fois les 2026 prêtes, pour la page SimplyBook et la fiche Google.
+- [ ] Pas de paiement à la réservation (décision du 25/11) ; à revoir si les absences posent problème (rappel SMS, puis empreinte bancaire).
 
 ### Cartes cadeaux (Stripe)
 - [x] **Paiement branché** (24/11/2026, mode test) : Stripe Checkout, saisie du bénéficiaire, de « De la part de » et d'un petit mot sur la page Stripe, PDF généré à la charte, e-mail à l'acheteur avec le PDF, copie à Élodie, registre dans Stripe (recherche par numéro), page `/carte-cadeau/merci`, téléchargement du PDF, webhook `/api/stripe/webhook`. Testé de bout en bout en local (carte de test).
@@ -437,7 +463,7 @@ Décision de Maxime : les pages affichent les hypothèses **sans mention « à c
 - [ ] Compte d'Élodie, prise en main (guide express : cms.md §4).
 
 ### Cookies et confidentialité
-- [x] Bandeau cookies en place (Google Maps seulement). SimplyBook n'est pas intégré au site (liens vers son propre site), donc hors bandeau (23/11/2026).
+- [x] Bandeau cookies en place (Google Maps seulement). SimplyBook est appelé **par le serveur** (aucun script ni cookie SimplyBook sur le site), donc hors bandeau (25/11/2026).
 - [ ] Si une mesure d'audience est ajoutée : la soumettre au consentement (ou choisir une solution exemptée) et mettre à jour la politique de confidentialité.
 
 ### SEO et technique
@@ -454,7 +480,7 @@ Décision de Maxime : les pages affichent les hypothèses **sans mention « à c
 
 ### Bascule — déroulé détaillé : [bascule-domaine.md](bascule-domaine.md)
 > ⛔ Uniquement sur le **go explicite de Maxime**. L'agent (Claude) est **responsable de la bascule** quand Maxime la demande (OVH par MCP, Vercel par CLI). Stripe live reste hors agent. Tenir `bascule-domaine.md` à jour (cases, journal).
-- [ ] Prérequis : travail poussé et déployé, contenus validés par Élodie, SimplyBook à jour, **compte Stripe d'Élodie activé** (attendu), webhook et clés Stripe live en Production.
+- [ ] Prérequis : travail poussé et déployé, contenus validés par Élodie, SimplyBook à jour (pause, agenda, adresse, legacy masquées), **compte Stripe d'Élodie activé** (attendu), webhook et clés Stripe live en Production.
 - [ ] **La veille : TTL des enregistrements du site à 300 s** (agent, à garder en tête).
 - [ ] Vercel : ajouter `horizondessens.fr` (principal) et `www` (redirection).
 - [ ] OVH : A racine → Vercel ; `www` nettoyé (A, MX, TXT d'hébergement) puis CNAME Vercel ; recharger la zone. **Messagerie, Resend et vérification Google intacts.**

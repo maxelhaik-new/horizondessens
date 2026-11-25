@@ -13,7 +13,8 @@
     "format:check": "prettier --check .",
     "content:check": "tsx scripts/check-content.ts",
     "assets:brand": "node scripts/brand-assets.mjs",
-    "test:cms": "node --env-file-if-exists=.env.local --import tsx --test tests/cms.integration.test.ts"
+    "test:cms": "node --env-file-if-exists=.env.local --import tsx --test tests/cms.integration.test.ts",
+    "simplybook:services": "node scripts/simplybook-services.mjs"
   },
   "dependencies": {
     "@pdf-lib/fontkit": "^1.1.1",

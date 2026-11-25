@@ -3,6 +3,7 @@ import type { Metadata, MetadataRoute } from "next";
 import { routes } from "@/lib/navigation";
 import { site } from "@/lib/site";
 import { localServices } from "@/services/local-services";
+import { servicePages } from "@/services/pages";
 
 /*
  * SEO : métadonnées communes, indexation, routes du sitemap et données
@@ -113,6 +114,24 @@ export const indexedPages: {
     priority: 0.9,
     changeFrequency: "monthly",
     images: ["/images/kobido/hero.jpg", "/images/kobido/geste-lissage.jpg"],
+  },
+  ...(
+    [
+      ["calme-et-harmonie", "/images/soins/calme-et-harmonie.jpg"],
+      ["jambes-legeres", "/images/soins/jambes-legeres.jpg"],
+      ["rituel-horizon", "/images/ambiance/massage-dos.jpg"],
+    ] as const
+  ).map(([slug, image]) => ({
+    path: servicePages[slug].path,
+    priority: 0.7,
+    changeFrequency: "monthly" as const,
+    images: [image],
+  })),
+  {
+    path: servicePages["5-continents"].path,
+    priority: 0.8,
+    changeFrequency: "monthly",
+    images: ["/images/massages/dos-2.jpg", "/images/massages/dos.jpg"],
   },
   {
     path: routes.salon,

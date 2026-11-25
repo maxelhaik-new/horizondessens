@@ -360,6 +360,283 @@ export const contentDefaults: ContentValues = {
     alt: "Flacon d'huile ambrée posé dans un jeu d'ombre et de lumière",
   },
 
+  // ===== Page Massage des 5 Continents (/massage-5-continents) · page sur mesure =====
+  // Récit d'après la carte 2026, l'ancien site et le RDV : à valider par Élodie.
+  "soin.5-continents.hero.title": "Le Massage des 5 Continents, près de Tours",
+  "soin.5-continents.hero.lead":
+    "Un voyage sensoriel en deux temps, porté par des huiles essentielles et un soin énergétique. Un massage rare, à Saint-Cyr-sur-Loire, face au fleuve.",
+  "soin.5-continents.hero.image": {
+    src: "/images/massages/dos-2.jpg",
+    alt: "Massage du dos à l'huile, mains posées sur la peau dans une lumière chaude",
+  },
+
+  "soin.5-continents.prologue.title":
+    "Un tour du monde du geste, sans quitter les bords de la Loire.",
+  "soin.5-continents.prologue.text":
+    "Le Massage des 5 Continents réunit en une seule séance des gestes inspirés des grandes traditions du massage à travers le monde. Il se pratique avec des huiles essentielles préparées pour lui seul, et s'achève sur un soin énergétique.\n\nC'est un massage encadré : seuls des praticiens formés et certifiés peuvent le proposer. Peu de salons le pratiquent autour de Tours, et c'est l'un des soins que l'on me demande le plus.",
+  "soin.5-continents.prologue.image": {
+    src: "/images/accueil/5-continents-huile.jpg",
+    alt: "Flacon d'huile essentielle ambrée, préparée pour le Massage des 5 Continents",
+  },
+
+  "soin.5-continents.voyage.title": "Le voyage, chapitre par chapitre",
+  "soin.5-continents.voyage.intro":
+    "Deux temps et un soin énergétique, portés du début à la fin par les mêmes parfums.",
+  "soin.5-continents.voyage.items": [
+    {
+      title: "Les huiles",
+      text: "Tout commence par les parfums. Des huiles essentielles préparées par un laboratoire spécialisé, pour ce massage uniquement, vous accompagnent jusqu'à la fin de la séance.",
+      image: "/images/ambiance/huiles-plateau.jpg",
+    },
+    {
+      title: "Libérer",
+      text: "Le premier temps est dynamique. Des mouvements appuyés et des frictions stimulent la circulation et aident le corps à se défaire de ce qui l'encombre.",
+      image: "/images/massages/dos.jpg",
+    },
+    {
+      title: "Lâcher prise",
+      text: "Puis le rythme ralentit. Les gestes deviennent amples et enveloppants, et unifient le corps pour un relâchement profond.",
+      image: "/images/massages/bras.jpg",
+    },
+    {
+      title: "Le soin énergétique",
+      text: "Pour finir, un temps de Reiki, par simple imposition des mains, prolonge la détente et harmonise la circulation de l'énergie. On ressort un peu ailleurs.",
+      image: "/images/ambiance/lampe-pierres.jpg",
+    },
+  ],
+
+  "soin.5-continents.reserver.text":
+    "Le massage complet du corps en deux temps, puis le soin énergétique. L'échange avant le soin et le retour au calme sont compris.",
+  "soin.5-continents.reserver.abonnement":
+    "6 séances dans l'année, avec 10 € de moins sur chaque séance, pour en faire un rendez-vous régulier.",
+
+  "soin.5-continents.faq.title": "Questions sur le 5 Continents",
+  "soin.5-continents.faq.intro":
+    "Une autre question ? Appelez-moi, je vous réponds avec plaisir.",
+  "soin.5-continents.faq.items": [
+    {
+      question: "Que signifie le badge M5C ?",
+      answer:
+        "Il atteste que je suis formée et certifiée pour pratiquer ce massage, et garantit un soin fidèle à son protocole.",
+    },
+    {
+      question: "Les huiles essentielles conviennent-elles à tout le monde ?",
+      answer:
+        "Certaines situations demandent de la prudence : grossesse, allergies, asthme ou épilepsie. Prévenez-moi en réservant : nous verrons ensemble si le soin vous convient.",
+    },
+    {
+      question: "Faut-il prévoir quelque chose ?",
+      answer:
+        "Rien de particulier. Évitez simplement un repas copieux juste avant, et gardez si possible un moment calme après la séance.",
+    },
+    {
+      question: "Est-ce un soin médical ?",
+      answer:
+        "Non. C'est un massage de bien-être, sans visée thérapeutique ni connotation sexuelle. Il ne remplace pas un avis médical.",
+    },
+  ],
+
+  // ===== Page Calme et harmonie (/massage-calme-et-harmonie) · gabarit en 5 sections =====
+  // Premier jet d'après la carte 2026 et le RDV : à valider par Élodie.
+  "soin.calme-et-harmonie.hero.title":
+    "Massage Calme et harmonie à Saint-Cyr-sur-Loire, près de Tours",
+  "soin.calme-et-harmonie.hero.lead":
+    "Le dos, le visage et le crâne, puis un temps de Reiki. Un massage enveloppant pour apaiser le mental et relâcher les tensions, au bord de la Loire.",
+  "soin.calme-et-harmonie.hero.image": {
+    src: "/images/soins/calme-et-harmonie.jpg",
+    alt: "Massage relaxant du dos dans une lumière douce",
+  },
+
+  "soin.calme-et-harmonie.soin.title": "Quand la tête ne s'arrête plus",
+  "soin.calme-et-harmonie.soin.text":
+    "Calme et harmonie est né d'une demande que j'entends souvent : « j'ai besoin de décrocher ». Le soin suit les zones où le stress s'installe, le dos, le visage et le crâne, puis s'achève par un temps de Reiki.",
+  "soin.calme-et-harmonie.soin.items": [
+    {
+      title: "Le dos",
+      text: "Des gestes amples et enveloppants dénouent les épaules, la nuque et le long du dos, là où l'on porte les tensions de la journée.",
+    },
+    {
+      title: "Le visage",
+      text: "Des lissages lents détendent le front, la mâchoire et le contour des yeux. Les traits se relâchent.",
+    },
+    {
+      title: "Le crâne",
+      text: "Un massage crânien tout en douceur, qui calme le flot des pensées et prépare au repos.",
+    },
+    {
+      title: "Le Reiki",
+      text: "Les mains se posent et le rythme ralentit encore. Le Reiki prolonge la détente et aide à retrouver un équilibre intérieur.",
+    },
+  ],
+  "soin.calme-et-harmonie.soin.image": {
+    src: "/images/ambiance/mains-epaules.jpg",
+    alt: "Mains posées sur les épaules pendant un massage à l'huile",
+  },
+
+  "soin.calme-et-harmonie.reserver.text":
+    "Le massage du dos, du visage et du crâne, puis un temps de Reiki. L'échange avant le soin et le retour au calme sont compris.",
+  "soin.calme-et-harmonie.reserver.abonnement":
+    "6 séances dans l'année, avec 10 € de moins sur chaque séance, pour en faire un rendez-vous régulier.",
+
+  "soin.calme-et-harmonie.faq.title": "Questions sur Calme et harmonie",
+  "soin.calme-et-harmonie.faq.intro":
+    "Une autre question ? Appelez-moi, je vous réponds avec plaisir.",
+  "soin.calme-et-harmonie.faq.items": [
+    {
+      question: "Comment se passe la séance ?",
+      answer:
+        "Nous commençons par un court échange sur votre état du jour et les zones à soulager. Vient ensuite le massage, à un rythme lent, puis le Reiki. Vous prenez enfin quelques minutes pour revenir à vous avant de repartir.",
+    },
+    {
+      question: "Qu'est-ce que le Reiki ?",
+      answer:
+        "Une méthode énergétique japonaise, pratiquée par imposition des mains, sans manipulation. Je la pratique depuis 2017. Elle vise à harmoniser la circulation de l'énergie et favorise une détente profonde.",
+    },
+    {
+      question: "Faut-il croire au Reiki pour en profiter ?",
+      answer:
+        "Non. Le Reiki vient conclure le massage : même sans y prêter de sens particulier, c'est un moment de calme et de repos.",
+    },
+    {
+      question: "Faut-il venir démaquillé ?",
+      answer:
+        "Ce n'est pas nécessaire. Prévenez-moi simplement si votre peau est sensible.",
+    },
+    {
+      question: "Est-ce un soin médical ?",
+      answer:
+        "Non. C'est un massage de bien-être, sans visée thérapeutique ni connotation sexuelle. Il ne remplace pas un avis médical.",
+    },
+  ],
+
+  // ===== Page Jambes légères (/jambes-legeres-reflexologie-plantaire) · gabarit en 5 sections =====
+  // Réflexologie plantaire incluse (RDV) : à confirmer par Élodie.
+  "soin.jambes-legeres.hero.title":
+    "Jambes légères et réflexologie plantaire, près de Tours",
+  "soin.jambes-legeres.hero.lead":
+    "Un massage drainant des jambes, associé à la réflexologie plantaire, pour soulager les jambes lourdes et retrouver une sensation de légèreté.",
+  "soin.jambes-legeres.hero.image": {
+    src: "/images/soins/jambes-legeres.jpg",
+    alt: "Massage des jambes à l'huile, gestes remontant vers le genou",
+  },
+
+  "soin.jambes-legeres.soin.title": "Pour les jambes qui portent la journée",
+  "soin.jambes-legeres.soin.text":
+    "Station debout, longues heures assis, chaleur, fatigue : les jambes sont souvent les premières à en porter le poids. Ce soin associe un massage drainant à la réflexologie plantaire, à laquelle je suis formée.",
+  "soin.jambes-legeres.soin.items": [
+    {
+      title: "La préparation",
+      text: "Une huile adaptée réchauffe la peau. Vos jambes sont installées confortablement, légèrement surélevées.",
+    },
+    {
+      title: "Le massage des jambes",
+      text: "Des chevilles jusqu'aux cuisses, des gestes remontants, toujours vers le cœur, accompagnent la circulation et dénouent les mollets.",
+    },
+    {
+      title: "La réflexologie plantaire",
+      text: "Des pressions précises sur les zones réflexes du pied, pour une détente qui gagne tout le corps.",
+    },
+  ],
+  "soin.jambes-legeres.soin.image": {
+    src: "/images/massages/pieds.jpg",
+    alt: "Massage des pieds, réflexologie plantaire",
+  },
+
+  "soin.jambes-legeres.reserver.text":
+    "Le massage complet des jambes, puis la réflexologie plantaire. L'échange avant le soin et le retour au calme sont compris.",
+  "soin.jambes-legeres.reserver.abonnement":
+    "6 séances dans l'année, avec 10 € de moins sur chaque séance, pour garder des jambes légères au fil des saisons.",
+
+  "soin.jambes-legeres.faq.title": "Questions sur Jambes légères",
+  "soin.jambes-legeres.faq.intro":
+    "Une autre question ? Appelez-moi, je vous réponds avec plaisir.",
+  "soin.jambes-legeres.faq.items": [
+    {
+      question: "Comment se passe la séance ?",
+      answer:
+        "Nous faisons d'abord le point sur vos jambes, votre circulation et d'éventuelles contre-indications. Viennent ensuite le massage, puis la réflexologie plantaire, au calme. Quelques minutes de repos, et vous repartez à votre rythme.",
+    },
+    {
+      question: "Y a-t-il des contre-indications ?",
+      answer:
+        "Oui : phlébite ou antécédent de thrombose, varices douloureuses, plaie ou infection sur les jambes. En cas de doute, demandez l'avis de votre médecin avant de réserver.",
+    },
+    {
+      question: "La réflexologie plantaire, qu'est-ce que c'est ?",
+      answer:
+        "Une technique de pressions sur des zones précises du pied, reliées selon cette approche au reste du corps. Ici, elle est pratiquée dans un but de bien-être, sans diagnostic.",
+    },
+    {
+      question: "Et pendant la grossesse ?",
+      answer:
+        "Parlez-m'en avant de réserver : certaines périodes demandent d'adapter le soin, ou d'attendre.",
+    },
+    {
+      question: "Est-ce un soin médical ?",
+      answer:
+        "Non. C'est un massage de bien-être, sans visée thérapeutique ni connotation sexuelle. Il ne remplace pas un avis médical.",
+    },
+  ],
+
+  // ===== Page Rituel Horizon (/rituel-horizon) · gabarit en 5 sections =====
+  // Massage sur mesure : à valider par Élodie.
+  "soin.rituel-horizon.hero.title":
+    "Rituel Horizon, un massage composé pour vous",
+  "soin.rituel-horizon.hero.lead":
+    "Après un temps d'échange, je compose le massage selon vos zones de tension du moment. Un soin sur mesure, à Saint-Cyr-sur-Loire, près de Tours.",
+  "soin.rituel-horizon.hero.image": {
+    src: "/images/ambiance/massage-dos.jpg",
+    alt: "Massage sur mesure du dos, mains posées sur les épaules",
+  },
+
+  "soin.rituel-horizon.soin.title": "Chaque séance part de vous",
+  "soin.rituel-horizon.soin.text":
+    "Nos besoins changent selon les jours, la fatigue ou le travail. Le Rituel Horizon ne suit pas de protocole fixe : il part de ce que vous ressentez aujourd'hui, qu'il s'agisse d'un dos noué, d'une nuque raide, de jambes lourdes ou d'une envie de lâcher prise.",
+  "soin.rituel-horizon.soin.items": [
+    {
+      title: "L'échange",
+      text: "Nous faisons le point sur votre état du jour : vos tensions, votre fatigue, ce dont vous avez envie. Nous décidons ensemble des priorités.",
+    },
+    {
+      title: "Le massage composé",
+      text: "Je choisis les zones et les techniques pour vous. Le rythme et la pression s'adaptent à ce que vous ressentez.",
+    },
+    {
+      title: "Les zones de tension",
+      text: "Le temps se concentre là où le corps en a le plus besoin, pour un soulagement en profondeur.",
+    },
+  ],
+  "soin.rituel-horizon.soin.image": {
+    src: "/images/salon/salle-lit.jpg",
+    alt: "La salle de soin du salon, table de massage et lumière naturelle",
+  },
+
+  "soin.rituel-horizon.reserver.text":
+    "Un temps d'échange, puis un massage composé selon vos zones de tension. Le retour au calme est compris.",
+  "soin.rituel-horizon.reserver.abonnement":
+    "6 séances dans l'année, avec 10 € de moins sur chaque séance, pour un massage qui suit l'évolution de vos besoins.",
+
+  "soin.rituel-horizon.faq.title": "Questions sur le Rituel Horizon",
+  "soin.rituel-horizon.faq.intro":
+    "Une autre question ? Appelez-moi, je vous réponds avec plaisir.",
+  "soin.rituel-horizon.faq.items": [
+    {
+      question: "Quelle différence avec les autres massages ?",
+      answer:
+        "Les autres soins suivent un déroulé précis. Le Rituel Horizon n'en a pas : il se construit avec vous, en début de séance.",
+    },
+    {
+      question: "Je ne sais pas quel soin choisir. Que faire ?",
+      answer:
+        "Réservez le Rituel Horizon : nous en parlerons ensemble et je vous guiderai. Vous pouvez aussi m'appeler avant.",
+    },
+    {
+      question: "Est-ce un soin médical ?",
+      answer:
+        "Non. C'est un massage de bien-être, sans visée thérapeutique ni connotation sexuelle. Il ne remplace pas un avis médical.",
+    },
+  ],
+
   // --- Contact ---
   "contact.hero.eyebrow": "Contact",
   "contact.hero.title": "Parlons de votre prochain soin",
@@ -524,9 +801,9 @@ export const contentDefaults: ContentValues = {
   ],
 
   // --- Réserver ---
-  "reserver.hero.title": "Réserver votre soin",
+  "reserver.hero.title": "Soins et tarifs",
   "reserver.hero.lead":
-    "Choisissez votre soin, puis le créneau qui vous convient. La confirmation arrive aussitôt par e-mail.",
+    "Tous les soins du salon, avec leurs durées et leurs tarifs. Choisissez le vôtre, puis réservez votre créneau en ligne : la confirmation arrive par e-mail.",
   "reserver.soins.title": "Quel soin vous ferait du bien ?",
   "reserver.soins.intro":
     "Durées et tarifs sont indiqués pour chaque soin. Vous hésitez entre deux ? Je peux vous conseiller par téléphone.",

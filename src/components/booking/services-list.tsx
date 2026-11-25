@@ -5,15 +5,14 @@ import { RevealGroup, RevealItem } from "@/components/motion/reveal";
 import { SplitWords } from "@/components/motion/split-words";
 import { ButtonLink, TextLink } from "@/components/ui/button-link";
 import { getContents } from "@/content/get-content";
-import { routes } from "@/lib/navigation";
-import { bookingHref } from "@/lib/simplybook";
 import { formatVariant } from "@/services/format";
 import { getServices } from "@/services/get-services";
+import { bookingAnchor, servicePath } from "@/services/pages";
 
 /**
  * Liste des soins réservables : une ligne par soin (image, nom, sous-titre,
- * description, puis une ligne par durée : tarif et bouton « Réserver » qui
- * ouvre le calendrier SimplyBook de cette prestation (`bookingHref`).
+ * description, lien vers sa page, puis une ligne par durée : tarif et bouton
+ * « Réserver » vers le module de réservation de la page (`#reserver-<min>`).
  * Données de réservation : `getServices()` ; éditorial : `service.<slug>.*`.
  */
 export async function BookingServices() {
@@ -126,11 +125,9 @@ export async function BookingServices() {
                   >
                     {e.short}
                   </p>
-                  {service.slug === "kobido" && (
-                    <TextLink href={routes.kobido} className="w-fit">
-                      Tout savoir sur le Kobido
-                    </TextLink>
-                  )}
+                  <TextLink href={servicePath(service.slug)} className="w-fit">
+                    Découvrir ce soin
+                  </TextLink>
                 </div>
 
                 <ul className="col-span-2 flex flex-col gap-2 border-t border-line pt-4 lg:col-span-1 lg:border-t-0 lg:pt-0">
@@ -142,7 +139,13 @@ export async function BookingServices() {
                       <span className="rounded-full bg-white px-3.5 py-1.5 text-sm font-medium whitespace-nowrap text-ink tabular-nums">
                         {formatVariant(variant)}
                       </span>
-                      <ButtonLink href={bookingHref(variant)} size="sm">
+                      <ButtonLink
+                        href={bookingAnchor(
+                          service.slug,
+                          variant.durationMinutes,
+                        )}
+                        size="sm"
+                      >
                         Réserver
                         <span className="sr-only">
                           {" "}

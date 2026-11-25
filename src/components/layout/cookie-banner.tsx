@@ -7,9 +7,14 @@ import { setConsent, useConsent } from "@/lib/consent";
 import { routes } from "@/lib/navigation";
 
 /**
- * Bandeau cookies discret : petite carte claire en bas à gauche (au-dessus
- * de la barre « Réserver » sur mobile). « Refuser » et « Accepter » ont le
- * même poids, comme l'exige la CNIL.
+ * Bandeau cookies discret : petite carte claire en bas à gauche, **sur
+ * ordinateur et tablette seulement** (dès `sm`). « Refuser » et « Accepter »
+ * ont le même poids, comme l'exige la CNIL.
+ *
+ * Mobile (décision de Maxime, 25/11/2026, critique impeccable) : pas de
+ * bandeau, il masquait tout le hero à la première visite. Le seul usage
+ * (Google Maps sur /contact) se consent au clic sur la carte
+ * (`consent-map`), ce qui suffit : rien n'est déposé sans ce clic.
  */
 export function CookieBanner() {
   const consent = useConsent();
@@ -26,7 +31,7 @@ export function CookieBanner() {
           animate={{ opacity: 1, y: 0 }}
           exit={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 24 }}
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-          className="fixed inset-x-3 bottom-24 z-30 sm:right-auto sm:bottom-6 sm:left-6 sm:max-w-sm"
+          className="fixed bottom-6 left-6 z-30 hidden max-w-sm sm:block"
         >
           <div className="flex flex-col gap-4 rounded-panel bg-paper-soft/95 p-5 text-sm text-ink-soft shadow-soft ring-1 ring-line backdrop-blur-xl">
             <p className="leading-relaxed">

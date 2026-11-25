@@ -22,7 +22,7 @@ L'agent (Claude) est **responsable de la bascule** quand Maxime la demande. Acc�
 - [x] Zone d'origine sauvegardée : `docs/dns/zone-horizondessens-2026-11-24.txt` (référence de retour arrière).
 - [x] Travail commité, poussé (`4793b4f`) et déployé sur `horizondessens.vercel.app` le 24/11/2026 : pages principales en 200. ⏳ Reste à vérifier en ligne : une publication CMS et un achat de carte cadeau en test. À refaire avant le go si du travail a été ajouté depuis.
 - [ ] Contenus validés par Élodie (textes à valider, CGV et mentions sur hypothèses : voir CONTEXTE.md §13).
-- [ ] Prestations SimplyBook à jour (noms, prix 2026, prestations manquantes et leurs IDs dans `local-services.ts`).
+- [x] Prestations SimplyBook « 2026 » créées (IDs 25 à 30) et branchées dans `local-services.ts` (25/11/2026). - [ ] Temps de pause, agenda et adresse à régler dans SimplyBook (`docs/simplybook/prestations-2026.md`).
 - [ ] **Compte Stripe d'Élodie activé** (`charges_enabled: true`). Maxime attend cette activation.
 - [ ] Webhook Stripe **live** `https://horizondessens.fr/api/stripe/webhook` (événements `checkout.session.completed`, `checkout.session.async_payment_succeeded`) et 3 variables live en **Production** (`STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`, `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY`) : par Élodie ou Maxime. Preview garde les clés de test.
 - [ ] **La veille de la bascule (agent)** : passer le TTL des enregistrements du site à **300 s** chez OVH (A racine `87.98.154.146`, A `www`), recharger la zone. But : pouvoir revenir en arrière en 5 minutes. Le TTL par défaut de la zone est 3600 s.
@@ -57,7 +57,7 @@ Montrer à Maxime le tableau exact avant d'appliquer (règle CLAUDE.md), puis :
 - [ ] CMS : connexion sur `horizondessens.fr/admin`, une modification publiée visible aussitôt, puis rétablie. `npm run test:cms` OK.
 - [ ] E-mail « Mot de passe oublié » : le lien mène bien à `horizondessens.fr`.
 - [ ] Messagerie d'Élodie : envoi et réception OK sur `e.nguyen@horizondessens.fr` (demander à Maxime de confirmer avec elle).
-- [ ] Liens de réservation SimplyBook.
+- [ ] Module de réservation : une page de soin affiche le calendrier (et non le repli téléphone) sur le domaine, ce qui prouve que les variables `SIMPLYBOOK_*` sont actives.
 
 ## 4. Après la bascule
 - [ ] Google Search Console : propriété de domaine (la vérification TXT existe déjà), envoi du sitemap.

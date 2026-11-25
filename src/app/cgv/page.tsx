@@ -44,10 +44,12 @@ export default async function CgvPage() {
           <dd>{site.name}</dd>
           <dt>Exploitante</dt>
           <dd>
-            {site.practitioner}, {legal.status.toLowerCase()}
+            {legal.legalName}, {legal.status.toLowerCase()}
           </dd>
           <dt>SIREN</dt>
           <dd>{legal.siren}</dd>
+          <dt>SIRET</dt>
+          <dd>{legal.siret}</dd>
           <dt>Adresse</dt>
           <dd>
             {address.street}, {address.postalCode} {address.city}
@@ -92,9 +94,10 @@ export default async function CgvPage() {
       body: (
         <>
           <p>
-            Les séances se réservent en ligne via le service de prise de
-            rendez-vous SimplyBook.me, par téléphone ou par e-mail. La
-            réservation est confirmée par e-mail.
+            Les séances se réservent en ligne sur la page de chaque soin (le
+            module de réservation s&apos;appuie sur le service SimplyBook.me),
+            par téléphone ou par e-mail. La réservation est confirmée par
+            e-mail.
           </p>
           <p>
             Sauf utilisation d&apos;une carte cadeau ou d&apos;un abonnement, la

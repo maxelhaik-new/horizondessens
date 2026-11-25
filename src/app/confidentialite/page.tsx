@@ -45,9 +45,11 @@ const sections: LegalSection[] = [
         </p>
         <h3>Réservation en ligne</h3>
         <p>
-          Nom, coordonnées et rendez-vous, saisis sur le service SimplyBook.me
-          pour gérer vos séances. Base légale : l&apos;exécution de la
-          prestation. Conservation : 3 ans après le dernier rendez-vous.
+          Nom, e-mail, téléphone et rendez-vous, saisis dans le module de
+          réservation du site et transmis au service SimplyBook.me, qui gère
+          l&apos;agenda et envoie les confirmations. Base légale :
+          l&apos;exécution de la prestation. Conservation : 3 ans après le
+          dernier rendez-vous.
         </p>
         <h3>Achat d&apos;une carte cadeau</h3>
         <p>
@@ -126,7 +128,8 @@ const sections: LegalSection[] = [
             l&apos;acceptez via le bandeau cookies ;
           </li>
           <li>
-            SimplyBook.me, sur son propre site, si vous réservez en ligne ;
+            SimplyBook.me, si vous réservez en ligne (le module du site lui
+            transmet votre réservation) ;
           </li>
           <li>
             Stripe, si vous payez une carte cadeau (sécurité du paiement).

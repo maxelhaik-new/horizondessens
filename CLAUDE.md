@@ -18,12 +18,7 @@ La refonte accompagne deux changements :
   - Stockage **Supabase** : Postgres, Storage et Auth.
   - Le contenu n'est ni dans des fichiers locaux ni dans Git.
   - Détails : [docs/options-techniques.md](docs/options-techniques.md) §B.
-- **Prise de RDV (validée)** : SimplyBook.me (`horizondessens.simplybook.it`), en **hybride**.
-  - Les cartes prestations sont générées depuis l'API SimplyBook `getEventList`, côté serveur et mises en cache. SimplyBook est la source de vérité pour le nom, la durée et le prix, donc pas de double saisie.
-  - Le widget iframe est thémé via `theme_settings`, sans le CSS payant, et pré-rempli sur la prestation.
-  - Le CMS porte l'éditorial, relié à chaque prestation par son ID SimplyBook.
-  - Repli : le widget thémé seul, si la custom feature API n'est pas disponible.
-  - Détails : [docs/options-techniques.md](docs/options-techniques.md) §A.
+- **Prise de RDV** : SimplyBook.me (`horizondessens.simplybook.it`) reste l'agenda d'Élodie. **Depuis le 25/11/2026** : **module de réservation intégré** à chaque page de soin, via l'**API REST publique** (prestations « 2026 » dédiées, sans paiement). Voir la section « SimplyBook » plus bas et `docs/simplybook/`. Les noms, durées et prix restent dans `src/services/local-services.ts`. *(Le schéma « hybride getEventList + widget thémé » du 23/11 est abandonné.)*
 - **Cartes cadeaux** : paiement **Stripe** sur le site, avec **génération et envoi automatique d'un PDF**.
 - **Domaine** : chez OVH. La bascule se fera en changeant les DNS ; l'ancien site n'est pas supprimé.
 - **Dépôt Git** : https://github.com/maxelhaik-new/horizondessens. Il est **PUBLIC** et encore vide. `gh` est connecté au compte `maxelhaik-new`. Le dépôt est initialisé en local sur la branche `main`, avec le remote `origin`.
@@ -54,7 +49,8 @@ La refonte accompagne deux changements :
 | [docs/CONTEXTE.md](docs/CONTEXTE.md) | **Synthèse de référence** (§15 = **checklist de mise en production**, à tenir à jour) : acteurs, enjeux, positionnement, offre, DA, SEO, fonctionnalités, technique, planning. **§13 = décisions validées par Maxime, elles priment.** | Toujours, avant tout travail de contenu ou de design |
 | [docs/site-actuel.md](docs/site-actuel.md) | Scraping intégral de l'ancien site (23/11/2026) : textes mot pour mot, tarifs, structure, images. | Pour reprendre un contenu existant. **Ne pas re-visiter le site.** |
 | [docs/transcription-rdv-cadrage-2026-11-13.md](docs/transcription-rdv-cadrage-2026-11-13.md) | Transcription brute Whisper du RDV de cadrage (13/11/2026). Elle contient des erreurs : « qu'au bidot » = Kobido, « Calmermonie » = Calme et Harmonie, « Tensua / SensoA » = Sensoa. | Pour vérifier une nuance. Sinon, préférer CONTEXTE.md. |
-| [docs/options-techniques.md](docs/options-techniques.md) | Options SimplyBook (widget thémé, hybride API + widget, tunnel sur mesure) et options CMS (mini-CMS maison avec édition en place, Sanity, Storyblok), avec recommandations. | Avant toute décision technique |
+| [docs/options-techniques.md](docs/options-techniques.md) | *(Historique : la réservation a depuis été intégrée par l'API REST publique, voir `docs/simplybook/`.)* Options SimplyBook (widget thémé, hybride API + widget, tunnel sur mesure) et options CMS (mini-CMS maison avec édition en place, Sanity, Storyblok), avec recommandations. | Avant toute décision technique |
+| [docs/simplybook/](docs/simplybook/README.md) | **SimplyBook** : doc officielle pour agents, état du projet, spécifications OpenAPI, prestations « 2026 » (`prestations-2026.md`, avec les réglages qui restent à faire dans l'interface). | Avant de toucher à la réservation |
 | [docs/bascule-domaine.md](docs/bascule-domaine.md) | **Déroulé de la bascule du domaine vers Vercel** : qui fait quoi (MCP OVH, CLI Vercel, Stripe live hors agent), prérequis, enregistrements à changer et à ne jamais toucher, contrôles, retour arrière, journal. **Checklist à tenir à jour.** | Avant et pendant la bascule, sur le go de Maxime |
 | [docs/resend-mise-en-production.md](docs/resend-mise-en-production.md) | **Sortir Resend du mode test** : les 4 enregistrements DNS à poser chez OVH (+ DMARC), vérification, variables du site, SMTP Supabase, contrôles. | Avant la mise en ligne, pour les e-mails |
 | [docs/cms.md](docs/cms.md) | **Mini-CMS** : principe (édition en place, brouillons, publication), architecture, tables Supabase, ajout d'un éditeur, guide express pour Élodie, limites. | Avant de toucher au contenu éditable, à `src/cms/` ou à Supabase |
@@ -164,9 +160,6 @@ Accueil et Kobido vérifiées à 320, 390, 768, 844×390 (paysage), 1024 et 1920
 ## DESIGN.md (23/11/2026)
 `DESIGN.md` (racine) et `.impeccable/design.json` sont écrits par `/impeccable document` : tokens, typo, formes, composants et règles tels qu'implémentés. **Statut provisoire** (palette et typos de Serelin, à personnaliser) et **sans « North Star » métaphorique**, voulu par Maxime (risque de perturber les futurs agents). À régénérer quand le design change.
 
-## DESIGN.md (23/11/2026)
-`DESIGN.md` (racine) et `.impeccable/design.json` sont écrits par `/impeccable document` : tokens, typo, formes, composants et règles tels qu'implémentés. **Statut provisoire** (palette et typos de Serelin, à personnaliser) et **sans « North Star » métaphorique**, voulu par Maxime (risque de perturber les futurs agents). À régénérer quand le design change.
-
 ## Page Kobido développée (23/11/2026)
 
 - **Route** : `src/app/kobido/page.tsx`. Metas fixes (« Kobido à Saint-Cyr-sur-Loire, près de Tours »), JSON-LD `Service` (offres tirées des prestations) et `BreadcrumbList`.
@@ -200,7 +193,7 @@ Accueil et Kobido vérifiées à 320, 390, 768, 844×390 (paysage), 1024 et 1920
 
 ## Pages légales et Contact (23/11/2026)
 
-- **Réponses d'Élodie** reportées dans `docs/questions-elodie-rdv.md` et CONTEXTE.md §13 (« Réponses d'Élodie ») : clientèle mixte non mentionnée, **Rituel Horizon 1h15 120 €** (`local-services.ts`), **abonnement Kobido à 90 €** la séance (textes mis à jour), horaires **lun.–sam. 9h30–11h / 13h30–17h** (`site.hours`), cartes cadeaux 6 mois, SIREN 841 843 337.
+- **Réponses d'Élodie** reportées dans `docs/questions-elodie-rdv.md` et CONTEXTE.md §13 (« Réponses d'Élodie ») : clientèle mixte non mentionnée, **Rituel Horizon 1h15 120 €** (`local-services.ts`), **abonnement Kobido à 90 €** la séance (textes mis à jour), horaires **lun.–sam. 9h30–11h / 13h30–17h** (`site.hours`), cartes cadeaux 6 mois, SIREN 841 843 337 ; **certificat INSEE reçu le 24/11/2026** : EI, nom Poirier, nom d'usage Nguyen, SIRET 841 843 337 00012 (établissement encore à Saint-Pierre-des-Corps : transfert à déclarer, nouveau SIRET à reporter), APE 9604Z ; ajoutés aux mentions légales et CGV (`site.legal`).
 - **Pages légales** `/mentions-legales`, `/cgv`, `/confidentialite` :
   - gabarit commun `src/components/legal/legal-page.tsx` (onglets entre les 3 pages, sommaire collant, sections numérotées) ; styles du texte : `.legal-prose` dans `globals.css` (CSS hors `@layer`, sinon non servi) ;
   - **contenu fixé dans le code** (pas de clés CMS), données dans `site.legal` (`src/lib/site.ts`) ; la liste des prix des CGV vient de `getServices()` ;
@@ -255,10 +248,10 @@ Critique d'ensemble : 24/32 (`.impeccable/critique/2026-11-23T21-45-22Z__src-app
 
 - **Route** `/reserver` (`src/app/reserver/page.tsx`, composants `src/components/booking/`) :
   - `hero` : clair et direct (titre, accroche, 3 étapes en pastilles, téléphone) ;
-  - `services-list` (`id="soins"`) : une ligne par soin (vignette, sous-titre, nom, description, lien `/kobido` pour le Kobido), puis **une ligne par durée : tarif + bouton « Réserver » qui ouvre directement le calendrier SimplyBook de la prestation**. Le Rituel Horizon a une vignette au logo (clé `service.rituel-horizon.short`) ;
+  - `services-list` (`id="soins"`) : une ligne par soin (vignette, sous-titre, nom, description, « Découvrir ce soin »), puis **une ligne par durée : tarif + bouton « Réserver » vers le module de la page du soin (`#reserver-<min>`)** (25/11). Le Rituel Horizon a une vignette au logo (clé `service.rituel-horizon.short`) ;
   - `infos` : « Bon à savoir » (annulation 24 h, règlement au salon, carte cadeau, jour du soin), liens CGV et contact.
-- **Pas d'iframe SimplyBook** (décision de Maxime) : chaque bouton mène au calendrier sur `horizondessens.simplybook.it`.
-- **Système de liens, sans redondance** :
+- **Pas d'iframe SimplyBook** (décision de Maxime). ⚠️ **Remplacé le 25/11/2026** : les boutons mènent au module intégré de la page du soin (`bookingAnchor`) ; `bookingHref` et `src/lib/simplybook.ts` sont supprimés (voir « SimplyBook : API REST publique »).
+- *(Historique, remplacé le 25/11 :)* **Système de liens** :
   - les IDs SimplyBook sont **sur les variantes** des soins (`simplybook: { service, category }` dans `src/services/local-services.ts`, type dans `types.ts`), plus tard fournis par l'API ;
   - `bookingHref(variant)` (`src/lib/simplybook.ts`) construit `…/v2/#book/category/{c}/service/{s}/count/1/provider/any/` ; sans IDs, la réservation générale `…/v2/`. **La catégorie est nécessaire** : une prestation présente dans plusieurs catégories (ex. 21) fait sinon redemander le choix ;
   - utilisé sur `/reserver` et sur les boutons par durée de la page Kobido (`formulas`). Les boutons généraux « Réserver » mènent à `/reserver`.
@@ -280,6 +273,44 @@ Critique d'ensemble : 24/32 (`.impeccable/critique/2026-11-23T21-45-22Z__src-app
 - **Carte premium (24/11/2026, retenue et publiée)** : remplace la V5 sur le site. Fond **roche rouge** sombre (`#5C2218` → `#280D09`), dorure sable cuivré (`#F0CDA0` → `#BE7E52`) sur le symbole, « HORIZON DES SENS » et « Carte Cadeau », accroche « une heure rien que pour vous » en rose terre, « Offert à » + nom en crème, numéro en bas à droite ; **pas de filet doré**. Tout est dans `assets/carte-cadeau-incrustation/premium/` : visuel (`carte-premium.png`, dessiné par `dessin-carte-premium.py`, Pillow), incrustation carte sombre `incrustation-carte-sombre.py` (projection à la résolution d'origine sur une image ×4 puis réduction : pas de crénelage ; éclairage lissé de la photo + grain atténué sur la dorure ; masque qui déborde de `grow` px pour couvrir la tranche claire ; pouce détouré par le contour `thumb_poly` relevé à la main), réglages par photo `photoN-coins.json` (coins au sous-pixel, `radius`, `grow`, `thumb_poly`), rendus `mockup-premium-photoN.png` → `public/images/carte-cadeau/main-carte-1/2/3.jpg` (photo 1 = hero et image de partage, 2 = accueil, 3 = « Comment ça marche »). ⚠️ Le **PDF client** garde le modèle clair : à aligner sur cette direction si Maxime le demande.
 - **Exemples remplis pour les mockups** (`assets/carte-cadeau-incrustation/`, 24/11/2026) : `exemple-carte-kobido-1h15` et `exemple-carte-kobido-1h` (nom, « De la part de », petit mot, numéro, dates fictifs), en PDF et PNG 3 000 px, générés par le **vrai** générateur du PDF client (format A5 paysage). Commande : `npx tsx --conditions=react-server scripts/gift-card-artwork.mts` (à relancer si le PDF ou le logo change). Maxime fait l'incrustation lui-même.
 - Le symbole teinté du PDF est régénéré par `npm run assets:brand`. CGV et confidentialité mises à jour (moyens de paiement, petit mot, Resend).
+
+## Pages de soin : gabarit en 5 sections (25/11/2026)
+
+- **Contexte** : Maxime envisage de remplacer SimplyBook (pages de soin, agenda, e-mails). On commence par les **pages de soin**. Rien n'est fait côté agenda.
+- **Refonte du gabarit (25/11/2026, demandée par Maxime)** : l'ancien gabarit de 9 sections faisait 10 écrans en desktop et 16 en mobile, avec beaucoup de redondances (« deux temps », Reiki, huiles et séance répétés 5 à 7 fois ; une formule à une seule durée qui répétait le hero et le module ; un déroulé générique placé après la réservation). Il est remplacé par un **gabarit générique en 5 temps** (`src/components/service-page/service-page.tsx`), où **chaque information n'apparaît qu'une fois** :
+  1. `hero` (inchangé : titre, accroche, durée et prix, badge M5C, « Réserver ce massage ») ;
+  2. `presentation` (« Le soin » : titre et image à gauche ; chapeau et temps du soin numérotés à droite ; **pas de surtitre, pas de galerie collante**) ;
+  3. `reserve` (`#reserver` : « Ce que comprend la séance », module intégré via `BookingSection` (props `heading` et `footer`), puis ligne abonnement + « Offrir ») : il remplace les anciennes Formule et Réservation ;
+  4. `faq` (inclut « Comment se passe la séance ? », qui remplace le déroulé) ;
+  5. pied de page (plus d'appel final).
+  Résultat sur Calme et harmonie : **4 340 px en desktop (environ 5 écrans) et 6 970 px en mobile (8,6 écrans)**, module à 2,2 écrans (desktop) et 3,6 écrans (mobile). **13 clés par soin** au lieu de 28 (`soin.<slug>.hero.*`, `soin.*`, `reserver.*`, `faq.*`). **179 clés au total** sur le site.
+- **Migration terminée (25/11/2026)** : **Calme et harmonie, Jambes légères et Rituel Horizon** sont sur le gabarit en 5 sections, avec des textes propres à chaque soin (à valider par Élodie). L'ancien gabarit (`legacy/`) et `stepLabel` sont **supprimés**. `TemplateServicePageSlug` (`pages.ts`) = tous les soins sauf le 5 Continents.
+- **Page sur mesure du 5 Continents** (25/11/2026, demandée par Maxime, orientée récit et expérience), `src/components/five-continents/` + `src/app/massage-5-continents/page.tsx` :
+  1. `hero` : image **plein cadre**, titre en bas à gauche, durée, prix et badge M5C à droite (différent du hero scindé du Kobido) ;
+  2. `prologue` : grande phrase, puis le récit (ce que le soin réunit, pourquoi il est rare) face à l'image des huiles ;
+  3. `voyage` + `voyage-scroller` (client) : les **chapitres du soin** sur fond sombre. Sur desktop, la section s'**épingle** et les chapitres **défilent horizontalement** avec le scroll, avec une jauge et un compteur « 01 / 04 ». En mobile ou avec mouvement réduit, ils s'empilent (images en 4:3) ;
+  4. `ServiceReserve` et 5. `ServiceFaq`, **partagés** avec le gabarit (socle commun).
+  Contenu : `fiveContinentsFields()` = socle commun (`servicePageCommon` : hero, `reserver.*`, FAQ) + `prologue.*` + `voyage.*`, toujours sous `soin.5-continents.*`. Environ 7 600 px en desktop et 8 400 px en mobile.
+- **Menu** : Kobido et 5 Continents ont **leur propre lien** dans le menu principal (`mainNav`, `featuredSoins`, `routes.cinqContinents` dans `src/lib/navigation.ts`), **en plus** du sous-menu « Soins ». Dans le pied de page, ils restent dans la colonne « Soins » (retirés de « Pages »). Le menu tient sur une ligne à 1024 px. Menu mobile : ils sont retirés de la sous-liste « Soins » (`otherSoins` dans `mobile-menu.tsx`), puisqu'ils ont leur grand lien ; le menu tient tout juste en 375 × 812 (peut déborder sur les écrans plus petits, à surveiller).
+- **Liens vérifiés le 25/11/2026** (69 liens et ancres internes, sur toutes les pages) : corrigés « Réserver un Kobido » de l'accueil (→ `/kobido#reserver` au lieu de `/reserver`), ajout de « Réserver ce massage » dans la section 5 Continents de l'accueil, ancre `#elodie` manquante sur `/le-salon` (liens « Mon parcours » de l'accueil), lien 5 Continents sur la page 404.
+- **Config** `src/services/pages.ts` (`servicePages`) : URL, libellé, libellé des étapes, badge, carte cadeau `online` ou `on-request` (→ `/contact#ecrire`). Une seule durée : « Réserver ce massage » ouvre directement le calendrier ; plusieurs : ancre `#formules`.
+- **Contenu** : `servicePageFields(slug)` (gabarit en 5 sections) et `fiveContinentsFields()` dans `registry.ts`, sur un socle commun hero + réserver + FAQ (`servicePageCommon`) ; `getServicePageContents(slug, [...])` (`service-page/content.ts`) les lit sans répéter le préfixe. **179 clés au total** (25/11/2026).
+- **Pages** : `/massage-5-continents`, `/massage-calme-et-harmonie`, `/jambes-legeres-reflexologie-plantaire`, `/rituel-horizon` (+ `/kobido`, sur mesure), toutes avec le **module de réservation** (`#reserver`). Sitemap, images de partage, metas. Liens : cartes de l'accueil (« Réserver » → `page#reserver`, « Découvrir ce soin »), section 5 Continents de l'accueil, `/reserver` (une ligne par durée → `page#reserver-<min>`), barre mobile et bouton du header (→ `#reserver` sur une page de soin ; barre masquée quand le module est à l'écran). Helpers `servicePath(slug)` et `bookingAnchor(slug, min)` dans `src/services/pages.ts`. **Navigation harmonisée (25/11/2026)** : « Soins » de l'en-tête = sous-menu desktop (`src/components/layout/soins-menu.tsx`, liste `soinsNav` + « Tous les soins et tarifs » → `/reserver`), lien vers `/reserver` dans le menu mobile ; bouton « Réserver » de l'en-tête **retiré** (25/11/2026, jugé trop présent) ; barre mobile « Réserver ce soin » → `#reserver` sur une page de soin, sinon `/reserver` ; pied de page : colonne Soins = vraies pages. `routes.soins` (ancre de l'accueil) supprimé. Règle écrite en tête de `src/lib/navigation.ts`. **Critique impeccable du 25/11** (28/40, `.impeccable/critique/2026-11-25T13-57-54Z__src-app.md`) — corrigé : boutons par durée `#reserver-<min>` → cibles invisibles dans `BookingSection` + présélection au clic (Next change l'URL sans `hashchange`) : le clic défile jusqu'au calendrier, aussi depuis `/reserver` ; **bandeau cookies masqué sur mobile** (< `sm`, décision de Maxime ; consentement au clic sur la carte de /contact) ; **menu mobile** : sous-liste des 5 soins sous « Soins », conteneur `justify-center-safe` + défilement ; `/reserver` renommée **« Soins et tarifs »** (H1, title, fil d'Ariane). Reste (P2) : champ carte cadeau dans le formulaire, adresse + .ics dans la confirmation ; mineurs : mois à 10,4 px du calendrier, gestes Kobido inactifs à 35 % d'opacité. ⚠️ Une autre session (« Service page model review ») a refondu le gabarit des pages de soin (4 sections : hero, présentation, `reserve.tsx`, FAQ) et créé une page sur mesure pour le 5 Continents (`src/components/five-continents/`, `routes.cinqContinents`, entrée de menu) : la description du gabarit ci-dessus est à mettre à jour par cette session. **Textes à valider par Élodie** (CONTEXTE.md §13).
+- **Ajouter un soin** : une entrée dans `servicePages`, `...servicePageFields("<slug>")` dans le registre, les valeurs dans `defaults.ts`, un dossier `src/app/<url>/page.tsx` (metas + `<ServicePage slug>`), une ligne dans `indexedPages` et une dans `scripts/brand-assets.mjs`.
+
+<!-- BEGIN simplybook-api-rules -->
+## SimplyBook : API REST publique et module de réservation intégré (25/11/2026)
+
+- **Doc à suivre** : [docs/simplybook/README.md](docs/simplybook/README.md) (doc officielle pour agents + état du projet) et les spécifications `docs/simplybook/openapi-public.json` / `openapi-admin.json`. **Ne jamais inventer un endpoint.**
+- **API REST publique** uniquement (pas d'API admin, pas de MCP : décidé avec Maxime). Variables dans `.env.local` : `SIMPLYBOOK_API_HOST=https://user-api-v2.simplybook.it`, `SIMPLYBOOK_COMPANY=horizondessens`, `SIMPLYBOOK_API_KEY` (clé « API REST publique »). Jeton `POST /public/auth/token` `{company, key}` (1 h), puis `X-Company-Login` + `X-Token`. L'ancienne API JSON-RPC refuse cette clé : ne pas mélanger. Modules SimplyBook : API activé, **Catégories du service conservé**, pas de captcha.
+- **Prestations « 2026 »** (décision de Maxime) : créer de **nouvelles** prestations marquées 2026, **ne jamais modifier les legacy**, et **plus aucun lien vers une prestation legacy** sur le site. Liste et réglages : [docs/simplybook/prestations-2026.md](docs/simplybook/prestations-2026.md). Elles se créent dans l'interface (ou via l'API admin, non configurée). ✅ **Créées le 25/11/2026 via l'API admin** (IDs 25 à 30) et branchées : le module est actif sur les 5 pages. Restent dans l'interface : temps de pause (0 min à la création), catégorie, masquer les legacy. **API admin** : `SIMPLYBOOK_ADMIN_LOGIN` + `SIMPLYBOOK_ADMIN_API_KEY` (utilisateur `admin`, tous droits) dans `.env.local` **uniquement** (pas sur Vercel), pour les scripts de gestion ; `POST /admin/services` n'accepte que nom, description, durée, visibilité, praticiennes (le prix exige le module paiement). Variables publiques `SIMPLYBOOK_API_HOST/COMPANY/API_KEY` sur **Vercel** (Production, Preview et Development, 25/11 ; valeurs « sensibles », relues comme `[SENSITIVE]`, c'est normal), actives au prochain déploiement.
+- ✅ **L'app n'utilise que l'API publique** (vérifié le 25/11 : aucune occurrence de `/admin/` ni de `SIMPLYBOOK_ADMIN_*` dans `src/`). L'API admin sert seulement aux opérations ponctuelles menées par l'agent (création des prestations, annulation d'un RDV de test), avec l'accord de Maxime ; ne jamais l'ajouter à l'app ni à Vercel.
+- **Pas de paiement à la réservation** (décision de Maxime, 25/11) : règlement sur place. Piste si les absences deviennent un problème : rappel SMS, puis empreinte bancaire Stripe pour les nouveaux clients (à inscrire dans les CGV) ; éviter le paiement complet obligatoire.
+- **Code** : `src/lib/simplybook/api.ts` (client serveur, jeton en mémoire, retry sur 401) ; `src/lib/booking/` (`actions.ts` : Server Actions `getAvailability` (14 jours, horizon 120 j) et `bookAppointment` (pot de miel, validation, relecture des créneaux du jour puis `POST /public/booking/item`, conditions acceptées ; ⚠️ **ne pas utiliser `/public/booking/validate-time`** : il renvoie « libre » sans champ `available`, pour n'importe quelle heure, même passée — bug du 1er test de Maxime, 25/11) ; `options.ts` : liste blanche `<slug>-<minutes>` → `simplybookId` ; le navigateur n'envoie jamais d'ID SimplyBook) ; `src/components/booking-module/` (`BookingModule` client : durée → jour → heure → coordonnées → confirmation, ancre `#reserver-<minutes>` ; `BookingSection` serveur, `id="reserver"` ; `BookingFallback`).
+- **Brancher une prestation** : `npm run simplybook:services` (liste lecture seule, colonne « 2026 ») → `simplybookId` dans `src/services/local-services.ts`. Noms, durées et **prix restent locaux** (SimplyBook n'a pas de prix).
+- **Testé** (25/11) : créneaux réels chargés sur Kobido avec des IDs legacy **temporaires**, changement de durée, choix d'heure, rendu 1440 / 375. **Aucune réservation envoyée** : le premier vrai test de `bookAppointment` se fait sur une prestation 2026, avec l'accord de Maxime, puis annulation.
+- **Aucune réservation, client ou réglage créé, modifié ou annulé sans l'accord explicite de Maxime** (vrai agenda, vraies notifications).
+<!-- END simplybook-api-rules -->
 
 ## Mini-CMS (23-24/11/2026) — détails dans `docs/cms.md`
 
@@ -350,21 +381,22 @@ Critique d'ensemble : 24/32 (`.impeccable/critique/2026-11-23T21-45-22Z__src-app
 ### Offre 2026
 | Prestation | Durée et tarif | Remarque |
 |---|---|---|
-| Kobido | 1h 100 € / 1h15 120 € | Prestation prioritaire |
-| Calme et harmonie | 1h15 120 € | Dos, visage, crânien + Reiki |
-| 5 Continents | 1h15 120 € | Sous licence M5C. Le badge s'affiche en petit dans sa section. |
-| Jambes légères | 1h15 120 € | Inclut la **réflexologie plantaire**, à écrire |
-| Massage sur mesure | — | Gardé, avec un **nom premium à trouver**, sans être mis en avant |
-| Abonnement | 6 séances par an, -10 € par séance | Présenté sans préciser comment on souscrit |
+| Kobido | 1h 100 € / 1h15 120 € | Prestation prioritaire · SimplyBook 25 / 26 |
+| Calme et harmonie | 1h15 120 € | Dos, visage, crânien + Reiki · SimplyBook 27 |
+| 5 Continents | 1h15 **135 €** (décidé le 25/11/2026) | Sous licence M5C, badge dans le hero de sa page · SimplyBook 28 |
+| Jambes légères | 1h15 120 € | Inclut la **réflexologie plantaire** (à confirmer par Élodie) · SimplyBook 29 |
+| Rituel Horizon (sur mesure) | 1h15 120 € | Discret, sans être mis en avant · SimplyBook 30 |
+| Abonnement | 6 séances par an, -10 € par séance | Présenté sans préciser comment on souscrit (abonnement Kobido : 90 €) |
 
 ### Pages
 | Page | Contenu |
 |---|---|
 | Accueil | Longue page unique : toutes les prestations, dont la section 5 Continents |
-| Kobido | Page dédiée |
+| Kobido | Page dédiée, avec module de réservation |
+| Pages de soin | Calme et harmonie, 5 Continents, Jambes légères, Rituel Horizon (gabarit commun, module de réservation) |
 | Le salon | Le lieu à Saint-Cyr |
 | Carte cadeau | Achat avec Stripe |
-| Réserver | Widgets SimplyBook |
+| Réserver (`/reserver`) | Tous les soins et tarifs, chaque durée → module de la page du soin |
 | Contact | Formulaire, carte Google Maps, avis Google |
 | Mentions légales | — |
 
@@ -419,6 +451,9 @@ Pas de newsletter.
 | 2026-11-23 | SEO | **Stratégie SEO** (`docs/seo/`) et SEO technique : metas par page, sitemap, robots, manifeste, icônes, images de partage, 404, JSON-LD commun. Indexation limitée au vrai domaine. |
 | 2026-11-24 | Dev | **Cartes cadeaux payantes** : Stripe Checkout, PDF à la charte, e-mails (acheteur, Élodie), registre dans Stripe, page de remerciement, webhook. Testé en local en mode test. |
 | 2026-11-24 | E-mails | **Resend sorti du mode test** : enregistrements DNS posés via le MCP OVH (racine intacte), domaine vérifié, expéditeur `contact@horizondessens.fr` sur Vercel (production redéployée), SMTP Supabase par Resend avec modèles en français. Envois testés. Le site n'est **pas** branché sur le domaine (attend le go de Maxime). |
+| 2026-11-25 | Dev | **Module de réservation intégré** (API REST publique SimplyBook) sur toutes les pages de soin, pages Calme et harmonie, Jambes légères, Rituel Horizon. Plus aucun lien vers SimplyBook legacy. En attente des prestations « 2026 ». |
+| 2026-11-25 | Dev | **Gabarit des pages de soin** et première page `/massage-5-continents`, à valider. Étude « remplacer SimplyBook » : on fait les pages de soin d'abord. |
+| 2026-11-25 | Dev | **Gabarit des pages de soin refait en 5 sections** (évaluation distill + clarify : redondances retirées, page deux fois plus courte), appliqué à Calme et harmonie, Jambes légères et Rituel Horizon. **Page sur mesure du 5 Continents** (récit, voyage en chapitres à défilement horizontal). Kobido et 5 Continents dans le menu. Liens internes vérifiés et corrigés. |
 | 2026-11-24 | CMS | **Mini-CMS** : schéma Supabase (RLS, bucket), édition en place sur les vraies pages (Draft Mode), photos, brouillons et publication, `/admin`. 131 clés marquées sur toutes les pages. Variables sur Vercel. Reste : compte éditeur et test de bout en bout. |
 
 ### Questions encore ouvertes
@@ -429,10 +464,11 @@ Pas de newsletter.
 - Élodie est **déjà présentée sur le site de Sensoa** (« Bienvenue à Élodie », « Séance avec Elodie »). Faut-il gérer cette double présence, et comment ?
 - ~~Photos du salon et de la Loire issues de Sensoa~~ → ✅ Réutilisables, Maxime en est l'auteur. **Sauf** les images où l'on voit une masseuse ou une personne massée.
 - Maxime doit remplir la colonne « Réutilisable ? » dans `references/sensoa/sensoa-site.md`.
-- Infos légales envoyées par Élodie (statut, TVA, **médiateur**, annulation) : voir CONTEXTE.md §13. **Clé Resend** à créer et domaine à vérifier.
+- Infos légales envoyées par Élodie (statut, TVA, **médiateur**, annulation) : voir CONTEXTE.md §13. ~~Clé Resend~~ → domaine vérifié le 24/11.
 - **À vérifier par Maxime avec Élodie** : le sort des anciennes prestations (Reiki seul, Relaxant, Vitalité, pierres chaudes, réflexo seule, seniors), le Reiki en séance seule, le mode de souscription de l'abonnement.
-- Le nom premium du massage sur mesure.
-- Le plan SimplyBook d'Élodie et la disponibilité de la custom feature API (à vérifier quand on aura ses accès). Les arbitrages SimplyBook, CMS et stack sont validés.
+- ~~Le nom premium du massage sur mesure~~ → « Rituel Horizon ».
+- ~~Plan SimplyBook et custom feature API~~ → API activée le 25/11. **Reste dans SimplyBook** : temps de pause des prestations 2026, agenda (aucun créneau après le 27/11, heures à aligner), adresse, masquer les legacy (`docs/simplybook/prestations-2026.md`).
+- **Textes des pages de soin à valider par Élodie** (CONTEXTE.md §13).
 - Les règles d'usage du badge M5C par la fédération.
 
 ### Prochaines actions (sur demande de Maxime uniquement)

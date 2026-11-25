@@ -92,6 +92,26 @@ const og = [
     "Séance de Kobido, massage facial japonais, chez Horizon des Sens",
   ],
   [
+    "massage-5-continents",
+    "massages/dos-2.jpg",
+    "Massage des 5 Continents chez Horizon des Sens, à Saint-Cyr-sur-Loire",
+  ],
+  [
+    "massage-calme-et-harmonie",
+    "soins/calme-et-harmonie.jpg",
+    "Massage Calme et harmonie chez Horizon des Sens, à Saint-Cyr-sur-Loire",
+  ],
+  [
+    "jambes-legeres-reflexologie-plantaire",
+    "soins/jambes-legeres.jpg",
+    "Massage Jambes légères et réflexologie plantaire chez Horizon des Sens",
+  ],
+  [
+    "rituel-horizon",
+    "ambiance/massage-dos.jpg",
+    "Rituel Horizon, massage sur mesure chez Horizon des Sens",
+  ],
+  [
     "le-salon",
     "salon/salle-loire.jpg",
     "Le salon d'Horizon des Sens, face à la Loire à Saint-Cyr-sur-Loire",

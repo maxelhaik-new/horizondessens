@@ -18,8 +18,16 @@ type Gesture = {
  * Desktop : l'image reste collée à gauche et se remplace (fondu) selon le
  * geste au centre de l'écran ; le geste actif est mis en avant.
  * Mobile : chaque geste a son image, sans effet.
+ * Utilisé par la page Kobido.
  */
-export function GesturesScroller({ items }: { items: Gesture[] }) {
+export function GesturesScroller({
+  items,
+  label = "Geste",
+}: {
+  items: Gesture[];
+  /** Libellé numéroté de chaque étape (« Geste 01 »). */
+  label?: string;
+}) {
   const [active, setActive] = useState(0);
   const refs = useRef<(HTMLLIElement | null)[]>([]);
   const reduceMotion = useReducedMotion();
@@ -94,7 +102,7 @@ export function GesturesScroller({ items }: { items: Gesture[] }) {
               />
             </div>
             <p className="text-eyebrow text-accent-800">
-              Geste {String(i + 1).padStart(2, "0")}
+              {label} {String(i + 1).padStart(2, "0")}
             </p>
             <h3
               {...item.edit?.title}

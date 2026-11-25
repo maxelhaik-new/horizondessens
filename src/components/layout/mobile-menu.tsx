@@ -9,8 +9,12 @@ import Link from "next/link";
 import { useEffect, useRef } from "react";
 
 import { ButtonLink } from "@/components/ui/button-link";
-import { mainNav, routes } from "@/lib/navigation";
+import { featuredSoins, mainNav, routes } from "@/lib/navigation";
 import { site } from "@/lib/site";
+import { soinsNav } from "@/services/pages";
+
+/** Sous-liste « Soins » : les soins mis en avant ont déjà leur grand lien. */
+const otherSoins = soinsNav.filter((s) => !featuredSoins.includes(s.href));
 
 /*
  * Menu mobile « à voiles courbes » (inspiré du composant CurveMenuOverlay,
@@ -190,7 +194,7 @@ export function MobileMenu({ id, open, onNavigate }: Props) {
         </svg>
       ))}
 
-      <div className="relative flex h-full flex-col justify-center gap-[clamp(40px,6vh,60px)] px-[8vw] py-[5vh] text-white">
+      <div className="relative flex h-full flex-col justify-center-safe gap-[clamp(28px,5vh,60px)] overflow-y-auto overscroll-contain px-[8vw] pt-24 pb-[5vh] text-white">
         <nav aria-label="Navigation mobile">
           <ul className="flex flex-col gap-[clamp(8px,1.5vh,20px)]">
             {mainNav.map((item) => (
@@ -204,6 +208,27 @@ export function MobileMenu({ id, open, onNavigate }: Props) {
                 >
                   {item.label}
                 </Link>
+                {item.label === "Soins" ? (
+                  // Sous-liste des pages de soin (critique impeccable, 25/11) :
+                  // petite, en fondu avec les coordonnées (`data-extra`).
+                  <ul
+                    data-extra
+                    aria-label="Nos soins"
+                    className="mt-1 flex flex-wrap gap-x-4 text-[0.95rem] text-white/75 opacity-0"
+                  >
+                    {otherSoins.map((soin) => (
+                      <li key={soin.href}>
+                        <Link
+                          href={soin.href}
+                          onClick={onNavigate}
+                          className="inline-flex min-h-10 items-center underline-offset-4 transition-colors hover:text-white hover:underline"
+                        >
+                          {soin.label}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                ) : null}
               </li>
             ))}
           </ul>

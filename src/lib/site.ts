@@ -42,8 +42,14 @@ export const site = {
   },
   /** Informations légales (mentions légales, CGV, confidentialité). */
   legal: {
+    /** Certificat INSEE (Sirene) d'Élodie, transmis le 24/11/2026. */
+    legalName: "Élodie Poirier (nom d'usage Nguyen)",
     siren: "841 843 337",
-    status: "Entreprise individuelle",
+    /** Établissement d'origine (Saint-Pierre-des-Corps) : un nouveau SIRET
+     * sera attribué après déclaration du transfert à Saint-Cyr-sur-Loire. */
+    siret: "841 843 337 00012",
+    ape: "9604Z · Entretien corporel",
+    status: "Entrepreneur individuel (EI)",
     vat: "TVA non applicable, article 293 B du Code général des impôts",
     host: {
       name: "Vercel Inc.",
@@ -55,6 +61,6 @@ export const site = {
       email: "maxime.elhaik@gmail.com",
     },
     /** Date de dernière mise à jour des pages légales. */
-    updatedAt: "23 novembre 2026",
+    updatedAt: "24 novembre 2026",
   },
 } as const;

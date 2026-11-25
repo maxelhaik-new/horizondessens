@@ -26,11 +26,15 @@ const sections: LegalSection[] = [
           <dt>Nom commercial</dt>
           <dd>{site.name}</dd>
           <dt>Exploitante</dt>
-          <dd>{site.practitioner}</dd>
+          <dd>{legal.legalName}</dd>
           <dt>Forme juridique</dt>
           <dd>{legal.status}</dd>
           <dt>SIREN</dt>
           <dd>{legal.siren}</dd>
+          <dt>SIRET</dt>
+          <dd>{legal.siret}</dd>
+          <dt>Code APE</dt>
+          <dd>{legal.ape}</dd>
           <dt>TVA</dt>
           <dd>{legal.vat}</dd>
           <dt>Adresse</dt>

@@ -6,6 +6,7 @@ import { Eyebrow } from "@/components/ui/eyebrow";
 import { SparkIcon } from "@/components/ui/icons";
 import { getContents } from "@/content/get-content";
 import { routes } from "@/lib/navigation";
+import { bookingAnchor } from "@/services/pages";
 
 /** §4 Focus Kobido : porte d'entrée du public qui connaît déjà le soin. */
 export async function KobidoFocus() {
@@ -71,7 +72,9 @@ export async function KobidoFocus() {
 
           <Reveal className="flex flex-wrap items-center gap-x-8 gap-y-3 pt-2">
             <ButtonLink href={routes.kobido}>Découvrir le Kobido</ButtonLink>
-            <TextLink href={routes.reserver}>Réserver un Kobido</TextLink>
+            <TextLink href={bookingAnchor("kobido")}>
+              Réserver un Kobido
+            </TextLink>
           </Reveal>
         </div>
       </div>

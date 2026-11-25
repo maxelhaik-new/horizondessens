@@ -6,9 +6,11 @@ import { useEffect, useState } from "react";
 
 import { Logo } from "@/components/brand/logo";
 import { MobileMenu } from "@/components/layout/mobile-menu";
+import { SoinsMenu } from "@/components/layout/soins-menu";
 import { ButtonLink } from "@/components/ui/button-link";
 import { cn } from "@/lib/cn";
 import { legalNav, mainNav, routes } from "@/lib/navigation";
+import { servicePages } from "@/services/pages";
 
 /** Pages sans hero sombre : en-tête opaque dès le haut de page. */
 const lightPages: readonly string[] = [
@@ -17,6 +19,12 @@ const lightPages: readonly string[] = [
   routes.carteCadeau,
   routes.carteCadeauMerci,
   routes.reserver,
+];
+
+/** Pages de soin : la barre mobile mène au module de la page (`#reserver`). */
+const servicePagePaths: readonly string[] = [
+  routes.kobido,
+  ...Object.values(servicePages).map((page) => page.path),
 ];
 
 /**
@@ -30,6 +38,9 @@ export function Header() {
   const [heroCtaVisible, setHeroCtaVisible] = useState(false);
   const pathname = usePathname();
   const lightPage = lightPages.includes(pathname);
+  const bookHref = servicePagePaths.includes(pathname)
+    ? "#reserver"
+    : routes.reserver;
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -39,14 +50,20 @@ export function Header() {
   }, []);
 
   // La barre « Réserver » mobile double le bouton du hero tant qu'il est à
-  // l'écran : on la masque jusqu'à ce qu'il sorte du viewport.
+  // l'écran, et le module de réservation (`#reserver`) quand on y est : on
+  // la masque tant que l'un des deux est visible.
   useEffect(() => {
-    const cta = document.querySelector("[data-hero-cta]");
-    if (!cta) return;
-    const observer = new IntersectionObserver(([entry]) =>
-      setHeroCtaVisible(entry.isIntersecting),
-    );
-    observer.observe(cta);
+    const targets = document.querySelectorAll("[data-hero-cta], #reserver");
+    if (targets.length === 0) return;
+    const visible = new Set<Element>();
+    const observer = new IntersectionObserver((entries) => {
+      for (const entry of entries) {
+        if (entry.isIntersecting) visible.add(entry.target);
+        else visible.delete(entry.target);
+      }
+      setHeroCtaVisible(visible.size > 0);
+    });
+    targets.forEach((target) => observer.observe(target));
     return () => {
       observer.disconnect();
       setHeroCtaVisible(false);
@@ -79,32 +96,29 @@ export function Header() {
 
             <nav aria-label="Navigation principale" className="hidden lg:block">
               <ul className="flex items-center gap-8 text-sm font-medium tracking-[0.016em]">
-                {mainNav.map((item) => (
-                  <li key={item.href}>
-                    <Link
-                      href={item.href}
-                      className={cn(
-                        "-mx-2 inline-flex min-h-11 items-center px-2 transition-colors",
-                        solid
-                          ? "text-ink-soft hover:text-ink"
-                          : "text-white/75 hover:text-white",
-                      )}
-                    >
-                      {item.label}
-                    </Link>
-                  </li>
-                ))}
+                {mainNav.map((item) =>
+                  item.label === "Soins" ? (
+                    <SoinsMenu key={item.href} solid={solid} />
+                  ) : (
+                    <li key={item.href}>
+                      <Link
+                        href={item.href}
+                        className={cn(
+                          "-mx-2 inline-flex min-h-11 items-center px-2 transition-colors",
+                          solid
+                            ? "text-ink-soft hover:text-ink"
+                            : "text-white/75 hover:text-white",
+                        )}
+                      >
+                        {item.label}
+                      </Link>
+                    </li>
+                  ),
+                )}
               </ul>
             </nav>
 
             <div className="flex items-center gap-2">
-              <ButtonLink
-                href={routes.reserver}
-                size="sm"
-                className="hidden sm:inline-flex"
-              >
-                Réserver
-              </ButtonLink>
               <button
                 type="button"
                 className="grid size-11 place-items-center rounded-full lg:hidden"
@@ -156,8 +170,8 @@ export function Header() {
           aria-hidden={open || heroCtaVisible}
           inert={open || heroCtaVisible}
         >
-          <ButtonLink href={routes.reserver} className="w-full justify-between">
-            Réserver un soin
+          <ButtonLink href={bookHref} className="w-full justify-between">
+            {bookHref === "#reserver" ? "Réserver ce soin" : "Réserver un soin"}
           </ButtonLink>
         </div>
       )}

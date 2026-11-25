@@ -20,7 +20,7 @@ export async function SalonStory() {
   ] as const);
 
   return (
-    <section className="bg-paper-soft section-y">
+    <section id="elodie" className="scroll-mt-24 bg-paper-soft section-y">
       <div className="container-site flex flex-col gap-12 md:gap-16">
         <div className="flex max-w-3xl flex-col items-start gap-6">
           <Eyebrow edit={c.edit("salon.elodie.eyebrow")}>

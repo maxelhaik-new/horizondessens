@@ -8,11 +8,12 @@ export type ServiceVariant = {
   /** `null` = tarif non communiqué. */
   priceEuros: number | null;
   /**
-   * Prestation SimplyBook correspondante (une par durée). La catégorie est
-   * nécessaire quand une prestation appartient à plusieurs catégories :
-   * sans elle, SimplyBook redemande le choix au lieu d'ouvrir le calendrier.
+   * ID de la prestation SimplyBook « 2026 » correspondante (une par durée),
+   * utilisée par le module de réservation intégré (API REST publique).
+   * Absent : réservation en ligne indisponible pour cette durée (repli :
+   * téléphone et formulaire de contact). Jamais d'ID d'une prestation legacy.
    */
-  simplybook?: { service: string; category: string };
+  simplybookId?: number;
 };
 
 export type ServiceSlug =

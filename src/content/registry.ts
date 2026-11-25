@@ -1,5 +1,8 @@
+import { servicePages, type TemplateServicePageSlug } from "@/services/pages";
+
 import {
   defineFields,
+  type FieldDef,
   type FieldValue,
   type ImageField,
   type TextField,
@@ -48,6 +51,176 @@ const serviceFields = <S extends string>(
       altMaxLength: IMAGE_ALT,
     },
   }) as ServiceFields<S>;
+
+/**
+ * Champs communs à toutes les pages de soin (gabarit en 5 sections et page
+ * sur mesure du 5 Continents) : hero, réserver, FAQ.
+ */
+const servicePageCommon = (label: string) =>
+  ({
+    "hero.title": {
+      type: "text",
+      label: `${label} · Hero — titre (H1)`,
+      maxLength: 70,
+    },
+    "hero.lead": {
+      type: "textarea",
+      label: `${label} · Hero — accroche`,
+      maxLength: 180,
+    },
+    "hero.image": {
+      type: "image",
+      label: `${label} · Hero — image`,
+      ratio: "4:5",
+      altMaxLength: IMAGE_ALT,
+    },
+
+    "reserver.text": {
+      type: "textarea",
+      label: `${label} · Réserver — ce que comprend la séance`,
+      maxLength: 200,
+    },
+    "reserver.abonnement": {
+      type: "textarea",
+      label: `${label} · Réserver — abonnement`,
+      maxLength: 200,
+    },
+
+    "faq.title": {
+      type: "text",
+      label: `${label} · FAQ — titre`,
+      maxLength: 50,
+    },
+    "faq.intro": {
+      type: "textarea",
+      label: `${label} · FAQ — intro`,
+      maxLength: 160,
+    },
+    "faq.items": {
+      type: "items",
+      label: `${label} · FAQ — questions`,
+      maxItems: 6,
+      fields: {
+        question: { label: "Question", maxLength: 90 },
+        answer: { label: "Réponse", maxLength: 280, multiline: true },
+      },
+    },
+  }) as const satisfies Record<string, FieldDef>;
+
+/**
+ * Gabarit des pages de soin en 5 sections (`soin.<slug>.*`) : hero, le soin,
+ * réserver, FAQ (+ pied de page). Mêmes limites pour chaque soin.
+ * Voir `src/components/service-page/`.
+ */
+const servicePageTemplate = (label: string) =>
+  ({
+    ...servicePageCommon(label),
+
+    "soin.title": {
+      type: "text",
+      label: `${label} · Le soin — titre`,
+      maxLength: 60,
+    },
+    "soin.text": {
+      type: "textarea",
+      label: `${label} · Le soin — chapeau`,
+      maxLength: 320,
+    },
+    "soin.items": {
+      type: "items",
+      label: `${label} · Le soin — les temps du soin`,
+      maxItems: 4,
+      fields: {
+        title: { label: "Titre", maxLength: 35 },
+        text: { label: "Description", maxLength: 200, multiline: true },
+      },
+    },
+    "soin.image": {
+      type: "image",
+      label: `${label} · Le soin — image`,
+      ratio: "4:5",
+      altMaxLength: IMAGE_ALT,
+    },
+  }) as const satisfies Record<string, FieldDef>;
+
+/**
+ * Page sur mesure du Massage des 5 Continents (`src/components/five-continents/`) :
+ * socle commun + prologue (récit) + voyage (les chapitres du soin).
+ */
+const fiveContinentsTemplate = (label: string) =>
+  ({
+    ...servicePageCommon(label),
+
+    "prologue.title": {
+      type: "textarea",
+      label: `${label} · Prologue — grande phrase`,
+      maxLength: 140,
+    },
+    "prologue.text": {
+      type: "textarea",
+      label: `${label} · Prologue — récit (paragraphes séparés par une ligne vide)`,
+      maxLength: 600,
+    },
+    "prologue.image": {
+      type: "image",
+      label: `${label} · Prologue — image`,
+      ratio: "4:5",
+      altMaxLength: IMAGE_ALT,
+    },
+
+    "voyage.title": {
+      type: "text",
+      label: `${label} · Voyage — titre`,
+      maxLength: 60,
+    },
+    "voyage.intro": {
+      type: "textarea",
+      label: `${label} · Voyage — intro`,
+      maxLength: 180,
+    },
+    "voyage.items": {
+      type: "items",
+      label: `${label} · Voyage — les chapitres du soin`,
+      maxItems: 5,
+      fields: {
+        title: { label: "Titre", maxLength: 35 },
+        text: { label: "Récit", maxLength: 240, multiline: true },
+        image: { label: "Image", maxLength: 300, image: { ratio: "4:5" } },
+      },
+    },
+  }) as const satisfies Record<string, FieldDef>;
+
+type ServicePageTemplate = ReturnType<typeof servicePageTemplate>;
+type FiveContinentsTemplate = ReturnType<typeof fiveContinentsTemplate>;
+/** Champs des pages de soin (le préfixe `soin.<slug>.` en moins). */
+export type ServicePageField =
+  keyof ServicePageTemplate | keyof FiveContinentsTemplate;
+
+type Prefixed<S extends string, T> = {
+  [F in keyof T & string as `soin.${S}.${F}`]: T[F];
+};
+
+const prefixed = <S extends string, T extends Record<string, FieldDef>>(
+  slug: S,
+  template: T,
+) =>
+  Object.fromEntries(
+    Object.entries(template).map(([field, def]) => [
+      `soin.${slug}.${field}`,
+      def,
+    ]),
+  ) as Prefixed<S, T>;
+
+/** Champs d'une page de soin (gabarit en 5 sections) : `soin.<slug>.<section>.<champ>`. */
+const servicePageFields = <S extends TemplateServicePageSlug>(slug: S) =>
+  prefixed(slug, servicePageTemplate(servicePages[slug].label));
+
+/** Champs de la page sur mesure du 5 Continents. */
+const fiveContinentsFields = () =>
+  prefixed(
+    "5-continents",
+    fiveContinentsTemplate(servicePages["5-continents"].label),
+  );
 
 export const contentFields = defineFields({
   // --- Accueil · Hero ---
@@ -481,6 +654,13 @@ export const contentFields = defineFields({
     ratio: "16:9",
     altMaxLength: IMAGE_ALT,
   },
+  // ===== Pages de soin (soin.<slug>.*) =====
+  ...servicePageFields("calme-et-harmonie"),
+  ...servicePageFields("jambes-legeres"),
+  ...servicePageFields("rituel-horizon"),
+  // Page sur mesure (src/components/five-continents/) :
+  ...fiveContinentsFields(),
+
   // --- Contact ---
   "contact.hero.eyebrow": {
     type: "text",

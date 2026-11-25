@@ -3,7 +3,6 @@ import { ButtonLink, TextLink } from "@/components/ui/button-link";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { getContents } from "@/content/get-content";
 import { routes } from "@/lib/navigation";
-import { bookingHref } from "@/lib/simplybook";
 import { formatDuration, formatPrice } from "@/services/format";
 import { getService } from "@/services/get-services";
 
@@ -63,7 +62,10 @@ export async function KobidoFormulas() {
               >
                 {descriptions[i]?.text}
               </p>
-              <ButtonLink href={bookingHref(v)} className="mt-auto self-start">
+              <ButtonLink
+                href={`#reserver-${v.durationMinutes}`}
+                className="mt-auto self-start"
+              >
                 Réserver {formatDuration(v.durationMinutes)}
               </ButtonLink>
             </RevealItem>

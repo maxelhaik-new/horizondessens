@@ -3,10 +3,10 @@ import Image from "next/image";
 import { Reveal } from "@/components/motion/reveal";
 import { RevealImage } from "@/components/motion/reveal-image";
 import { SplitWords } from "@/components/motion/split-words";
-import { ButtonLink } from "@/components/ui/button-link";
+import { ButtonLink, TextLink } from "@/components/ui/button-link";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { getContents } from "@/content/get-content";
-import { routes } from "@/lib/navigation";
+import { bookingAnchor, servicePath } from "@/services/pages";
 
 /** §5 Massage des 5 Continents : la section sombre, pour le différenciant. */
 export async function FiveContinents() {
@@ -59,10 +59,19 @@ export async function FiveContinents() {
                 {c["home.5c.licence"]}
               </p>
             </Reveal>
-            <Reveal delay={0.35} className="pt-2">
-              <ButtonLink href={routes.reserver} variant="light">
-                Réserver ce soin
+            <Reveal
+              delay={0.35}
+              className="flex flex-wrap items-center gap-x-8 gap-y-3 pt-2"
+            >
+              <ButtonLink href={servicePath("5-continents")} variant="light">
+                Découvrir ce massage
               </ButtonLink>
+              <TextLink
+                href={bookingAnchor("5-continents")}
+                className="text-white"
+              >
+                Réserver ce massage
+              </TextLink>
             </Reveal>
           </div>
 

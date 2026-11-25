@@ -40,7 +40,7 @@ export async function KobidoFinalCta() {
               {c["kobido.final.text"]}
             </p>
             <div className="flex flex-wrap items-center gap-x-8 gap-y-3 pt-2">
-              <ButtonLink href={routes.reserver} variant="light">
+              <ButtonLink href="#reserver" variant="light">
                 Réserver un Kobido
               </ButtonLink>
               <TextLink href={routes.carteCadeau} className="text-white">
