@@ -175,8 +175,14 @@ const logoGroups: Group<LogoVariant>[] = [
     items: [
       {
         id: "actuel",
-        label: "Squatina Regular · MAJUSCULES (site)",
-        scale: LOGO_SCALE,
+        label: "Sorts Mill Goudy italique · minuscules (site)",
+        style: {
+          fontFamily: "var(--font-serif)",
+          fontWeight: 400,
+          fontStyle: "italic",
+          textTransform: "lowercase",
+          letterSpacing: "-0.01em",
+        },
       },
     ],
   },
@@ -339,7 +345,7 @@ export function LogoWordmark({
   // Polices d'essai : on mesure la hauteur de leurs capitales.
   useLayoutEffect(() => {
     const el = ref.current;
-    if (!el || variant.id === "actuel") return;
+    if (!el) return;
     const measure = () => {
       const cs = getComputedStyle(el);
       const ctx = document.createElement("canvas").getContext("2d");

@@ -32,7 +32,7 @@ export function CookieBanner() {
           animate={{ opacity: 1, y: 0 }}
           exit={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 24 }}
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-          className="fixed bottom-6 left-6 z-30 hidden max-w-sm sm:block"
+          className="fixed right-6 bottom-6 z-30 hidden max-w-sm sm:block"
         >
           <div className="flex flex-col gap-4 rounded-panel bg-paper-soft/95 p-5 text-sm text-ink-soft shadow-soft ring-1 ring-line backdrop-blur-xl">
             <p className="leading-relaxed">

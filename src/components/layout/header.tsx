@@ -124,7 +124,7 @@ export function Header() {
             <Logo />
 
             <nav aria-label="Navigation principale" className="hidden lg:block">
-              <ul className="flex items-center gap-8 text-sm font-medium tracking-[0.016em]">
+              <ul className="flex items-center gap-5 text-sm font-medium tracking-[0.016em] whitespace-nowrap xl:gap-8">
                 {mainNav.map((item) =>
                   item.label === "Soins" ? (
                     <SoinsMenu key={item.href} solid={solid} />

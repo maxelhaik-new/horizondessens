@@ -75,7 +75,7 @@ export async function BookingServices() {
               <RevealItem
                 key={service.slug}
                 as="li"
-                className="grid grid-cols-[4.5rem_1fr] items-start gap-x-4 gap-y-4 rounded-card bg-paper-soft p-4 sm:grid-cols-[9rem_1fr] sm:items-center sm:gap-x-6 md:p-5 lg:grid-cols-[13rem_1fr_auto] lg:gap-8"
+                className="relative grid grid-cols-[4.5rem_1fr] items-start gap-x-4 gap-y-4 rounded-card bg-paper-soft p-4 sm:grid-cols-[9rem_1fr] sm:items-center sm:gap-x-6 md:p-5 lg:grid-cols-[13rem_1fr_auto] lg:gap-8"
               >
                 <div className="relative aspect-square overflow-hidden rounded-2xl sm:rounded-media lg:aspect-[4/3]">
                   {e.image ? (
@@ -108,7 +108,10 @@ export async function BookingServices() {
                   >
                     {e.short}
                   </p>
-                  <TextLink href={servicePath(service.slug)} className="w-fit">
+                  <TextLink
+                    href={servicePath(service.slug)}
+                    className="w-fit after:absolute after:inset-0 after:rounded-card after:content-['']"
+                  >
                     Découvrir ce soin
                   </TextLink>
                 </div>
@@ -128,6 +131,7 @@ export async function BookingServices() {
                           variant.durationMinutes,
                         )}
                         size="sm"
+                        className="relative z-10"
                       >
                         Réserver
                         <span className="sr-only">

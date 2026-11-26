@@ -76,7 +76,7 @@ export async function Services() {
             return (
               <li key={service.slug} className="flex">
                 <Reveal className="flex w-full">
-                  <article className="group grid w-full content-start gap-5 rounded-card bg-paper p-2.5 md:grid-cols-[1.25fr_1fr] md:content-stretch md:gap-12 md:p-4 lg:min-h-[35rem]">
+                  <article className="group relative grid w-full content-start gap-5 rounded-card bg-paper p-2.5 md:grid-cols-[1.25fr_1fr] md:content-stretch md:gap-12 md:p-4 lg:min-h-[35rem]">
                     <RevealImage
                       src={image.src}
                       alt={image.alt}
@@ -121,10 +121,16 @@ export async function Services() {
                           ))}
                         </ul>
                         <div className="flex flex-wrap items-center gap-x-6 gap-y-3 md:gap-x-8">
-                          <ButtonLink href={bookingAnchor(service.slug)}>
+                          <ButtonLink
+                            href={bookingAnchor(service.slug)}
+                            className="relative z-10"
+                          >
                             Réserver
                           </ButtonLink>
-                          <TextLink href={servicePath(service.slug)}>
+                          <TextLink
+                            href={servicePath(service.slug)}
+                            className="after:absolute after:inset-0 after:rounded-card after:content-['']"
+                          >
                             Découvrir ce soin
                           </TextLink>
                         </div>

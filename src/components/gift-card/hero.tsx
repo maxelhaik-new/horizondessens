@@ -1,7 +1,6 @@
 import Image from "next/image";
 
 import { SplitWords } from "@/components/motion/split-words";
-import { ButtonLink } from "@/components/ui/button-link";
 import { getContents } from "@/content/get-content";
 
 /**
@@ -33,7 +32,6 @@ export async function GiftCardHero() {
             {c["cadeau.hero.lead"]}
           </p>
           <div className="flex animate-rise flex-wrap items-center gap-x-6 gap-y-3 [animation-delay:550ms]">
-            <ButtonLink href="#formules">Choisir une carte</ButtonLink>
             <p className="text-sm text-ink-subtle">
               Valable 6 mois · envoyée par e-mail
             </p>

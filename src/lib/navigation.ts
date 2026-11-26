@@ -34,8 +34,9 @@ export const routes = {
 } as const;
 
 export const mainNav = [
+  { label: "Accueil", href: routes.home },
   { label: "Soins", href: routes.reserver },
-  { label: "Kobido", href: routes.kobido },
+  { label: "Découvrir le Kobido", href: routes.kobido },
   { label: "5 Continents", href: routes.cinqContinents },
   { label: "Le salon", href: routes.salon },
   { label: "Carte cadeau", href: routes.carteCadeau },
