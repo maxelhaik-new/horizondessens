@@ -179,6 +179,17 @@ Vérifié : typecheck, lint, format, `content:check` et build OK, page statique.
 - Geste remix conservé, adouci : 0,5 s en `ease-soft` (plus de rebond), survol seulement sur appareils qui survolent.
 - **Règle** : tout nouveau bouton passe par `ButtonLink` / `RemixButton` / `buttonClass()` ; `primary` au plus une fois par page hors actions qui engagent.
 
+
+## Adaptation mobile, deuxième passe (26/11/2026)
+- **En-tête masquable** (< `lg`) : s'efface en descendant, revient en remontant, avec hystérésis (12 px vers le bas pour masquer, 48 px vers le haut pour réafficher : les réajustements de la page ne le font pas clignoter). Marge haute sur `safe-area-inset-top`.
+- **Module de réservation** : après le choix de l'heure (< `lg`), défilement doux jusqu'à « Vos coordonnées » ; lien « Changer » pour remonter au calendrier. Jours du calendrier : nom complet en `sr-only`, abrégé visible en `aria-hidden` (le libellé contient le texte visible, WCAG 2.5.3).
+- **Menu mobile** : taille bornée aussi par la hauteur (`min(60px, 11.2vw, 7.4svh)`) ; en paysage bas (≤ 32rem), menu et coordonnées en deux colonnes ; e-mail et téléphone retirés du menu sous 46rem de haut en portrait (déjà dans le pied de page) ; chaque ouverture repart du panneau principal, même si l'on rouvre pendant la fermeture.
+- **Raccourcis** : `section-y` à 3,5rem sous `md` ; abonnement + carte cadeau en rail ; FAQ de l'accueil à 3 questions sur mobile, « Voir d'autres questions » sans JS (case à cocher + `peer-checked`, tout reste dans le HTML et le JSON-LD) ; `/reserver` sans la description courte sous `sm` ; pages légales : sommaire repliable (< `lg`) et rythme resserré ; contact resserré.
+- **`SplitWords`** : `aria-label` seulement sur un titre `h1`–`h6` (interdit sur un `<p>`, relevé par Lighthouse).
+- **Tests mobiles Playwright** (`npm run test:mobile`, serveur `npm run dev` déjà lancé sur le port 3000, ou `BASE_URL`) : `playwright.config.ts`, `tests/mobile/mobile.spec.ts`, **WebKit** (moteur de Safari) avec profils iPhone 15 et iPhone SE. 32 tests : aucun débordement sur 11 pages, menu (tailles identiques, sous-menu sur une ligne, tient dans l'écran, retour, focus, `inert`, réouverture), rail aimanté et jauge, en-tête masquable, pied de page, module (champs après le créneau, **sans envoi** ; ignoré si l'agenda ne répond pas). Limite : WebKit mobile ne simule ni molette ni glissement, les défilements sont faits en JS.
+- **Lighthouse mobile** (build de production) : 100 en performance, accessibilité et bonnes pratiques sur accueil, Kobido, 5 Continents, Calme et harmonie, Le salon, Carte cadeau, Soins et tarifs, CGV ; SEO à 69 = `noindex` voulu hors du vrai domaine. **Piste ouverte** : `/contact` à 81 en performance (LCP 4,7 s simulé alors que l'image démarre aussi tôt qu'ailleurs ; probablement une partie rendue en différé), non traitée.
+- **Non fait** : simulateur iOS (Xcode n'est pas installé sur ce Mac, seulement les outils en ligne de commande). Vrai iPhone toujours à tester.
+
 ## Images Midjourney intégrées (23/11/2026)
 Les 7 images de `assets/massage midjourney/` sont compressées en JPEG dans `public/images/massages/` et branchées dans `src/content/defaults.ts` : hero = `header1` (paysage, fait pour le hero), Kobido (carte) = `kobido-visage-1`, Calme et harmonie = `dos`, 5 Continents (carte) = `bras`, Jambes légères = `pieds`, focus Kobido = `visage-5`, focus 5 Continents = `massages/dos-2` (remplace le flacon d'huile, demandé par Maxime) (jamais deux dos proches). **Kobido = uniquement des visages** (seules 2 images de visage existent). Règle : **jamais deux fois la même image sur une page** (médaillons de la philosophie remplacés par `mains-epaules`, `massage-dos`, `massage-dos-2`).
 
@@ -489,6 +500,7 @@ Pas de newsletter.
 | 2026-11-25 | Dev | **Gabarit des pages de soin** et première page `/massage-5-continents`, à valider. Étude « remplacer SimplyBook » : on fait les pages de soin d'abord. |
 | 2026-11-25 | Dev | **Gabarit des pages de soin refait en 5 sections** (évaluation distill + clarify : redondances retirées, page deux fois plus courte), appliqué à Calme et harmonie, Jambes légères et Rituel Horizon. **Page sur mesure du 5 Continents** (récit, voyage en chapitres à défilement horizontal). Kobido et 5 Continents dans le menu. Liens internes vérifiés et corrigés. |
 | 2026-11-25 | Mobile | **Adaptation mobile** (`/impeccable adapt`) : rails horizontaux, menu à sous-panneau « Soins », pied de page compact, module replié, pages 25 à 40 % plus courtes. |
+| 2026-11-26 | Mobile | **Deuxième passe mobile** : en-tête masquable, module guidé, menu paysage et écrans bas, raccourcis (FAQ, offres, légal, tarifs), tests Playwright WebKit (32/32), Lighthouse à 100. |
 | 2026-11-24 | CMS | **Mini-CMS** : schéma Supabase (RLS, bucket), édition en place sur les vraies pages (Draft Mode), photos, brouillons et publication, `/admin`. 131 clés marquées sur toutes les pages. Variables sur Vercel. Reste : compte éditeur et test de bout en bout. |
 
 ### Questions encore ouvertes

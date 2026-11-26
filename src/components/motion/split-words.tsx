@@ -42,12 +42,19 @@ export function SplitWords({
       else acc.push(token);
       return acc;
     }, []);
+  // `aria-label` n'est permis que sur un titre : ailleurs (un `<p>`), les
+  // mots restent lus tels quels, ce sont de simples `<span>` en ligne.
+  const heading = typeof Tag === "string" && /^h[1-6]$/.test(Tag);
   const content = (
-    <Tag className={className} aria-label={text} {...edit}>
+    <Tag
+      className={className}
+      aria-label={heading ? text : undefined}
+      {...edit}
+    >
       {words.map((word, i) => (
         <span
           key={`${word}-${i}`}
-          aria-hidden
+          aria-hidden={heading || undefined}
           className="split-word"
           style={{ "--i": i, "--d": `${delay}ms` } as CSSProperties}
         >

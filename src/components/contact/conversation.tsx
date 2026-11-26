@@ -23,8 +23,8 @@ export async function ContactConversation() {
   return (
     <section id="ecrire" className="scroll-mt-8 section-y">
       <div className="container-site grid gap-3 lg:grid-cols-[1fr_1.15fr]">
-        <Reveal className="flex flex-col justify-between gap-12 rounded-card bg-blush p-8 md:p-12">
-          <div className="flex flex-col items-start gap-6">
+        <Reveal className="flex flex-col justify-between gap-8 rounded-card bg-blush p-6 md:gap-12 md:p-12">
+          <div className="flex flex-col items-start gap-5 md:gap-6">
             <SplitWords
               text={c["contact.form.title"]}
               edit={c.edit("contact.form.title")}
@@ -39,7 +39,7 @@ export async function ContactConversation() {
             <TextLink href={routes.reserver}>Voir les soins et tarifs</TextLink>
           </div>
 
-          <ul className="flex flex-col gap-4">
+          <ul className="flex flex-col gap-3 md:gap-4">
             <ContactLine icon={<PhoneIcon className="size-4" />}>
               <a href={site.phone.href} className="hover:text-accent-800">
                 {site.phone.display}
@@ -58,7 +58,7 @@ export async function ContactConversation() {
 
         <Reveal
           delay={0.1}
-          className="rounded-card bg-paper-soft p-6 shadow-soft md:p-10"
+          className="rounded-card bg-paper-soft p-5 shadow-soft sm:p-6 md:p-10"
         >
           <ContactForm />
         </Reveal>

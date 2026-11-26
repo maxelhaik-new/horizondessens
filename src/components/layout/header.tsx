@@ -34,6 +34,9 @@ const servicePagePaths: readonly string[] = [
  */
 export function Header() {
   const [scrolled, setScrolled] = useState(false);
+  // Mobile et tablette : l'en-tête s'efface quand on descend, revient dès
+  // qu'on remonte (environ 90 px d'écran rendus au contenu).
+  const [hidden, setHidden] = useState(false);
   const [open, setOpen] = useState(false);
   const [heroCtaVisible, setHeroCtaVisible] = useState(false);
   const pathname = usePathname();
@@ -43,7 +46,27 @@ export function Header() {
     : routes.reserver;
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40);
+    // Hystérésis : il faut descendre de 12 px pour masquer, remonter de
+    // 48 px pour réafficher (les petits réajustements de la page, comme le
+    // rebond iOS ou un changement de mise en page, ne font pas clignoter).
+    let last = window.scrollY;
+    let down = 0;
+    let up = 0;
+    const onScroll = () => {
+      const y = window.scrollY;
+      setScrolled(y > 40);
+      const delta = y - last;
+      last = y;
+      if (delta > 0) {
+        down += delta;
+        up = 0;
+      } else {
+        up -= delta;
+        down = 0;
+      }
+      if (y < 160 || up > 48) setHidden(false);
+      else if (down > 12) setHidden(true);
+    };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -82,7 +105,12 @@ export function Header() {
 
   return (
     <>
-      <header className="fixed inset-x-0 top-0 z-50 pt-3 md:pt-4">
+      <header
+        className={cn(
+          "fixed inset-x-0 top-0 z-50 pt-[max(0.75rem,env(safe-area-inset-top))] transition-transform duration-500 ease-soft motion-reduce:transition-none md:pt-4",
+          hidden && !open && "max-lg:-translate-y-[calc(100%+0.5rem)]",
+        )}
+      >
         <div className="container-site">
           <div
             className={cn(

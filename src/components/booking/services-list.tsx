@@ -111,7 +111,7 @@ export async function BookingServices() {
                   )}
                 </div>
 
-                <div className="flex flex-col gap-2">
+                <div className="flex flex-col gap-1.5 sm:gap-2">
                   <p
                     {...c.edit(`${key}.subtitle` as EditKey)}
                     className="text-eyebrow text-accent-800"
@@ -121,7 +121,7 @@ export async function BookingServices() {
                   <h3 className="text-h4 sm:text-h3">{service.name}</h3>
                   <p
                     {...c.edit(`${key}.short` as EditKey)}
-                    className="max-w-xl text-body text-pretty text-ink-soft"
+                    className="max-w-xl text-body text-pretty text-ink-soft max-sm:hidden"
                   >
                     {e.short}
                   </p>

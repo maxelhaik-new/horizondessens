@@ -14,7 +14,8 @@
     "content:check": "tsx scripts/check-content.ts",
     "assets:brand": "node scripts/brand-assets.mjs",
     "test:cms": "node --env-file-if-exists=.env.local --import tsx --test tests/cms.integration.test.ts",
-    "simplybook:services": "node scripts/simplybook-services.mjs"
+    "simplybook:services": "node scripts/simplybook-services.mjs",
+    "test:mobile": "playwright test"
   },
   "dependencies": {
     "@pdf-lib/fontkit": "^1.1.1",
@@ -32,6 +33,7 @@
     "tailwind-merge": "^3.7.1"
   },
   "devDependencies": {
+    "@playwright/test": "^1.65.1",
     "@tailwindcss/turbopack": "4.3.3",
     "@types/node": "^20",
     "@types/react": "^19",

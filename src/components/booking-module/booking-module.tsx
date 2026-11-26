@@ -1,7 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import { useActionState, useCallback, useEffect, useState } from "react";
+import {
+  useActionState,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 
 import { buttonClass } from "@/components/ui/button-link";
 import { CheckIcon, ChevronRightIcon } from "@/components/ui/icons";
@@ -79,6 +85,8 @@ export function BookingModule({
     time: string | null;
   }>({ date: null, time: null });
   const [contact, setContact] = useState({ name: "", email: "", phone: "" });
+  const contactRef = useRef<HTMLDivElement>(null);
+  const daysRef = useRef<HTMLDivElement>(null);
   // Contrôlée : React vide les champs non contrôlés après l'envoi du formulaire.
   const [consent, setConsent] = useState(false);
   const [state, formAction, pending] = useActionState(
@@ -125,7 +133,30 @@ export function BookingModule({
       ? pick.time
       : null;
   const setDate = (value: string) => setPick({ date: value, time: null });
-  const setTime = (value: string) => setPick({ date, time: value });
+  const setTime = (value: string) => {
+    setPick({ date, time: value });
+    // Mobile : les champs viennent d'apparaître sous le calendrier ; on les
+    // amène à l'écran (le module est empilé sous 64rem).
+    requestAnimationFrame(() => {
+      if (!window.matchMedia("(max-width: 63.999rem)").matches) return;
+      const reduce = window.matchMedia(
+        "(prefers-reduced-motion: reduce)",
+      ).matches;
+      contactRef.current?.scrollIntoView({
+        behavior: reduce ? "auto" : "smooth",
+        block: "start",
+      });
+    });
+  };
+  const scrollToDays = () => {
+    const reduce = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+    daysRef.current?.scrollIntoView({
+      behavior: reduce ? "auto" : "smooth",
+      block: "start",
+    });
+  };
 
   const chooseOption = useCallback((key: string) => {
     setOptionKey(key);
@@ -255,7 +286,12 @@ export function BookingModule({
           </p>
         )}
 
-        <div role="group" aria-label="Jour" className="flex flex-col gap-4">
+        <div
+          ref={daysRef}
+          role="group"
+          aria-label="Jour"
+          className="flex scroll-mt-24 flex-col gap-4"
+        >
           <div className="flex items-center justify-between gap-4">
             <p className="text-h4 font-serif tracking-[-0.02em] italic first-letter:uppercase">
               {periodStart
@@ -316,7 +352,6 @@ export function BookingModule({
                       type="button"
                       disabled={!open}
                       aria-pressed={selected}
-                      aria-label={`${longDate.format(asUtc(d.date))}${open ? `, ${d.times.length} créneau${d.times.length > 1 ? "x" : ""}` : ", complet"}`}
                       onClick={() => setDate(d.date)}
                       className={cn(
                         "flex h-[4.5rem] cursor-pointer flex-col items-center justify-center rounded-2xl text-center transition-colors duration-300",
@@ -327,13 +362,23 @@ export function BookingModule({
                             : "cursor-default text-ink-subtle/50",
                       )}
                     >
-                      <span className="text-[0.7rem] tracking-wide uppercase">
+                      {/* Nom accessible complet ; l'abrégé visible est décoratif. */}
+                      <span className="sr-only">
+                        {`${longDate.format(asUtc(d.date))}${open ? `, ${d.times.length} créneau${d.times.length > 1 ? "x" : ""}` : ", complet"}`}
+                      </span>
+                      <span
+                        aria-hidden
+                        className="text-[0.7rem] tracking-wide uppercase"
+                      >
                         {weekday.format(asUtc(d.date)).replace(".", "")}
                       </span>
-                      <span className="font-serif text-xl leading-tight italic">
+                      <span
+                        aria-hidden
+                        className="font-serif text-xl leading-tight italic"
+                      >
                         {dayNum.format(asUtc(d.date))}
                       </span>
-                      <span className="text-[0.65rem] opacity-70">
+                      <span aria-hidden className="text-[0.65rem] opacity-70">
                         {month.format(asUtc(d.date)).replace(".", "")}
                       </span>
                     </button>
@@ -387,10 +432,24 @@ export function BookingModule({
       </div>
 
       {/* 2. Coordonnées */}
-      <div className="flex flex-col gap-5 rounded-card bg-paper-soft p-5 sm:p-6 md:p-10">
-        <p className="text-h4 font-serif tracking-[-0.02em] italic">
-          Vos coordonnées
-        </p>
+      <div
+        ref={contactRef}
+        className="flex scroll-mt-6 flex-col gap-5 rounded-card bg-paper-soft p-5 sm:p-6 md:p-10"
+      >
+        <div className="flex items-baseline justify-between gap-4">
+          <p className="text-h4 font-serif tracking-[-0.02em] italic">
+            Vos coordonnées
+          </p>
+          {date && time ? (
+            <button
+              type="button"
+              onClick={scrollToDays}
+              className="-my-3 inline-flex min-h-11 shrink-0 cursor-pointer items-center text-sm font-medium text-accent-800 underline decoration-current/30 underline-offset-4 hover:decoration-current lg:hidden"
+            >
+              Changer
+            </button>
+          ) : null}
+        </div>
         <p className="text-sm text-ink-soft" aria-live="polite">
           {date && time ? (
             <>

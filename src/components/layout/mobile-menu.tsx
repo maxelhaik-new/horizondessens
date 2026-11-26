@@ -23,10 +23,11 @@ const soins = soinsNav.map((s) => ({
 
 /**
  * Taille commune à toutes les entrées des deux panneaux (25/11/2026) : la
- * plus longue (« Calme et harmonie ») doit tenir sur une ligne dès 320 px.
+ * plus longue (« Calme et harmonie ») doit tenir sur une ligne dès 320 px ;
+ * bornée aussi par la hauteur (paysage).
  */
 const itemText =
-  "font-serif text-[min(60px,11.2vw)] leading-[1.08] tracking-[0.4px] italic";
+  "font-serif text-[min(60px,11.2vw,7.4svh)] leading-[1.08] tracking-[0.4px] italic";
 
 /*
  * Menu mobile « à voiles courbes » (inspiré du composant CurveMenuOverlay,
@@ -69,6 +70,13 @@ export function MobileMenu({ id, open, onNavigate }: Props) {
   const running = useRef<AnimationPlaybackControls[]>([]);
   const first = useRef(true);
   const [panel, setPanel] = useState<"main" | "soins">("main");
+  // Chaque ouverture repart du panneau principal, même si l'on rouvre
+  // pendant la fermeture (ajustement d'état au rendu, sans effet).
+  const [wasOpen, setWasOpen] = useState(open);
+  if (open !== wasOpen) {
+    setWasOpen(open);
+    if (open) setPanel("main");
+  }
   const soinsButton = useRef<HTMLButtonElement>(null);
   const backButton = useRef<HTMLButtonElement>(null);
 
@@ -235,8 +243,11 @@ export function MobileMenu({ id, open, onNavigate }: Props) {
         </svg>
       ))}
 
-      <div className="relative flex h-full flex-col justify-center-safe gap-[clamp(28px,5vh,60px)] overflow-y-auto overscroll-contain px-[8vw] pt-24 pb-[5vh] text-white">
-        <div data-panels className="grid overflow-x-clip">
+      <div className="relative flex h-full flex-col justify-center-safe gap-[clamp(20px,4svh,60px)] overflow-y-auto overscroll-contain px-[max(8vw,env(safe-area-inset-left))] pt-[clamp(5rem,13svh,6rem)] pb-[max(4svh,env(safe-area-inset-bottom))] text-white [@media(max-height:32rem)]:flex-row [@media(max-height:32rem)]:items-center [@media(max-height:32rem)]:justify-between [@media(max-height:32rem)]:pt-20 [@media(max-height:32rem)]:pb-6">
+        <div
+          data-panels
+          className="grid min-w-0 overflow-x-clip [@media(max-height:32rem)]:flex-1"
+        >
           {/* Panneau principal */}
           <nav
             aria-label="Navigation mobile"
@@ -261,7 +272,7 @@ export function MobileMenu({ id, open, onNavigate }: Props) {
                       style={{ transform: "translateY(110%)" }}
                       className={cn(
                         itemText,
-                        "flex w-full cursor-pointer items-center justify-between gap-4 pr-1 text-left",
+                        "flex w-full max-w-md cursor-pointer items-center justify-between gap-4 pr-1 text-left",
                       )}
                     >
                       {item.label}
@@ -343,7 +354,7 @@ export function MobileMenu({ id, open, onNavigate }: Props) {
         </div>
 
         <div data-extra className="flex flex-col items-start gap-6 opacity-0">
-          <div className="flex flex-col gap-3 text-base leading-[1.4] text-white/75">
+          <div className="flex flex-col gap-3 text-base leading-[1.4] text-white/75 [@media(max-height:46rem)_and_(orientation:portrait)]:hidden">
             <a
               href={`mailto:${site.email}`}
               className="transition-opacity hover:opacity-70"

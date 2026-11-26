@@ -43,3 +43,8 @@ Thumbs.db
 serelin/
 serelin components/
 /components/
+
+# Playwright
+/test-results/
+/playwright-report/
+/blob-report/
