@@ -10,7 +10,7 @@ import { JsonLd } from "@/components/seo/json-ld";
 import { isIndexable, siteGraph } from "@/lib/seo";
 import { site } from "@/lib/site";
 
-import { fontSans, fontSerif } from "./fonts";
+import { fontLogo, fontSans, fontSerif } from "./fonts";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -60,7 +60,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="fr"
-      className={`${fontSerif.variable} ${fontSans.variable} antialiased`}
+      className={`${fontSerif.variable} ${fontSans.variable} ${fontLogo.variable} antialiased`}
     >
       <body className="flex min-h-svh flex-col">
         <a

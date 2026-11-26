@@ -4,7 +4,7 @@ import { headers } from "next/headers";
 import Link from "next/link";
 import { Suspense } from "react";
 
-import { LogoSymbol } from "@/components/brand/logo";
+import { LogoSymbol, LogoWordmark } from "@/components/brand/logo";
 import { ButtonLink } from "@/components/ui/button-link";
 import { fulfillGiftCard } from "@/lib/gift-card/fulfill";
 import { formatDateFr, type GiftCardOrder } from "@/lib/gift-card/order";
@@ -152,9 +152,9 @@ function CardSummary({ order }: { order: GiftCardOrder }) {
   return (
     <div className="flex flex-col gap-8 rounded-card bg-night p-6 text-white shadow-soft sm:p-8 md:p-10 lg:rotate-2">
       <div className="flex items-start justify-between gap-6">
-        <span className="flex items-center gap-2 font-serif text-lg whitespace-nowrap italic md:text-xl">
+        <span className="flex items-center gap-2 text-lg whitespace-nowrap md:text-xl">
           <LogoSymbol className="size-7" />
-          {site.name}
+          <LogoWordmark />
         </span>
         <span className="hidden rounded-full bg-white/10 px-3.5 py-2 text-xs font-medium whitespace-nowrap text-white/85 sm:inline-block">
           Carte cadeau

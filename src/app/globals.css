@@ -10,6 +10,8 @@
   /* Typographies (variables posées par next/font dans layout.tsx) */
   --font-serif: var(--font-instrument-serif), "Times New Roman", serif;
   --font-sans: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
+  --font-logo:
+    var(--font-lt-superior-serif), "Times New Roman", serif; /* nom du logo seulement */
 
   /* Surfaces */
   --color-paper: #f7ece9; /* fond principal */

@@ -3,11 +3,10 @@ import Link from "next/link";
 import { RevealGroup, RevealItem } from "@/components/motion/reveal";
 import { SplitWords } from "@/components/motion/split-words";
 import { RemixButton } from "@/components/ui/button-link";
-import { LogoSymbol } from "@/components/brand/logo";
+import { LogoSymbol, LogoWordmark } from "@/components/brand/logo";
 import { getContents } from "@/content/get-content";
 import { getGiftCards } from "@/lib/gift-cards";
 import { routes } from "@/lib/navigation";
-import { site } from "@/lib/site";
 import { cn } from "@/lib/cn";
 import { formatDuration, formatPrice } from "@/services/format";
 
@@ -60,12 +59,12 @@ export async function GiftCardCards() {
                   <div className="flex items-start justify-between gap-6">
                     <span
                       className={cn(
-                        "flex items-center gap-2 font-serif text-lg whitespace-nowrap italic md:gap-2.5 md:text-xl",
+                        "flex items-center gap-2 text-lg whitespace-nowrap md:gap-2.5 md:text-xl",
                         dark ? "text-white" : "text-accent-800",
                       )}
                     >
                       <LogoSymbol className="size-7" />
-                      {site.name}
+                      <LogoWordmark />
                     </span>
                     <span
                       className={cn(

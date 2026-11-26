@@ -8,6 +8,7 @@ import {
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 
+import { LogoTrialSelect } from "@/components/brand/logo-trial";
 import { ButtonLink } from "@/components/ui/button-link";
 import { ChevronRightIcon } from "@/components/ui/icons";
 import { cn } from "@/lib/cn";
@@ -375,6 +376,8 @@ export function MobileMenu({ id, open, onNavigate }: Props) {
           >
             Choisir un soin
           </ButtonLink>
+          {/* TEMPORAIRE : essais de logo. */}
+          <LogoTrialSelect className="text-white" />
         </div>
       </div>
     </div>

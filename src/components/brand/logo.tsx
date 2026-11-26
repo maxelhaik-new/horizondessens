@@ -3,6 +3,10 @@ import Link from "next/link";
 import { cn } from "@/lib/cn";
 import { site } from "@/lib/site";
 
+import { LogoWordmark } from "./logo-trial";
+
+export { LogoWordmark };
+
 /**
  * Symbole du logo, coloré par `currentColor` (masque CSS sur le PNG détouré).
  * Provisoire : à remplacer par le SVG définitif fourni par Maxime.
@@ -28,9 +32,7 @@ export function Logo({ className }: { className?: string }) {
       className={cn("inline-flex min-h-11 items-center gap-2.5", className)}
     >
       <LogoSymbol className="size-8" />
-      <span className="font-serif text-2xl leading-none tracking-[-0.02em]">
-        {site.name}
-      </span>
+      <LogoWordmark className="text-[1.375rem]" />
     </Link>
   );
 }

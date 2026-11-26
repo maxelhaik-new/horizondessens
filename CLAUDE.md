@@ -180,6 +180,14 @@ Vérifié : typecheck, lint, format, `content:check` et build OK, page statique.
 - **Règle** : tout nouveau bouton passe par `ButtonLink` / `RemixButton` / `buttonClass()` ; `primary` au plus une fois par page hors actions qui engagent.
 
 
+## Logo : police du nom (26/11/2026, essai)
+- Demande de Maxime : ne plus dessiner le nom du logo en Instrument Serif (utilisée pour tous les titres). **Essai avec LT Superior Serif** (OFL, zip `LTSuperiorSerif-2120.zip` à la racine, non versionné).
+- Regular et Medium convertis en woff2, sous-ensemble latin (~22 Ko chacun) : `src/app/fonts/lt-superior-serif/` (+ `OFL.txt`). `fontLogo` (`next/font/local`) dans `src/app/fonts.ts`, variable `--font-lt-superior-serif`, token Tailwind `font-logo`.
+- `LogoWordmark` (`src/components/brand/logo.tsx`) : Medium 500, droit, interlettrage -0,015em. Utilisé par `Logo` (en-tête, appel final de l'accueil), les cartes de `/carte-cadeau` et la carte de `/carte-cadeau/merci` (avant : Instrument Serif italique). **Règle** : le nom de la marque à côté du symbole passe toujours par `LogoWordmark`.
+- Non changé : e-mails (`email-template.ts`, police système), PDF de la carte cadeau, images de partage (`npm run assets:brand`). À aligner si la police est retenue.
+- Graisse retenue par Maxime : **Medium** (option 1).
+- ⚠️ **Sélecteur d'essais TEMPORAIRE** : `src/components/brand/logo-trial.tsx` (client) : `logoVariants`, `LogoWordmark` et `LogoTrialSelect` (choix dans `localStorage` `hds-logo-essai`, propagé partout par un événement). Sélecteur sous la pilule de l'en-tête (desktop) et en bas du menu mobile. Le serveur rend toujours la variante 1. **À retirer** une fois le logo choisi.
+
 ## Adaptation mobile, deuxième passe (26/11/2026)
 - **En-tête masquable** (< `lg`) : s'efface en descendant, revient en remontant, avec hystérésis (12 px vers le bas pour masquer, 48 px vers le haut pour réafficher : les réajustements de la page ne le font pas clignoter). Marge haute sur `safe-area-inset-top`.
 - **Module de réservation** : après le choix de l'heure (< `lg`), défilement doux jusqu'à « Vos coordonnées » ; lien « Changer » pour remonter au calendrier. Jours du calendrier : nom complet en `sr-only`, abrégé visible en `aria-hidden` (le libellé contient le texte visible, WCAG 2.5.3).
