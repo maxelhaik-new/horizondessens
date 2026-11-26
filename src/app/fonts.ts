@@ -59,13 +59,16 @@ export const fontSans = localFont({
 });
 
 /**
- * Logo (nom « HORIZON DES SENS », en capitales) : Bluu Next Bold (Velvetyne,
- * licence OFL), choisie par Maxime le 26/11/2026. Hauteur des capitales :
- * 0,685 em (H de 0 à 685 sur 1000) : `LogoWordmark` cale le symbole dessus.
+ * Logo (nom « HORIZON DES SENS », en capitales) : Squatina Regular (Anaëlle
+ * Turc, Louise Sansoldi, Julia Veljkovic, ESAD Valence ; licence OFL à
+ * confirmer, voir `fonts/squatina/LICENSE.md`), choisie par Maxime le
+ * 26/11/2026. Condensée : affichée à 125 % de la taille du logo. Hauteur des
+ * capitales : 0,7 em (H de 0 à 700 sur 1000) : `LogoWordmark` cale le
+ * symbole dessus.
  */
 export const fontLogo = localFont({
-  src: [{ path: "./fonts/bluu-next/BluuNext-Bold.woff2", weight: "700" }],
-  variable: "--font-bluu-next",
+  src: [{ path: "./fonts/squatina/Squatina-Regular.woff2", weight: "400" }],
+  variable: "--font-squatina",
   display: "swap",
   fallback: ["Times New Roman", "serif"],
 });

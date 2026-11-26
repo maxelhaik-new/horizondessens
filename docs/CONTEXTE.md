@@ -281,6 +281,11 @@ Décision de Maxime : les pages affichent les hypothèses **sans mention « à c
 - **Confidentialité** : durées de conservation standard CNIL (3 ans contacts/clients, 10 ans comptable), aucun outil d'audience, Google Maps chargé au clic.
 - Le tout doit être **relu par Élodie**, idéalement avec un conseiller.
 
+#### Charte unifiée : polices, logo, carte cadeau, e-mails (26/11/2026, Maxime)
+- **Validé temporairement** : titres en Sorts Mill Goudy, textes en Source Sans 3 (+10 %), logo en **Squatina Regular capitales** (licence à confirmer, §15). Le sélecteur d'essais reste sur le site pour l'instant.
+- Tout est aligné sur ces choix : site, e-mails (contact, carte cadeau, modèles Supabase), PDF de la carte cadeau, visuel et mockups de la carte, Stripe Checkout (Source Sans Pro, la plus proche proposée par Stripe, et logo), icônes et images de partage.
+- **Carte cadeau : un seul recto** (mise en page commune `src/lib/gift-card/card-layout.json`) pour les mockups du site, la page 1 du PDF et l'aperçu de la page de remerciement. Le PDF passe à 2 pages au format de la carte (recto sombre, page de détails claire).
+
 #### Cartes cadeaux en ligne : choix de Maxime (24/11/2026)
 - **Saisie sur la page Stripe** : « Pour qui ? » (obligatoire, 60 caractères), « De la part de » et « Un petit mot » (facultatifs, 60 et 200 caractères). Pas de formulaire sur le site.
 - **Registre dans Stripe** : numéro `HDS-XXXX-XXXX`, prestation, bénéficiaire et validité dans les métadonnées du paiement (recherche par numéro dans le tableau de bord), plus une copie de chaque carte par e-mail à Élodie. Pas de table Supabase ni de suivi « utilisée » pour l'instant.
@@ -396,7 +401,8 @@ Décision de Maxime : les pages affichent les hypothèses **sans mention « à c
 - [x] Page 404 aux couleurs du site (23/11/2026).
 - [ ] Textes relus et validés par Élodie (accueil, Kobido : citation de l'approche, déroulé, FAQ, contre-indications).
 - [ ] Stationnement du salon : à préciser avec Élodie (`home.final.access` décrit l'accès, publié dans le CMS, sans le stationnement).
-- [ ] Logo définitif en SVG (fourni par Maxime) à la place du provisoire.
+- [x] Logo : symbole soleil vectoriel + nom en **Squatina** capitales, validés temporairement par Maxime (26/11/2026) ; logo complet en SVG (`public/images/logo/logo-horizon-des-sens.svg`) et tous ses dérivés générés par `npm run assets:brand`.
+- [ ] ⚠️ **Licence de Squatina à confirmer** (OFL annoncée par un agrégateur, aucun fichier de licence fourni ; conceptrices : ESAD Valence) avant la mise en ligne : le dépôt est public et la police y est versionnée (`src/app/fonts/squatina/LICENSE.md`).
 - [ ] ⚠️ **Retirer les essais typographiques** (onglet « Aa » au bord droit de l'écran, ajouté le 26/11/2026) : supprimer `<TrialsDock />` de `src/app/layout.tsx` et l'import de `font-trials.css`, le dossier `src/components/trials/` (garder `LogoWordmark` dans `logo.tsx`, avec la variante de logo retenue), `public/fonts/essais/`, les polices `fontTrial*` et `trialFontVariables` de `src/app/fonts.ts`. Vérifier qu'aucune police d'essai n'est restée (licences de Thestral Neue et Squatina non vérifiées).
 - [ ] Image jambes ou pieds pour Jambes légères, portrait professionnel d'Élodie (si shooting).
 - [ ] Badge M5C : règles d'usage de la fédération.
@@ -452,7 +458,8 @@ Décision de Maxime : les pages affichent les hypothèses **sans mention « à c
 - [ ] **À la bascule (live)** : créer dans le compte live d'Élodie le webhook `https://horizondessens.fr/api/stripe/webhook` (mêmes événements), puis remplacer en **Production** les 3 variables par les valeurs live et son nouveau secret (Preview garde le test). Supprimer le webhook de test s'il n'est plus utile. Les clés live ne passent jamais par une conversation.
 - [x] **Domaine Resend vérifié** (24/11/2026) : la carte peut partir chez l'acheteur. Reste à refaire un achat test vers une autre adresse.
 - [ ] **Régénérer la clé secrète Stripe de test** (collée dans une conversation) et mettre à jour `.env.local`, Vercel (Production et Preview) et l'entrée locale du MCP Stripe (`~/.claude.json`).
-- [ ] Faire valider le PDF par Élodie (ou le caler sur son modèle Canva plus tard).
+- [ ] Faire valider le PDF par Élodie (ou le caler sur son modèle Canva plus tard). **PDF refait le 26/11/2026** : 2 pages au format de la carte (210 × 137 mm), recto identique au visuel des mockups, page de détails claire.
+- [ ] Faire valider par Élodie l'accroche du recto selon la durée (« une heure rien que pour vous » / « une heure et quart rien que pour vous »).
 - [ ] Faire valider par Élodie la **carte cadeau généraliste** (26/11/2026) : séance 1h (Kobido) / 1h15 (tous les soins), différence réglée au salon pour le 5 Continents.
 - [ ] Paiement de test puis paiement réel remboursé.
 
@@ -462,6 +469,7 @@ Décision de Maxime : les pages affichent les hypothèses **sans mention « à c
 - [x] Compte de Maxime (`maxelhaik@gmail.com`) invité et ajouté à `cms_editors` (24/11/2026).
 - [x] **Test de bout en bout en local** par Maxime (24/11/2026) + test de non-régression `npm run test:cms`. Reste : une publication sur le site en ligne.
 - [x] **SMTP Resend dans Supabase Auth** (24/11/2026) : `smtp.resend.com:465`, clé Resend dédiée « Supabase SMTP (auth CMS) » (envoi seul, limitée au domaine), expéditeur « Horizon des Sens <contact@horizondessens.fr> », 30 e-mails/h. Modèles **invitation** et **mot de passe oublié** en français (`supabase/templates/`). « Mot de passe oublié » testé : délivré.
+- [x] **Réappliquer les modèles d'e-mails Supabase** (fait le 26/11/2026) (`supabase/templates/`, refaits à la charte le 26/11/2026 : logo, polices, couleurs) par l'API de gestion (docs/cms.md §« E-mails »), **avant** d'inviter Élodie.
 - [ ] Inviter Élodie (possible dès maintenant ; le lien pointera vers la Site URL tant qu'elle est en localhost : attendre la mise en ligne ou passer `redirect_to` vers `horizondessens.vercel.app`).
 - [ ] À la mise en ligne : Supabase Auth **Site URL** → `https://horizondessens.fr` (aujourd'hui `http://localhost:3005`).
 - [x] Ligne de test `home.hero.lead` (« TEST CMS… ») retirée (24/11/2026).

@@ -4,7 +4,7 @@ import { headers } from "next/headers";
 import Link from "next/link";
 import { Suspense } from "react";
 
-import { LogoWordmark } from "@/components/brand/logo";
+import { GiftCardFace } from "@/components/gift-card/card-face";
 import { ButtonLink } from "@/components/ui/button-link";
 import { fulfillGiftCard } from "@/lib/gift-card/fulfill";
 import { formatDateFr, type GiftCardOrder } from "@/lib/gift-card/order";
@@ -147,36 +147,18 @@ async function Confirmation({
   );
 }
 
-/** La carte en miniature, dessinée comme sur la page Carte cadeau. */
+/**
+ * La carte telle qu'elle est reçue : recto du PDF (même fond, mêmes
+ * positions), puis sa validité.
+ */
 function CardSummary({ order }: { order: GiftCardOrder }) {
   return (
-    <div className="flex flex-col gap-8 rounded-card bg-night p-6 text-white shadow-soft sm:p-8 md:p-10 lg:rotate-2">
-      <div className="flex items-start justify-between gap-6">
-        <span className="flex items-center gap-2 text-lg whitespace-nowrap md:text-xl">
-          <LogoWordmark symbol />
-        </span>
-        <span className="hidden rounded-full bg-white/10 px-3.5 py-2 text-xs font-medium whitespace-nowrap text-white/85 sm:inline-block">
-          Carte cadeau
-        </span>
-      </div>
-      <div className="flex flex-col gap-2">
-        <p className="text-eyebrow text-white/65">Pour {order.recipient}</p>
-        <p className="font-serif text-6xl leading-none tracking-[-0.03em] italic md:text-7xl">
-          {order.title} {formatDuration(order.durationMinutes)}
-        </p>
-      </div>
-      <dl className="grid gap-4 border-t border-white/15 pt-6 sm:grid-cols-2">
-        <div className="flex flex-col gap-1">
-          <dt className="text-eyebrow text-white/65">Numéro</dt>
-          <dd className="font-medium tracking-wide">{order.code}</dd>
-        </div>
-        <div className="flex flex-col gap-1">
-          <dt className="text-eyebrow text-white/65">Valable jusqu&apos;au</dt>
-          <dd className="font-serif text-2xl italic">
-            {formatDateFr(order.validUntil)}
-          </dd>
-        </div>
-      </dl>
+    <div className="flex flex-col gap-4 lg:rotate-2">
+      <GiftCardFace order={order} />
+      <p className="text-center text-sm text-ink-soft">
+        {order.title} {formatDuration(order.durationMinutes)} · valable
+        jusqu&apos;au {formatDateFr(order.validUntil)}
+      </p>
     </div>
   );
 }

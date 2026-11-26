@@ -15,7 +15,7 @@ const nextConfig: NextConfig = {
       },
     },
   },
-  // Polices et symbole du PDF des cartes cadeaux, lus à l'exécution.
+  // Polices, fond du recto et logo du PDF des cartes cadeaux, lus à l'exécution.
   outputFileTracingIncludes: {
     "/carte-cadeau/merci": ["./src/lib/gift-card/assets/**/*"],
     "/carte-cadeau/pdf": ["./src/lib/gift-card/assets/**/*"],
@@ -30,6 +30,16 @@ const nextConfig: NextConfig = {
     ],
     formats: ["image/avif", "image/webp"],
     qualities: [75],
+  },
+  // Polices des e-mails (src/lib/email-style.ts) : chargées depuis une autre
+  // origine (messagerie), elles exigent un en-tête CORS.
+  async headers() {
+    return [
+      {
+        source: "/fonts/email/:file*",
+        headers: [{ key: "Access-Control-Allow-Origin", value: "*" }],
+      },
+    ];
   },
   // Anciennes URL du site PHP → nouvelles pages (308, conserve le SEO).
   // Voir docs/contenu/plan-du-site.md §4.

@@ -1,42 +1,115 @@
 /**
- * Génère les icônes (favicon.ico, icon.png, apple-icon.png) et les images de
- * partage (opengraph-image.jpg + .alt.txt) de chaque page, à partir du
- * symbole du logo et des photos de public/images/, ainsi que le symbole
- * teinté du PDF des cartes cadeaux.
+ * Logo et dérivés de la marque, à partir de deux sources :
+ *  - le symbole « soleil sur l'horizon » (public/images/logo/symbole-soleil.svg) ;
+ *  - la police du logo, Squatina (src/app/fonts/squatina/), dont le nom
+ *    « HORIZON DES SENS » est converti en tracés (pas de police à installer).
+ *
+ * L'assemblage reprend exactement celui du site (`LogoWordmark`) : haut des
+ * rayons = haut des capitales, ligne d'horizon = ligne de base, reflet en
+ * dessous, espace de 0,62 hauteur de capitale, interlettrage 0,024 em.
+ *
+ * Génère : le logo vectoriel (public/images/logo/logo-horizon-des-sens.svg),
+ * les icônes, les images de partage de chaque page, le logo des e-mails, les
+ * logos du PDF des cartes cadeaux et le masque du visuel de la carte.
  * Usage : npm run assets:brand (à relancer si le logo ou une photo change).
  */
 import { createRequire } from "node:module";
-import { writeFile, mkdir } from "node:fs/promises";
+import { readFile, writeFile, mkdir } from "node:fs/promises";
 const root = process.cwd();
 const require = createRequire(root + "/package.json");
 const sharp = require("sharp");
-const SYMBOL = root + "/public/images/logo/symbole.png";
+const fontkitModule = require("@pdf-lib/fontkit");
+const fontkit = fontkitModule.default ?? fontkitModule;
+
 const PAPER = "#f7ece9",
+  INK = "#1a110f",
   MARK = "#925443";
 
-async function tinted(size, color) {
-  const alpha = await sharp(SYMBOL)
-    .resize(size, size, {
-      fit: "contain",
-      background: { r: 0, g: 0, b: 0, alpha: 0 },
-    })
-    .ensureAlpha()
-    .extractChannel("alpha")
-    .toBuffer();
-  return sharp({
-    create: { width: size, height: size, channels: 3, background: color },
-  })
-    .joinChannel(alpha)
-    .png()
-    .toBuffer();
+/* ---------- Symbole ---------- */
+const SYMBOL_SVG = await readFile(
+  root + "/public/images/logo/symbole-soleil.svg",
+  "utf8",
+);
+// Cadre du dessin (viewBox) et repères : horizon à 1044, bas du reflet à 1540.
+const SYM = { viewBox: "11 10 1866 1540", w: 1866, h: 1540, horizon: 1044 };
+const symbolInner = SYMBOL_SVG.replace(/^[\s\S]*?<svg[^>]*>/, "")
+  .replace(/<\/svg>\s*$/, "")
+  .replace(/fill="[^"]*"/g, 'fill="currentColor"');
+
+/** Symbole seul, `crop` = sans le reflet (petites tailles). */
+function symbolSvg(color, { crop = false } = {}) {
+  const h = crop ? SYM.horizon + 4 : SYM.h;
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="11 10 ${SYM.w} ${h}" width="${SYM.w}" height="${h}" color="${color}">${symbolInner}</svg>`;
 }
+
+/* ---------- Nom : Squatina en tracés ---------- */
+const font = fontkit.create(
+  await readFile(root + "/src/app/fonts/squatina/Squatina-Regular.woff2"),
+);
+const CAP = font.capHeight; // 700 / 1000
+const TRACK = 24; // 0,03 em de la taille du logo = 0,024 em de Squatina (×1,25)
+const run = font.layout("HORIZON DES SENS");
+let pen = 0;
+const glyphPaths = run.glyphs.map((g, i) => {
+  const d = g.path.toSVG();
+  const x = pen;
+  pen += run.positions[i].xAdvance + TRACK;
+  return `<path transform="translate(${x} ${CAP}) scale(1 -1)" d="${d}"/>`;
+});
+const textWidth = pen - TRACK;
+
+/* ---------- Assemblage (unités : 1/1000 de la taille de Squatina) ---------- */
+const symH = (CAP * SYM.h) / SYM.horizon;
+const symW = (symH * SYM.w) / SYM.h;
+const GAP = 0.62 * CAP;
+export const LOCKUP = {
+  width: Math.ceil(symW + GAP + textWidth),
+  height: Math.ceil(symH),
+  /** Ligne de base du nom, depuis le haut. */
+  baseline: CAP,
+};
+function lockupSvg(color) {
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${LOCKUP.width} ${LOCKUP.height}" width="${LOCKUP.width}" height="${LOCKUP.height}" color="${color}" role="img" aria-label="Horizon des Sens">
+<svg x="0" y="0" width="${symW.toFixed(2)}" height="${symH.toFixed(2)}" viewBox="${SYM.viewBox}">${symbolInner}</svg>
+<g fill="currentColor" transform="translate(${(symW + GAP).toFixed(2)} 0)">${glyphPaths.join("")}</g>
+</svg>`;
+}
+/** Rend un SVG en PNG d'une largeur donnée. */
+const png = (svg, width) =>
+  sharp(Buffer.from(svg), { density: 300 }).resize({ width }).png().toBuffer();
+
+// Logo vectoriel (couleur courante) et PNG de travail.
+await writeFile(
+  root + "/public/images/logo/logo-horizon-des-sens.svg",
+  lockupSvg("currentColor").replace(/ color="currentColor"/, "") + "\n",
+);
+await writeFile(
+  root + "/assets/logo/logo-horizon-des-sens-noir.png",
+  await png(lockupSvg(INK), 3000),
+);
+await writeFile(
+  root + "/assets/logo/logo-horizon-des-sens-blanc.png",
+  await png(lockupSvg("#ffffff"), 3000),
+);
+
+/* ---------- Icônes : symbole sur fond papier ---------- */
 async function icon(size, { rounded }) {
   const r = rounded ? Math.round(size * 0.22) : 0;
   const bg = Buffer.from(
     `<svg width="${size}" height="${size}"><rect width="${size}" height="${size}" rx="${r}" fill="${PAPER}"/></svg>`,
   );
-  const inner = Math.round(size * 0.78);
-  const mark = await tinted(inner, MARK);
+  // Sous 64 px, le reflet se brouille : symbole sans reflet, plus grand.
+  const small = size < 64;
+  const inner = Math.round(size * (small ? 0.84 : 0.72));
+  const mark = await sharp(Buffer.from(symbolSvg(MARK, { crop: small })), {
+    density: 600,
+  })
+    .resize(inner, inner, {
+      fit: "contain",
+      background: { r: 0, g: 0, b: 0, alpha: 0 },
+    })
+    .png()
+    .toBuffer();
   const off = Math.round((size - inner) / 2);
   return sharp(bg)
     .composite([{ input: mark, left: off, top: off }])
@@ -79,7 +152,7 @@ await writeFile(
   ),
 );
 
-// Open Graph 1200×630 : photo recadrée, dégradé bas, symbole clair
+// Open Graph 1200×630 : photo recadrée, dégradé bas, logo complet en blanc
 const og = [
   [
     "",
@@ -140,23 +213,41 @@ const og = [
 const W = 1200,
   H = 630;
 const shade = Buffer.from(
-  `<svg width="${W}" height="${H}"><defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0.55" stop-color="#1a110f" stop-opacity="0"/><stop offset="1" stop-color="#1a110f" stop-opacity="0.55"/></linearGradient></defs><rect width="${W}" height="${H}" fill="url(#g)"/></svg>`,
+  `<svg width="${W}" height="${H}"><defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0.5" stop-color="#1a110f" stop-opacity="0"/><stop offset="1" stop-color="#1a110f" stop-opacity="0.6"/></linearGradient></defs><rect width="${W}" height="${H}" fill="url(#g)"/></svg>`,
 );
-const mark = await tinted(96, "#fbf6f5");
+// Logo : 340 px de large, à 56 px du bord gauche, ligne de base à 64 px du bas.
+const ogLogoWidth = 340;
+const ogLogo = await png(lockupSvg("#fbf6f5"), ogLogoWidth);
+const ogScale = ogLogoWidth / LOCKUP.width;
+const ogTop = Math.round(H - 64 - LOCKUP.baseline * ogScale);
 for (const [dir, src, alt] of og) {
   const out = `${app}/${dir ? dir + "/" : ""}`;
   await mkdir(out, { recursive: true });
   const buf = await sharp(`${root}/public/images/${src}`)
     .resize(W, H, { fit: "cover", position: "attention" })
-    .composite([{ input: shade }, { input: mark, left: 56, top: H - 96 - 48 }])
+    .composite([{ input: shade }, { input: ogLogo, left: 56, top: ogTop }])
     .jpeg({ quality: 78, mozjpeg: true })
     .toBuffer();
   await writeFile(out + "opengraph-image.jpg", buf);
   await writeFile(out + "opengraph-image.alt.txt", alt);
 }
-// Symbole teinté pour le PDF des cartes cadeaux (src/lib/gift-card/pdf.ts)
+
+/* ---------- E-mails : logo encre, ×3 (affiché à 240 px de large) ---------- */
+await mkdir(root + "/public/images/email", { recursive: true });
 await writeFile(
-  root + "/src/lib/gift-card/assets/symbole.png",
-  await tinted(320, MARK),
+  root + "/public/images/email/logo-horizon-des-sens.png",
+  await png(lockupSvg(INK), 720),
 );
-console.log("ok");
+
+/* ---------- PDF des cartes cadeaux (src/lib/gift-card/pdf.ts) ---------- */
+// Logo encre (page de détails) et masque blanc du visuel de la carte
+// (assets/carte-cadeau-incrustation/premium/dessin-carte-premium.py).
+await writeFile(
+  root + "/src/lib/gift-card/assets/logo-encre.png",
+  await png(lockupSvg(INK), 1600),
+);
+await writeFile(
+  root + "/assets/carte-cadeau-incrustation/premium/logo-masque.png",
+  await png(lockupSvg("#ffffff"), 3000),
+);
+console.log("ok", LOCKUP);

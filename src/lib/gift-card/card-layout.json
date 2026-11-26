@@ -1,0 +1,41 @@
+{
+  "_doc": "Mise en page unique de la carte cadeau (recto) : visuel des mockups (assets/carte-cadeau-incrustation/premium/dessin-carte-premium.py), page 1 du PDF (src/lib/gift-card/pdf.ts) et aperçu de la page de remerciement (gift-card-face.tsx). Unités : pixels d'une carte de 1530 × 1000. Les y sont des lignes de base (texte) ou le haut (logo). Modifier ici, puis relancer le dessin, les mockups et vérifier le PDF.",
+  "width": 1530,
+  "height": 1000,
+  "background": { "center": "#5c2218", "edge": "#280d09" },
+  "foil": { "light": "#f0cda0", "dark": "#be7e52" },
+  "logo": { "cx": 765, "top": 104, "width": 610 },
+  "title": { "text": "Carte Cadeau", "cx": 765, "baseline": 492, "size": 196 },
+  "tagline": {
+    "cx": 765,
+    "baseline": 644,
+    "size": 68,
+    "color": "#ecbaa6",
+    "opacity": 0.86
+  },
+  "recipientLabel": {
+    "text": "OFFERT À",
+    "x": 120,
+    "baseline": 810,
+    "size": 20,
+    "tracking": 6,
+    "color": "#e2b284",
+    "opacity": 0.8
+  },
+  "recipient": {
+    "x": 116,
+    "baseline": 890,
+    "size": 68,
+    "minSize": 40,
+    "maxWidth": 860,
+    "color": "#f6e6d6"
+  },
+  "code": {
+    "right": 1410,
+    "baseline": 884,
+    "size": 22,
+    "tracking": 4,
+    "color": "#e2b284",
+    "opacity": 0.8
+  }
+}

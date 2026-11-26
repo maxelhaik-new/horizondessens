@@ -2,7 +2,6 @@ import Image from "next/image";
 
 import { LogoSymbol } from "@/components/brand/logo";
 import { RevealGroup, RevealItem } from "@/components/motion/reveal";
-import { SplitWords } from "@/components/motion/split-words";
 import { ButtonLink, TextLink } from "@/components/ui/button-link";
 import { getContents } from "@/content/get-content";
 import { formatVariant } from "@/services/format";
@@ -19,8 +18,6 @@ export async function BookingServices() {
   const [services, c] = await Promise.all([
     getServices(),
     getContents([
-      "reserver.soins.title",
-      "reserver.soins.intro",
       "service.kobido.subtitle",
       "service.kobido.short",
       "service.kobido.image",
@@ -68,21 +65,7 @@ export async function BookingServices() {
 
   return (
     <section id="soins" className="scroll-mt-24 pb-16 md:pb-24">
-      <div className="container-site flex flex-col gap-10 md:gap-12">
-        <div className="grid gap-4 border-t border-line pt-10 md:pt-14 lg:grid-cols-[1fr_1.1fr] lg:gap-16">
-          <SplitWords
-            text={c["reserver.soins.title"]}
-            edit={c.edit("reserver.soins.title")}
-            className="text-h2 text-balance"
-          />
-          <p
-            {...c.edit("reserver.soins.intro")}
-            className="text-lead text-pretty text-ink-soft lg:pt-3"
-          >
-            {c["reserver.soins.intro"]}
-          </p>
-        </div>
-
+      <div className="container-site">
         <RevealGroup as="ul" className="flex flex-col gap-3 md:gap-4">
           {services.map((service) => {
             const e = editorial[service.slug];

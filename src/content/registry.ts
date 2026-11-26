@@ -585,46 +585,15 @@ export const contentFields = defineFields({
   ...fiveContinentsFields(),
 
   // --- Contact ---
-  "contact.hero.eyebrow": {
-    type: "text",
-    label: "Contact · Hero — pastille",
-    maxLength: 30,
-  },
-  "contact.hero.title": {
-    type: "text",
-    label: "Contact · Hero — titre",
-    maxLength: 60,
-  },
-  "contact.hero.lead": {
-    type: "textarea",
-    label: "Contact · Hero — accroche",
-    maxLength: 180,
-  },
-  "contact.hero.image": {
-    type: "image",
-    label: "Contact · Hero — image",
-    ratio: "16:9",
-    altMaxLength: IMAGE_ALT,
-  },
   "contact.form.title": {
     type: "text",
-    label: "Contact · Formulaire — titre",
+    label: "Contact · Titre de la page",
     maxLength: 50,
   },
   "contact.form.intro": {
     type: "textarea",
-    label: "Contact · Formulaire — intro",
+    label: "Contact · Intro",
     maxLength: 220,
-  },
-  "contact.visit.title": {
-    type: "text",
-    label: "Contact · Venir au salon — titre",
-    maxLength: 50,
-  },
-  "contact.visit.text": {
-    type: "textarea",
-    label: "Contact · Venir au salon — texte",
-    maxLength: 300,
   },
   // --- Le salon ---
   "salon.hero.title": {
@@ -791,16 +760,6 @@ export const contentFields = defineFields({
     type: "textarea",
     label: "Réserver · Hero — accroche",
     maxLength: 180,
-  },
-  "reserver.soins.title": {
-    type: "text",
-    label: "Réserver · Soins — titre",
-    maxLength: 60,
-  },
-  "reserver.soins.intro": {
-    type: "textarea",
-    label: "Réserver · Soins — introduction",
-    maxLength: 200,
   },
   "reserver.infos.title": {
     type: "text",

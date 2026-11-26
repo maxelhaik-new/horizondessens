@@ -13,6 +13,7 @@
     "format:check": "prettier --check .",
     "content:check": "tsx scripts/check-content.ts",
     "assets:brand": "node scripts/brand-assets.mjs",
+    "supabase:templates": "node scripts/supabase-auth-templates.mjs",
     "test:cms": "node --env-file-if-exists=.env.local --import tsx --test tests/cms.integration.test.ts",
     "simplybook:services": "node scripts/simplybook-services.mjs",
     "test:mobile": "playwright test"

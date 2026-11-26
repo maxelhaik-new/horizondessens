@@ -26,7 +26,7 @@ Versions web générées depuis les sources (jamais modifiées). Photos : JPEG, 
 | `assets/Cartes cadeau temp/Maxime_httpss.mj.runz4v2qWYqsGA_httpss.mj.runPzAHyhNfN-8_MOCK_60c641e7-6fe4-4375-8077-1f5c123ccc93_3.png` (1377 Ko) | `carte-cadeau/main-carte-3.jpg` | 1200x960 | 70 Ko |
 | `Images Elodie/Photo Elodie.png` (247 Ko) | `elodie/portrait.jpg` | 1086x1448 | 152 Ko |
 | `Images Elodie/Image licence.png` (985 Ko) | `badges/licence-m5c.png` | 480x480 | 129 Ko |
-| `Images Elodie/Logo Old.png` (58 Ko) | `logo/symbole.png` | 750x750 | 161 Ko |
+| `assets/logo/symbole-soleil.svg` | `logo/symbole-soleil.svg` (symbole, masque `currentColor`) et `logo/logo-horizon-des-sens.svg` (logo complet, nom en tracés, `npm run assets:brand`) | vectoriel | 8 Ko · 20 Ko |
 
 Total : 42.6 Mo (sources) vers 3.88 Mo.
 
@@ -41,6 +41,7 @@ Total : 42.6 Mo (sources) vers 3.88 Mo.
 **24/11/2026** : `carte-cadeau/main-carte-1/2/3.jpg` remplacées par les mêmes photos avec la carte cadeau V5 de Maxime incrustée (perspective, lumière, grain conservés). Sources : `assets/carte-cadeau-incrustation/mockup-carte-v5*.png` ; les mockups vierges restent dans `assets/Cartes cadeau temp/`.
 
 **24/11/2026 (bis)** : `carte-cadeau/main-carte-1/2/3.jpg` remplacées par la **carte premium** (roche rouge et dorure) incrustée. Sources : `assets/carte-cadeau-incrustation/premium/`.
+**26/11/2026** : carte premium redessinée avec le nouveau logo (symbole soleil + Squatina) et les polices du site (Goudy, Source Sans 3), mise en page commune `src/lib/gift-card/card-layout.json` ; `main-carte-1/2/3.jpg` régénérées. Nouveaux : `carte-cadeau/carte-fond.jpg` (fond du recto, aperçu de `/carte-cadeau/merci`), `email/logo-horizon-des-sens.png` (logo des e-mails et de Stripe Checkout).
 
 **26/11/2026** : nouvelles images Midjourney (`assets/massage midjourney/`, PNG → JPEG qualité 80, ~200 Ko) : `massages/visage-6.jpg` (`visage6.png`, 1344×896, hero de l'accueil), `massages/visage-7.jpg` (`visage7.png`, 1344×896), `massages/huile-3.jpg` et `huile-4.jpg` (928×1232), `massages/cou.jpg` (`cou1.png`, 992×1200).
 **26/11/2026, troisième lot** (noms de Maxime, « hero » = paysage 1344×896) : `massages/visage-hero.jpg` (hero Kobido, remplace `kobido/hero-plein.jpg`, désormais inutilisée), `dos-hero.jpg` (hero 5 Continents), `trapeze-hero.jpg` (hero Rituel Horizon), `trapeze-hero-2.jpg` (variante, **non utilisée**), `reiki-1.jpg` (carte Calme et harmonie, accueil et /reserver), `reiki-2.jpg` (« Le soin » Calme et harmonie), `reiki-3.jpg` (chapitre « Le soin énergétique » du 5 Continents), `pieds-5.jpg` (carte Jambes légères), `pieds-6.jpg` (« Le soin » Jambes légères, réflexologie), `bras-5.jpg` (carte 5 Continents).

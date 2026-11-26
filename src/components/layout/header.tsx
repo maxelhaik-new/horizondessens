@@ -19,6 +19,7 @@ const lightPages: readonly string[] = [
   routes.carteCadeau,
   routes.carteCadeauMerci,
   routes.reserver,
+  routes.contact,
 ];
 
 /** Pages de soin : la barre mobile mène au module de la page (`#reserver`). */
@@ -186,8 +187,9 @@ export function Header() {
         onNavigate={() => setOpen(false)}
       />
 
-      {/* Barre de réservation mobile, toujours à portée de pouce (sauf sur la page Réserver) */}
-      {pathname !== routes.reserver && (
+      {/* Barre de réservation mobile, toujours à portée de pouce (sauf sur
+          Réserver, et sur Contact où le formulaire est l'action principale) */}
+      {pathname !== routes.reserver && pathname !== routes.contact && (
         <div
           data-cms-hide
           className={cn(

@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 
 import { ContactConversation } from "@/components/contact/conversation";
-import { ContactHero } from "@/components/contact/hero";
 import { ContactVisit } from "@/components/contact/visit";
 import { JsonLd } from "@/components/seo/json-ld";
 import { breadcrumbJsonLd, ids, pageMetadata } from "@/lib/seo";
@@ -26,11 +25,10 @@ const jsonLd = [
   breadcrumbJsonLd([["Contact", "/contact"]]),
 ];
 
-/** Page Contact : échange (formulaire), coordonnées et accès au salon. */
+/** Page Contact : formulaire et coordonnées en premier, puis le plan d'accès. */
 export default function ContactPage() {
   return (
     <>
-      <ContactHero />
       <ContactConversation />
       <ContactVisit />
       <JsonLd data={jsonLd} />

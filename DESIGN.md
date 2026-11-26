@@ -18,35 +18,41 @@ colors:
   accent-950: "#361f19"
 typography:
   display:
-    fontFamily: "Instrument Serif, Times New Roman, serif"
+    fontFamily: "Sorts Mill Goudy, Georgia, Times New Roman, serif"
     fontSize: "5rem"
     fontWeight: 400
     lineHeight: 1.2
     letterSpacing: "-0.02em"
   headline:
-    fontFamily: "Instrument Serif, Times New Roman, serif"
+    fontFamily: "Sorts Mill Goudy, Georgia, Times New Roman, serif"
     fontSize: "4rem"
     fontWeight: 400
     lineHeight: 1.2
     letterSpacing: "-0.02em"
   title:
-    fontFamily: "Instrument Serif, Times New Roman, serif"
+    fontFamily: "Sorts Mill Goudy, Georgia, Times New Roman, serif"
     fontSize: "3.5rem"
     fontWeight: 400
     lineHeight: 1.2
     letterSpacing: "-0.02em"
   body:
-    fontFamily: "Manrope, ui-sans-serif, system-ui, sans-serif"
+    fontFamily: "Source Sans 3, ui-sans-serif, system-ui, sans-serif"
     fontSize: "1.125rem"
     fontWeight: 400
     lineHeight: 1.6
     letterSpacing: "0.008em"
   label:
-    fontFamily: "Manrope, ui-sans-serif, system-ui, sans-serif"
+    fontFamily: "Source Sans 3, ui-sans-serif, system-ui, sans-serif"
     fontSize: "0.875rem"
     fontWeight: 500
     lineHeight: 1
     letterSpacing: "0.06em"
+  logo:
+    fontFamily: "Squatina, Times New Roman, serif"
+    fontSize: "1.5rem (×1,25 : police condensée)"
+    fontWeight: 400
+    lineHeight: 1
+    letterSpacing: "0.03em"
 rounded:
   media: "1.5rem"
   panel: "2rem"
@@ -102,7 +108,7 @@ Le site est une page d'accueil longue, en mode Persuade : réserver un soin ou d
 
 **Key Characteristics:**
 - Fond rosé `paper`, sections alternées `paper`, `blush`, `mist` et une section sombre `night`.
-- Titres en Instrument Serif italique, texte en Manrope.
+- Titres en Sorts Mill Goudy italique, texte en Source Sans 3, logo en Squatina capitales.
 - Cartes de 40 px de rayon, médias de 24 à 32 px, boutons et pastilles en forme de pilule.
 - Photos chaudes et sombres (Midjourney, salon à Saint-Cyr) en grand, avec un léger zoom ou une parallaxe.
 - Aucun texte ni aucune couleur en dur dans les composants : tout passe par les tokens de `src/app/globals.css`.
@@ -129,17 +135,20 @@ Palette neutre chaude tirée vers le rose et l'ocre, un seul accent terracotta, 
 
 ## Typography
 
-**Display et titres :** Instrument Serif, toujours en italique, poids 400.
-**Texte et interface :** Manrope.
+**Display et titres :** Sorts Mill Goudy (OFL), toujours en italique, poids 400.
+**Texte et interface :** Source Sans 3 (OFL, variable), agrandie de 10 % par `size-adjust` pour garder la taille apparente de l'ancienne police : les tailles CSS ne tiennent pas compte de cet agrandissement.
+**Logo :** Squatina Regular (licence à confirmer), en capitales, uniquement dans le logo.
 
-**Character :** un serif éditorial italique, très aéré, posé sur un sans-serif rond et neutre. Les titres sont révélés mot à mot (flou, glissement, fondu).
+Aucune police en dur dans un composant : tout passe par `--font-serif`, `--font-sans` et `--font-logo` (`globals.css`, alimentés par `src/app/fonts.ts`). Hors navigateur, les mêmes polices sont reprises par le PDF de la carte cadeau (fichiers statiques dans `src/lib/gift-card/assets/`) et par les e-mails (`public/fonts/email/`, avec Georgia et Helvetica en repli pour Gmail et Outlook). Un sélecteur d'essais temporaire (onglet « Aa ») permet encore de comparer d'autres polices.
+
+**Character :** un serif éditorial italique à l'ancienne (Goudy), chaleureux, posé sur un sans-serif humaniste et lisible ; le logo, condensé et droit, fait contrepoint. Les titres sont révélés mot à mot (flou, glissement, fondu).
 
 ### Hierarchy
 - **Display** (400 italique, 3 → 4 → 5 rem, interligne 1.2, -0.02em) : titre du hero uniquement.
 - **Headline `text-h2`** (400 italique, 2.5 → 3.5 → 4 rem) : titres de section.
 - **Title `text-h3`** (400 italique, 2.25 → 3 → 3.5 rem) : titres des cartes de soin et des offres. `text-h4` (1.75 → 2 rem) pour les petits titres.
-- **Body `text-lead`** (Manrope, 1 → 1.125 rem, interligne 1.6, 0.008em) : textes d'introduction. `text-body` (0.9375 → 1 rem) pour le reste.
-- **Label `text-eyebrow`** (Manrope 500, 0.8125 → 0.875 rem, 0.06em, capitales) : surtitres de section, toujours dans une pastille.
+- **Body `text-lead`** (Source Sans 3, 1 → 1.125 rem, interligne 1.6, 0.008em) : textes d'introduction. `text-body` (0.9375 → 1 rem) pour le reste.
+- **Label `text-eyebrow`** (Source Sans 3 500, 0.8125 → 0.875 rem, 0.06em, capitales) : surtitres de section, toujours dans une pastille.
 
 ### Named Rules
 **The Italic Serif Only Rule.** Le serif n'apparaît qu'en italique et uniquement pour les titres. Aucun texte courant n'est en serif.
@@ -190,6 +199,12 @@ Toutes les pages de soin (Kobido, 5 Continents, Calme et harmonie, Jambes légè
 
 ### Navigation
 En-tête en pilule flottante de 72 px (64 px sur mobile), transparente sur le hero sombre, puis blanche à 70 % avec un flou fort au défilement. Mobile : menu plein écran et barre « Réserver » fixe en bas.
+
+### Logo
+Symbole « soleil sur l'horizon » (`public/images/logo/symbole-soleil.svg`, une couleur, `currentColor`) suivi du nom « HORIZON DES SENS » en Squatina capitales. Assemblage fixe (`LogoWordmark symbol`) : haut des rayons au haut des capitales, ligne d'horizon sur la ligne de base, reflet en dessous, espace de 0,62 hauteur de capitale, interlettrage 0,03 em, nom affiché à 125 %. Toujours d'une seule couleur : `ink` sur fond clair, blanc sur photo ou fond sombre, `accent-800` dans l'appel final, dorure sable cuivré sur la carte cadeau. Version vectorielle complète (nom en tracés) : `public/images/logo/logo-horizon-des-sens.svg` ; icônes, images de partage, logo des e-mails et du PDF générés par `npm run assets:brand`. Sous 64 px (favicon), le symbole perd son reflet, qui se brouille.
+
+### Gift card
+Recto unique pour le visuel des mockups, la page 1 du PDF et l'aperçu de la page de remerciement, positions et tailles dans `src/lib/gift-card/card-layout.json` : fond roche rouge (`#5c2218` au centre, `#280d09` aux bords), logo et « Carte Cadeau » en dorure sable cuivré (`#f0cda0` → `#be7e52`), accroche selon la durée en rose terre, « Offert à » et nom en crème, numéro en bas à droite. La page 2 du PDF reprend la charte claire du site (fond papier, panneau `night`). Les cartes de choix de la page Carte cadeau (1h et 1h15, avec prix et bouton) restent des cartes du site, pas des répliques du recto.
 
 ## Do's and Don'ts
 

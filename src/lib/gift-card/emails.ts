@@ -1,6 +1,13 @@
 import "server-only";
 
-import { SANS, SERIF, emailColors as C, esc } from "@/lib/email-style";
+import {
+  SANS,
+  SERIF,
+  emailColors as C,
+  emailHead,
+  emailLogo,
+  esc,
+} from "@/lib/email-style";
 import { routes } from "@/lib/navigation";
 import { site } from "@/lib/site";
 import { formatDuration, formatPrice } from "@/services/format";
@@ -24,13 +31,13 @@ function row(label: string, value: string) {
 function layout(opts: { preheader: string; body: string; footer: string }) {
   return `<!doctype html>
 <html lang="fr">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${esc(site.name)}</title></head>
+${emailHead(site.name)}
 <body style="margin:0;padding:0;background:${C.paper}">
 <div style="display:none;max-height:0;overflow:hidden">${esc(opts.preheader)}</div>
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:${C.paper}">
 <tr><td align="center" style="padding:32px 16px">
   <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px">
-    <tr><td style="padding:0 8px 20px;font:italic 22px/1 ${SERIF};color:${C.ink}">${site.name}</td></tr>
+    <tr><td style="padding:0 8px 22px">${emailLogo()}</td></tr>
     <tr><td style="background:${C.card};border-radius:28px;padding:36px 32px">${opts.body}</td></tr>
     <tr><td style="padding:20px 8px 0;font:12px/1.6 ${SANS};color:${C.soft}">${opts.footer}</td></tr>
   </table>

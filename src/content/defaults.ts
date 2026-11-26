@@ -581,20 +581,9 @@ export const contentDefaults: ContentValues = {
   ],
 
   // --- Contact ---
-  "contact.hero.eyebrow": "Contact",
-  "contact.hero.title": "Parlons de votre prochain soin",
-  "contact.hero.lead":
-    "Une question sur un soin, une carte cadeau ou un créneau ? Écrivez-moi ou appelez-moi : je vous réponds personnellement.",
-  "contact.hero.image": {
-    src: "/images/salon/fenetre-loire.jpg",
-    alt: "Fenêtre du salon ouverte sur la Loire au coucher du soleil",
-  },
   "contact.form.title": "Écrivez-moi",
   "contact.form.intro":
-    "Laissez-moi quelques mots : je lis chaque message et vous réponds au plus vite. Pour réserver directement, la prise de rendez-vous en ligne reste le plus rapide.",
-  "contact.visit.title": "Venir au salon",
-  "contact.visit.text":
-    "Le salon se trouve à Saint-Cyr-sur-Loire, sur les quais, face à la Loire, à quelques minutes du centre de Tours. Les séances se font uniquement sur rendez-vous.",
+    "Une question sur un soin, une carte cadeau ou un créneau ? Je lis chaque message et vous réponds personnellement.",
 
   // --- Le salon ---
   "salon.hero.title": "Un salon au bord de la Loire",
@@ -747,9 +736,6 @@ export const contentDefaults: ContentValues = {
   "reserver.hero.title": "Soins et tarifs",
   "reserver.hero.lead":
     "Tous les soins du salon, avec leurs durées et leurs tarifs. Choisissez le vôtre, puis réservez votre créneau en ligne : la confirmation arrive par e-mail.",
-  "reserver.soins.title": "Quel soin vous ferait du bien ?",
-  "reserver.soins.intro":
-    "Durées et tarifs sont indiqués pour chaque soin. Vous hésitez entre deux ? Je peux vous conseiller par téléphone.",
   "reserver.infos.title": "Bon à savoir",
   "reserver.infos.items": [
     {

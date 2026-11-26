@@ -1,5 +1,5 @@
 /**
- * Exemples de cartes cadeaux remplies (nom, petit mot, numéro…), pour les
+ * Exemples de cartes cadeaux remplies (recto du PDF en PNG) (nom, petit mot, numéro…), pour les
  * incruster dans les mockups « main qui tient une carte » de la page Carte
  * cadeau. Ils passent par le vrai générateur du PDF client
  * (src/lib/gift-card/pdf.ts) : le visuel est toujours celui que les clients
@@ -21,7 +21,7 @@ const base: GiftCardOrder = {
   sessionId: "exemple",
   paymentIntentId: null,
   code: "HDS-7K3M-Q9PX",
-  title: "Kobido",
+  title: "Séance",
   durationMinutes: 75,
   priceEuros: 120,
   recipient: "",
@@ -36,7 +36,7 @@ const base: GiftCardOrder = {
 
 const examples: [file: string, order: GiftCardOrder][] = [
   [
-    "exemple-carte-kobido-1h15",
+    "exemple-carte-seance-1h15",
     {
       ...base,
       recipient: "Marie Dupont",
@@ -46,7 +46,7 @@ const examples: [file: string, order: GiftCardOrder][] = [
     },
   ],
   [
-    "exemple-carte-kobido-1h",
+    "exemple-carte-seance-1h",
     {
       ...base,
       code: "HDS-4R8T-WN2C",

@@ -45,6 +45,12 @@ type Face = {
   scale?: number;
 };
 
+/**
+ * Logo du site : Squatina, condensée, affichée à 125 % de la taille du logo
+ * pour avoir la même présence que les autres polices.
+ */
+const LOGO_SCALE = 1.25;
+
 /** Gambarino (Fontshare, licence ITF gratuite) : chargée à la demande. */
 const GAMBARINO_CSS =
   "https://api.fontshare.com/v2/css?f[]=gambarino@400&display=swap";
@@ -103,7 +109,13 @@ const faces: { group: string; items: Face[] }[] = [
   {
     group: "Squatina",
     items: [
-      { family: "Essai Squatina", label: "Regular", weight: 400, scale: 1.25 },
+      {
+        family: "Squatina",
+        css: "var(--font-squatina)",
+        label: "Regular",
+        weight: 400,
+        scale: LOGO_SCALE,
+      },
     ],
   },
   {
@@ -160,7 +172,13 @@ const slug = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, "-");
 const logoGroups: Group<LogoVariant>[] = [
   {
     group: "Actuel",
-    items: [{ id: "actuel", label: "Bluu Next Bold · MAJUSCULES (actuel)" }],
+    items: [
+      {
+        id: "actuel",
+        label: "Squatina Regular · MAJUSCULES (site)",
+        scale: LOGO_SCALE,
+      },
+    ],
   },
   ...faces.map(({ group, items }) => ({
     group,
@@ -288,14 +306,15 @@ function setTrial(key: TrialKey, id: string) {
 /* Composants                                                           */
 /* ------------------------------------------------------------------ */
 
-/** Hauteur des capitales de Bluu Next Bold, en em (H : 685 / 1000). */
-const LOGO_CAP = 0.685;
+/** Hauteur des capitales de Squatina, en em (H : 700 / 1000). */
+const LOGO_CAP = 0.7;
 /** Repères du symbole, rapportés à la hauteur haut des rayons → horizon. */
 const SYM_HEIGHT = SYMBOL.height / SYMBOL.horizon;
 const SYM_BELOW = (SYMBOL.height - SYMBOL.horizon) / SYMBOL.horizon;
 
 /**
- * Nom de la marque : Bluu Next Bold en capitales (choix de Maxime, 26/11/2026).
+ * Nom de la marque : Squatina Regular en capitales, affichée à 125 % (police
+ * condensée), interlettrage 0,03 em (choix de Maxime, 26/11/2026).
  * Avec `symbol`, le soleil est placé devant, dans la même ligne et en `em` :
  * le haut des rayons s'aligne sur le haut des capitales, la ligne d'horizon
  * sur la ligne de base, et le reflet descend en dessous. `--cap` = hauteur
@@ -363,10 +382,15 @@ export function LogoWordmark({
     <span
       ref={ref}
       className={cn(
-        "font-logo leading-none font-bold tracking-[-0.02em] whitespace-nowrap uppercase not-italic",
+        "font-logo leading-none font-normal tracking-[0.03em] whitespace-nowrap uppercase not-italic",
         className,
       )}
-      style={{ "--cap": LOGO_CAP, ...variant.style } as CSSProperties}
+      style={
+        {
+          "--cap": LOGO_CAP * (variant.scale ?? 1),
+          ...variant.style,
+        } as CSSProperties
+      }
     >
       {symbol && (
         <LogoSymbol

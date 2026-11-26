@@ -125,7 +125,7 @@ const sections: LegalSection[] = [
           intelligence artificielle.
         </li>
         <li>
-          Polices : Sorts Mill Goudy, Source Sans 3 et Bluu Next (licence SIL
+          Polices : Sorts Mill Goudy, Source Sans 3 et Squatina (licence SIL
           Open Font).
         </li>
       </ul>

@@ -10,7 +10,7 @@
           "supabase/templates/invite.html"
         ],
         "createdAt": "2026-11-24T17:49:01.656Z",
-        "reason": "Claude: e-mails HTML, polices web peu fiables chez les clients mail; Georgia/Helvetica = repli email-safe d'Instrument Serif/Manrope"
+        "reason": "Claude: e-mails HTML, polices web peu fiables chez les clients mail; Georgia/Helvetica = repli email-safe de Sorts Mill Goudy/Source Sans 3"
       },
       {
         "rule": "design-system-font",
@@ -19,7 +19,7 @@
           "supabase/templates/invite.html"
         ],
         "createdAt": "2026-11-24T17:49:01.668Z",
-        "reason": "Claude: e-mails HTML, polices web peu fiables chez les clients mail; Georgia/Helvetica = repli email-safe d'Instrument Serif/Manrope"
+        "reason": "Claude: e-mails HTML, polices web peu fiables chez les clients mail; Georgia/Helvetica = repli email-safe de Sorts Mill Goudy/Source Sans 3"
       },
       {
         "rule": "overused-font",
@@ -28,7 +28,7 @@
           "supabase/templates/invite.html"
         ],
         "createdAt": "2026-11-24T17:49:01.679Z",
-        "reason": "Claude: e-mails HTML, polices web peu fiables chez les clients mail; Georgia/Helvetica = repli email-safe d'Instrument Serif/Manrope"
+        "reason": "Claude: e-mails HTML, polices web peu fiables chez les clients mail; Georgia/Helvetica = repli email-safe de Sorts Mill Goudy/Source Sans 3"
       },
       {
         "rule": "cream-palette",
@@ -46,7 +46,7 @@
           "supabase/templates/recovery.html"
         ],
         "createdAt": "2026-11-24T17:49:01.704Z",
-        "reason": "Claude: e-mails HTML, polices web peu fiables chez les clients mail; Georgia/Helvetica = repli email-safe d'Instrument Serif/Manrope"
+        "reason": "Claude: e-mails HTML, polices web peu fiables chez les clients mail; Georgia/Helvetica = repli email-safe de Sorts Mill Goudy/Source Sans 3"
       },
       {
         "rule": "design-system-font",
@@ -55,7 +55,7 @@
           "supabase/templates/recovery.html"
         ],
         "createdAt": "2026-11-24T17:49:01.715Z",
-        "reason": "Claude: e-mails HTML, polices web peu fiables chez les clients mail; Georgia/Helvetica = repli email-safe d'Instrument Serif/Manrope"
+        "reason": "Claude: e-mails HTML, polices web peu fiables chez les clients mail; Georgia/Helvetica = repli email-safe de Sorts Mill Goudy/Source Sans 3"
       },
       {
         "rule": "overused-font",
@@ -64,7 +64,7 @@
           "supabase/templates/recovery.html"
         ],
         "createdAt": "2026-11-24T17:49:01.726Z",
-        "reason": "Claude: e-mails HTML, polices web peu fiables chez les clients mail; Georgia/Helvetica = repli email-safe d'Instrument Serif/Manrope"
+        "reason": "Claude: e-mails HTML, polices web peu fiables chez les clients mail; Georgia/Helvetica = repli email-safe de Sorts Mill Goudy/Source Sans 3"
       },
       {
         "rule": "cream-palette",

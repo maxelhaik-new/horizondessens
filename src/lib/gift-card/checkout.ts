@@ -99,8 +99,16 @@ export async function createGiftCardCheckout(
         background_color: "#f7ece9",
         button_color: "#1a110f",
         border_style: "pill",
+        // Police la plus proche de Source Sans 3 (celle du site) parmi celles
+        // de Stripe ; logo complet (symbole + nom), comme dans les e-mails.
+        font_family: "source_sans_pro",
         ...(isPublic
-          ? { icon: { type: "url", url: `${origin}/icon.png` } }
+          ? {
+              logo: {
+                type: "url",
+                url: `${origin}/images/email/logo-horizon-des-sens.png`,
+              },
+            }
           : {}),
       },
       metadata,

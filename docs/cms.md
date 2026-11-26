@@ -61,7 +61,7 @@ Migration : `supabase/migrations/20261123180000_cms.sql` (appliquée le 23/11/20
 
 ### E-mails d'authentification
 - Depuis le 24/11/2026, Supabase envoie par **SMTP Resend** (`smtp.resend.com:465`, utilisateur `resend`, clé dédiée « Supabase SMTP (auth CMS) », expéditeur « Horizon des Sens <contact@horizondessens.fr> », 30 e-mails/h). L'envoi vers n'importe quelle adresse fonctionne : **Élodie peut être invitée**.
-- Modèles **en français**, versionnés dans `supabase/templates/` (`invite.html`, `recovery.html`), appliqués par l'API de gestion (`PATCH /v1/projects/{ref}/config/auth`, champs `mailer_subjects_*` et `mailer_templates_*_content`). Après modification d'un fichier, les réappliquer.
+- Modèles **en français**, versionnés dans `supabase/templates/` (`invite.html`, `recovery.html`), appliqués par l'API de gestion (`PATCH /v1/projects/{ref}/config/auth`, champs `mailer_subjects_*` et `mailer_templates_*_content`). Commande : `npm run supabase:templates` (`scripts/supabase-auth-templates.mjs`, jeton `SUPABASE_ACCESS_TOKEN` dans `.env.local`, jamais versionné). Après modification d'un fichier, les réappliquer. Refaits le 26/11/2026 à la charte des e-mails du site (logo, Sorts Mill Goudy, Source Sans 3, servis par `https://horizondessens.vercel.app`) : **réappliqués le 26/11/2026** (`npm run supabase:templates`, vérifié).
 - **Site URL** Supabase = `http://localhost:3005` pour l'instant (lien par défaut des e-mails). Liste blanche : `localhost:3005`, `horizondessens.vercel.app`, `horizondessens.fr`. **À passer à `https://horizondessens.fr` à la mise en ligne.** Pour inviter Élodie avant, passer `redirect_to=https://horizondessens.vercel.app/admin/bienvenue`.
 
 ### Variables

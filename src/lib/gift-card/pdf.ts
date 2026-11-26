@@ -9,23 +9,29 @@ import { PDFDocument, type PDFFont, type PDFPage, rgb } from "pdf-lib";
 import { site } from "@/lib/site";
 import { formatDuration } from "@/services/format";
 
+import { cardLayout as L, cardTagline } from "./card-face";
 import { formatDateFr, type GiftCardOrder } from "./order";
 
 /*
- * PDF de la carte cadeau, A5 paysage, à la charte du site : fond papier,
- * symbole du logo, titres en Instrument Serif italique, textes en Manrope,
- * panneau sombre pour le numéro, la validité et la réservation.
- * Polices (OFL, @fontsource) et symbole teinté : ./assets (le symbole est
- * généré par `npm run assets:brand`). Inclus dans le déploiement par
- * `outputFileTracingIncludes` (next.config.ts).
- * Pour passer plus tard sur un fond dessiné dans Canva : remplacer le
- * rectangle de fond par l'image du modèle (`embedPng`) et caler les champs.
+ * PDF de la carte cadeau, deux pages au format de la carte (210 × 137 mm) :
+ *  1. le recto, identique au visuel des mockups du site : fond et dorure
+ *     (logo, « Carte Cadeau ») en image (`carte-fond.jpg`, dessinée par
+ *     `assets/carte-cadeau-incrustation/premium/dessin-carte-premium.py`),
+ *     accroche, bénéficiaire et numéro en texte, aux positions de
+ *     `card-layout.json` ;
+ *  2. les détails, sur fond papier : logo, prestation, message, numéro,
+ *     validité, réservation, conditions.
+ * Polices du site (OFL) : Sorts Mill Goudy italique (titres), Source Sans 3
+ * (textes). Logo encre : `npm run assets:brand`. Tout est dans ./assets,
+ * inclus au déploiement par `outputFileTracingIncludes` (next.config.ts).
  */
 
 const ASSETS = path.join(process.cwd(), "src/lib/gift-card/assets");
 
-const W = 595.28; // A5 paysage, en points
-const H = 419.53;
+const W = 595.28; // 210 mm, au ratio de la carte (1530 × 1000)
+const H = (W * L.height) / L.width;
+/** Pixels de la carte → points du PDF. */
+const k = W / L.width;
 
 const hex = (value: string) =>
   rgb(
@@ -35,7 +41,6 @@ const hex = (value: string) =>
   );
 const C = {
   paper: hex("#fbf6f5"),
-  blush: hex("#eed5ce"),
   night: hex("#1a110f"),
   ink: hex("#1a110f"),
   soft: hex("#525252"),
@@ -48,10 +53,11 @@ let assets: Promise<Record<string, Uint8Array>> | undefined;
 function loadAssets() {
   assets ??= (async () => {
     const files = {
-      serifItalic: "instrument-serif-latin-400-italic.woff",
-      sans: "manrope-latin-400-normal.woff",
-      sansBold: "manrope-latin-600-normal.woff",
-      symbol: "symbole.png",
+      serifItalic: "goudy-italic.woff",
+      sans: "source-sans-3-400.woff",
+      sansBold: "source-sans-3-600.woff",
+      cardFace: "carte-fond.jpg",
+      logo: "logo-encre.png",
     };
     const entries = await Promise.all(
       Object.entries(files).map(
@@ -130,6 +136,87 @@ function roundedRect(w: number, h: number, r: number) {
   return `M ${r} 0 H ${w - r} Q ${w} 0 ${w} ${r} V ${h - r} Q ${w} ${h} ${w - r} ${h} H ${r} Q 0 ${h} 0 ${h - r} V ${r} Q 0 0 ${r} 0 Z`;
 }
 
+/** Largeur d'un texte espacé. */
+function trackedWidth(
+  text: string,
+  font: PDFFont,
+  size: number,
+  tracking: number,
+) {
+  const chars = Array.from(text);
+  return (
+    chars.reduce((w, ch) => w + font.widthOfTextAtSize(ch, size), 0) +
+    tracking * (chars.length - 1)
+  );
+}
+
+/** Recto : le visuel de la carte, rempli. */
+function drawFace(
+  page: PDFPage,
+  order: GiftCardOrder,
+  fonts: { serifItalic: PDFFont; sans: PDFFont; sansBold: PDFFont },
+) {
+  const { serifItalic, sans, sansBold } = fonts;
+  const y = (baseline: number) => H - baseline * k;
+
+  // Accroche, centrée.
+  const tagline = cardTagline(order.durationMinutes);
+  const tSize = L.tagline.size * k;
+  page.drawText(tagline, {
+    x: L.tagline.cx * k - serifItalic.widthOfTextAtSize(tagline, tSize) / 2,
+    y: y(L.tagline.baseline),
+    size: tSize,
+    font: serifItalic,
+    color: hex(L.tagline.color),
+    opacity: L.tagline.opacity,
+  });
+
+  // « OFFERT À »
+  const label = L.recipientLabel;
+  drawTracked(page, label.text, {
+    x: label.x * k,
+    y: y(label.baseline),
+    font: sansBold,
+    size: label.size * k,
+    tracking: label.tracking * k,
+    color: hex(label.color),
+    opacity: label.opacity,
+  });
+
+  // Bénéficiaire : réduit jusqu'à `minSize` pour tenir, puis tronqué.
+  const r = L.recipient;
+  const recipient = clean(order.recipient, serifItalic);
+  const maxWidth = r.maxWidth * k;
+  let size = r.size * k;
+  while (
+    size > r.minSize * k &&
+    serifItalic.widthOfTextAtSize(recipient, size) > maxWidth
+  ) {
+    size -= 0.5;
+  }
+  page.drawText(wrap(recipient, serifItalic, size, maxWidth, 1)[0] ?? "", {
+    x: r.x * k,
+    y: y(r.baseline),
+    size,
+    font: serifItalic,
+    color: hex(r.color),
+  });
+
+  // Numéro, aligné à droite.
+  const c = L.code;
+  const code = `N° ${order.code}`;
+  const cSize = c.size * k;
+  drawTracked(page, code, {
+    x: c.right * k - trackedWidth(code, sans, cSize, c.tracking * k),
+    y: y(c.baseline),
+    font: sans,
+    size: cSize,
+    tracking: c.tracking * k,
+    color: hex(c.color),
+    opacity: c.opacity,
+  });
+}
+
 export async function renderGiftCardPdf(order: GiftCardOrder) {
   const files = await loadAssets();
   // Dates du PDF = date d'achat (et non l'heure de génération).
@@ -143,30 +230,39 @@ export async function renderGiftCardPdf(order: GiftCardOrder) {
     pdf.embedFont(files.sans, { subset: true }),
     pdf.embedFont(files.sansBold, { subset: true }),
   ]);
-  const symbol = await pdf.embedPng(files.symbol);
+  const [cardFace, logo] = await Promise.all([
+    pdf.embedJpg(files.cardFace),
+    pdf.embedPng(files.logo),
+  ]);
 
   pdf.setTitle(`Carte cadeau ${site.name} · ${order.code}`);
   pdf.setAuthor(site.name);
   pdf.setCreator(site.name);
   pdf.setLanguage("fr-FR");
 
+  /* ---------- Page 1 : recto ---------- */
+  const face = pdf.addPage([W, H]);
+  face.drawImage(cardFace, { x: 0, y: 0, width: W, height: H });
+  drawFace(face, order, { serifItalic, sans, sansBold });
+
+  /* ---------- Page 2 : détails ---------- */
   const page = pdf.addPage([W, H]);
   page.drawRectangle({ x: 0, y: 0, width: W, height: H, color: C.paper });
 
-  /* ---------- Colonne gauche : marque, prestation, bénéficiaire ---------- */
-  const x0 = 44;
+  // Colonne gauche : marque, prestation, bénéficiaire
+  const x0 = 40;
   const colW = 300;
 
-  page.drawImage(symbol, { x: x0, y: H - 44 - 26, width: 26, height: 26 });
-  page.drawText(site.name, {
-    x: x0 + 34,
-    y: H - 44 - 19,
-    size: 17,
-    font: serifItalic,
-    color: C.ink,
+  const logoW = 150;
+  const logoH = (logoW * logo.height) / logo.width;
+  page.drawImage(logo, {
+    x: x0,
+    y: H - 38 - logoH,
+    width: logoW,
+    height: logoH,
   });
 
-  let y = H - 104;
+  let y = H - 96;
   drawTracked(page, "CARTE CADEAU", {
     x: x0,
     y,
@@ -176,10 +272,10 @@ export async function renderGiftCardPdf(order: GiftCardOrder) {
     color: C.accentText,
   });
 
-  y -= 44;
+  y -= 42;
   const title = clean(order.title, serifItalic);
   const duration = formatDuration(order.durationMinutes);
-  const titleSize = 50;
+  const titleSize = 46;
   page.drawText(title, {
     x: x0,
     y,
@@ -195,7 +291,7 @@ export async function renderGiftCardPdf(order: GiftCardOrder) {
     color: C.accent,
   });
 
-  y -= 36;
+  y -= 32;
   drawTracked(page, "POUR", {
     x: x0,
     y,
@@ -207,16 +303,16 @@ export async function renderGiftCardPdf(order: GiftCardOrder) {
   const recipientLines = wrap(
     clean(order.recipient, serifItalic),
     serifItalic,
-    24,
+    22,
     colW,
     2,
   );
   for (const line of recipientLines) {
-    y -= 26;
+    y -= 24;
     page.drawText(line, {
       x: x0,
       y,
-      size: 24,
+      size: 22,
       font: serifItalic,
       color: C.ink,
     });
@@ -265,20 +361,20 @@ export async function renderGiftCardPdf(order: GiftCardOrder) {
   const address = `${site.address.street}, ${site.address.postalCode} ${site.address.city}`;
   page.drawText(address, {
     x: x0,
-    y: 44,
+    y: 42,
     size: 8,
     font: sans,
     color: C.soft,
   });
   page.drawText(`${site.url.replace("https://", "")} · ${site.phone.display}`, {
     x: x0,
-    y: 31,
+    y: 30,
     size: 8,
     font: sans,
     color: C.soft,
   });
 
-  /* ---------- Panneau sombre : numéro, validité, réservation ---------- */
+  /* Panneau sombre : numéro, validité, réservation */
   const pW = 196;
   const pX = W - 18 - pW;
   const pTop = H - 18;
@@ -301,7 +397,7 @@ export async function renderGiftCardPdf(order: GiftCardOrder) {
       opacity: 0.6,
     });
 
-  let py = pTop - 44;
+  let py = pTop - 40;
   label("NUMÉRO", py);
   py -= 20;
   drawTracked(page, order.code, {
@@ -313,7 +409,7 @@ export async function renderGiftCardPdf(order: GiftCardOrder) {
     color: C.white,
   });
 
-  py -= 36;
+  py -= 34;
   label("VALABLE JUSQU'AU", py);
   py -= 22;
   page.drawText(formatDateFr(order.validUntil), {
@@ -324,7 +420,7 @@ export async function renderGiftCardPdf(order: GiftCardOrder) {
     color: C.white,
   });
 
-  py -= 36;
+  py -= 32;
   label("ÉMISE LE", py);
   py -= 16;
   page.drawText(formatDateFr(order.purchasedAt), {
@@ -336,7 +432,7 @@ export async function renderGiftCardPdf(order: GiftCardOrder) {
   });
 
   // Bas du panneau : comment réserver, conditions.
-  let by = 140;
+  let by = 132;
   label("POUR RÉSERVER", by);
   by -= 21;
   page.drawText(site.phone.display, {
@@ -363,7 +459,7 @@ export async function renderGiftCardPdf(order: GiftCardOrder) {
       opacity: 0.75,
     });
   }
-  let cy = 52;
+  let cy = 46;
   for (const line of wrap(
     "Carte nominative, utilisable en une fois pour la séance indiquée, non remboursable.",
     sans,

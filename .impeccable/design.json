@@ -230,7 +230,7 @@
       },
       "body": {
         "displayName": "Body",
-        "purpose": "Textes en Manrope."
+        "purpose": "Textes en Source Sans 3 (agrandie de 10 %)."
       },
       "label": {
         "displayName": "Label",
@@ -288,7 +288,7 @@
       "refersTo": "button-primary",
       "description": "Bouton principal : pilule noire avec pastille chevron.",
       "html": "<a class=\"ds-btn\"><span class=\"ds-btn-t\">Réserver un soin</span><span class=\"ds-btn-c\">›</span></a>",
-      "css": ".ds-btn{position:relative;display:inline-flex;align-items:center;height:56px;padding:0 24px 0 66px;border-radius:9999px;background:#1a110f;color:#fff;font:500 16px Manrope,sans-serif;letter-spacing:.016em;overflow:hidden;box-shadow:0 5px 9px -2.25px rgb(26 17 15/.13),0 16px 29px -3px rgb(26 17 15/.1);transition:background .3s;cursor:pointer}.ds-btn-t{transition:transform .6s cubic-bezier(.34,1.32,.64,1)}.ds-btn-c{position:absolute;top:50%;left:6px;transform:translateY(-50%);width:44px;height:44px;border-radius:9999px;background:#fff;color:#1a110f;display:grid;place-items:center;transition:left .6s cubic-bezier(.34,1.32,.64,1)}.ds-btn:hover{background:#361f19}.ds-btn:hover .ds-btn-t{transform:translateX(-42px)}.ds-btn:hover .ds-btn-c{left:calc(100% - 50px)}.ds-btn:focus-visible{outline:2px solid #7a483a;outline-offset:3px}"
+      "css": ".ds-btn{position:relative;display:inline-flex;align-items:center;height:56px;padding:0 24px 0 66px;border-radius:9999px;background:#1a110f;color:#fff;font:500 16px 'Source Sans 3',sans-serif;letter-spacing:.016em;overflow:hidden;box-shadow:0 5px 9px -2.25px rgb(26 17 15/.13),0 16px 29px -3px rgb(26 17 15/.1);transition:background .3s;cursor:pointer}.ds-btn-t{transition:transform .6s cubic-bezier(.34,1.32,.64,1)}.ds-btn-c{position:absolute;top:50%;left:6px;transform:translateY(-50%);width:44px;height:44px;border-radius:9999px;background:#fff;color:#1a110f;display:grid;place-items:center;transition:left .6s cubic-bezier(.34,1.32,.64,1)}.ds-btn:hover{background:#361f19}.ds-btn:hover .ds-btn-t{transform:translateX(-42px)}.ds-btn:hover .ds-btn-c{left:calc(100% - 50px)}.ds-btn:focus-visible{outline:2px solid #7a483a;outline-offset:3px}"
     },
     {
       "name": "Eyebrow pill",
@@ -296,7 +296,7 @@
       "refersTo": "eyebrow-pill",
       "description": "Surtitre de section.",
       "html": "<p class=\"ds-eye\">Les soins</p>",
-      "css": ".ds-eye{display:inline-flex;padding:12px 20px;border-radius:9999px;background:rgb(255 255 255/.7);color:#7a483a;font:500 14px Manrope,sans-serif;letter-spacing:.06em;text-transform:uppercase}"
+      "css": ".ds-eye{display:inline-flex;padding:12px 20px;border-radius:9999px;background:rgb(255 255 255/.7);color:#7a483a;font:500 14px 'Source Sans 3',sans-serif;letter-spacing:.06em;text-transform:uppercase}"
     },
     {
       "name": "Service card",
@@ -304,7 +304,7 @@
       "refersTo": "service-card",
       "description": "Carte de soin : titre italique, sous-titre, tarifs en pilules.",
       "html": "<article class=\"ds-card\"><h3>Kobido</h3><p class=\"ds-sub\">Visage · Détente profonde et éclat</p><p class=\"ds-p\">Le massage facial japonais traditionnel.</p><span class=\"ds-tag\">1h · 100 €</span></article>",
-      "css": ".ds-card{background:#f7ece9;border-radius:40px;padding:32px;max-width:420px}.ds-card h3{font:italic 400 44px/1.2 'Instrument Serif',serif;letter-spacing:-.02em;margin:0 0 12px;color:#1a110f}.ds-sub{font:500 14px Manrope,sans-serif;color:#7a483a;margin:0 0 12px}.ds-p{font:400 17px/1.6 Manrope,sans-serif;color:#525252;margin:0 0 20px}.ds-tag{display:inline-block;padding:8px 16px;border-radius:9999px;background:rgb(255 255 255/.8);font:500 14px Manrope,sans-serif}"
+      "css": ".ds-card{background:#f7ece9;border-radius:40px;padding:32px;max-width:420px}.ds-card h3{font:italic 400 44px/1.2 'Sorts Mill Goudy',serif;letter-spacing:-.02em;margin:0 0 12px;color:#1a110f}.ds-sub{font:500 14px 'Source Sans 3',sans-serif;color:#7a483a;margin:0 0 12px}.ds-p{font:400 17px/1.6 'Source Sans 3',sans-serif;color:#525252;margin:0 0 20px}.ds-tag{display:inline-block;padding:8px 16px;border-radius:9999px;background:rgb(255 255 255/.8);font:500 14px 'Source Sans 3',sans-serif}"
     },
     {
       "name": "FAQ item",
@@ -312,7 +312,7 @@
       "refersTo": "faq-item",
       "description": "Question en accordéon natif.",
       "html": "<div class=\"ds-faq\"><span>Comment choisir mon soin ?</span><i>+</i></div>",
-      "css": ".ds-faq{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:24px 32px;border-radius:32px;background:#fbf6f5;font:500 18px Manrope,sans-serif;color:#1a110f}.ds-faq i{display:grid;place-items:center;width:40px;height:40px;border-radius:9999px;background:#1a110f;color:#fff;font-style:normal}"
+      "css": ".ds-faq{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:24px 32px;border-radius:32px;background:#fbf6f5;font:500 18px 'Source Sans 3',sans-serif;color:#1a110f}.ds-faq i{display:grid;place-items:center;width:40px;height:40px;border-radius:9999px;background:#1a110f;color:#fff;font-style:normal}"
     }
   ],
   "narrative": {
@@ -320,7 +320,7 @@
     "overview": "Site de soin calme et chaleureux : fond papier rosé, grands visuels photographiques sombres et dorés, titres en serif italique et cartes très arrondies. Palette et typos provisoires, reprises de Serelin.",
     "keyCharacteristics": [
       "Fond papier rosé et alternance de sections",
-      "Instrument Serif italique pour les titres, Manrope pour le texte",
+      "Sorts Mill Goudy italique pour les titres, Source Sans 3 pour le texte, Squatina capitales pour le logo",
       "Cartes à 40 px de rayon, boutons en pilule",
       "Photos chaudes et sombres en grand",
       "Tout passe par les tokens, rien en dur"

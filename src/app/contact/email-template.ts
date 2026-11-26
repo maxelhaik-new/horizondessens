@@ -1,6 +1,13 @@
 import "server-only";
 
-import { SANS, SERIF, emailColors as C, esc } from "@/lib/email-style";
+import {
+  SANS,
+  SERIF,
+  emailColors as C,
+  emailHead,
+  emailLogo,
+  esc,
+} from "@/lib/email-style";
 import { site } from "@/lib/site";
 
 /*
@@ -35,13 +42,13 @@ export function renderContactEmail(m: ContactMessage, receivedAt: Date) {
 
   const html = `<!doctype html>
 <html lang="fr">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Nouveau message</title></head>
+${emailHead("Nouveau message")}
 <body style="margin:0;padding:0;background:${C.paper}">
 <div style="display:none;max-height:0;overflow:hidden">${esc(m.subject)} · ${esc(m.message.slice(0, 120))}</div>
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:${C.paper}">
 <tr><td align="center" style="padding:32px 16px">
   <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px">
-    <tr><td style="padding:0 8px 20px;font:italic 22px/1 ${SERIF};color:${C.ink}">${site.name}</td></tr>
+    <tr><td style="padding:0 8px 22px">${emailLogo()}</td></tr>
     <tr><td style="background:${C.card};border-radius:28px;padding:36px 32px">
       <p style="margin:0 0 14px"><span style="display:inline-block;background:${C.blush};border-radius:999px;padding:8px 14px;font:500 12px/1 ${SANS};letter-spacing:.06em;text-transform:uppercase;color:${C.accent}">${esc(m.subject)}</span></p>
       <h1 style="margin:0 0 6px;font:italic 400 34px/1.15 ${SERIF};letter-spacing:-.02em;color:${C.ink}">Nouveau message de ${esc(firstName)}</h1>
