@@ -77,3 +77,12 @@ Remettre chez OVH l'A racine (et l'A `www`, en supprimant le CNAME) sur `87.98.1
 |---|---|---|---|
 | 24/11/2026 | Préparation | Claude | Resend vérifié, zone sauvegardée, ce déroulé rédigé. Bascule **non lancée** (attend le go de Maxime). |
 | 24/11/2026 | Déploiement | Claude | Commit `4793b4f` poussé, production Vercel prête, pages en 200. |
+
+### 26/11/2026 — Bascule faite (go de Maxime, en une passe, sans TTL abaissé la veille)
+- Commit `4f7fddf` « Avant test déploiement » poussé (dont l'interrupteur `GIFT_CARD_PAYMENTS=off` : repli vers `/contact#ecrire`).
+- Vercel : `CONTACT_TO_EMAIL` = `maxelhaik@gmail.com` (Production et Preview, **tests de Maxime** ; à repasser sur l'adresse d'Élodie après validation). `horizondessens.fr` (principal) et `www.horizondessens.fr` (308 → racine) ajoutés au projet.
+- OVH (zone rechargée) : A racine `87.98.154.146` → `216.198.79.1` + nouvel A `64.29.17.1` ; `www` : CNAME `horizondessens.fr.` → `13fd420eb881cba9.vercel-dns-017.com.` ; TXT `www` `"3|welcome"` et `"l|fr"` supprimés. **Non touchés** : MX, SPF, DKIM, Resend, vérification Google, TXT `"1|www.horizondessens.fr"`, `ftp`. (La zone réelle différait de la sauvegarde du 24/11 : `www` était déjà un CNAME, sans A ni MX.)
+- Production redéployée → alias `https://horizondessens.fr`. Supabase Auth Site URL → `https://horizondessens.fr` (liste blanche inchangée, contenait déjà le domaine).
+- Contrôles : `/` 200, `www` et `http` → 308 vers `https://horizondessens.fr/`, `/rdv` → 308 `/reserver`, `robots.txt` ouvert, `index, follow`, sitemap 13 URL, DNS propagé sur 1.1.1.1.
+- **Retour arrière** : A racine → `87.98.154.146` (supprimer `64.29.17.1`), CNAME `www` → `horizondessens.fr.`, recharger la zone.
+- Restent : Stripe en **mode test** (Maxime teste ; puis `GIFT_CARD_PAYMENTS=off` + redéploiement en attendant l'activation du compte d'Élodie, puis clés et webhook live) ; `CONTACT_TO_EMAIL` → Élodie ; Search Console ; sécurité (jetons, inscriptions Supabase) ; dépôt GitHub en privé ; réglages SimplyBook.

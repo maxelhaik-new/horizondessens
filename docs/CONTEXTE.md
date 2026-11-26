@@ -497,9 +497,9 @@ Décision de Maxime : les pages affichent les hypothèses **sans mention « à c
 > ⛔ Uniquement sur le **go explicite de Maxime**. L'agent (Claude) est **responsable de la bascule** quand Maxime la demande (OVH par MCP, Vercel par CLI). Stripe live reste hors agent. Tenir `bascule-domaine.md` à jour (cases, journal).
 - [ ] Prérequis : travail poussé et déployé, contenus validés par Élodie, SimplyBook à jour (pause, agenda, adresse, legacy masquées), **compte Stripe d'Élodie activé** (attendu), webhook et clés Stripe live en Production.
 - [ ] **La veille : TTL des enregistrements du site à 300 s** (agent, à garder en tête).
-- [ ] Vercel : ajouter `horizondessens.fr` (principal) et `www` (redirection).
-- [ ] OVH : A racine → Vercel ; `www` nettoyé (A, MX, TXT d'hébergement) puis CNAME Vercel ; recharger la zone. **Messagerie, Resend et vérification Google intacts.**
-- [ ] Redéployer la production (indexation), Site URL Supabase → `https://horizondessens.fr`.
+- [x] Vercel : ajouter `horizondessens.fr` (principal) et `www` (redirection). (26/11/2026)
+- [x] OVH : A racine → Vercel ; `www` nettoyé (A, MX, TXT d'hébergement) puis CNAME Vercel ; recharger la zone. **Messagerie, Resend et vérification Google intacts.**
+- [x] Redéployer la production (indexation), Site URL Supabase → `https://horizondessens.fr`.
 - [ ] Contrôles en production (HTTPS, www, redirections 308, robots, contact, carte cadeau réelle remboursée, CMS, e-mails, messagerie d'Élodie).
 - [ ] L'ancien site n'est pas supprimé (retour arrière : A → `87.98.154.146`).
 - [ ] Après : Search Console, fiche Google, sécurité (jeton `sbp_`, clés de test régénérées, inscriptions Supabase fermées), invitation d'Élodie, dépôt GitHub en **privé**.

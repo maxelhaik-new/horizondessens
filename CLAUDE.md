@@ -164,6 +164,10 @@ Vérifié : typecheck, lint, format, `content:check` et build OK, page statique.
 - **Champs de formulaire en 16 px sous `md`** (pas de zoom automatique d'iOS) ; `viewportFit: "cover"` et barre « Réserver » au-dessus de `safe-area-inset-bottom`.
 - Vérifié : typecheck, lint, build ; menu (ouverture, sous-menu, retour, fermeture, 320 px), rails, module (champs après choix d'un créneau, **sans envoi**). **Non testé** : vrai iPhone / Safari, vrai toucher sur les rails (Chromium émulé seulement).
 
+## Site en ligne sur horizondessens.fr (26/11/2026)
+- Bascule faite en une passe (journal et retour arrière : `docs/bascule-domaine.md`). **E-mails du site vers `maxelhaik.com`** (`CONTACT_TO_EMAIL`, phase de test de Maxime) : à repasser sur l'adresse d'Élodie. Stripe toujours en **mode test**.
+- **Interrupteur carte cadeau** : `GIFT_CARD_PAYMENTS=off` sur Vercel (puis redéployer) coupe le paiement en ligne, « Offrir cette carte » mène au formulaire de contact (`src/app/carte-cadeau/commander/route.ts`). Pour Vercel CLI, supprimer une variable exige `--confirm-name <NOM>` (accord humain).
+
 ## Polish d'ensemble (26/11/2026, `/impeccable polish`)
 - **Incohérences corrigées** : carte de choix 1h15 de `/carte-cadeau` sur le fond « roche rouge » de la vraie carte (tokens `--color-gift` / `--color-gift-edge`) ; images de partage des pages légales sur `salon/loire-couchant.jpg` (plus `header1`).
 - **Chiffres alignés** (`font-variant-numeric: lining-nums` sur `body`) : les chiffres elzéviriens de Goudy faisaient lire « 1h » comme « Ih ». PDF : chiffres alignés intégrés aux polices `goudy*.woff` (cmap remappée sur `lnum`).
