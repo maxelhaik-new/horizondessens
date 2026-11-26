@@ -1,8 +1,8 @@
 /**
  * Logo et dérivés de la marque, à partir de deux sources :
  *  - le symbole « soleil sur l'horizon » (public/images/logo/symbole-soleil.svg) ;
- *  - la police du logo, Squatina (src/app/fonts/squatina/), dont le nom
- *    « HORIZON DES SENS » est converti en tracés (pas de police à installer).
+ *  - la police du logo, Sorts Mill Goudy italique (src/app/fonts/sorts-mill-goudy/),
+ *    dont le nom « horizon des sens » (minuscules) est converti en tracés (pas de police à installer).
  *
  * L'assemblage reprend exactement celui du site (`LogoWordmark`) : haut des
  * rayons = haut des capitales, ligne d'horizon = ligne de base, reflet en
@@ -42,13 +42,15 @@ function symbolSvg(color, { crop = false } = {}) {
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="11 10 ${SYM.w} ${h}" width="${SYM.w}" height="${h}" color="${color}">${symbolInner}</svg>`;
 }
 
-/* ---------- Nom : Squatina en tracés ---------- */
+/* ---------- Nom : Sorts Mill Goudy italique en tracés ---------- */
 const font = fontkit.create(
-  await readFile(root + "/src/app/fonts/squatina/Squatina-Regular.woff2"),
+  await readFile(root + "/src/app/fonts/sorts-mill-goudy/SortsMillGoudy-Italic-latin.woff2"),
 );
-const CAP = font.capHeight; // 700 / 1000
-const TRACK = 24; // 0,03 em de la taille du logo = 0,024 em de Squatina (×1,25)
-const run = font.layout("HORIZON DES SENS");
+// Hauteur des capitales mesurée sur le « H », comme le site (`LogoWordmark`).
+const UPM = font.unitsPerEm;
+const CAP = font.glyphForCodePoint(72).bbox.maxY;
+const TRACK = -0.01 * UPM; // interlettrage -0,01 em, comme sur le site
+const run = font.layout("horizon des sens");
 let pen = 0;
 const glyphPaths = run.glyphs.map((g, i) => {
   const d = g.path.toSVG();
@@ -58,7 +60,7 @@ const glyphPaths = run.glyphs.map((g, i) => {
 });
 const textWidth = pen - TRACK;
 
-/* ---------- Assemblage (unités : 1/1000 de la taille de Squatina) ---------- */
+/* ---------- Assemblage (unités : celles de la police du nom) ---------- */
 const symH = (CAP * SYM.h) / SYM.horizon;
 const symW = (symH * SYM.w) / SYM.h;
 const GAP = 0.62 * CAP;

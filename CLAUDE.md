@@ -164,6 +164,10 @@ Vérifié : typecheck, lint, format, `content:check` et build OK, page statique.
 - **Champs de formulaire en 16 px sous `md`** (pas de zoom automatique d'iOS) ; `viewportFit: "cover"` et barre « Réserver » au-dessus de `safe-area-inset-bottom`.
 - Vérifié : typecheck, lint, build ; menu (ouverture, sous-menu, retour, fermeture, 320 px), rails, module (champs après choix d'un créneau, **sans envoi**). **Non testé** : vrai iPhone / Safari, vrai toucher sur les rails (Chromium émulé seulement).
 
+## Logo en Sorts Mill Goudy italique minuscule (27/11/2026)
+- Choix temporaire de Maxime : « horizon des sens » en Goudy italique, minuscules, interlettrage -0,01 em (variante « actuel » du sélecteur, conservé). `npm run assets:brand` vectorise désormais ce nom (capitale de référence : le « H » de la police) ; icônes, images de partage, logo des e-mails et de Stripe, logo du PDF, carte premium, mockups, fond du recto et exemples régénérés. `fontLogo` (Squatina) reste chargé pour le sélecteur.
+- Paiement en ligne des cartes cadeaux **coupé** (`GIFT_CARD_PAYMENTS=off` en Production, 27/11) : repli vers `/contact#ecrire`, en attendant l'activation du compte Stripe d'Élodie.
+
 ## Site en ligne sur horizondessens.fr (26/11/2026)
 - Bascule faite en une passe (journal et retour arrière : `docs/bascule-domaine.md`). **E-mails du site vers `maxelhaik.com`** (`CONTACT_TO_EMAIL`, phase de test de Maxime) : à repasser sur l'adresse d'Élodie. Stripe toujours en **mode test**.
 - **Interrupteur carte cadeau** : `GIFT_CARD_PAYMENTS=off` sur Vercel (puis redéployer) coupe le paiement en ligne, « Offrir cette carte » mène au formulaire de contact (`src/app/carte-cadeau/commander/route.ts`). Pour Vercel CLI, supprimer une variable exige `--confirm-name <NOM>` (accord humain).
