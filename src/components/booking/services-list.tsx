@@ -97,11 +97,11 @@ export async function BookingServices() {
                 <div className="flex flex-col gap-1.5 sm:gap-2">
                   <p
                     {...c.edit(`${key}.subtitle` as EditKey)}
-                    className="text-eyebrow text-accent-800"
+                    className="text-eyebrow leading-[1.35] text-accent-800"
                   >
                     {e.subtitle}
                   </p>
-                  <h3 className="text-h4 sm:text-h3">{service.name}</h3>
+                  <h2 className="text-h4 sm:text-h3">{service.name}</h2>
                   <p
                     {...c.edit(`${key}.short` as EditKey)}
                     className="max-w-xl text-body text-pretty text-ink-soft max-sm:hidden"

@@ -52,7 +52,9 @@ export async function GiftCardCards() {
                   method="post"
                   className={cn(
                     "flex h-full flex-col gap-7 rounded-card p-6 shadow-soft sm:p-8 md:gap-10 md:p-10",
-                    dark ? "bg-night text-white" : "bg-paper-soft text-ink",
+                    dark
+                      ? "bg-gift bg-[radial-gradient(120%_90%_at_50%_42%,var(--color-gift),var(--color-gift-edge))] text-white"
+                      : "bg-paper-soft text-ink",
                   )}
                 >
                   <input type="hidden" name="carte" value={card.id} />

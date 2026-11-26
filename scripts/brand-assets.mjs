@@ -206,7 +206,7 @@ const og = [
   ],
   ...["mentions-legales", "cgv", "confidentialite"].map((dir) => [
     dir,
-    "massages/header1.jpg",
+    "salon/loire-couchant.jpg",
     "Horizon des Sens, Kobido et massage bien-être à Saint-Cyr-sur-Loire près de Tours",
   ]),
 ];

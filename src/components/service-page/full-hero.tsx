@@ -53,7 +53,7 @@ export function FullHero({
       />
       <div
         aria-hidden
-        className="absolute inset-0 -z-10 bg-[linear-gradient(180deg,rgb(26_17_15/0.55)_0%,rgb(26_17_15/0.1)_35%,rgb(26_17_15/0.85)_100%)]"
+        className="absolute inset-0 -z-10 bg-[linear-gradient(180deg,rgb(26_17_15/0.75)_0%,rgb(26_17_15/0.15)_30%,rgb(26_17_15/0.85)_100%)]"
       />
 
       <div className="container-site grid items-end gap-10 lg:grid-cols-[1.5fr_1fr] lg:gap-16">

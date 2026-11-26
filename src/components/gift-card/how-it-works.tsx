@@ -47,7 +47,7 @@ export async function GiftCardHowItWorks() {
                   as="li"
                   className="grid grid-cols-[3rem_1fr] gap-4 border-b border-line py-5 md:grid-cols-[4rem_1fr] md:py-7"
                 >
-                  <span className="font-serif text-3xl leading-none text-accent-800 italic tabular-nums">
+                  <span className="font-serif text-3xl leading-none text-accent-800 italic lining-nums tabular-nums">
                     {String(i + 1).padStart(2, "0")}
                   </span>
                   <div className="flex flex-col gap-2">

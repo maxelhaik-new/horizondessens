@@ -19,6 +19,9 @@
   --color-blush: #eed5ce; /* sections soins */
   --color-sand: #e6c4bb;
   --color-night: #1a110f; /* hero, section sombre, boutons, titres */
+  /* Carte cadeau : fond « roche rouge » du recto (card-layout.json) */
+  --color-gift: #5c2218;
+  --color-gift-edge: #280d09;
 
   /* Texte (contrastes AA vérifiés sur paper / paper-soft / blush) */
   --color-ink: #1a110f;
@@ -251,6 +254,9 @@
 
   body {
     font-family: var(--font-sans);
+    /* Chiffres alignés partout : les chiffres elzéviriens de Sorts Mill Goudy
+       font lire « 1h » comme « Ih » dans les durées et les prix. */
+    font-variant-numeric: lining-nums;
   }
 
   ::selection {
@@ -302,6 +308,8 @@ html.lenis body {
 .legal-prose {
   display: flex;
   flex-direction: column;
+  /* Colonne de lecture : environ 75 signes au plus par ligne */
+  max-width: 62ch;
   gap: 1rem;
   color: var(--color-ink-soft);
   font-size: 1rem;

@@ -27,7 +27,7 @@ export async function BookingInfos() {
         >
           {c["reserver.infos.items"].map((item, i) => (
             <RevealItem key={i} as="li" className="flex flex-col gap-3">
-              <span className="font-serif text-3xl leading-none text-accent-800 italic tabular-nums">
+              <span className="font-serif text-3xl leading-none text-accent-800 italic lining-nums tabular-nums">
                 {String(i + 1).padStart(2, "0")}
               </span>
               <h3

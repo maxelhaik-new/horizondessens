@@ -93,8 +93,7 @@ export function GesturesScroller({
             }}
             data-index={i}
             className={cn(
-              "flex flex-col gap-3 rounded-card bg-paper/70 p-2.5 pb-6 transition-opacity duration-500 lg:min-h-[45vh] lg:justify-center lg:gap-5 lg:rounded-none lg:border-t lg:border-line lg:bg-transparent lg:p-0 lg:py-12 lg:last:border-b",
-              i === active ? "lg:opacity-100" : "lg:opacity-55",
+              "flex flex-col gap-3 rounded-card bg-paper/70 p-2.5 pb-6 lg:min-h-[45vh] lg:justify-center lg:gap-5 lg:rounded-none lg:border-t lg:border-line lg:bg-transparent lg:p-0 lg:py-12 lg:last:border-b",
             )}
           >
             <div className="relative mb-2 aspect-[4/3] overflow-hidden rounded-[1.75rem] lg:hidden">
@@ -112,7 +111,12 @@ export function GesturesScroller({
             </p>
             <h3
               {...item.edit?.title}
-              className="px-3 text-h4 font-serif tracking-[-0.02em] italic lg:px-0 lg:text-h3"
+              className={cn(
+                "px-3 text-h4 font-serif tracking-[-0.02em] italic transition-opacity duration-500 lg:px-0 lg:text-h3",
+                // Geste inactif : seul le titre (grand texte, contraste ≥ 3:1)
+                // s'efface ; le texte courant reste lisible (AA).
+                i !== active && "lg:opacity-60",
+              )}
             >
               {item.title}
             </h3>

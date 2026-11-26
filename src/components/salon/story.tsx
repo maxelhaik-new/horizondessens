@@ -36,7 +36,7 @@ export async function SalonStory() {
           <Reveal>
             <p
               {...c.edit("salon.elodie.intro")}
-              className="text-lead text-pretty text-ink-soft"
+              className="max-w-[65ch] text-lead text-pretty text-ink-soft"
             >
               {c["salon.elodie.intro"]}
             </p>
