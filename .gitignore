@@ -48,3 +48,9 @@ serelin components/
 /test-results/
 /playwright-report/
 /blob-report/
+
+# Polices sources importées pour les essais (non versionnées)
+/Font import/
+# Polices d'essai sans licence vérifiée (dépôt public) : jamais versionnées
+/public/fonts/essais/squatina-*.woff2
+/public/fonts/essais/thestral-neue-*.woff2

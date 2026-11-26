@@ -1,39 +1,144 @@
-import { Instrument_Serif, Manrope } from "next/font/google";
+import {
+  Figtree,
+  Hanken_Grotesk,
+  Instrument_Sans,
+  Instrument_Serif,
+  Manrope,
+  Source_Sans_3,
+  Work_Sans,
+  Young_Serif,
+} from "next/font/google";
 import localFont from "next/font/local";
 
-/** Titres : serif éditorial (comme Serelin). */
-export const fontSerif = Instrument_Serif({
-  subsets: ["latin"],
-  weight: "400",
-  style: ["normal", "italic"],
-  variable: "--font-instrument-serif",
+/**
+ * Titres : Sorts Mill Goudy (OFL, Barry Schwartz), romain et italique,
+ * sous-ensemble latin. Choisie par Maxime le 26/11/2026 (remplace Instrument
+ * Serif). Une seule graisse : le navigateur ne doit pas en synthétiser d'autre.
+ */
+export const fontSerif = localFont({
+  src: [
+    {
+      path: "./fonts/sorts-mill-goudy/SortsMillGoudy-latin.woff2",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "./fonts/sorts-mill-goudy/SortsMillGoudy-Italic-latin.woff2",
+      weight: "400",
+      style: "italic",
+    },
+  ],
+  variable: "--font-goudy",
   display: "swap",
-});
-
-/** Textes et interface. */
-export const fontSans = Manrope({
-  subsets: ["latin"],
-  variable: "--font-manrope",
-  display: "swap",
+  fallback: ["Georgia", "Times New Roman", "serif"],
 });
 
 /**
- * Logo (nom « Horizon des Sens ») : LT Superior Serif (licence OFL, fichiers
- * dans `fonts/lt-superior-serif/`, sous-ensemble latin). Essai du 26/11/2026,
- * pour ne plus dessiner le logo en Instrument Serif comme les titres.
+ * Textes et interface : Source Sans 3 (OFL, Adobe), variable 200–900, romain
+ * et italique, sous-ensemble latin. Agrandie de 10 % (`size-adjust`) pour
+ * retrouver la taille apparente de Manrope, l'ancienne police (hauteur d'x
+ * 48,6 contre 54 à 100 px) : les tailles CSS du site ne changent pas.
  */
-export const fontLogo = localFont({
+export const fontSans = localFont({
   src: [
     {
-      path: "./fonts/lt-superior-serif/LTSuperiorSerif-Regular.woff2",
-      weight: "400",
+      path: "./fonts/source-sans-3/SourceSans3-latin.woff2",
+      weight: "200 900",
+      style: "normal",
     },
     {
-      path: "./fonts/lt-superior-serif/LTSuperiorSerif-Medium.woff2",
-      weight: "500",
+      path: "./fonts/source-sans-3/SourceSans3-Italic-latin.woff2",
+      weight: "200 900",
+      style: "italic",
     },
   ],
-  variable: "--font-lt-superior-serif",
+  declarations: [{ prop: "size-adjust", value: "110%" }],
+  variable: "--font-source-sans-3",
+  display: "swap",
+  fallback: ["ui-sans-serif", "system-ui", "sans-serif"],
+});
+
+/**
+ * Logo (nom « HORIZON DES SENS », en capitales) : Bluu Next Bold (Velvetyne,
+ * licence OFL), choisie par Maxime le 26/11/2026. Hauteur des capitales :
+ * 0,685 em (H de 0 à 685 sur 1000) : `LogoWordmark` cale le symbole dessus.
+ */
+export const fontLogo = localFont({
+  src: [{ path: "./fonts/bluu-next/BluuNext-Bold.woff2", weight: "700" }],
+  variable: "--font-bluu-next",
   display: "swap",
   fallback: ["Times New Roman", "serif"],
 });
+
+/*
+ * ⚠️ TEMPORAIRE (26/11/2026) : polices proposées par le sélecteur d'essais
+ * (`src/components/trials/`). `preload: false` : leurs fichiers ne sont
+ * téléchargés que si on les choisit dans le sélecteur. À retirer avec lui
+ * (voir CONTEXTE.md §15).
+ */
+export const fontTrialInstrumentSerif = Instrument_Serif({
+  subsets: ["latin"],
+  weight: "400",
+  style: ["normal", "italic"],
+  display: "swap",
+  preload: false,
+  variable: "--font-instrument-serif",
+});
+export const fontTrialManrope = Manrope({
+  subsets: ["latin"],
+  display: "swap",
+  preload: false,
+  variable: "--font-manrope",
+});
+export const fontTrialSourceSans = Source_Sans_3({
+  subsets: ["latin"],
+  display: "swap",
+  preload: false,
+  variable: "--font-essai-source-sans-3",
+});
+export const fontTrialFigtree = Figtree({
+  subsets: ["latin"],
+  display: "swap",
+  preload: false,
+  variable: "--font-essai-figtree",
+});
+export const fontTrialInstrumentSans = Instrument_Sans({
+  subsets: ["latin"],
+  display: "swap",
+  preload: false,
+  variable: "--font-essai-instrument-sans",
+});
+export const fontTrialHanken = Hanken_Grotesk({
+  subsets: ["latin"],
+  display: "swap",
+  preload: false,
+  variable: "--font-essai-hanken-grotesk",
+});
+export const fontTrialWorkSans = Work_Sans({
+  subsets: ["latin"],
+  display: "swap",
+  preload: false,
+  variable: "--font-essai-work-sans",
+});
+
+export const fontTrialYoungSerif = Young_Serif({
+  subsets: ["latin"],
+  weight: "400",
+  display: "swap",
+  preload: false,
+  variable: "--font-essai-young-serif",
+});
+
+/** Variables CSS des polices d'essai, à poser sur `<html>`. */
+export const trialFontVariables = [
+  fontTrialInstrumentSerif,
+  fontTrialManrope,
+  fontTrialSourceSans,
+  fontTrialFigtree,
+  fontTrialInstrumentSans,
+  fontTrialHanken,
+  fontTrialWorkSans,
+  fontTrialYoungSerif,
+]
+  .map((f) => f.variable)
+  .join(" ");

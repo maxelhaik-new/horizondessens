@@ -1,0 +1,91 @@
+/*
+ * ⚠️ TEMPORAIRE (26/11/2026) : polices d'essai (dossier « Font import » de
+ * Maxime), converties en woff2 latin dans `public/fonts/essais/`.
+ * Un navigateur ne télécharge une police que si elle est utilisée : sans choix
+ * dans le sélecteur d'essais, aucun visiteur ne charge ces fichiers.
+ * Les polices à une seule graisse couvrent 100–900 (pas de faux gras).
+ */
+
+/* LT Superior Serif (OFL, LyonsType) */
+@font-face {
+  font-family: "Essai LT Superior Serif";
+  src: url("/fonts/essais/lt-superior-serif-regular.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Essai LT Superior Serif";
+  src: url("/fonts/essais/lt-superior-serif-medium.woff2") format("woff2");
+  font-weight: 500;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Essai LT Superior Serif";
+  src: url("/fonts/essais/lt-superior-serif-semibold.woff2") format("woff2");
+  font-weight: 600;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Essai LT Superior Serif";
+  src: url("/fonts/essais/lt-superior-serif-bold.woff2") format("woff2");
+  font-weight: 700;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Essai LT Superior Serif";
+  src: url("/fonts/essais/lt-superior-serif-extrabold.woff2") format("woff2");
+  font-weight: 800 900;
+  font-display: swap;
+}
+
+/* Bluu Next (Velvetyne) : Bold et Bold Italic seulement */
+@font-face {
+  font-family: "Essai Bluu Next";
+  src: url("/fonts/essais/bluu-next-bold.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Essai Bluu Next";
+  src: url("/fonts/essais/bluu-next-bold-italic.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* Sorts Mill Goudy (OFL, Barry Schwartz) : romain et italique */
+@font-face {
+  font-family: "Essai Sorts Mill Goudy";
+  src: url("/fonts/essais/sorts-mill-goudy.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Essai Sorts Mill Goudy";
+  src: url("/fonts/essais/sorts-mill-goudy-italic.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* XCicero : une seule graisse, pas d'italique */
+@font-face {
+  font-family: "Essai Americaine Condensed";
+  src: url("/fonts/essais/americaine-condensed.woff2") format("woff2");
+  font-weight: 100 900;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Essai Thestral Neue";
+  src: url("/fonts/essais/thestral-neue-bold.woff2") format("woff2");
+  font-weight: 100 900;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Essai Squatina";
+  src: url("/fonts/essais/squatina-regular.woff2") format("woff2");
+  font-weight: 100 900;
+  font-display: swap;
+}

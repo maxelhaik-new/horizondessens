@@ -71,7 +71,7 @@ const servicePageCommon = (label: string) =>
     "hero.image": {
       type: "image",
       label: `${label} · Hero — image`,
-      ratio: "4:5",
+      ratio: "16:9",
       altMaxLength: IMAGE_ALT,
     },
 
@@ -501,7 +501,7 @@ export const contentFields = defineFields({
   "kobido.origine.image": {
     type: "image",
     label: "Kobido · Origine — image",
-    ratio: "3:4",
+    ratio: "4:5",
     altMaxLength: IMAGE_ALT,
   },
 

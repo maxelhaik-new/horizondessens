@@ -21,12 +21,15 @@ type ServicePageConfig = {
   label: string;
   /** Badge affiché dans le hero (le texte vient de `home.5c.licence`). */
   badge?: "m5c";
+  /** Cadrage de l'image du hero plein cadre (classe `object-[x_y]`). */
+  heroPosition?: string;
 };
 
 const pages = {
   "calme-et-harmonie": {
     path: "/massage-calme-et-harmonie",
     label: "Calme et harmonie",
+    heroPosition: "object-[50%_30%]",
   },
   "5-continents": {
     path: routes.cinqContinents,
@@ -36,10 +39,12 @@ const pages = {
   "jambes-legeres": {
     path: "/jambes-legeres-reflexologie-plantaire",
     label: "Jambes légères",
+    heroPosition: "object-[50%_60%]",
   },
   "rituel-horizon": {
     path: "/rituel-horizon",
     label: "Rituel Horizon",
+    heroPosition: "object-[50%_40%]",
   },
 } as const satisfies Partial<Record<ServiceSlug, ServicePageConfig>>;
 

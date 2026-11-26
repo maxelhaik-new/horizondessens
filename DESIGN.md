@@ -185,6 +185,9 @@ Pastille de section : fond blanc à 70 %, texte `accent-800`, majuscules espacé
 ### FAQ item
 Élément `<details name>` natif : fond `paper-soft`, rayon 32 px, question en 18 px, pastille cerclée d'un filet avec un plus qui tourne de 45 degrés et se remplit en `night` à l'ouverture. Une seule question ouverte à la fois.
 
+### Service hero
+Toutes les pages de soin (Kobido, 5 Continents, Calme et harmonie, Jambes légères, Rituel Horizon) partagent un hero plein cadre (`FullHero`) : photo sombre pleine largeur sur au moins un écran, dégradé `night` de 55 % en haut à 85 % en bas, H1 court en `text-display`, accroche avec la localisation, un seul bouton `light`, durées et prix en serif italique à droite derrière un filet (au-dessus sur mobile), badge M5C pour le 5 Continents.
+
 ### Navigation
 En-tête en pilule flottante de 72 px (64 px sur mobile), transparente sur le hero sombre, puis blanche à 70 % avec un flou fort au défilement. Mobile : menu plein écran et barre « Réserver » fixe en bas.
 

@@ -12,8 +12,8 @@ import type { ContentValues } from "./registry";
 export const contentDefaults: ContentValues = {
   // --- Hero ---
   "home.hero.image": {
-    src: "/images/massages/header1.jpg",
-    alt: "Visage apaisé, les yeux clos, une main posée sur le front dans la pénombre",
+    src: "/images/massages/visage-6.jpg",
+    alt: "Massage du visage : des mains posées sur les joues d'une personne détendue, les yeux clos",
   },
   "home.hero.title": "Kobido et massages bien-être, au bord de la Loire",
   "home.hero.lead":
@@ -53,16 +53,16 @@ export const contentDefaults: ContentValues = {
   "service.calme-et-harmonie.short":
     "Un massage enveloppant, associé au Reiki, pour relâcher les tensions et retrouver votre équilibre.",
   "service.calme-et-harmonie.image": {
-    src: "/images/massages/dos.jpg",
-    alt: "Massage du dos, gestes enveloppants",
+    src: "/images/massages/reiki-1.jpg",
+    alt: "Reiki : les mains posées sur le front d'une personne allongée, les yeux clos",
   },
 
   "service.5-continents.subtitle": "Corps · Un voyage sensoriel",
   "service.5-continents.short":
     "Huiles essentielles, gestes venus du monde entier et soin énergétique : un massage rare, pratiqué sous licence.",
   "service.5-continents.image": {
-    src: "/images/massages/bras.jpg",
-    alt: "Massage du bras à l'huile, geste ample et fluide",
+    src: "/images/massages/bras-5.jpg",
+    alt: "Massage du bras à l'huile, les mains enveloppent l'avant-bras",
   },
 
   "service.jambes-legeres.subtitle":
@@ -70,8 +70,8 @@ export const contentDefaults: ContentValues = {
   "service.jambes-legeres.short":
     "Un massage drainant des jambes associé à la réflexologie plantaire, pour soulager les jambes lourdes.",
   "service.jambes-legeres.image": {
-    src: "/images/massages/pieds.jpg",
-    alt: "Massage des pieds, réflexologie plantaire",
+    src: "/images/massages/pieds-5.jpg",
+    alt: "Massage des pieds sur une serviette, à la lueur d'une bougie",
   },
 
   "service.rituel-horizon.subtitle": "Sur mesure · Selon vos zones de tension",
@@ -213,11 +213,11 @@ export const contentDefaults: ContentValues = {
     "À cinq minutes de Tours, facile d'accès par tous les moyens de transport. Salle de soin avec vue sur la Loire.",
 
   // ===== Page Kobido =====
-  "kobido.hero.title": "Kobido à Saint-Cyr-sur-Loire, aux portes de Tours",
+  "kobido.hero.title": "Kobido, le massage facial japonais",
   "kobido.hero.lead":
-    "Le massage facial japonais, dans un salon calme face à la Loire. Une heure pour relâcher le visage, et tout le reste avec lui.",
+    "Une heure pour relâcher le visage, et tout le reste avec lui. Dans un salon calme face à la Loire, à Saint-Cyr-sur-Loire, près de Tours.",
   "kobido.hero.image": {
-    src: "/images/kobido/hero-plein.jpg",
+    src: "/images/massages/visage-hero.jpg",
     alt: "Kobido : les mains de la praticienne encadrent un visage détendu, dans une lumière chaude",
   },
 
@@ -228,8 +228,8 @@ export const contentDefaults: ContentValues = {
   "kobido.origine.quote":
     "Plus qu'un soin de beauté : une détente profonde qui part du visage.",
   "kobido.origine.image": {
-    src: "/images/kobido/origine-japon.jpg",
-    alt: "Femme en kimono préparant le thé dans une maison traditionnelle japonaise en bois",
+    src: "/images/kobido/origine-the.jpg",
+    alt: "Femme en kimono préparant le thé, assise dans une maison japonaise traditionnelle baignée de lumière",
   },
 
   "kobido.gestes.eyebrow": "Les gestes",
@@ -248,7 +248,7 @@ export const contentDefaults: ContentValues = {
     {
       title: "Les percussions",
       text: "Des gestes rapides et légers, du bout des doigts, qui stimulent la peau et réveillent l'éclat du teint.",
-      image: "/images/accueil/hero-mains-visage.jpg",
+      image: "/images/massages/visage-7.jpg",
     },
     {
       title: "Le modelage",
@@ -316,12 +316,12 @@ export const contentDefaults: ContentValues = {
 
   // ===== Page Massage des 5 Continents (/massage-5-continents) · page sur mesure =====
   // Récit d'après la carte 2026, l'ancien site et le RDV : à valider par Élodie.
-  "soin.5-continents.hero.title": "Le Massage des 5 Continents, près de Tours",
+  "soin.5-continents.hero.title": "Le Massage des 5 Continents",
   "soin.5-continents.hero.lead":
-    "Un voyage sensoriel en deux temps, porté par des huiles essentielles et un soin énergétique. Un massage rare, à Saint-Cyr-sur-Loire, face au fleuve.",
+    "Un voyage sensoriel porté par des huiles essentielles et un soin énergétique. Un massage rare, à Saint-Cyr-sur-Loire, près de Tours, face à la Loire.",
   "soin.5-continents.hero.image": {
-    src: "/images/massages/dos-2.jpg",
-    alt: "Massage du dos à l'huile, mains posées sur la peau dans une lumière chaude",
+    src: "/images/massages/dos-hero.jpg",
+    alt: "Massage du dos et des épaules à l'huile, mains posées à plat dans une lumière chaude",
   },
 
   "soin.5-continents.prologue.title":
@@ -329,8 +329,8 @@ export const contentDefaults: ContentValues = {
   "soin.5-continents.prologue.text":
     "Le Massage des 5 Continents réunit en une seule séance des gestes inspirés des grandes traditions du massage à travers le monde. Il se pratique avec des huiles essentielles préparées pour lui seul, et s'achève sur un soin énergétique.\n\nC'est un massage encadré : seuls des praticiens formés et certifiés peuvent le proposer. Peu de salons le pratiquent autour de Tours, et c'est l'un des soins que l'on me demande le plus.",
   "soin.5-continents.prologue.image": {
-    src: "/images/accueil/5-continents-huile.jpg",
-    alt: "Flacon d'huile essentielle ambrée, préparée pour le Massage des 5 Continents",
+    src: "/images/massages/huile-3.jpg",
+    alt: "Flacons d'huiles essentielles ambrés posés sur des serviettes, dans une lumière chaude",
   },
 
   "soin.5-continents.voyage.title": "Le voyage, chapitre par chapitre",
@@ -340,7 +340,7 @@ export const contentDefaults: ContentValues = {
     {
       title: "Les huiles",
       text: "Tout commence par les parfums. Des huiles essentielles préparées par un laboratoire spécialisé, pour ce massage uniquement, vous accompagnent jusqu'à la fin de la séance.",
-      image: "/images/ambiance/huiles-plateau.jpg",
+      image: "/images/massages/huile-4.jpg",
     },
     {
       title: "Libérer",
@@ -355,7 +355,7 @@ export const contentDefaults: ContentValues = {
     {
       title: "Le soin énergétique",
       text: "Pour finir, un temps de Reiki, par simple imposition des mains, prolonge la détente et harmonise la circulation de l'énergie. On ressort un peu ailleurs.",
-      image: "/images/ambiance/lampe-pierres.jpg",
+      image: "/images/massages/reiki-3.jpg",
     },
   ],
 
@@ -390,13 +390,12 @@ export const contentDefaults: ContentValues = {
 
   // ===== Page Calme et harmonie (/massage-calme-et-harmonie) · gabarit en 5 sections =====
   // Premier jet d'après la carte 2026 et le RDV : à valider par Élodie.
-  "soin.calme-et-harmonie.hero.title":
-    "Massage Calme et harmonie à Saint-Cyr-sur-Loire, près de Tours",
+  "soin.calme-et-harmonie.hero.title": "Calme et harmonie",
   "soin.calme-et-harmonie.hero.lead":
-    "Le dos, le visage et le crâne, puis un temps de Reiki. Un massage enveloppant pour apaiser le mental et relâcher les tensions, au bord de la Loire.",
+    "Un massage du dos, du visage et du crâne, suivi d'un temps de Reiki, pour apaiser le mental. À Saint-Cyr-sur-Loire, près de Tours.",
   "soin.calme-et-harmonie.hero.image": {
-    src: "/images/soins/calme-et-harmonie.jpg",
-    alt: "Massage relaxant du dos dans une lumière douce",
+    src: "/images/massages/visage-7.jpg",
+    alt: "Massage du crâne et du front, des mains posées sur la tête d'une personne allongée",
   },
 
   "soin.calme-et-harmonie.soin.title": "Quand la tête ne s'arrête plus",
@@ -421,8 +420,8 @@ export const contentDefaults: ContentValues = {
     },
   ],
   "soin.calme-et-harmonie.soin.image": {
-    src: "/images/ambiance/mains-epaules.jpg",
-    alt: "Mains posées sur les épaules pendant un massage à l'huile",
+    src: "/images/massages/reiki-2.jpg",
+    alt: "Reiki : les mains posées au-dessus de la tête d'une personne détendue",
   },
 
   "soin.calme-et-harmonie.reserver.text":
@@ -461,13 +460,12 @@ export const contentDefaults: ContentValues = {
 
   // ===== Page Jambes légères (/jambes-legeres-reflexologie-plantaire) · gabarit en 5 sections =====
   // Réflexologie plantaire incluse (RDV) : à confirmer par Élodie.
-  "soin.jambes-legeres.hero.title":
-    "Jambes légères et réflexologie plantaire, près de Tours",
+  "soin.jambes-legeres.hero.title": "Jambes légères",
   "soin.jambes-legeres.hero.lead":
-    "Un massage drainant des jambes, associé à la réflexologie plantaire, pour soulager les jambes lourdes et retrouver une sensation de légèreté.",
+    "Un massage drainant des jambes, associé à la réflexologie plantaire, pour soulager les jambes lourdes. À Saint-Cyr-sur-Loire, près de Tours.",
   "soin.jambes-legeres.hero.image": {
-    src: "/images/soins/jambes-legeres.jpg",
-    alt: "Massage des jambes à l'huile, gestes remontant vers le genou",
+    src: "/images/massages/pieds.jpg",
+    alt: "Massage des pieds, réflexologie plantaire",
   },
 
   "soin.jambes-legeres.soin.title": "Pour les jambes qui portent la journée",
@@ -488,8 +486,8 @@ export const contentDefaults: ContentValues = {
     },
   ],
   "soin.jambes-legeres.soin.image": {
-    src: "/images/massages/pieds.jpg",
-    alt: "Massage des pieds, réflexologie plantaire",
+    src: "/images/massages/pieds-6.jpg",
+    alt: "Réflexologie plantaire : les mains pressent la plante du pied",
   },
 
   "soin.jambes-legeres.reserver.text":
@@ -528,13 +526,12 @@ export const contentDefaults: ContentValues = {
 
   // ===== Page Rituel Horizon (/rituel-horizon) · gabarit en 5 sections =====
   // Massage sur mesure : à valider par Élodie.
-  "soin.rituel-horizon.hero.title":
-    "Rituel Horizon, un massage composé pour vous",
+  "soin.rituel-horizon.hero.title": "Rituel Horizon",
   "soin.rituel-horizon.hero.lead":
-    "Après un temps d'échange, je compose le massage selon vos zones de tension du moment. Un soin sur mesure, à Saint-Cyr-sur-Loire, près de Tours.",
+    "Un massage sur mesure : après un temps d'échange, je le compose selon vos zones de tension du moment. À Saint-Cyr-sur-Loire, près de Tours.",
   "soin.rituel-horizon.hero.image": {
-    src: "/images/ambiance/massage-dos.jpg",
-    alt: "Massage sur mesure du dos, mains posées sur les épaules",
+    src: "/images/massages/trapeze-hero.jpg",
+    alt: "Massage sur mesure des épaules et des trapèzes, zones de tension fréquentes",
   },
 
   "soin.rituel-horizon.soin.title": "Chaque séance part de vous",
@@ -555,8 +552,8 @@ export const contentDefaults: ContentValues = {
     },
   ],
   "soin.rituel-horizon.soin.image": {
-    src: "/images/salon/salle-lit.jpg",
-    alt: "La salle de soin du salon, table de massage et lumière naturelle",
+    src: "/images/massages/dos.jpg",
+    alt: "Massage du dos à l'huile, gestes amples sur les épaules",
   },
 
   "soin.rituel-horizon.reserver.text":

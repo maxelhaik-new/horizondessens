@@ -3,36 +3,28 @@ import Link from "next/link";
 import { cn } from "@/lib/cn";
 import { site } from "@/lib/site";
 
-import { LogoWordmark } from "./logo-trial";
+import { LogoSymbol } from "@/components/brand/logo-symbol";
+import { LogoWordmark } from "@/components/trials/trials";
 
-export { LogoWordmark };
+export { LogoSymbol, LogoWordmark };
 
 /**
- * Symbole du logo, coloré par `currentColor` (masque CSS sur le PNG détouré).
- * Provisoire : à remplacer par le SVG définitif fourni par Maxime.
+ * Logo complet (symbole + nom en capitales) cliquable vers l'accueil. Le
+ * symbole est dessiné par `LogoWordmark` (taille en em, calée sur les
+ * capitales et la ligne de base) : il suit la réduction `fit` du nom.
  */
-export function LogoSymbol({ className }: { className?: string }) {
-  return (
-    <span
-      aria-hidden
-      className={cn(
-        "inline-block aspect-square bg-current [mask-image:url(/images/logo/symbole.png)] [mask-size:contain] [mask-position:center] [mask-repeat:no-repeat]",
-        className,
-      )}
-    />
-  );
-}
-
-/** Logo complet (symbole + nom) cliquable vers l'accueil. */
 export function Logo({ className }: { className?: string }) {
   return (
     <Link
       href="/"
       aria-label={`${site.name}, accueil`}
-      className={cn("inline-flex min-h-11 items-center gap-2.5", className)}
+      className={cn("inline-flex min-h-11 min-w-0 items-center", className)}
     >
-      <LogoSymbol className="size-8" />
-      <LogoWordmark className="text-[1.375rem]" />
+      <LogoWordmark
+        fit
+        symbol
+        className="text-[1.5rem] md:text-[1.75rem] xl:text-[2rem]"
+      />
     </Link>
   );
 }

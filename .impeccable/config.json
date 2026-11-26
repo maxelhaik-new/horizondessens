@@ -74,6 +74,15 @@
         ],
         "createdAt": "2026-11-24T17:49:01.737Z",
         "reason": "Claude: fond = token paper du site (DESIGN.md), même charte que les e-mails du site"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "*",
+        "files": [
+          "src/components/trials/font-trials.css"
+        ],
+        "createdAt": "2026-11-26T12:54:34.649Z",
+        "reason": "Maxime: polices d'essai temporaires demandées pour le sélecteur (26/11/2026)"
       }
     ]
   }

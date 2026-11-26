@@ -124,7 +124,10 @@ const sections: LegalSection[] = [
           Visuels d&apos;illustration : Unsplash et images générées par
           intelligence artificielle.
         </li>
-        <li>Polices : Instrument Serif et Manrope (licence SIL Open Font).</li>
+        <li>
+          Polices : Sorts Mill Goudy, Source Sans 3 et Bluu Next (licence SIL
+          Open Font).
+        </li>
       </ul>
     ),
   },

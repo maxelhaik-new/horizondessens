@@ -79,7 +79,7 @@ export async function KobidoEffects() {
               </div>
               {i === 3 ? (
                 <RevealImage
-                  src="/images/ambiance/mains-epaules.jpg"
+                  src="/images/massages/visage-6.jpg"
                   alt=""
                   sizes="(min-width: 768px) 30vw, 100vw"
                   parallax={0}

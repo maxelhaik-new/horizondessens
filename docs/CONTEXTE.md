@@ -397,6 +397,7 @@ Décision de Maxime : les pages affichent les hypothèses **sans mention « à c
 - [ ] Textes relus et validés par Élodie (accueil, Kobido : citation de l'approche, déroulé, FAQ, contre-indications).
 - [ ] Stationnement du salon : à préciser avec Élodie (`home.final.access` décrit l'accès, publié dans le CMS, sans le stationnement).
 - [ ] Logo définitif en SVG (fourni par Maxime) à la place du provisoire.
+- [ ] ⚠️ **Retirer les essais typographiques** (onglet « Aa » au bord droit de l'écran, ajouté le 26/11/2026) : supprimer `<TrialsDock />` de `src/app/layout.tsx` et l'import de `font-trials.css`, le dossier `src/components/trials/` (garder `LogoWordmark` dans `logo.tsx`, avec la variante de logo retenue), `public/fonts/essais/`, les polices `fontTrial*` et `trialFontVariables` de `src/app/fonts.ts`. Vérifier qu'aucune police d'essai n'est restée (licences de Thestral Neue et Squatina non vérifiées).
 - [ ] Image jambes ou pieds pour Jambes légères, portrait professionnel d'Élodie (si shooting).
 - [ ] Badge M5C : règles d'usage de la fédération.
 - [ ] Avis Google (section masquée tant que `getReviews()` est vide).

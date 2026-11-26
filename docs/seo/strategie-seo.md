@@ -30,7 +30,7 @@
 | Contact `/contact` | Horizon des Sens contact | massage Saint-Cyr-sur-Loire adresse, horaires | Contact et accès, Saint-Cyr-sur-Loire \| Horizon des Sens |
 | Réserver `/reserver` | réserver massage Tours | réserver Kobido Tours | Réserver un soin \| Horizon des Sens |
 
-**Tours ou Saint-Cyr ?** Le title met **Tours** (le volume de recherche) ; le texte, le H1 ou l'accroche et les données structurées disent **« Saint-Cyr-sur-Loire, près de Tours »** (la vraie commune, cohérente avec la fiche Google).
+**Tours ou Saint-Cyr ?** Le title met **Tours** (le volume de recherche) ; l'**accroche du hero**, le texte et les données structurées disent **« Saint-Cyr-sur-Loire, près de Tours »** (la vraie commune, cohérente avec la fiche Google).
 
 ## 4. Les priorités
 
@@ -84,7 +84,7 @@ Par ordre d'intérêt :
 ## 6. Règles pour les contenus à venir
 
 - **Title** : expression-clé d'abord, ville ensuite, ≤ 41 caractères avant « | Horizon des Sens ». **Description** : 120 à 160 caractères, avec l'expression-clé et une action (réserver, offrir…).
-- **Un seul H1 par page**, qui contient l'expression principale ou s'en approche.
+- **Un seul H1 par page**, **court** : le nom du soin ou l'expression principale (« Calme et harmonie », « Kobido, le massage facial japonais »), **sans la commune** (décision du 26/11/2026 : trop long à l'écran). La localisation va dans l'accroche juste en dessous, qui commence par ce qu'est le soin (« Un massage du dos… ») quand le nom seul ne le dit pas.
 - **Texte alternatif** des images : décrire l'image, avec le soin ou le lieu quand c'est naturel (« Séance de Kobido au salon de Saint-Cyr-sur-Loire »), sans bourrage de mots-clés.
 - **Liens internes** : chaque soin mène vers sa page (Kobido aujourd'hui, 5 Continents demain) et vers la réservation.
 - **Nouvelle page** : l'ajouter à `indexedPages` (sitemap), lui donner `pageMetadata()`, un `opengraph-image.jpg` et un fil d'Ariane `breadcrumbJsonLd()`.

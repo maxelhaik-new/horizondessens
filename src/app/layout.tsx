@@ -7,11 +7,13 @@ import { Footer } from "@/components/layout/footer";
 import { Header } from "@/components/layout/header";
 import { SmoothScroll } from "@/components/motion/smooth-scroll";
 import { JsonLd } from "@/components/seo/json-ld";
+import { TrialsDock } from "@/components/trials/trials";
 import { isIndexable, siteGraph } from "@/lib/seo";
 import { site } from "@/lib/site";
 
-import { fontLogo, fontSans, fontSerif } from "./fonts";
+import { fontLogo, fontSans, fontSerif, trialFontVariables } from "./fonts";
 import "./globals.css";
+import "@/components/trials/font-trials.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -60,7 +62,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="fr"
-      className={`${fontSerif.variable} ${fontSans.variable} ${fontLogo.variable} antialiased`}
+      className={`${fontSerif.variable} ${fontSans.variable} ${fontLogo.variable} ${trialFontVariables} antialiased`}
     >
       <body className="flex min-h-svh flex-col">
         <a
@@ -77,6 +79,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           <Footer />
           <CookieBanner />
         </SmoothScroll>
+        {/* TEMPORAIRE : essais typographiques (CONTEXTE.md §15). */}
+        <TrialsDock />
         <JsonLd data={siteGraph} />
         <Suspense>
           <CmsEditorRoot />

@@ -8,7 +8,6 @@ import {
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 
-import { LogoTrialSelect } from "@/components/brand/logo-trial";
 import { ButtonLink } from "@/components/ui/button-link";
 import { ChevronRightIcon } from "@/components/ui/icons";
 import { cn } from "@/lib/cn";
@@ -28,7 +27,7 @@ const soins = soinsNav.map((s) => ({
  * bornée aussi par la hauteur (paysage).
  */
 const itemText =
-  "font-serif text-[min(60px,11.2vw,7.4svh)] leading-[1.08] tracking-[0.4px] italic";
+  "font-serif text-[min(56px,10.4vw,7svh)] leading-[1.08] tracking-[0.4px] italic";
 
 /*
  * Menu mobile « à voiles courbes » (inspiré du composant CurveMenuOverlay,
@@ -376,8 +375,6 @@ export function MobileMenu({ id, open, onNavigate }: Props) {
           >
             Choisir un soin
           </ButtonLink>
-          {/* TEMPORAIRE : essais de logo. */}
-          <LogoTrialSelect className="text-white" />
         </div>
       </div>
     </div>

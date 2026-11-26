@@ -37,7 +37,7 @@ export async function KobidoOrigin() {
             alt={c["kobido.origine.image"].alt}
             edit={c.edit("kobido.origine.image")}
             sizes="(min-width: 1024px) 35vw, 100vw"
-            className="mt-2 hidden aspect-[4/5] w-full rounded-panel lg:block lg:max-h-[52vh]"
+            className="mt-2 hidden aspect-[4/5] w-[min(100%,calc(52vh*0.8))] rounded-panel lg:block"
           />
         </div>
 
@@ -75,7 +75,7 @@ export async function KobidoOrigin() {
             alt=""
             edit={c.edit("kobido.origine.image")}
             sizes="100vw"
-            className="aspect-[3/2] rounded-panel sm:mx-auto sm:aspect-[4/5] sm:max-w-md lg:hidden"
+            className="mx-auto aspect-[4/5] w-full max-w-md rounded-panel lg:hidden"
           />
         </div>
       </div>

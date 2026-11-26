@@ -20,17 +20,17 @@ const ORBS = [
     distance: 70,
   },
   {
-    src: "/images/ambiance/mains-epaules.jpg",
+    src: "/images/massages/nuque.jpg",
     className: "left-[14%] bottom-[10%] size-16 md:size-24",
     distance: 90,
   },
   {
-    src: "/images/soins/5-continents.jpg",
+    src: "/images/massages/huile-4.jpg",
     className: "right-[4%] top-[48%] size-24 md:size-32",
     distance: 150,
   },
   {
-    src: "/images/soins/jambes-legeres.jpg",
+    src: "/images/massages/cou.jpg",
     className: "right-[22%] bottom-[4%] size-16 md:size-20",
     distance: 60,
   },

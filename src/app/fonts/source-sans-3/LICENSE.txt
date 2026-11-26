@@ -1,0 +1,3 @@
+Source Sans 3 — Copyright 2010-2024 Adobe (http://www.adobe.com/), with Reserved Font Name "Source".
+Licence : SIL Open Font License 1.1 (https://openfontlicense.org).
+Fichiers : sous-ensemble latin de la version Google Fonts (variable 200–900, romain et italique).

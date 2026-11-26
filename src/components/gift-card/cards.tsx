@@ -3,7 +3,7 @@ import Link from "next/link";
 import { RevealGroup, RevealItem } from "@/components/motion/reveal";
 import { SplitWords } from "@/components/motion/split-words";
 import { RemixButton } from "@/components/ui/button-link";
-import { LogoSymbol, LogoWordmark } from "@/components/brand/logo";
+import { LogoWordmark } from "@/components/brand/logo";
 import { getContents } from "@/content/get-content";
 import { getGiftCards } from "@/lib/gift-cards";
 import { routes } from "@/lib/navigation";
@@ -63,8 +63,7 @@ export async function GiftCardCards() {
                         dark ? "text-white" : "text-accent-800",
                       )}
                     >
-                      <LogoSymbol className="size-7" />
-                      <LogoWordmark />
+                      <LogoWordmark symbol />
                     </span>
                     <span
                       className={cn(

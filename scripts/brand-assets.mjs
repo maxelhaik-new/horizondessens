@@ -83,32 +83,32 @@ await writeFile(
 const og = [
   [
     "",
-    "massages/header1.jpg",
+    "massages/visage-6.jpg",
     "Massage bien-être chez Horizon des Sens, à Saint-Cyr-sur-Loire près de Tours",
   ],
   [
     "kobido",
-    "kobido/hero-plein.jpg",
+    "massages/visage-hero.jpg",
     "Séance de Kobido, massage facial japonais, chez Horizon des Sens",
   ],
   [
     "massage-5-continents",
-    "massages/dos-2.jpg",
+    "massages/dos-hero.jpg",
     "Massage des 5 Continents chez Horizon des Sens, à Saint-Cyr-sur-Loire",
   ],
   [
     "massage-calme-et-harmonie",
-    "soins/calme-et-harmonie.jpg",
+    "massages/visage-7.jpg",
     "Massage Calme et harmonie chez Horizon des Sens, à Saint-Cyr-sur-Loire",
   ],
   [
     "jambes-legeres-reflexologie-plantaire",
-    "soins/jambes-legeres.jpg",
+    "massages/pieds.jpg",
     "Massage Jambes légères et réflexologie plantaire chez Horizon des Sens",
   ],
   [
     "rituel-horizon",
-    "ambiance/massage-dos.jpg",
+    "massages/trapeze-hero.jpg",
     "Rituel Horizon, massage sur mesure chez Horizon des Sens",
   ],
   [

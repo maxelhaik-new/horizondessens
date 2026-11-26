@@ -5,7 +5,6 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
 import { Logo } from "@/components/brand/logo";
-import { LogoTrialSelect } from "@/components/brand/logo-trial";
 import { MobileMenu } from "@/components/layout/mobile-menu";
 import { SoinsMenu } from "@/components/layout/soins-menu";
 import { ButtonLink } from "@/components/ui/button-link";
@@ -112,16 +111,7 @@ export function Header() {
           hidden && !open && "max-lg:-translate-y-[calc(100%+0.5rem)]",
         )}
       >
-        <div className="relative container-site">
-          {/* TEMPORAIRE : essais de logo, sous la pilule (desktop). */}
-          <LogoTrialSelect
-            className={cn(
-              "absolute top-full right-8 mt-2 hidden rounded-full px-3 py-1 lg:inline-flex",
-              solid
-                ? "bg-paper-soft/90 text-ink shadow-soft backdrop-blur-2xl"
-                : "bg-black/25 text-white backdrop-blur-md",
-            )}
-          />
+        <div className="container-site">
           <div
             className={cn(
               "flex h-16 items-center justify-between gap-6 rounded-full pr-2 pl-5 transition-[background-color,color,box-shadow,backdrop-filter] duration-500 ease-soft md:h-[4.5rem] md:pl-8",

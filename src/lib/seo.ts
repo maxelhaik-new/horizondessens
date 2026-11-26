@@ -102,24 +102,24 @@ export const indexedPages: {
     priority: 1,
     changeFrequency: "monthly",
     images: [
-      "/images/massages/header1.jpg",
-      "/images/soins/kobido.jpg",
-      "/images/soins/5-continents.jpg",
-      "/images/soins/calme-et-harmonie.jpg",
-      "/images/soins/jambes-legeres.jpg",
+      "/images/massages/visage-6.jpg",
+      "/images/massages/kobido-visage-1.jpg",
+      "/images/massages/bras-5.jpg",
+      "/images/massages/reiki-1.jpg",
+      "/images/massages/pieds-5.jpg",
     ],
   },
   {
     path: routes.kobido,
     priority: 0.9,
     changeFrequency: "monthly",
-    images: ["/images/kobido/hero-plein.jpg", "/images/kobido/hero.jpg"],
+    images: ["/images/massages/visage-hero.jpg", "/images/kobido/hero.jpg"],
   },
   ...(
     [
-      ["calme-et-harmonie", "/images/soins/calme-et-harmonie.jpg"],
-      ["jambes-legeres", "/images/soins/jambes-legeres.jpg"],
-      ["rituel-horizon", "/images/ambiance/massage-dos.jpg"],
+      ["calme-et-harmonie", "/images/massages/visage-7.jpg"],
+      ["jambes-legeres", "/images/massages/pieds.jpg"],
+      ["rituel-horizon", "/images/massages/trapeze-hero.jpg"],
     ] as const
   ).map(([slug, image]) => ({
     path: servicePages[slug].path,
@@ -131,7 +131,7 @@ export const indexedPages: {
     path: servicePages["5-continents"].path,
     priority: 0.8,
     changeFrequency: "monthly",
-    images: ["/images/massages/dos-2.jpg", "/images/massages/dos.jpg"],
+    images: ["/images/massages/dos-hero.jpg", "/images/massages/huile-3.jpg"],
   },
   {
     path: routes.salon,
@@ -196,7 +196,7 @@ export const siteGraph = {
       image: [
         `${site.url}/images/salon/salle-loire.jpg`,
         `${site.url}/images/salon/fenetre-loire.jpg`,
-        `${site.url}/images/kobido/hero-plein.jpg`,
+        `${site.url}/images/massages/visage-hero.jpg`,
       ],
       telephone: site.phone.href.replace("tel:", ""),
       email: site.email,
