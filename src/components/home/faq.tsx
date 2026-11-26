@@ -49,7 +49,7 @@ export async function Faq() {
           className="peer sr-only"
           aria-label="Afficher toutes les questions"
         />
-        <RevealGroup className="mx-auto mt-10 flex max-w-3xl flex-col gap-3 md:mt-16 [&>*:nth-child(n+4)]:max-md:hidden peer-checked:[&>*:nth-child(n+4)]:max-md:block">
+        <RevealGroup className="mx-auto mt-10 flex max-w-3xl flex-col gap-3 md:mt-16 [&>*:nth-child(n+4)]:max-md:hidden peer-checked:[&>*:nth-child(n+4)]:max-md:block peer-checked:[&>*:nth-child(n+4)]:max-md:animate-settle">
           {items.map(({ question, answer }, i) => (
             <RevealItem key={i}>
               <details

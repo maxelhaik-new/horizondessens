@@ -50,7 +50,7 @@ test("menu : entrées identiques, sous-menu Soins, retour, fermeture", async ({
   const sizes = await main
     .locator("[data-item]")
     .evaluateAll((els) => els.map((el) => getComputedStyle(el).fontSize));
-  expect(sizes).toHaveLength(6);
+  expect(sizes).toHaveLength(7);
   expect(new Set(sizes).size).toBe(1);
 
   // Le menu tient dans l'écran (mesuré une fois les glissements d'entrée

@@ -17,7 +17,7 @@ import { site } from "@/lib/site";
 const initialState: ContactState = { status: "idle" };
 
 const fieldClass =
-  "w-full rounded-2xl border border-transparent bg-paper px-5 py-4 text-body text-ink transition max-md:text-base-[border-color,background-color] duration-300 placeholder:text-ink-subtle hover:border-line focus:border-accent-600 focus:bg-white focus:outline-none aria-invalid:border-accent-700";
+  "w-full rounded-2xl border border-transparent bg-paper px-5 py-4 text-body text-ink transition-[border-color,background-color] duration-300 max-md:text-base placeholder:text-ink-subtle hover:border-line focus:border-accent-600 focus:bg-white focus:outline-none aria-invalid:border-accent-700";
 
 /** Formulaire de contact (server action + Resend), validé côté serveur. */
 export function ContactForm() {
@@ -32,7 +32,7 @@ export function ContactForm() {
     return (
       <div
         role="status"
-        className="flex h-full min-h-[28rem] flex-col items-start justify-center gap-5"
+        className="flex h-full min-h-[28rem] animate-settle flex-col items-start justify-center gap-5"
       >
         <span className="grid size-12 place-items-center rounded-full bg-night text-white">
           <CheckIcon className="size-5" />

@@ -92,16 +92,24 @@ export function SoinsMenu({ solid }: { solid: boolean }) {
         <ChevronRightIcon
           aria-hidden
           className={cn(
-            "size-3 transition-transform duration-300",
+            "size-3 transition-transform duration-300 ease-soft",
             isOpen ? "-rotate-90" : "rotate-90",
           )}
         />
       </button>
 
+      {/* Toujours dans le DOM : fondu, léger glissement et mise au point du
+          flou à l'ouverture ; inerte et invisible une fois fermé. */}
       <div
         id={panelId}
-        hidden={!isOpen}
-        className="absolute top-full left-1/2 w-72 -translate-x-1/2 pt-4"
+        inert={!isOpen}
+        aria-hidden={!isOpen}
+        className={cn(
+          "absolute top-full left-1/2 w-72 -translate-x-1/2 pt-4 transition-[opacity,translate,filter,visibility] motion-reduce:transition-[opacity,visibility]",
+          isOpen
+            ? "blur-0 visible translate-y-0 opacity-100 duration-[380ms] ease-[cubic-bezier(0.16,1,0.3,1)]"
+            : "invisible -translate-y-1.5 opacity-0 blur-[2px] duration-200 ease-[cubic-bezier(0.4,0,1,1)]",
+        )}
       >
         <ul className="flex flex-col rounded-3xl bg-paper-soft p-2 text-ink shadow-soft ring-1 ring-line">
           {soinsNav.map((item) => (

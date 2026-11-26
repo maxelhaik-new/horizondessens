@@ -25,7 +25,7 @@ import { site } from "@/lib/site";
 const initialState: BookingState = { status: "idle" };
 
 const fieldClass =
-  "w-full rounded-2xl border border-transparent bg-paper px-5 py-4 text-body text-ink transition max-md:text-base-[border-color,background-color] duration-300 placeholder:text-ink-subtle hover:border-line focus:border-accent-600 focus:bg-white focus:outline-none aria-invalid:border-accent-700";
+  "w-full rounded-2xl border border-transparent bg-paper px-5 py-4 text-body text-ink transition-[border-color,background-color] duration-300 max-md:text-base placeholder:text-ink-subtle hover:border-line focus:border-accent-600 focus:bg-white focus:outline-none aria-invalid:border-accent-700";
 
 // Dates « YYYY-MM-DD » formatées sans décalage de fuseau.
 function asUtc(date: string) {
@@ -201,7 +201,7 @@ export function BookingModule({
     return (
       <div
         role="status"
-        className="flex flex-col items-start gap-5 rounded-card bg-paper-soft p-8 md:p-12"
+        className="flex animate-settle flex-col items-start gap-5 rounded-card bg-paper-soft p-8 md:p-12"
       >
         <span className="grid size-12 place-items-center rounded-full bg-night text-white">
           <CheckIcon className="size-5" />
@@ -333,8 +333,12 @@ export function BookingModule({
           </div>
 
           <div
+            key={`${availability.status}-${periodStart ?? ""}`}
             aria-busy={availability.status === "loading"}
-            className="grid grid-cols-7 gap-1.5 sm:gap-2"
+            className={cn(
+              "grid grid-cols-7 gap-1.5 sm:gap-2",
+              availability.status === "ready" && "animate-fade-in",
+            )}
           >
             {availability.status === "loading"
               ? Array.from({ length: 14 }, (_, i) => (
@@ -396,7 +400,10 @@ export function BookingModule({
         </div>
 
         {selectedDay ? (
-          <fieldset className="flex flex-col gap-4">
+          <fieldset
+            key={selectedDay.date}
+            className="flex animate-settle flex-col gap-4"
+          >
             <legend className="mb-4 text-eyebrow text-accent-800">
               {longDate.format(asUtc(selectedDay.date))}
             </legend>
@@ -423,7 +430,7 @@ export function BookingModule({
         {state.status === "error" && state.slotTaken ? (
           <p
             role="alert"
-            className="rounded-2xl bg-accent-100 px-5 py-4 text-sm text-accent-900"
+            className="animate-settle rounded-2xl bg-accent-100 px-5 py-4 text-sm text-accent-900"
           >
             Ce créneau vient d&apos;être pris. Les disponibilités sont mises à
             jour : choisissez un autre moment.
@@ -471,7 +478,7 @@ export function BookingModule({
          */}
         <div
           className={cn(
-            "flex flex-col gap-5",
+            "flex flex-col gap-5 max-lg:animate-settle",
             !(date && time) && "max-lg:hidden",
           )}
         >

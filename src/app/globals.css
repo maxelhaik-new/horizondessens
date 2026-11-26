@@ -67,6 +67,11 @@
   --animate-marquee: marquee 40s linear infinite;
   --animate-rise: rise 0.9s var(--ease-soft) both;
   --animate-hero-zoom: hero-zoom 2.4s var(--ease-soft) both;
+  /* Micro-apparitions (continuité) : contenu qui remplace un autre ou
+     qui apparaît après une action. Courtes, freinées, sans rebond. */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --animate-settle: settle 0.45s var(--ease-out-expo) both;
+  --animate-fade-in: fade-in 0.28s var(--ease-out-expo) both;
 
   /* Fond rosé du bas de page (appel final + footer) */
   --color-mist: #f3e1dc;
@@ -80,6 +85,24 @@
     }
   }
 
+  @keyframes settle {
+    from {
+      opacity: 0;
+      translate: 0 0.5rem;
+    }
+    to {
+      opacity: 1;
+      translate: 0 0;
+    }
+  }
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
   @keyframes rise {
     from {
       opacity: 0;
@@ -542,5 +565,32 @@ html.lenis body {
     .btn-dot {
       transition-duration: 0s;
     }
+  }
+}
+
+/* --- Transition entre les pages (View Transitions, cf. src/app/template.tsx) ---
+   L'ancienne page s'efface vite, la nouvelle arrive en fondu avec une légère
+   remontée. Navigateurs sans support : changement instantané, sans perte. */
+::view-transition-old(.page-out) {
+  animation: page-out 0.18s cubic-bezier(0.4, 0, 1, 1) both;
+}
+::view-transition-new(.page-in) {
+  animation: page-in 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.06s both;
+}
+@keyframes page-out {
+  to {
+    opacity: 0;
+  }
+}
+@keyframes page-in {
+  from {
+    opacity: 0;
+    translate: 0 0.75rem;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-new(.page-in) {
+    animation-name: fade-in;
+    animation-duration: 0.2s;
   }
 }
