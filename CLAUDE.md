@@ -149,7 +149,7 @@ Vérifié : typecheck, lint, format, `content:check` et build OK, page statique.
   - footer en `ink` / `ink-soft` sur `mist`.
   - Après correction, **le détecteur ne relève plus aucun contraste insuffisant**. Ses alertes « kicker », « italic serif », « cream » et « oversized h1 » sont **assumées** : ce sont les choix de Serelin fixés par Maxime.
 - **Contenu** : 61 clés. Nouvelles clés : `home.trust.items` (valeur et libellé), `home.philo.*`, `home.steps.*`, `home.salon.gallery`, `home.faq.intro`.
-- **Rapport d'audit** : `.impeccable/audit/`.
+- **Rapport d'audit** : `.impeccable/audit/` (supprimé le 27/11/2026 avec les autres résultats de test ; ces dossiers ne sont plus versionnés).
 
 ## Accueil : section « Votre séance » refaite (25/11/2026)
 - Elle répétait la composition de la Philosophie juste au-dessus (pastille + grand titre centrés) avec trois cartes hautes et vides. Désormais (`src/components/home/steps.tsx`) : titre court seul, aligné à gauche, posé sur un **fil** où se placent les 3 pictogrammes (horizontal sur desktop, rail vertical sur mobile). Clés `home.steps.title` et `home.steps.intro` **supprimées** ; `home.steps.eyebrow` sert de titre. ⚠️ Valeur publiée dans le CMS : « VOTRE séance » (saisie en majuscules pour l'ancienne pastille) → à corriger en « Votre séance » via `/admin`. Une ligne `home.steps.intro` publiée reste en base, sans effet.

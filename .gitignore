@@ -54,3 +54,11 @@ serelin components/
 # Polices d'essai sans licence vérifiée (dépôt public) : jamais versionnées
 /public/fonts/essais/squatina-*.woff2
 /public/fonts/essais/thestral-neue-*.woff2
+
+# Résultats d'analyse et caches impeccable (non versionnés)
+/.impeccable/shots/
+/.impeccable/audit/
+/.impeccable/critique/
+/.impeccable/review/
+/.impeccable/live/
+/.impeccable/hook.cache.json
