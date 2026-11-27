@@ -13,6 +13,12 @@ export type Email = {
   html: string;
   text: string;
   replyTo?: string;
+  /**
+   * Nom d'expéditeur affiché (« Élodie · Horizon des Sens »). L'adresse reste
+   * celle de CONTACT_FROM_EMAIL. Un nom de personne plutôt que de marque aide
+   * Gmail à classer l'e-mail en « Principal » plutôt qu'en « Promotions ».
+   */
+  fromName?: string;
   attachments?: { filename: string; content: Uint8Array }[];
   /**
    * Clé d'idempotence Resend (24 h) : un second envoi avec la même clé
@@ -37,6 +43,9 @@ export async function sendEmail(email: Email): Promise<SendResult> {
     return { ok: false, reason: "unconfigured" };
   }
 
+  const address = from.match(/<([^>]+)>/)?.[1] ?? from.trim();
+  const sender = email.fromName ? `${email.fromName} <${address}>` : from;
+
   try {
     const res = await fetch("https://api.resend.com/emails", {
       method: "POST",
@@ -48,7 +57,7 @@ export async function sendEmail(email: Email): Promise<SendResult> {
           : {}),
       },
       body: JSON.stringify({
-        from,
+        from: sender,
         to: email.to,
         reply_to: email.replyTo,
         subject: email.subject,

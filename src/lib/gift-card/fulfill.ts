@@ -34,28 +34,7 @@ export async function fulfillGiftCard(
   if (!order) return { status: "not-found" };
   if (order.sent) return { status: "sent", order };
 
-  const pdf = await renderGiftCardPdf(order);
-  const attachments = [{ filename: giftCardFileName(order), content: pdf }];
-
-  const buyerEmail = renderBuyerEmail(order, origin);
-  const buyer = order.buyerEmail
-    ? await sendEmail({
-        to: [order.buyerEmail],
-        replyTo: process.env.CONTACT_TO_EMAIL || site.email,
-        ...buyerEmail,
-        attachments,
-        idempotencyKey: `carte-cadeau-${order.sessionId}-acheteur`,
-      })
-    : ({ ok: false, reason: "rejected" } as const);
-
-  const salonEmail = renderSalonEmail(order);
-  await sendEmail({
-    to: [process.env.CONTACT_TO_EMAIL || site.email],
-    replyTo: order.buyerEmail || undefined,
-    ...salonEmail,
-    attachments,
-    idempotencyKey: `carte-cadeau-${order.sessionId}-salon`,
-  });
+  const buyer = await deliverGiftCard(order, origin);
 
   // Registre : tout ce qu'il faut pour retrouver la carte dans Stripe.
   const stripe = getStripe();
@@ -77,4 +56,42 @@ export async function fulfillGiftCard(
   return buyer.ok
     ? { status: "sent", order: { ...order, sent: true } }
     : { status: "email-failed", order };
+}
+
+/**
+ * Envoi d'une carte : PDF, e-mail à l'acheteur, copie à Élodie. Partagé par
+ * la remise réelle (`fulfillGiftCard`) et le test des éditeurs
+ * (`src/app/carte-cadeau/test-actions.ts`), qui ne touche pas à Stripe.
+ */
+export async function deliverGiftCard(
+  order: GiftCardOrder,
+  origin: string,
+  options: { test?: boolean } = {},
+) {
+  const pdf = await renderGiftCardPdf(order);
+  const attachments = [{ filename: giftCardFileName(order), content: pdf }];
+
+  const buyerEmail = renderBuyerEmail(order, origin);
+  const buyer = order.buyerEmail
+    ? await sendEmail({
+        to: [order.buyerEmail],
+        fromName: `Élodie · ${site.name}`,
+        replyTo: process.env.CONTACT_TO_EMAIL || site.email,
+        ...buyerEmail,
+        attachments,
+        idempotencyKey: `carte-cadeau-${order.sessionId}-acheteur`,
+      })
+    : ({ ok: false, reason: "rejected" } as const);
+
+  const salonEmail = renderSalonEmail(order);
+  await sendEmail({
+    to: [process.env.CONTACT_TO_EMAIL || site.email],
+    replyTo: order.buyerEmail || undefined,
+    ...salonEmail,
+    subject: options.test ? `[Test] ${salonEmail.subject}` : salonEmail.subject,
+    attachments,
+    idempotencyKey: `carte-cadeau-${order.sessionId}-salon`,
+  });
+
+  return buyer;
 }

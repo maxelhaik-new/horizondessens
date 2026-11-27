@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 
 import { GiftCardCards } from "@/components/gift-card/cards";
 import { GiftCardHero } from "@/components/gift-card/hero";
 import { GiftCardHowItWorks } from "@/components/gift-card/how-it-works";
+import { GiftCardTestSend } from "@/components/gift-card/test-send";
 import { getGiftCards } from "@/lib/gift-cards";
 import { JsonLd } from "@/components/seo/json-ld";
 import { breadcrumbJsonLd, ids, pageMetadata } from "@/lib/seo";
@@ -42,6 +44,10 @@ export default async function GiftCardPage() {
       <GiftCardHero />
       <GiftCardCards />
       <GiftCardHowItWorks />
+      {/* Éditeurs connectés seulement (mode édition) */}
+      <Suspense>
+        <GiftCardTestSend />
+      </Suspense>
       <JsonLd data={jsonLd} />
     </>
   );
