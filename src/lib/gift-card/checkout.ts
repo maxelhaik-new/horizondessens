@@ -22,6 +22,20 @@ export const GIFT_CARD_LIMITS = { recipient: 60, from: 60, message: 200 };
  * prestations) : rien n'est saisi en double dans Stripe. Le numéro de la
  * carte est tiré ici et suit le paiement dans ses métadonnées.
  */
+/**
+ * ⚠️ Test en mode réel : `GIFT_CARD_TEST_AMOUNT_CENTS` (ex. `100` = 1 €, au
+ * moins 50) remplace le montant facturé de la carte 1h dans Stripe, sans
+ * changer l'affichage du site, des e-mails ni du PDF. À supprimer sur Vercel
+ * juste après le test (puis redéployer).
+ */
+function chargedAmountCents(card: GiftCard) {
+  const test = Number(process.env.GIFT_CARD_TEST_AMOUNT_CENTS);
+  if (card.id === "seance-60" && Number.isInteger(test) && test >= 50) {
+    return test;
+  }
+  return card.priceEuros * 100;
+}
+
 export async function createGiftCardCheckout(
   card: GiftCard,
   origin: string,
@@ -55,7 +69,7 @@ export async function createGiftCardCheckout(
           quantity: 1,
           price_data: {
             currency: "eur",
-            unit_amount: card.priceEuros * 100,
+            unit_amount: chargedAmountCents(card),
             product_data: {
               name: label,
               description: `Une séance de ${duration}, pour le soin de son choix. Valable ${GIFT_CARD_VALIDITY_MONTHS} mois, envoyée par e-mail au format PDF.`,
